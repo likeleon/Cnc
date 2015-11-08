@@ -11,11 +11,11 @@ public:
 
 private:
   struct ChannelInfo {
-    std::string filename;
+    std::tr2::sys::path filename;
     std::unique_ptr<std::ostream> writer;
   };
 
-  static std::unordered_map<std::string, ChannelInfo> channels_;
+  static std::unordered_map<std::tr2::sys::path, ChannelInfo> channels_;
 };
 
 }

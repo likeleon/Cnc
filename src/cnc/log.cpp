@@ -1,9 +1,10 @@
 #include "cnc/stdafx.h"
 #include "cnc/log.h"
+#include "cnc/platform.h"
 
 namespace cnc {
 
-std::unordered_map<std::string, Log::ChannelInfo> Log::channels_;
+std::unordered_map<std::tr2::sys::path, Log::ChannelInfo> Log::channels_;
 
 void Log::AddChannel(const std::string& channel_name, const std::string& base_filename) {
   if (channels_.find(channel_name) != channels_.end()) {
@@ -11,14 +12,11 @@ void Log::AddChannel(const std::string& channel_name, const std::string& base_fi
   }
 
   if (base_filename.empty()) {
-    channels_.emplace(std::piecewise_construct, 
-                      std::forward_as_tuple(channel_name),
-                      std::forward_as_tuple());
+    channels_.emplace(channel_name, ChannelInfo());
     return;
   }
 
-  //std::string log_dir = Platform::GetSupportDir() + "Logs";
-  std::string log_dir = "Logs";
+  std::wstring log_dir = Platform::GetSupportDir() + L"Logs";
   std::tr2::sys::create_directory(log_dir);
 
   for (int i = 0; ; ++i) {
@@ -34,7 +32,6 @@ void Log::AddChannel(const std::string& channel_name, const std::string& base_fi
     channels_.emplace(channel_name, std::move(channel_info));
     return;
   }
-
 }
 
 void Log::Write(const std::string& /*channel*/, const std::string& /*value*/) {

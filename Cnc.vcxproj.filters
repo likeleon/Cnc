@@ -6,6 +6,8 @@
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\main.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp" />
+    <ClCompile Include="src\cnc\platform.cpp" />
+    <ClCompile Include="src\cnc\fatal_exception.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\arguments.h" />
@@ -13,5 +15,7 @@
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\targetver.h" />
     <ClInclude Include="src\cnc\log.h" />
+    <ClInclude Include="src\cnc\platform.h" />
+    <ClInclude Include="src\cnc\fatal_exception.h" />
   </ItemGroup>
 </Project>
