@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <tchar.h>
 
-#include <cstdint>
 #include <limits>
 #include <exception>
 #include <iostream>
@@ -19,3 +18,5 @@
 #include <cassert>
 #include <unordered_map>
 #include <regex>
+#include <filesystem>
+#include <fstream>

@@ -1,6 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/arguments.h"
 #include "cnc/game.h"
+#include "cnc/log.h"
 
 using namespace cnc;
 
@@ -11,6 +12,8 @@ static std::ostringstream BuildExceptionReport(const std::exception& e) {
 }
 
 static void FatalError(const std::exception& e) {
+  Log::AddChannel("test", "");
+  Log::AddChannel("exception", "exception.log");
   std::string report = BuildExceptionReport(e).str();
   std::cerr << report.c_str();
 }

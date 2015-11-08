@@ -4,10 +4,10 @@ namespace cnc {
 
 class Arguments;
 
-enum class RunStatus : int8_t {
+enum class RunStatus {
   Error = -1,
   Success = 0,
-  Running = std::numeric_limits<int8_t>::max()
+  Running = std::numeric_limits<int>::max()
 };
 
 class Game {
