@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\cnc\arguments.cpp" />
+    <ClCompile Include="src\cnc\game.cpp" />
+    <ClCompile Include="src\cnc\log.cpp" />
+    <ClCompile Include="src\cnc\main.cpp" />
+    <ClCompile Include="src\cnc\stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\cnc\arguments.h" />
+    <ClInclude Include="src\cnc\game.h" />
+    <ClInclude Include="src\cnc\stdafx.h" />
+    <ClInclude Include="src\cnc\targetver.h" />
+    <ClInclude Include="src\cnc\log.h" />
+  </ItemGroup>
+</Project>
