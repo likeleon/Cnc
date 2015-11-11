@@ -12,7 +12,7 @@ static std::ostringstream BuildExceptionReport(const std::exception& e) {
 }
 
 static void FatalError(const std::exception& e) {
-  Log::AddChannel("exception", "exception.log");
+  Log::AddChannel("exception", L"exception.log");
   std::string report = BuildExceptionReport(e).str();
   std::cerr << report.c_str();
 }

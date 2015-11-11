@@ -8,7 +8,7 @@ namespace cnc {
 void Game::Initialize(const Arguments& /*args*/) {
   std::cout << "Platform is " << Platform::GetCurrentPlatform();
 
-  Log::AddChannel("perf", "perf.log");
+  Log::AddChannel("perf", L"perf.log");
 }
 
 RunStatus Game::Run() {

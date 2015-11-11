@@ -39,15 +39,17 @@ static sys::path GetPersonalDir() {
 
 static sys::path GetSupportDirInternal() {
   // Use a local directory in the game root if it exists
-  if (!sys::exists("Support")) {
+  if (sys::exists("Support")) {
     return std::wstring(L"Support") + sys::path::preferred_separator;
   }
 
   sys::path dir = GetPersonalDir() / "Cnc";
-  if (!sys::exists(dir))
+  if (!sys::exists(dir)) {
     sys::create_directory(dir);
+  }
 
-  return dir.native() .append(sys::path::preferred_separator);
+  dir += sys::path::preferred_separator;
+  return dir;
 }
 
 const sys::path& Platform::GetSupportDir() {
