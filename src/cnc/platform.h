@@ -11,11 +11,19 @@ std::ostream& operator<<(std::ostream& os, PlatformType platform);
 
 class Platform {
 public:
+  using Path = std::tr2::sys::path;
+
   static PlatformType GetCurrentPlatform();
-  static const std::tr2::sys::path& GetSupportDir();
+  
+  static const Path& GetSupportDir();
+  static const Path& GetGameDir();
+  
+  static Path ResolvePath(const std::wstring& path);
+  static Path ResolvePath(const std::vector<std::wstring>& paths);
 
 private:
-  static std::tr2::sys::path support_dir_;
+  static Path support_dir_;
+  static Path game_dir_;
 };
 
 }

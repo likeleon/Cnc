@@ -3,6 +3,7 @@
 namespace cnc {
 
 class Arguments;
+class Settings;
 
 enum class RunStatus {
   Error = -1,
@@ -14,6 +15,11 @@ class Game {
 public:
   static void Initialize(const Arguments& args);
   static RunStatus Run();
+
+private:
+  static void InitializeSettings(const Arguments& args);
+
+  static std::unique_ptr<Settings> settings_;
 };
 
 }

@@ -7,7 +7,8 @@ namespace cnc {
 
 using namespace std::tr2;
 
-sys::path Platform::support_dir_;
+Platform::Path Platform::support_dir_;
+Platform::Path Platform::game_dir_;
 
 PlatformType Platform::GetCurrentPlatform() {
   return PlatformType::Windows;
@@ -25,38 +26,61 @@ std::ostream& operator<<(std::ostream& os, PlatformType platform) {
   return os;
 }
 
-static sys::path GetPersonalDir() {
+static Platform::Path GetPersonalDir() {
   LPWSTR ppszPath;
   HRESULT hr = SHGetKnownFolderPath(FOLDERID_Documents, KF_FLAG_DONT_UNEXPAND, nullptr, &ppszPath);
   if (FAILED(hr)) {
     throw FatalException("Unable to get personal directory");
   }
 
-  sys::path dir(ppszPath);
+  Platform::Path dir(ppszPath);
   CoTaskMemFree(ppszPath);
   return dir;
 }
 
-static sys::path GetSupportDirInternal() {
+static Platform::Path GetSupportDirInternal() {
   // Use a local directory in the game root if it exists
   if (sys::exists("Support")) {
-    return std::wstring(L"Support") + sys::path::preferred_separator;
+    return std::wstring(L"Support") + Platform::Path::preferred_separator;
   }
 
-  sys::path dir = GetPersonalDir() / "Cnc";
+  Platform::Path dir = GetPersonalDir() / "Cnc";
   if (!sys::exists(dir)) {
     sys::create_directory(dir);
   }
 
-  dir += sys::path::preferred_separator;
+  dir += Platform::Path::preferred_separator;
   return dir;
 }
 
-const sys::path& Platform::GetSupportDir() {
+const Platform::Path& Platform::GetSupportDir() {
   if (support_dir_.empty()) {
     support_dir_ = GetSupportDirInternal();
   }
   return support_dir_;
+}
+
+const Platform::Path& Platform::GetGameDir() {
+  if (game_dir_.empty()) {
+    game_dir_ = sys::current_path();
+  }
+  return game_dir_;
+}
+
+Platform::Path Platform::ResolvePath(const std::wstring& path) {
+  if (path.find(L"^") == 0) {
+    return GetSupportDir() / path.substr(1);
+  } else if (path.find(L"./") == 0 || path.find(L".\\") == 0) {
+    return GetGameDir() / path.substr(2);
+  } else {
+    return path;
+  }
+}
+
+Platform::Path Platform::ResolvePath(const std::vector<std::wstring>& paths) {
+  auto path = std::accumulate(paths.begin(), paths.end(), Platform::Path{},
+                              [](const Platform::Path& a, const std::wstring& b) { return a / b; });
+  return ResolvePath(path.native());
 }
 
 }
