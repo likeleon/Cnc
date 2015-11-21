@@ -11,8 +11,6 @@ std::ostream& operator<<(std::ostream& os, PlatformType platform);
 
 class Platform {
 public:
-  using Path = std::tr2::sys::path;
-
   static PlatformType GetCurrentPlatform();
   
   static const Path& GetSupportDir();

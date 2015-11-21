@@ -1,21 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\game.cpp" />
-    <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\main.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp" />
     <ClCompile Include="src\cnc\platform.cpp" />
     <ClCompile Include="src\cnc\fatal_exception.cpp" />
+    <ClCompile Include="src\cnc\settings.cpp" />
+    <ClCompile Include="src\cnc\log.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\arguments.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\mini_yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\game.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\targetver.h" />
-    <ClInclude Include="src\cnc\log.h" />
     <ClInclude Include="src\cnc\platform.h" />
     <ClInclude Include="src\cnc\fatal_exception.h" />
+    <ClInclude Include="src\cnc\settings.h" />
+    <ClInclude Include="src\cnc\log.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\arguments.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mini_yaml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="support">
+      <UniqueIdentifier>{925f7374-0bb7-405e-a592-179344332b63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

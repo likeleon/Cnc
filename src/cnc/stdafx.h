@@ -21,3 +21,5 @@
 #include <filesystem>
 #include <fstream>
 #include <numeric>
+
+using Path = std::tr2::sys::path;

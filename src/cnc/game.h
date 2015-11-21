@@ -16,6 +16,9 @@ public:
   static void Initialize(const Arguments& args);
   static RunStatus Run();
 
+  Game(const Game&) = delete;
+  Game& operator=(const Game&) = delete;
+
 private:
   static void InitializeSettings(const Arguments& args);
 

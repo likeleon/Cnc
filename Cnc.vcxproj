@@ -16,7 +16,9 @@
     <ClCompile Include="src\cnc\game.cpp" />
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\main.cpp" />
+    <ClCompile Include="src\cnc\mini_yaml.cpp" />
     <ClCompile Include="src\cnc\platform.cpp" />
+    <ClCompile Include="src\cnc\settings.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -27,7 +29,9 @@
     <ClInclude Include="src\cnc\fatal_exception.h" />
     <ClInclude Include="src\cnc\game.h" />
     <ClInclude Include="src\cnc\log.h" />
+    <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\platform.h" />
+    <ClInclude Include="src\cnc\settings.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\targetver.h" />
   </ItemGroup>
