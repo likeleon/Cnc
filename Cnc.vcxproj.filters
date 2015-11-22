@@ -14,6 +14,9 @@
       <Filter>support</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
+    <ClCompile Include="src\cnc\string.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -29,10 +32,16 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\mini_yaml.h" />
+    <ClInclude Include="src\cnc\string.h">
+      <Filter>util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
       <UniqueIdentifier>{925f7374-0bb7-405e-a592-179344332b63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{22c9f2ca-06d6-4eed-b7ab-b057b127b4fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

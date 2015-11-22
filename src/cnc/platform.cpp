@@ -2,6 +2,7 @@
 #include <shlobj.h>
 #include "cnc/platform.h"
 #include "cnc/fatal_exception.h"
+#include "cnc/string.h"
 
 namespace cnc {
 
@@ -67,7 +68,8 @@ const Path& Platform::GetGameDir() {
   return game_dir_;
 }
 
-Path Platform::ResolvePath(const std::wstring& path) {
+Path Platform::ResolvePath(const std::wstring& p) {
+  auto path = TrimEnd(p);
   if (path.find(L"^") == 0) {
     return GetSupportDir() / path.substr(1);
   } else if (path.find(L"./") == 0 || path.find(L".\\") == 0) {
