@@ -24,6 +24,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\cnc\string.cpp" />
+    <ClCompile Include="src\cnc\yaml_exception.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\arguments.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\string.h" />
     <ClInclude Include="src\cnc\targetver.h" />
+    <ClInclude Include="src\cnc\yaml_exception.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E929BB85-0074-47ED-A68A-45C81ABABF22}</ProjectGuid>
