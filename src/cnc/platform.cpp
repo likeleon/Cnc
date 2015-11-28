@@ -7,9 +7,10 @@
 namespace cnc {
 
 using namespace std::tr2;
+using fs_path = std::tr2::sys::path;
 
-Path Platform::support_dir_;
-Path Platform::game_dir_;
+std::string Platform::support_dir_;
+std::string Platform::game_dir_;
 
 PlatformType Platform::GetCurrentPlatform() {
   return PlatformType::Windows;
@@ -27,62 +28,70 @@ std::ostream& operator<<(std::ostream& os, PlatformType platform) {
   return os;
 }
 
-static Path GetPersonalDir() {
+static fs_path GetPersonalDir() {
   LPWSTR ppszPath;
   HRESULT hr = SHGetKnownFolderPath(FOLDERID_Documents, KF_FLAG_DONT_UNEXPAND, nullptr, &ppszPath);
   if (FAILED(hr)) {
     throw FatalException("Unable to get personal directory");
   }
 
-  Path dir(ppszPath);
+  std::wstring dir(ppszPath);
   CoTaskMemFree(ppszPath);
   return dir;
 }
 
-static Path GetSupportDirInternal() {
+static fs_path GetSupportDirInternal() {
   // Use a local directory in the game root if it exists
   if (sys::exists("Support")) {
-    return std::wstring(L"Support") + Path::preferred_separator;
+    return "Support" + std::tr2::sys::path::preferred_separator;
   }
 
-  Path dir = GetPersonalDir() / "Cnc";
+  fs_path dir = GetPersonalDir() / "Cnc";
   if (!sys::exists(dir)) {
     sys::create_directory(dir);
   }
 
-  dir += Path::preferred_separator;
+  dir += fs_path::preferred_separator;
   return dir;
 }
 
-const Path& Platform::GetSupportDir() {
+const std::string& Platform::GetSupportDir() {
   if (support_dir_.empty()) {
-    support_dir_ = GetSupportDirInternal();
+    support_dir_ = GetSupportDirInternal().string();
   }
   return support_dir_;
 }
 
-const Path& Platform::GetGameDir() {
+const std::string& Platform::GetGameDir() {
   if (game_dir_.empty()) {
-    game_dir_ = sys::current_path();
+    game_dir_ = sys::current_path().string();
   }
   return game_dir_;
 }
 
-Path Platform::ResolvePath(const std::wstring& p) {
+std::string Platform::ResolvePath(const std::string& p) {
   auto path = TrimEnd(p);
-  if (path.find(L"^") == 0) {
-    return GetSupportDir() / path.substr(1);
-  } else if (path.find(L"./") == 0 || path.find(L".\\") == 0) {
-    return GetGameDir() / path.substr(2);
+  if (path.find("^") == 0) {
+    return (fs_path(GetSupportDir()) / path.substr(1)).string();
+  } else if (path.find("./") == 0 || path.find(".\\") == 0) {
+    return (fs_path(GetGameDir()) / path.substr(2)).string();
   } else {
     return path;
   }
 }
 
-Path Platform::ResolvePath(const std::vector<std::wstring>& paths) {
-  auto path = std::accumulate(paths.begin(), paths.end(), Path{},
-                              [](const Path& a, const std::wstring& b) { return a / b; });
-  return ResolvePath(path.native());
+std::string Platform::ResolvePath(const std::vector<std::string>& paths) {
+  auto path = std::accumulate(paths.begin(), paths.end(), fs_path{},
+                              [](const fs_path& a, const std::string& b) { return a / b; });
+  return ResolvePath(path.string());
+}
+
+bool Platform::CreateDir(const std::string& path) {
+  return std::tr2::sys::create_directory(path);
+}
+
+bool Platform::Exists(const std::string& path) {
+  return std::tr2::sys::exists(path);
 }
 
 }

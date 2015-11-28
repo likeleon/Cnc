@@ -6,10 +6,10 @@ class Arguments;
 
 class Settings {
 public:
-  Settings(const Path& path, const Arguments& args);
+  Settings(const std::string& path, const Arguments& args);
 
 private:
-  Path settings_file_;
+  std::string settings_file_;
 };
 
 }

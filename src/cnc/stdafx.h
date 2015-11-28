@@ -23,5 +23,3 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
-
-using Path = std::tr2::sys::path;

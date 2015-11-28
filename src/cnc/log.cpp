@@ -7,7 +7,7 @@ namespace cnc {
 
 std::unordered_map<std::string, Log::ChannelInfo> Log::channels_;
 
-void Log::AddChannel(const std::string& channel_name, const std::wstring& base_filename) {
+void Log::AddChannel(const std::string& channel_name, const std::string& base_filename) {
   if (channels_.find(channel_name) != channels_.end()) {
     return;
   }
@@ -17,11 +17,12 @@ void Log::AddChannel(const std::string& channel_name, const std::wstring& base_f
     return;
   }
 
-  auto log_dir = Platform::GetSupportDir() / L"Logs";
-  std::tr2::sys::create_directory(log_dir);
+  auto log_dir = Platform::ResolvePath({ Platform::GetSupportDir(), "Logs" });
+  Platform::CreateDir(log_dir);
 
   for (int i = 0; ; ++i) {
-    std::wstring filename = log_dir / ((i > 0) ? base_filename + std::to_wstring(i) : base_filename);
+    std::string filename = (i > 0) ? base_filename + std::to_string(i) : base_filename;
+    filename = Platform::ResolvePath({ log_dir, filename });
     auto writer = std::make_unique<std::ofstream>(filename, std::ios_base::trunc);
     if (writer->fail()) {
       continue;

@@ -13,15 +13,18 @@ class Platform {
 public:
   static PlatformType GetCurrentPlatform();
   
-  static const Path& GetSupportDir();
-  static const Path& GetGameDir();
+  static const std::string& GetSupportDir();
+  static const std::string& GetGameDir();
   
-  static Path ResolvePath(const std::wstring& path);
-  static Path ResolvePath(const std::vector<std::wstring>& paths);
+  static std::string ResolvePath(const std::string& path);
+  static std::string ResolvePath(const std::vector<std::string>& paths);
+
+  static bool CreateDir(const std::string& path);
+  static bool Exists(const std::string& path);
 
 private:
-  static Path support_dir_;
-  static Path game_dir_;
+  static std::string support_dir_;
+  static std::string game_dir_;
 };
 
 }

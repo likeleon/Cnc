@@ -5,51 +5,49 @@
 
 namespace cnc {
 
-MiniYamlNode::SourceLocation::SourceLocation(const Path& filename, int line)
-  : filename_(filename), line_(line) {
+MiniYaml::MiniYaml(const std::string& value)
+  : MiniYaml(value, nullptr) {
 }
 
-std::string MiniYamlNode::SourceLocation::ToString() const {
-  std::ostringstream oss;
-  oss << filename() << ":" << line();
-  return oss.str();
+MiniYaml::MiniYaml(const std::string& value, MiniYamlNodesPtr nodes)
+ : value_(value), nodes_(nodes) {
 }
 
-std::unordered_map<std::string, MiniYaml> MiniYaml::MapFromFile(const Path& path) {
+std::unordered_map<std::string, MiniYaml> MiniYaml::MapFromFile(const std::string& path) {
   std::unordered_map<std::string, MiniYaml> map;
   auto nodes = FromFile(path);
   std::transform(nodes->begin(), nodes->end(), std::inserter(map, map.end()),
-                 [](const auto& node) { return std::make_pair(node.key, node.value); });
+                 [](const auto& node) { return std::make_pair(node.key(), node.value()); });
   return map;
 }
 
-static std::list<std::wstring> ReadAllLines(const Path& path) {
-  std::wifstream file(path);
+static std::list<std::string> ReadAllLines(const std::string& path) {
+  std::ifstream file(path);
   if (!file) {
     // TODO: Debug::error()
   }
 
-  std::list<std::wstring> lines;
-  std::wstring line;
+  std::list<std::string> lines;
+  std::string line;
   while (std::getline(file, line)) {
     lines.emplace_back(line);
   }
   return lines;
 }
 
-static std::pair<std::wstring, std::wstring> SplitAtColon(const std::wstring& t, 
-                                                          const MiniYamlNode::SourceLocation& location) {
-  size_t colon = t.find(L':');
+static std::pair<std::string, std::string> SplitAtColon(const std::string& t,
+                                                        const MiniYamlNode::SourceLocation& location) {
+  size_t colon = t.find(':');
   if (colon == -1) {
     throw YamlException("Colon not found at " + location.ToString());
   }
 
-  std::wstring value = Trim(t.substr(colon + 1));
-  std::wstring key = Trim(t.substr(0, colon));
+  std::string value = Trim(t.substr(colon + 1));
+  std::string key = Trim(t.substr(0, colon));
   return std::make_pair(key, value);
 }
 
-static MiniYamlNodesPtr FromLines(const std::list<std::wstring>& lines, const Path& filename) {
+static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std::string& filename) {
   std::vector<MiniYamlNodesPtr> levels;
   levels.push_back(std::make_shared<std::vector<MiniYamlNode>>());
 
@@ -57,10 +55,10 @@ static MiniYamlNodesPtr FromLines(const std::list<std::wstring>& lines, const Pa
   for (const auto& l : lines) {
     ++line_no;
 
-    std::wstring line(l);
-    size_t comment_index = line.find(L'#');
+    std::string line(l);
+    size_t comment_index = line.find('#');
     if (comment_index != -1) {
-      TrimEnd(line.substr(0, comment_index), L" \t");
+      TrimEnd(line.substr(0, comment_index), " \t");
     }
 
     if (line.empty()) {
@@ -95,7 +93,7 @@ static MiniYamlNodesPtr FromLines(const std::list<std::wstring>& lines, const Pa
       }
     }
 
-    std::wstring t = line.substr(cp);
+    std::string t = line.substr(cp);
     if (t.empty()) {
       continue;
     }
@@ -111,15 +109,55 @@ static MiniYamlNodesPtr FromLines(const std::list<std::wstring>& lines, const Pa
     MiniYamlNodesPtr nodes(std::make_shared<std::vector<MiniYamlNode>>());
     auto pair = SplitAtColon(t, location);
     levels[level]->emplace_back(pair.first, pair.second, nodes, location);
-    
+
     levels.push_back(nodes);
   }
 
   return *levels.begin();
 }
 
-MiniYamlNodesPtr MiniYaml::FromFile(const Path& path) {
+MiniYamlNodesPtr MiniYaml::FromFile(const std::string& path) {
   return FromLines(ReadAllLines(path), path);
+}
+
+MiniYamlNode::SourceLocation::SourceLocation() {
+}
+
+MiniYamlNode::SourceLocation::SourceLocation(const std::string& filename, int line)
+  : filename_(filename), line_(line) {
+}
+
+std::string MiniYamlNode::SourceLocation::ToString() const {
+  std::ostringstream oss;
+  oss << filename() << ":" << line();
+  return oss.str();
+}
+
+MiniYamlNode::MiniYamlNode(const std::string& k, MiniYaml&& v)
+  : key_(k), value_(std::move(v)) {
+}
+
+MiniYamlNode::MiniYamlNode(const std::string& k, MiniYaml&& v, const SourceLocation& loc)
+  : MiniYamlNode(k, std::move(v)) {
+  location_ = loc;
+}
+
+MiniYamlNode::MiniYamlNode(const std::string& k, const std::string& v)
+  : MiniYamlNode(k, v, nullptr) {
+}
+
+MiniYamlNode::MiniYamlNode(const std::string& k, const std::string& v, MiniYamlNodesPtr n)
+  : MiniYamlNode(k, MiniYaml(v, n)) {
+}
+
+MiniYamlNode::MiniYamlNode(const std::string& k, const std::string& v, MiniYamlNodesPtr n, const SourceLocation& loc)
+  : MiniYamlNode(k, MiniYaml(v, n), loc) {
+}
+
+std::string MiniYamlNode::ToString() const {
+  std::ostringstream oss;
+  oss << "{{YamlNode: {" << key_ << "} @ {" + location_.ToString() << "}}}";
+  return oss.str();
 }
 
 }
