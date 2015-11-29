@@ -18,6 +18,7 @@
       <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\yaml_exception.cpp" />
+    <ClCompile Include="src\cnc\field_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -37,6 +38,7 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\yaml_exception.h" />
+    <ClInclude Include="src\cnc\field_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

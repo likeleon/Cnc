@@ -14,6 +14,11 @@ public:
   static std::unordered_map<std::string, MiniYaml> MapFromFile(const std::string& path);
   static MiniYamlNodesPtr FromFile(const std::string& path);
 
+  std::unordered_map<std::string, MiniYaml> ToMap() const;
+
+  const std::string& value() const { return value_; }
+  const std::vector<MiniYamlNode>& nodes() const { return *nodes_; }
+
 private:
   std::string value_;
   MiniYamlNodesPtr nodes_;

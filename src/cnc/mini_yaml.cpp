@@ -10,7 +10,10 @@ MiniYaml::MiniYaml(const std::string& value)
 }
 
 MiniYaml::MiniYaml(const std::string& value, MiniYamlNodesPtr nodes)
- : value_(value), nodes_(nodes) {
+  : value_(value), nodes_(nodes) {
+  if (nodes_ == nullptr) {
+    nodes_ = std::make_shared<std::vector<MiniYamlNode>>();
+  }
 }
 
 std::unordered_map<std::string, MiniYaml> MiniYaml::MapFromFile(const std::string& path) {
@@ -118,6 +121,14 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
 
 MiniYamlNodesPtr MiniYaml::FromFile(const std::string& path) {
   return FromLines(ReadAllLines(path), path);
+}
+
+std::unordered_map<std::string, MiniYaml> MiniYaml::ToMap() const {
+  std::unordered_map<std::string, MiniYaml> result;
+  for (const auto& node : nodes()) {
+    result.emplace(node.key(), node.value());
+  }
+  return result;
 }
 
 MiniYamlNode::SourceLocation::SourceLocation() {
