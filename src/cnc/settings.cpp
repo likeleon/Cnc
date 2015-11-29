@@ -7,7 +7,7 @@
 namespace cnc {
 
 const std::vector<FieldLoadInfo> PlayerSettings::load_info_ = {
-  { "Name", StringFieldInfo<PlayerSettings>(&PlayerSettings::name) }
+  { "Name", StringFieldInfo<PlayerSettings>(&PlayerSettings::name), true }
 };
 
 Settings::Settings(const std::string& path, const Arguments& /*args*/)

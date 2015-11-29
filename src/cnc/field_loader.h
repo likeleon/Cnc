@@ -25,33 +25,56 @@ FieldInfo StringFieldInfo(TField field) {
 }
 
 struct FieldLoadInfo {
-  FieldLoadInfo(const std::string& yaml_name, const FieldInfo& field_info);
+  FieldLoadInfo(const std::string& yaml_name,
+                const FieldInfo& field_info,
+                bool required);
 
-  std::string yaml_name;
   FieldInfo field_info;
+  bool required;
+  std::string yaml_name;
 };
 
 class FieldLoader {
 public:
+  class MissingFieldsException : public std::exception {
+  public:
+    explicit MissingFieldsException(std::vector<std::string>&& missing);
+
+    const char* what() const override;
+    const std::vector<std::string>& missing() const { return missing_; }
+
+  private:
+    std::vector<std::string> missing_;
+  };
+
   template <typename T>
   static void Load(T& obj, const MiniYaml& my, const std::vector<FieldLoadInfo>& load_info) {
     if (load_info.empty()) {
       return;
     }
 
+    std::vector<std::string> missing;
+
     auto mm = my.ToMap();
     for (const auto& fli : load_info) {
       std::string value;
+
       if (!TryGetValueFromYaml(fli.yaml_name, mm, value)) {
-        // TODO: throw MissingFieldsException
+        if (fli.required) {
+          missing.emplace_back(std::move(fli.yaml_name));
+        }
+        continue;
       }
       fli.field_info.SetValue(&obj, value);
     }
+
+    if (!missing.empty())
+      throw MissingFieldsException(std::move(missing));
   }
 
 private:
-  static bool TryGetValueFromYaml(const std::string& yaml_name, 
-                                  const std::unordered_map<std::string, MiniYaml>& mm, 
+  static bool TryGetValueFromYaml(const std::string& yaml_name,
+                                  const std::unordered_map<std::string, MiniYaml>& mm,
                                   std::string& value);
 };
 

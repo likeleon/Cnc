@@ -57,5 +57,4 @@ private:
   SourceLocation location_;
 };
 
-
 }

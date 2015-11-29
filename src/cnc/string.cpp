@@ -35,4 +35,15 @@ std::string TrimEnd(const std::string& s, const char* trim_chars) {
   return str;
 }
 
+std::string Join(const std::vector<std::string>& values, const std::string& separator) {
+  std::string str;
+  for (auto iter = values.begin(); iter != values.end(); ++iter) {
+    str += *iter;
+    if (iter != values.end() - 1) {
+      str += separator;
+    }
+  }
+  return str;
+}
+
 }

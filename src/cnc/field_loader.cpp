@@ -15,8 +15,18 @@ void FieldInfo::SetValue(void* obj, const std::string& value) const {
   setter_(obj, value);
 }
 
-FieldLoadInfo::FieldLoadInfo(const std::string& yaml_name, const FieldInfo& field_info)
-  : yaml_name(std::move(yaml_name)), field_info(field_info) {
+FieldLoadInfo::FieldLoadInfo(const std::string& yaml_name,
+                             const FieldInfo& field_info,
+                             bool required)
+  : yaml_name(std::move(yaml_name)), required(required), field_info(field_info) {
+}
+
+FieldLoader::MissingFieldsException::MissingFieldsException(std::vector<std::string>&& missing)
+  : missing_(std::move(missing)) {
+}
+
+const char* FieldLoader::MissingFieldsException::what() const {
+  return (": " + Join(missing_, ", ")).c_str();
 }
 
 bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name,
