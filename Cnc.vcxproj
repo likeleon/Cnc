@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cnc\arguments.cpp" />
+    <ClCompile Include="src\cnc\debug.cpp" />
     <ClCompile Include="src\cnc\fatal_exception.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
     <ClCompile Include="src\cnc\game.cpp" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\arguments.h" />
+    <ClInclude Include="src\cnc\debug.h" />
     <ClInclude Include="src\cnc\fatal_exception.h" />
     <ClInclude Include="src\cnc\field_loader.h" />
     <ClInclude Include="src\cnc\game.h" />

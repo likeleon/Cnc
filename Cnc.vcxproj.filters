@@ -19,6 +19,7 @@
     </ClCompile>
     <ClCompile Include="src\cnc\yaml_exception.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
+    <ClCompile Include="src\cnc\debug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -39,6 +40,7 @@
     </ClInclude>
     <ClInclude Include="src\cnc\yaml_exception.h" />
     <ClInclude Include="src\cnc\field_loader.h" />
+    <ClInclude Include="src\cnc\debug.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

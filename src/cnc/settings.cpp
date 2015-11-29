@@ -20,7 +20,7 @@ Settings::Settings(const std::string& path, const Arguments& /*args*/)
     auto yaml = MiniYaml::MapFromFile(settings_file_);
 
     for (const auto& kv : sections_) {
-      auto iter = yaml.find("Player");
+      auto iter = yaml.find(kv.first);
       if (iter != yaml.end()) {
         FieldLoader::Load(*kv.second, iter->second, kv.second->load_info());
       }

@@ -1,5 +1,6 @@
 #include "cnc/stdafx.h"
 #include "cnc/mini_yaml.h"
+#include "cnc/debug.h"
 #include "cnc/string.h"
 #include "cnc/yaml_exception.h"
 
@@ -27,7 +28,8 @@ std::unordered_map<std::string, MiniYaml> MiniYaml::MapFromFile(const std::strin
 static std::list<std::string> ReadAllLines(const std::string& path) {
   std::ifstream file(path);
   if (!file) {
-    // TODO: Debug::error()
+    Debug::Error("Cannot open file: " + path);
+    return {};
   }
 
   std::list<std::string> lines;
