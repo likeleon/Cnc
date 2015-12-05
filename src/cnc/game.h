@@ -4,6 +4,7 @@ namespace cnc {
 
 class Arguments;
 class Settings;
+class Renderer;
 
 enum class RunStatus {
   Error = -1,
@@ -23,6 +24,7 @@ private:
   static void InitializeSettings(const Arguments& args);
 
   static std::unique_ptr<Settings> settings_;
+  static std::unique_ptr<Renderer> renderer_;
 };
 
 }

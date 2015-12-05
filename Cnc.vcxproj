@@ -23,6 +23,7 @@
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
     <ClCompile Include="src\cnc\package_entry.cpp" />
     <ClCompile Include="src\cnc\platform.cpp" />
+    <ClCompile Include="src\cnc\renderer.cpp" />
     <ClCompile Include="src\cnc\settings.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -43,7 +44,9 @@
     <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\package_entry.h" />
     <ClInclude Include="src\cnc\platform.h" />
+    <ClInclude Include="src\cnc\renderer.h" />
     <ClInclude Include="src\cnc\settings.h" />
+    <ClInclude Include="src\cnc\size.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\string.h" />
     <ClInclude Include="src\cnc\targetver.h" />

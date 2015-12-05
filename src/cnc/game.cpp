@@ -4,6 +4,7 @@
 #include "cnc/platform.h"
 #include "cnc/settings.h"
 #include "cnc/global_file_system.h"
+#include "cnc/debug.h"
 
 namespace cnc {
 
@@ -18,6 +19,16 @@ void Game::Initialize(const Arguments& args) {
   Log::AddChannel("debug", "debug.log");
 
   GlobalFileSystem::Mount(Platform::GameDir());
+  std::vector<std::string> renderers{ settings_->graphics().renderer, "Default", "" };
+  for (const auto& r : renderers) {
+    if (r.empty()) {
+      Debug::Error("No suitable renderes were found. Check graphics.log for details.");
+    }
+
+    settings_->graphics().renderer = r;
+    
+    renderer_ = std::make_unique<Renderer>(settings_->graphics());
+  }
 }
 
 void Game::InitializeSettings(const Arguments& args) {

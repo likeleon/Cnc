@@ -10,10 +10,15 @@ const std::vector<FieldLoadInfo> PlayerSettings::load_info_ = {
   { "Name", StringFieldInfo<PlayerSettings>(&PlayerSettings::name), true }
 };
 
+const std::vector<FieldLoadInfo> GraphicSettings::load_info_ = {
+  { "Renderer", StringFieldInfo<GraphicSettings>(&GraphicSettings::renderer), true }
+};
+
 Settings::Settings(const std::string& path, const Arguments& /*args*/)
   : settings_file_(path) {
   sections_ = {
-    { "Player", &player_ }
+    { "Player", &player_ },
+    { "Graphics", &graphics_ }
   };
 
   if (Platform::Exists(settings_file_)) {
