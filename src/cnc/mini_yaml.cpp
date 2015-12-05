@@ -47,8 +47,8 @@ static std::pair<std::string, std::string> SplitAtColon(const std::string& t,
     throw YamlException("Colon not found at " + location.ToString());
   }
 
-  std::string value = Trim(t.substr(colon + 1));
-  std::string key = Trim(t.substr(0, colon));
+  std::string value = String::Trim(t.substr(colon + 1));
+  std::string key = String::Trim(t.substr(0, colon));
   return std::make_pair(key, value);
 }
 
@@ -56,24 +56,24 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
   std::vector<MiniYamlNodesPtr> levels;
   levels.push_back(std::make_shared<std::vector<MiniYamlNode>>());
 
-  int line_no = 0;
+  int32_t line_no = 0;
   for (const auto& l : lines) {
     ++line_no;
 
     std::string line(l);
     size_t comment_index = line.find('#');
     if (comment_index != -1) {
-      TrimEnd(line.substr(0, comment_index), " \t");
+      String::TrimEnd(line.substr(0, comment_index), " \t");
     }
 
     if (line.empty()) {
       continue;
     }
 
-    const int SpacesPerLevel = 4;
+    const int32_t SpacesPerLevel = 4;
     size_t cp = 0;
     size_t level = 0;
-    int spaces = 0;
+    int32_t spaces = 0;
     wchar_t c = line[cp];
     bool text_start = false;
     while (!(c == L'\n' || c == L'\r') && cp < line.length() && !text_start) {
@@ -108,7 +108,7 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
       throw YamlException("Bad indent in miniyaml at " + location.ToString());
     }
     while (levels.size() > level + 1) {
-      levels.erase(levels.begin() + static_cast<int>(levels.size()) - 1);
+      levels.erase(levels.begin() + static_cast<int32_t>(levels.size()) - 1);
     }
 
     MiniYamlNodesPtr nodes(std::make_shared<std::vector<MiniYamlNode>>());
@@ -136,7 +136,7 @@ std::unordered_map<std::string, MiniYaml> MiniYaml::ToMap() const {
 MiniYamlNode::SourceLocation::SourceLocation() {
 }
 
-MiniYamlNode::SourceLocation::SourceLocation(const std::string& filename, int line)
+MiniYamlNode::SourceLocation::SourceLocation(const std::string& filename, int32_t line)
   : filename_(filename), line_(line) {
 }
 

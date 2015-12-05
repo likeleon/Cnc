@@ -17,10 +17,10 @@ void Log::AddChannel(const std::string& channel_name, const std::string& base_fi
     return;
   }
 
-  auto log_dir = Platform::ResolvePath({ Platform::GetSupportDir(), "Logs" });
+  auto log_dir = Platform::ResolvePath({ Platform::SupportDir(), "Logs" });
   Platform::CreateDir(log_dir);
 
-  for (int i = 0; ; ++i) {
+  for (int32_t i = 0; ; ++i) {
     std::string filename = (i > 0) ? base_filename + std::to_string(i) : base_filename;
     filename = Platform::ResolvePath({ log_dir, filename });
     auto writer = std::make_unique<std::ofstream>(filename, std::ios_base::trunc);

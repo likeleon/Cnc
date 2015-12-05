@@ -20,6 +20,15 @@
     <ClCompile Include="src\cnc\yaml_exception.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
     <ClCompile Include="src\cnc\debug.cpp" />
+    <ClCompile Include="src\cnc\global_file_system.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\folder.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\package_entry.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -41,6 +50,15 @@
     <ClInclude Include="src\cnc\yaml_exception.h" />
     <ClInclude Include="src\cnc\field_loader.h" />
     <ClInclude Include="src\cnc\debug.h" />
+    <ClInclude Include="src\cnc\global_file_system.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\folder.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\package_entry.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -48,6 +66,9 @@
     </Filter>
     <Filter Include="util">
       <UniqueIdentifier>{22c9f2ca-06d6-4eed-b7ab-b057b127b4fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="file_system">
+      <UniqueIdentifier>{d3f720a0-b8a9-41fb-aa29-5177e1fdf840}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

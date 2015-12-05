@@ -8,7 +8,7 @@ class Settings;
 enum class RunStatus {
   Error = -1,
   Success = 0,
-  Running = std::numeric_limits<int>::max()
+  Running = std::numeric_limits<int32_t>::max()
 };
 
 class Game {

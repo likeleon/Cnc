@@ -11,9 +11,9 @@ const Arguments& Arguments::Empty() {
 Arguments::Arguments() {
 }
 
-Arguments::Arguments(int argc, char** argv) {
+Arguments::Arguments(int32_t argc, char** argv) {
   std::regex regex("([^=]+)=(.*)");
-  for (int i = 0; i < argc; ++i) {
+  for (int32_t i = 0; i < argc; ++i) {
     std::cmatch match;
     bool success = std::regex_match(argv[i], match, regex);
     if (!success || match.size() < 3) {

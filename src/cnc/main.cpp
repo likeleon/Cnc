@@ -17,16 +17,16 @@ static void FatalError(const std::exception& e) {
   std::cerr << report.c_str();
 }
 
-static RunStatus Run(int argc, char** argv) {
+static RunStatus Run(int32_t argc, char** argv) {
   Game::Initialize(Arguments(argc, argv));
   return Game::Run();
 }
 
-int main(int argc, char** argv) {
+int32_t main(int32_t argc, char** argv) {
   try {
-    return (int)Run(argc, argv);
+    return (int32_t)Run(argc, argv);
   } catch (const std::exception& e) {
     FatalError(e);
-    return static_cast<int>(RunStatus::Error);
+    return static_cast<int32_t>(RunStatus::Error);
   }
 }

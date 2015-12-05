@@ -3,17 +3,21 @@
 #include "cnc/log.h"
 #include "cnc/platform.h"
 #include "cnc/settings.h"
+#include "cnc/global_file_system.h"
 
 namespace cnc {
 
 std::unique_ptr<Settings> Game::settings_;
 
 void Game::Initialize(const Arguments& args) {
-  std::cout << "Platform is " << Platform::GetCurrentPlatform() << std::endl;
+  std::cout << "Platform is " << Platform::CurrentPlatform() << std::endl;
 
   InitializeSettings(args);
 
   Log::AddChannel("perf", "perf.log");
+  Log::AddChannel("debug", "debug.log");
+
+  GlobalFileSystem::Mount(Platform::GameDir());
 }
 
 void Game::InitializeSettings(const Arguments& args) {

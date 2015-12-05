@@ -26,7 +26,7 @@ FieldLoader::MissingFieldsException::MissingFieldsException(std::vector<std::str
 }
 
 const char* FieldLoader::MissingFieldsException::what() const {
-  return (": " + Join(missing_, ", ")).c_str();
+  return (": " + String::Join(missing_, ", ")).c_str();
 }
 
 bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name,
@@ -38,7 +38,7 @@ bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name,
   }
 
   const auto& yaml = iter->second;
-  value = Trim(yaml.value());
+  value = String::Trim(yaml.value());
   return true;
 }
 

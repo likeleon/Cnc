@@ -29,15 +29,15 @@ public:
   class SourceLocation {
   public:
     SourceLocation();
-    SourceLocation(const std::string& filename, int line);
+    SourceLocation(const std::string& filename, int32_t line);
 
     const std::string& filename() const { return filename_; }
-    int line() const { return line_; }
+    int32_t line() const { return line_; }
     std::string ToString() const;
 
   private:
     std::string filename_;
-    int line_ = 0;
+    int32_t line_ = 0;
   };
 
   MiniYamlNode(const std::string& k, MiniYaml&& v);

@@ -12,7 +12,7 @@ using fs_path = std::tr2::sys::path;
 std::string Platform::support_dir_;
 std::string Platform::game_dir_;
 
-PlatformType Platform::GetCurrentPlatform() {
+PlatformType Platform::CurrentPlatform() {
   return PlatformType::Windows;
 }
 
@@ -55,14 +55,14 @@ static fs_path GetSupportDirInternal() {
   return dir;
 }
 
-const std::string& Platform::GetSupportDir() {
+const std::string& Platform::SupportDir() {
   if (support_dir_.empty()) {
     support_dir_ = GetSupportDirInternal().string();
   }
   return support_dir_;
 }
 
-const std::string& Platform::GetGameDir() {
+const std::string& Platform::GameDir() {
   if (game_dir_.empty()) {
     game_dir_ = sys::current_path().string();
   }
@@ -70,11 +70,11 @@ const std::string& Platform::GetGameDir() {
 }
 
 std::string Platform::ResolvePath(const std::string& p) {
-  auto path = TrimEnd(p);
+  auto path = String::TrimEnd(p);
   if (path.find("^") == 0) {
-    return (fs_path(GetSupportDir()) / path.substr(1)).string();
+    return (fs_path(SupportDir()) / path.substr(1)).string();
   } else if (path.find("./") == 0 || path.find(".\\") == 0) {
-    return (fs_path(GetGameDir()) / path.substr(2)).string();
+    return (fs_path(GameDir()) / path.substr(2)).string();
   } else {
     return path;
   }
@@ -92,6 +92,20 @@ bool Platform::CreateDir(const std::string& path) {
 
 bool Platform::Exists(const std::string& path) {
   return std::tr2::sys::exists(path);
+}
+
+std::vector<std::string> Platform::GetFiles(const std::string& path) {
+  std::vector<std::string> files;
+  for (auto& p : std::tr2::sys::directory_iterator(path)) {
+    if (std::tr2::sys::is_regular_file(p)) {
+      files.emplace_back(p.path().string());
+    }
+  }
+  return files;
+}
+
+std::string Platform::GetFileName(const std::string& path) {
+  return fs_path(path).filename().string();
 }
 
 }

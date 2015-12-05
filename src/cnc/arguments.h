@@ -6,7 +6,7 @@ class Arguments {
 public:
   static const Arguments& Empty();
 
-  Arguments(int argc, char** argv);
+  Arguments(int32_t argc, char** argv);
 
   bool Contains(const std::string& key) const;
   std::string GetValue(const std::string& key,
