@@ -19,6 +19,7 @@ void Game::Initialize(const Arguments& args) {
 
   Log::AddChannel("perf", "perf.log");
   Log::AddChannel("debug", "debug.log");
+  Log::AddChannel("graphics", "graphics.log");
 
   GlobalFileSystem::Mount(Platform::GameDir());
   std::vector<std::string> renderers{ settings_->graphics().renderer, "Default", "" };

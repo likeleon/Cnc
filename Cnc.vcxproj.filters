@@ -39,6 +39,12 @@
     <ClCompile Include="src\cnc\igraphics_device.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\thread_affine.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\sdl2_graphics_device.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -80,6 +86,12 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\enum_info.h" />
+    <ClInclude Include="src\cnc\thread_affine.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\sdl2_graphics_device.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

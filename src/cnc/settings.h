@@ -14,6 +14,10 @@ struct PlayerSettings {
   static const std::vector<FieldLoadInfo> load_info;
 };
 
+struct GameSettings {
+  bool lock_mouse_window = false;
+};
+
 struct GraphicSettings {
   std::string renderer = "Default";
   WindowMode mode = WindowMode::PseudoFullscreen;
@@ -28,11 +32,13 @@ public:
   Settings(const std::string& path, const Arguments& args);
 
   PlayerSettings& player() { return player_; }
+  GameSettings& game() { return game_; }
   GraphicSettings& graphics() { return graphics_; }
 
 private:
   std::string settings_file_;
   PlayerSettings player_;
+  GameSettings game_;
   GraphicSettings graphics_;
 };
 

@@ -24,3 +24,7 @@
 #include <string>
 #include <unordered_map>
 #include <typeindex>
+#include <thread>
+
+#include "SDL.h"
+#undef main

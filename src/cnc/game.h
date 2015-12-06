@@ -17,6 +17,8 @@ public:
   static void Initialize(const Arguments& args);
   static RunStatus Run();
 
+  static Settings& settings() { return *settings_; }
+
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
 
