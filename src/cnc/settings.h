@@ -8,25 +8,19 @@ namespace cnc {
 
 class Arguments;
 
-struct SettingsSection {
-  virtual const std::vector<FieldLoadInfo>& load_info() const = 0;
-};
-
-struct PlayerSettings : public SettingsSection {
+struct PlayerSettings {
   std::string name = "Newbie";
 
-  const std::vector<FieldLoadInfo>& load_info() const override { return load_info_; }
-  static const std::vector<FieldLoadInfo> load_info_;
+  static const std::vector<FieldLoadInfo> load_info;
 };
 
-struct GraphicSettings : public SettingsSection {
+struct GraphicSettings {
   std::string renderer = "Default";
   WindowMode mode = WindowMode::PseudoFullscreen;
   Size fullscreen_size = Size(0, 0);
   Size windowed_size = Size(1024, 768);
 
-  const std::vector<FieldLoadInfo>& load_info() const override { return load_info_; }
-  static const std::vector<FieldLoadInfo> load_info_;
+  static const std::vector<FieldLoadInfo> load_info;
 };
 
 class Settings {
@@ -40,7 +34,6 @@ private:
   std::string settings_file_;
   PlayerSettings player_;
   GraphicSettings graphics_;
-  std::unordered_map<std::string, SettingsSection*> sections_;
 };
 
 }

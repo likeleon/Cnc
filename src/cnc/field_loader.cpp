@@ -6,6 +6,8 @@
 
 namespace cnc {
 
+std::unordered_map<std::type_index, std::vector<FieldLoadInfo>> FieldLoader::type_load_info_;
+
 FieldInfo::FieldInfo(Setter setter)
   : setter_(setter) {
   assert(setter != nullptr);

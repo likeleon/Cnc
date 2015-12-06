@@ -72,7 +72,8 @@ public:
   };
 
   template <typename T>
-  static void Load(T& obj, const MiniYaml& my, const std::vector<FieldLoadInfo>& load_info) {
+  static void Load(T& obj, const MiniYaml& my) {
+    auto load_info = RetrieveLoadInfo<T>();
     if (load_info.empty()) {
       return;
     }
@@ -92,14 +93,26 @@ public:
       fli.field_info.SetValue(&obj, value);
     }
 
-    if (!missing.empty())
+    if (!missing.empty()) {
       throw MissingFieldsException(std::move(missing));
+    }
   }
 
 private:
   static bool TryGetValueFromYaml(const std::string& yaml_name,
                                   const std::unordered_map<std::string, MiniYaml>& mm,
                                   std::string& value);
+
+  template <typename T>
+  static const std::vector<FieldLoadInfo>& RetrieveLoadInfo() {
+    auto it = type_load_info_.find(typeid(T));
+    if (it == type_load_info_.end()) {
+      it = type_load_info_.emplace(typeid(T), T::load_info).first;
+    }
+    return it->second;
+  }
+
+  static std::unordered_map<std::type_index, std::vector<FieldLoadInfo>> type_load_info_;
 };
 
 }
