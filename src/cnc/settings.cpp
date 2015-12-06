@@ -14,6 +14,8 @@ const std::vector<FieldLoadInfo> PlayerSettings::load_info_ = {
 const std::vector<FieldLoadInfo> GraphicSettings::load_info_ = {
   { "Renderer", StringFieldInfo<GraphicSettings>(&GraphicSettings::renderer) },
   { "Mode", EnumFieldInfo<GraphicSettings, WindowMode>(&GraphicSettings::mode) },
+  { "FullscreenSize", TypeFieldInfo<GraphicSettings, Size>(&GraphicSettings::fullscreen_size) },
+  { "WindowedSize", TypeFieldInfo<GraphicSettings, Size>(&GraphicSettings::windowed_size) }
 };
 
 Settings::Settings(const std::string& path, const Arguments& /*args*/)

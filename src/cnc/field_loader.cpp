@@ -2,6 +2,7 @@
 #include "cnc/field_loader.h"
 #include "cnc/debug.h"
 #include "cnc/string.h"
+#include "cnc/size.h"
 
 namespace cnc {
 
@@ -40,6 +41,12 @@ bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name,
   const auto& yaml = iter->second;
   value = String::Trim(yaml.value());
   return true;
+}
+
+template <>
+Size FieldInfoTraits<Size>::Parse(const std::string& s) {
+  auto parts = String::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
+  return{ std::stoi(parts[0]), std::stoi(parts[1]) };
 }
 
 }

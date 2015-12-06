@@ -69,4 +69,17 @@ std::string String::Join(const std::vector<std::string>& values, const std::stri
   return str;
 }
 
+std::vector<std::string> String::Split(const std::string& s, char delimiter, StringSplitOptions options) {
+  std::vector<std::string> result;
+  std::stringstream ss(s);
+  std::string item;
+  while (std::getline(ss, item, delimiter)) {
+    if (options == StringSplitOptions::RemoveEmptyEntries && item.empty()) {
+      continue;
+    }
+    result.emplace_back(item);
+  }
+  return result;
+}
+
 }

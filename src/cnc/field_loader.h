@@ -5,6 +5,8 @@
 
 namespace cnc {
 
+struct Size;
+
 class FieldInfo {
 public:
   using Setter = std::function<void(void* obj, const std::string& value)>;
@@ -15,6 +17,11 @@ public:
 
 private:
   Setter setter_;
+};
+
+template <typename T>
+struct FieldInfoTraits {
+  static T Parse(const std::string& s);
 };
 
 template <typename TObject, typename TField>
@@ -30,6 +37,14 @@ FieldInfo EnumFieldInfo(TField field) {
   return FieldInfo([field](void* o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
     (obj->*field) = NameToEnum<TEnum>(v);
+  });
+}
+
+template <typename TObject, typename TType, typename TField>
+FieldInfo TypeFieldInfo(TField field) {
+  return FieldInfo([field](void* o, const std::string& v) {
+    TObject* obj = static_cast<TObject*>(o);
+    (obj->*field) = FieldInfoTraits<TType>::Parse(v);
   });
 }
 
