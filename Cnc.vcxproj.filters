@@ -30,6 +30,12 @@
       <Filter>file_system</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\renderer.cpp" />
+    <ClCompile Include="src\cnc\size.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\device_factory.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -61,7 +67,15 @@
       <Filter>file_system</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\renderer.h" />
-    <ClInclude Include="src\cnc\size.h" />
+    <ClInclude Include="src\cnc\size.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\igraphics_device.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\device_factory.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -72,6 +86,12 @@
     </Filter>
     <Filter Include="file_system">
       <UniqueIdentifier>{d3f720a0-b8a9-41fb-aa29-5177e1fdf840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="primitives">
+      <UniqueIdentifier>{4679c3ee-2987-4806-8a47-d303a6608f39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics">
+      <UniqueIdentifier>{1be00f4b-2e55-4468-b87c-8a4575bbe38c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

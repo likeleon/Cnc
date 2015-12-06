@@ -5,10 +5,12 @@
 #include "cnc/settings.h"
 #include "cnc/global_file_system.h"
 #include "cnc/debug.h"
+#include "cnc/renderer.h"
 
 namespace cnc {
 
 std::unique_ptr<Settings> Game::settings_;
+std::unique_ptr<Renderer> Game::renderer_;
 
 void Game::Initialize(const Arguments& args) {
   std::cout << "Platform is " << Platform::CurrentPlatform() << std::endl;
@@ -28,6 +30,9 @@ void Game::Initialize(const Arguments& args) {
     settings_->graphics().renderer = r;
     
     renderer_ = std::make_unique<Renderer>(settings_->graphics());
+    if (renderer_ != nullptr) {
+      break;
+    }
   }
 }
 

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "cnc/field_loader.h"
+#include "cnc/igraphics_device.h"
+#include "cnc/size.h"
 
 namespace cnc {
 
@@ -19,6 +21,9 @@ struct PlayerSettings : public SettingsSection {
 
 struct GraphicSettings : public SettingsSection {
   std::string renderer = "Default";
+  WindowMode mode = WindowMode::PseudoFullscreen;
+  Size fullscreen_size = Size(0, 0);
+  Size windowed_size = Size(1024, 768);
 
   const std::vector<FieldLoadInfo>& load_info() const override { return load_info_; }
   static const std::vector<FieldLoadInfo> load_info_;

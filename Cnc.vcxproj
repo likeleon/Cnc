@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\debug.cpp" />
+    <ClCompile Include="src\cnc\device_factory.cpp" />
     <ClCompile Include="src\cnc\fatal_exception.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
     <ClCompile Include="src\cnc\folder.cpp" />
@@ -25,6 +26,7 @@
     <ClCompile Include="src\cnc\platform.cpp" />
     <ClCompile Include="src\cnc\renderer.cpp" />
     <ClCompile Include="src\cnc\settings.cpp" />
+    <ClCompile Include="src\cnc\size.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -35,11 +37,13 @@
   <ItemGroup>
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\debug.h" />
+    <ClInclude Include="src\cnc\device_factory.h" />
     <ClInclude Include="src\cnc\fatal_exception.h" />
     <ClInclude Include="src\cnc\field_loader.h" />
     <ClInclude Include="src\cnc\folder.h" />
     <ClInclude Include="src\cnc\game.h" />
     <ClInclude Include="src\cnc\global_file_system.h" />
+    <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\log.h" />
     <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\package_entry.h" />
