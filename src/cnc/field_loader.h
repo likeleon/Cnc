@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cnc/mini_yaml.h"
+#include "cnc/enum_info.h"
 
 namespace cnc {
 
@@ -24,10 +25,18 @@ FieldInfo StringFieldInfo(TField field) {
   });
 }
 
+template <typename TObject, typename TEnum, typename TField>
+FieldInfo EnumFieldInfo(TField field) {
+  return FieldInfo([field](void* o, const std::string& v) {
+    TObject* obj = static_cast<TObject*>(o);
+    (obj->*field) = NameToEnum<TEnum>(v);
+  });
+}
+
 struct FieldLoadInfo {
   FieldLoadInfo(const std::string& yaml_name,
                 const FieldInfo& field_info,
-                bool required);
+                bool required = false);
 
   FieldInfo field_info;
   bool required;

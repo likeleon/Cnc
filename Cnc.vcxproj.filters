@@ -36,6 +36,9 @@
     <ClCompile Include="src\cnc\device_factory.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\igraphics_device.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -76,6 +79,7 @@
     <ClInclude Include="src\cnc\device_factory.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\enum_info.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

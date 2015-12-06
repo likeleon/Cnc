@@ -3,15 +3,17 @@
 #include "cnc/mini_yaml.h"
 #include "cnc/platform.h"
 #include "cnc/field_loader.h"
+#include "cnc/enum_info.h"
 
 namespace cnc {
 
 const std::vector<FieldLoadInfo> PlayerSettings::load_info_ = {
-  { "Name", StringFieldInfo<PlayerSettings>(&PlayerSettings::name), true }
+  { "Name", StringFieldInfo<PlayerSettings>(&PlayerSettings::name) }
 };
 
 const std::vector<FieldLoadInfo> GraphicSettings::load_info_ = {
-  { "Renderer", StringFieldInfo<GraphicSettings>(&GraphicSettings::renderer), true }
+  { "Renderer", StringFieldInfo<GraphicSettings>(&GraphicSettings::renderer) },
+  { "Mode", EnumFieldInfo<GraphicSettings, WindowMode>(&GraphicSettings::mode) },
 };
 
 Settings::Settings(const std::string& path, const Arguments& /*args*/)
