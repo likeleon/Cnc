@@ -25,6 +25,7 @@
 #include <unordered_map>
 #include <typeindex>
 #include <thread>
+#include <chrono>
 
 #include "SDL.h"
 #undef main

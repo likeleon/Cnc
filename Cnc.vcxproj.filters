@@ -45,6 +45,7 @@
     <ClCompile Include="src\cnc\sdl2_graphics_device.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\stop_watch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -92,6 +93,7 @@
     <ClInclude Include="src\cnc\sdl2_graphics_device.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\stop_watch.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
