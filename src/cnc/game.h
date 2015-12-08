@@ -29,6 +29,7 @@ public:
 private:
   static void InitializeSettings(const Arguments& args);
   static void Loop();
+  static void RenderTick();
 
   static const int64_t Timestep = 40;
 
@@ -37,6 +38,7 @@ private:
 
   static StopWatch stop_watch_;
   static RunStatus state_;
+  static int32_t render_frame_;
 };
 
 }

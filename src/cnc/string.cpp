@@ -3,6 +3,10 @@
 
 namespace cnc {
 
+bool String::Contains(const std::string& s, const std::string& value) {
+  return s.find(value) != std::string::npos;
+}
+
 bool String::StartsWith(const std::string& s, const std::string& starting) {
   return (s.find(starting) == 0);
 }

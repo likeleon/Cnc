@@ -29,3 +29,4 @@
 
 #include "SDL.h"
 #undef main
+#include "SDL_opengl.h"

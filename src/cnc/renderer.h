@@ -10,6 +10,9 @@ class Renderer {
 public:
   explicit Renderer(const GraphicSettings& graphic_settings);
 
+  void BeginFrame();
+  void EndFrame();
+
 private:
   GraphicsDevicePtr device_;
 };

@@ -25,6 +25,8 @@ public:
   
   static std::string GetFileName(const std::string& path);
 
+  static void Sleep(int64_t duration_ms);
+
 private:
   static std::string support_dir_;
   static std::string game_dir_;

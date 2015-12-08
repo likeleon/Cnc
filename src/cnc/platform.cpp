@@ -108,4 +108,8 @@ std::string Platform::GetFileName(const std::string& path) {
   return fs_path(path).filename().string();
 }
 
+void Platform::Sleep(int64_t duration_ms) {
+  std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
+}
+
 }

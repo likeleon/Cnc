@@ -9,6 +9,7 @@ enum class StringSplitOptions {
 
 class String {
 public:
+  static bool Contains(const std::string& s, const std::string& value);
   static bool StartsWith(const std::string& s, const std::string& starting);
   static bool EndsWith(const std::string& s, const std::string& ending);
 

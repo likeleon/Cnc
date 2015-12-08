@@ -19,6 +19,9 @@ struct EnumInfoTraits<WindowMode> {
 class IGraphicsDevice {
 public:
   virtual ~IGraphicsDevice() {}
+
+  virtual void Clear() = 0;
+  virtual void Present() = 0;
 };
 
 using GraphicsDevicePtr = std::unique_ptr<IGraphicsDevice>;

@@ -13,6 +13,7 @@ std::unique_ptr<Settings> Game::settings_;
 std::unique_ptr<Renderer> Game::renderer_;
 StopWatch Game::stop_watch_;
 RunStatus Game::state_ = RunStatus::Running;
+int32_t Game::render_frame_ = 0;
 
 void Game::Initialize(const Arguments& args) {
   std::cout << "Platform is " << Platform::CurrentPlatform() << std::endl;
@@ -90,12 +91,20 @@ void Game::Loop() {
 
         forced_next_render = now + render_interval;
 
-        // RenderTick();
+        RenderTick();
       }
     } else {
-      std::this_thread::sleep_for(std::chrono::milliseconds{ next_update - now });
+      Platform::Sleep(next_update - now);
     }
   }
+}
+
+void Game::RenderTick() {
+  ++render_frame_;
+
+  renderer_->BeginFrame();
+
+  renderer_->EndFrame();
 }
 
 }

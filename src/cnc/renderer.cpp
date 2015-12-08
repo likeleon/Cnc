@@ -18,4 +18,12 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
   device_ = DeviceFactory::CreateGraphics(resolution, graphic_settings.mode);
 }
 
+void Renderer::BeginFrame() {
+  device_->Clear();
+}
+
+void Renderer::EndFrame() {
+  device_->Present();
+}
+
 }
