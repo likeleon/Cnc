@@ -25,6 +25,9 @@
     <ClCompile Include="src\cnc\main.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
     <ClCompile Include="src\cnc\package_entry.cpp" />
+    <ClCompile Include="src\cnc\perf_history.cpp" />
+    <ClCompile Include="src\cnc\perf_item.cpp" />
+    <ClCompile Include="src\cnc\perf_sample.cpp" />
     <ClCompile Include="src\cnc\platform.cpp" />
     <ClCompile Include="src\cnc\renderer.cpp" />
     <ClCompile Include="src\cnc\sdl2_graphics_device.cpp" />
@@ -54,6 +57,9 @@
     <ClInclude Include="src\cnc\log.h" />
     <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\package_entry.h" />
+    <ClInclude Include="src\cnc\perf_history.h" />
+    <ClInclude Include="src\cnc\perf_item.h" />
+    <ClInclude Include="src\cnc\perf_sample.h" />
     <ClInclude Include="src\cnc\platform.h" />
     <ClInclude Include="src\cnc\renderer.h" />
     <ClInclude Include="src\cnc\sdl2_graphics_device.h" />

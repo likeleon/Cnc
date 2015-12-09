@@ -26,6 +26,8 @@
 #include <typeindex>
 #include <thread>
 #include <chrono>
+#include <array>
+#include <ctime>
 
 #include "SDL.h"
 #undef main

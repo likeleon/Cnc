@@ -49,6 +49,15 @@
     <ClCompile Include="src\cnc\error_handler.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\perf_sample.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\perf_history.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\perf_item.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -99,6 +108,15 @@
     <ClInclude Include="src\cnc\stop_watch.h" />
     <ClInclude Include="src\cnc\error_handler.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\perf_sample.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\perf_history.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\perf_item.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

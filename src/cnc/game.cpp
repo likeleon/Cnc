@@ -6,6 +6,8 @@
 #include "cnc/global_file_system.h"
 #include "cnc/debug.h"
 #include "cnc/renderer.h"
+#include "cnc/perf_sample.h"
+#include "cnc/perf_history.h"
 
 namespace cnc {
 
@@ -100,11 +102,18 @@ void Game::Loop() {
 }
 
 void Game::RenderTick() {
-  ++render_frame_;
+  PERF_SAMPLE(render, {
+    ++render_frame_;
 
-  renderer_->BeginFrame();
+    renderer_->BeginFrame();
 
-  renderer_->EndFrame();
+    PERF_SAMPLE(render_flip, {
+      renderer_->EndFrame();
+    });
+  })
+
+  PerfHistory::Item("render").Tick();
+  PerfHistory::Item("render_flip").Tick();
 }
 
 }

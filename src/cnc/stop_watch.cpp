@@ -3,13 +3,17 @@
 
 namespace cnc {
 
+using std::chrono::high_resolution_clock;
+using std::chrono::milliseconds;
+using std::chrono::duration_cast;
+
 StopWatch::StopWatch()
-  : start_(std::chrono::high_resolution_clock::now()) {
+  : start_(high_resolution_clock::now()) {
 }
 
 int64_t StopWatch::ElapsedMilliseconds() const {
-  auto elapsed = std::chrono::high_resolution_clock::now() - start_;
-  return std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+  auto elapsed = high_resolution_clock::now() - start_;
+  return duration_cast<milliseconds>(elapsed).count();
 }
 
 }
