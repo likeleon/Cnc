@@ -7,13 +7,9 @@
 
 namespace cnc {
 
-static void WriteLog(const std::string& message) {
-  Log::Write("graphics", message);
-}
-
 Sdl2GraphicsDevice::Sdl2GraphicsDevice(const Size& window_size, WindowMode window_mode)
   : window_size_(window_size) {
-  WriteLog("Using SDL 2 with OpenGL renderer");
+  std::cout << "Using SDL 2 with OpenGL renderer" << std::endl;;
 
   SDL_Init(SDL_INIT_NOPARACHUTE | SDL_INIT_VIDEO);
   SDL_GL_SetAttribute(SDL_GLattr::SDL_GL_DOUBLEBUFFER, 1);
@@ -25,18 +21,13 @@ Sdl2GraphicsDevice::Sdl2GraphicsDevice(const Size& window_size, WindowMode windo
   SDL_DisplayMode display;
   SDL_GetCurrentDisplayMode(0, &display);
 
-  std::ostringstream oss;
-  oss << "Desktop resolution: {" << display.w << "}x{" << display.h << "}";
-  WriteLog(oss.str());
+  std::cout << "Desktop resolution: {" << display.w << "}x{" << display.h << "}" << std::endl;
   if (window_size_.width == 0 && window_size_.height == 0) {
-    WriteLog("No custom resolution provided, using desktop resolution");
+    std::cout << "No custom resolution provided, using desktop resolution" << std::endl;
     window_size_ = Size(display.w, display.h);
   }
 
-  oss.clear();
-  oss.str("");
-  oss << "Using resolution: {" << window_size_.width << "}x{" << window_size_.height << "}";
-  WriteLog(oss.str());
+  std::cout << "Using resolution: {" << window_size_.width << "}x{" << window_size_.height << "}" << std::endl;
 
   window_ = SDL_CreateWindow("Cnc", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                              window_size_.width, window_size_.height,

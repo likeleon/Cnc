@@ -80,7 +80,7 @@ std::string Platform::ResolvePath(const std::string& p) {
   }
 }
 
-std::string Platform::ResolvePath(const std::vector<std::string>& paths) {
+std::string Platform::ResolvePaths(const std::vector<std::string>& paths) {
   auto path = std::accumulate(paths.begin(), paths.end(), fs_path{},
                               [](const fs_path& a, const std::string& b) { return a / b; });
   return ResolvePath(path.string());
@@ -102,6 +102,16 @@ std::vector<std::string> Platform::GetFiles(const std::string& path) {
     }
   }
   return files;
+}
+
+std::vector<std::string> GetDirectories(const std::string& path) {
+  std::vector<std::string> directories;
+  for (auto& p : std::tr2::sys::directory_iterator(path)) {
+    if (std::tr2::sys::is_directory(p)) {
+      directories.emplace_back(p.path().string());
+    }
+  }
+  return directories;
 }
 
 std::string Platform::GetFileName(const std::string& path) {

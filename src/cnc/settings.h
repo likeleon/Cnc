@@ -15,7 +15,10 @@ struct PlayerSettings {
 };
 
 struct GameSettings {
+  std::string mod = "modchooser";
   bool lock_mouse_window = false;
+  
+  static const std::vector<FieldLoadInfo> load_info;
 };
 
 struct GraphicSettings {

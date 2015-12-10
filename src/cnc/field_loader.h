@@ -40,6 +40,20 @@ FieldInfo EnumFieldInfo(TField field) {
   });
 }
 
+template <typename TObject, typename TField>
+FieldInfo BoolFieldInfo(TField field) {
+  return FieldInfo([field](void* o, const std::string& v) {
+    TObject* obj = static_cast<TObject*>(o);
+    if (v == "true") {
+      (obj->*field) = true;
+    } else if (v == "false") {
+      (obj->*field) = false;
+    } else {
+      throw std::invalid_argument("invalid bool string");
+    }
+  });
+}
+
 template <typename TObject, typename TType, typename TField>
 FieldInfo TypeFieldInfo(TField field) {
   return FieldInfo([field](void* o, const std::string& v) {
@@ -70,6 +84,13 @@ public:
   private:
     std::vector<std::string> missing_;
   };
+
+  template <typename T>
+  static T Load(const MiniYaml& my) {
+    T t;
+    Load(t, my);
+    return t;
+  }
 
   template <typename T>
   static void Load(T& obj, const MiniYaml& my) {

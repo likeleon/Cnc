@@ -11,6 +11,10 @@ const std::vector<FieldLoadInfo> PlayerSettings::load_info = {
   { "Name", StringFieldInfo<PlayerSettings>(&PlayerSettings::name) }
 };
 
+const std::vector<FieldLoadInfo> GameSettings::load_info = {
+  { "Mod", StringFieldInfo<GameSettings>(&GameSettings::mod) }
+};
+
 const std::vector<FieldLoadInfo> GraphicSettings::load_info = {
   { "Renderer", StringFieldInfo<GraphicSettings>(&GraphicSettings::renderer) },
   { "Mode", EnumFieldInfo<GraphicSettings, WindowMode>(&GraphicSettings::mode) },
@@ -31,10 +35,16 @@ static void LoadSectionYaml(const std::string& key,
 Settings::Settings(const std::string& path, const Arguments& /*args*/)
   : settings_file_(path) {
   
-  if (Platform::Exists(settings_file_)) {
-    auto yaml = MiniYaml::MapFromFile(settings_file_);
-    LoadSectionYaml("Player", player_, yaml);
-    LoadSectionYaml("Graphics", graphics_, yaml);
+  try {
+    if (Platform::Exists(settings_file_)) {
+      auto yaml = MiniYaml::MapFromFile(settings_file_);
+      LoadSectionYaml("Player", player_, yaml);
+      LoadSectionYaml("Game", game_, yaml);
+      LoadSectionYaml("Graphics", graphics_, yaml);
+    }
+
+    // TODO: Override with commandline args
+  } catch (...) {
   }
 }
 

@@ -9,6 +9,7 @@
 #include "cnc/perf_sample.h"
 #include "cnc/perf_history.h"
 #include "cnc/input_handler.h"
+#include "cnc/mod_metadata.h"
 
 namespace cnc {
 
@@ -41,11 +42,18 @@ void Game::Initialize(const Arguments& args) {
       break;
     }
   }
+
+  std::cout << "Availble mods:" << std::endl;
+  for (const auto& mod : ModMetadata::AllMods()) {
+    std::cout << "\t" << mod.key() << ": " + mod.value().title() << " (" + mod.value().version() + ")";
+  }
+
+  InitializeMod(settings_->game().mod, args);
 }
 
 void Game::InitializeSettings(const Arguments& args) {
   std::vector<std::string> paths{ "^", "settings.yaml " };
-  settings_ = std::make_unique<Settings>(Platform::ResolvePath(paths), args);
+  settings_ = std::make_unique<Settings>(Platform::ResolvePaths(paths), args);
 }
 
 RunStatus Game::Run() {
