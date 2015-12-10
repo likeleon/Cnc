@@ -22,7 +22,8 @@ void Renderer::BeginFrame() {
   device_->Clear();
 }
 
-void Renderer::EndFrame() {
+void Renderer::EndFrame(IInputHandler& input_handler) {
+  device_->PumpInput(input_handler);
   device_->Present();
 }
 

@@ -4,6 +4,8 @@
 
 namespace cnc {
 
+class IInputHandler;
+
 enum class WindowMode {
   Windowed,
   Fullscreen,
@@ -22,6 +24,7 @@ public:
 
   virtual void Clear() = 0;
   virtual void Present() = 0;
+  virtual void PumpInput(IInputHandler& input_handler) = 0;
 };
 
 using GraphicsDevicePtr = std::unique_ptr<IGraphicsDevice>;

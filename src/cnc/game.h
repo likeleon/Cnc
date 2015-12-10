@@ -17,10 +17,11 @@ enum class RunStatus {
 class Game {
 public:
   static void Initialize(const Arguments& args);
+  
   static RunStatus Run();
+  static void Exit();
 
   static Settings& settings() { return *settings_; }
-
   static int64_t RunTime();
 
   Game(const Game&) = delete;

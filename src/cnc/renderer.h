@@ -5,13 +5,14 @@
 namespace cnc {
 
 struct GraphicSettings;
+class IInputHandler;
 
 class Renderer {
 public:
   explicit Renderer(const GraphicSettings& graphic_settings);
 
   void BeginFrame();
-  void EndFrame();
+  void EndFrame(IInputHandler& input_handler);
 
 private:
   GraphicsDevicePtr device_;

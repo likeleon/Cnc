@@ -112,4 +112,9 @@ void Sdl2GraphicsDevice::Present() {
   SDL_GL_SwapWindow(window_);
 }
 
+void Sdl2GraphicsDevice::PumpInput(IInputHandler& input_handler) {
+  VerifyThreadAffinity();
+  input_.PumpInput(input_handler);
+}
+
 }

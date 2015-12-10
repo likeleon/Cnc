@@ -3,6 +3,7 @@
 #include "cnc/thread_affine.h"
 #include "cnc/igraphics_device.h"
 #include "cnc/size.h"
+#include "cnc/sdl2_input.h"
 
 namespace cnc {
 
@@ -15,6 +16,7 @@ public:
 
   void Clear() override;
   void Present() override;
+  void PumpInput(IInputHandler& input_handler) override;
 
 private:
   void GrabWindowMouseFocus();
@@ -23,6 +25,7 @@ private:
   Size window_size_;
   SDL_Window* window_ = nullptr;
   SDL_GLContext context_ = nullptr;
+  Sdl2Input input_;
 };
 
 }

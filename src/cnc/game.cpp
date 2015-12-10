@@ -8,6 +8,7 @@
 #include "cnc/renderer.h"
 #include "cnc/perf_sample.h"
 #include "cnc/perf_history.h"
+#include "cnc/input_handler.h"
 
 namespace cnc {
 
@@ -51,6 +52,10 @@ RunStatus Game::Run() {
   Loop();
   renderer_.reset();
   return state_;
+}
+
+void Game::Exit() {
+  state_ = RunStatus::Success;
 }
 
 int64_t Game::RunTime() {
@@ -108,7 +113,8 @@ void Game::RenderTick() {
     renderer_->BeginFrame();
 
     PERF_SAMPLE(render_flip, {
-      renderer_->EndFrame();
+      DefaultInputHandler input_handler;
+      renderer_->EndFrame(input_handler);
     });
   })
 

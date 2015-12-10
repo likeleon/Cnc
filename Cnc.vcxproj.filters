@@ -39,16 +39,7 @@
     <ClCompile Include="src\cnc\igraphics_device.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\thread_affine.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cnc\sdl2_graphics_device.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\cnc\stop_watch.cpp" />
-    <ClCompile Include="src\cnc\error_handler.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\cnc\perf_sample.cpp">
       <Filter>support</Filter>
     </ClCompile>
@@ -57,6 +48,18 @@
     </ClCompile>
     <ClCompile Include="src\cnc\perf_item.cpp">
       <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\sdl2_graphics_device.cpp">
+      <Filter>default_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\error_handler.cpp">
+      <Filter>default_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\thread_affine.cpp">
+      <Filter>default_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\sdl2_input.cpp">
+      <Filter>default_platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,16 +102,7 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\enum_info.h" />
-    <ClInclude Include="src\cnc\thread_affine.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cnc\sdl2_graphics_device.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\stop_watch.h" />
-    <ClInclude Include="src\cnc\error_handler.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\perf_sample.h">
       <Filter>support</Filter>
     </ClInclude>
@@ -117,6 +111,24 @@
     </ClInclude>
     <ClInclude Include="src\cnc\perf_item.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\iinput_handler.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\sdl2_graphics_device.h">
+      <Filter>default_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\error_handler.h">
+      <Filter>default_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\thread_affine.h">
+      <Filter>default_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\sdl2_input.h">
+      <Filter>default_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\input_handler.h">
+      <Filter>input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +146,12 @@
     </Filter>
     <Filter Include="graphics">
       <UniqueIdentifier>{1be00f4b-2e55-4468-b87c-8a4575bbe38c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{5e54eea4-32ab-4904-9ebb-8cb76b87f16e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="default_platform">
+      <UniqueIdentifier>{3845912d-286e-4dd7-a345-b18fcc8da631}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
