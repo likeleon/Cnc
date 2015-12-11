@@ -62,6 +62,7 @@
       <Filter>default_platform</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
+    <ClCompile Include="src\cnc\mod_data.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -132,6 +133,7 @@
       <Filter>input</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\mod_metadata.h" />
+    <ClInclude Include="src\cnc\mod_data.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

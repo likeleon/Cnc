@@ -5,6 +5,7 @@
 namespace cnc {
 
 class Arguments;
+class ModData;
 class Settings;
 class Renderer;
 
@@ -29,11 +30,13 @@ public:
 
 private:
   static void InitializeSettings(const Arguments& args);
+  static void InitializeMod(const std::string& mod, const Arguments& args);
   static void Loop();
   static void RenderTick();
 
   static const int64_t Timestep = 40;
 
+  static std::unique_ptr<ModData> mod_data_;
   static std::unique_ptr<Settings> settings_;
   static std::unique_ptr<Renderer> renderer_;
 

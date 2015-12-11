@@ -104,7 +104,7 @@ std::vector<std::string> Platform::GetFiles(const std::string& path) {
   return files;
 }
 
-std::vector<std::string> GetDirectories(const std::string& path) {
+std::vector<std::string> Platform::GetDirectories(const std::string& path) {
   std::vector<std::string> directories;
   for (auto& p : std::tr2::sys::directory_iterator(path)) {
     if (std::tr2::sys::is_directory(p)) {

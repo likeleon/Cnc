@@ -13,6 +13,9 @@ const std::vector<FieldLoadInfo> ModMetadata::load_info = {
   { "Hidden", BoolFieldInfo<ModMetadata>(&ModMetadata::hidden) }
 };
 
+std::unordered_map<std::string, ModMetadata> ModMetadata::all_mods;
+bool ModMetadata::all_mods_found = false;
+
 static std::unordered_map<std::string, ModMetadata> ValidateMods() {
   auto base_path = Platform::ResolvePaths({ std::string("."), "mods" });
   
@@ -31,7 +34,7 @@ static std::unordered_map<std::string, ModMetadata> ValidateMods() {
         continue;
       }
 
-      auto mod = FieldLoader::Load<ModMetadata>(nd["Metadata"]);
+      auto mod = FieldLoader::Load<ModMetadata>(nd.at("Metadata"));
       mod.id = m;
 
       ret.emplace(m, mod);
@@ -43,10 +46,7 @@ static std::unordered_map<std::string, ModMetadata> ValidateMods() {
   return ret;
 }
 
-static std::unordered_map<std::string, ModMetadata> all_mods;
-static bool all_mods_found = false;
-
-const std::unordered_map<std::string, ModMetadata>& AllMods() {
+const std::unordered_map<std::string, ModMetadata>& ModMetadata::AllMods() {
   if (!all_mods_found) {
     all_mods = ValidateMods();
     all_mods_found = true;

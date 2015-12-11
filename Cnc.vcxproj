@@ -24,6 +24,7 @@
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\main.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
+    <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
     <ClCompile Include="src\cnc\package_entry.cpp" />
     <ClCompile Include="src\cnc\perf_history.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="src\cnc\input_handler.h" />
     <ClInclude Include="src\cnc\log.h" />
     <ClInclude Include="src\cnc\mini_yaml.h" />
+    <ClInclude Include="src\cnc\mod_data.h" />
     <ClInclude Include="src\cnc\mod_metadata.h" />
     <ClInclude Include="src\cnc\package_entry.h" />
     <ClInclude Include="src\cnc\perf_history.h" />

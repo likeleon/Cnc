@@ -10,6 +10,7 @@
 #include "cnc/perf_history.h"
 #include "cnc/input_handler.h"
 #include "cnc/mod_metadata.h"
+#include "cnc/mod_data.h"
 
 namespace cnc {
 
@@ -18,6 +19,7 @@ std::unique_ptr<Renderer> Game::renderer_;
 StopWatch Game::stop_watch_;
 RunStatus Game::state_ = RunStatus::Running;
 int32_t Game::render_frame_ = 0;
+std::unique_ptr<ModData> Game::mod_data_;
 
 void Game::Initialize(const Arguments& args) {
   std::cout << "Platform is " << Platform::CurrentPlatform() << std::endl;
@@ -44,8 +46,8 @@ void Game::Initialize(const Arguments& args) {
   }
 
   std::cout << "Availble mods:" << std::endl;
-  for (const auto& mod : ModMetadata::AllMods()) {
-    std::cout << "\t" << mod.key() << ": " + mod.value().title() << " (" + mod.value().version() + ")";
+  for (const auto& kv : ModMetadata::AllMods()) {
+    std::cout << "\t" << kv.first << ": " + kv.second.title << " (" + kv.second.version + ")";
   }
 
   InitializeMod(settings_->game().mod, args);
@@ -54,6 +56,15 @@ void Game::Initialize(const Arguments& args) {
 void Game::InitializeSettings(const Arguments& args) {
   std::vector<std::string> paths{ "^", "settings.yaml " };
   settings_ = std::make_unique<Settings>(Platform::ResolvePaths(paths), args);
+}
+
+void Game::InitializeMod(const std::string& mod, const Arguments& /*args*/) {
+  mod_data_.reset();
+
+  std::cout << "Loading mod: " << mod << std::endl;
+  settings_->game().mod = mod;
+
+  mod_data_ = std::make_unique<ModData>(mod, true);
 }
 
 RunStatus Game::Run() {
