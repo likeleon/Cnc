@@ -8,18 +8,18 @@
 namespace cnc {
 
 const std::vector<FieldLoadInfo> PlayerSettings::load_info = {
-  { "Name", StringFieldInfo<PlayerSettings>(&PlayerSettings::name) }
+  { "Name", StringFieldInfo(&PlayerSettings::name) }
 };
 
 const std::vector<FieldLoadInfo> GameSettings::load_info = {
-  { "Mod", StringFieldInfo<GameSettings>(&GameSettings::mod) }
+  { "Mod", StringFieldInfo(&GameSettings::mod) }
 };
 
 const std::vector<FieldLoadInfo> GraphicSettings::load_info = {
-  { "Renderer", StringFieldInfo<GraphicSettings>(&GraphicSettings::renderer) },
-  { "Mode", EnumFieldInfo<GraphicSettings, WindowMode>(&GraphicSettings::mode) },
-  { "FullscreenSize", TypeFieldInfo<GraphicSettings, Size>(&GraphicSettings::fullscreen_size) },
-  { "WindowedSize", TypeFieldInfo<GraphicSettings, Size>(&GraphicSettings::windowed_size) }
+  { "Renderer", StringFieldInfo(&GraphicSettings::renderer) },
+  { "Mode", EnumFieldInfo(&GraphicSettings::mode) },
+  { "FullscreenSize", TypeFieldInfo(&GraphicSettings::fullscreen_size) },
+  { "WindowedSize", TypeFieldInfo(&GraphicSettings::windowed_size) }
 };
 
 template <typename T>

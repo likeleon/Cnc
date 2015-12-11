@@ -6,11 +6,11 @@
 namespace cnc {
 
 const std::vector<FieldLoadInfo> ModMetadata::load_info = {
-  { "Title", StringFieldInfo<ModMetadata>(&ModMetadata::title) },
-  { "Description", StringFieldInfo<ModMetadata>(&ModMetadata::description) },
-  { "Version", StringFieldInfo<ModMetadata>(&ModMetadata::version) },
-  { "Author", StringFieldInfo<ModMetadata>(&ModMetadata::author) },
-  { "Hidden", BoolFieldInfo<ModMetadata>(&ModMetadata::hidden) }
+  { "Title", StringFieldInfo(&ModMetadata::title) },
+  { "Description", StringFieldInfo(&ModMetadata::description) },
+  { "Version", StringFieldInfo(&ModMetadata::version) },
+  { "Author", StringFieldInfo(&ModMetadata::author) },
+  { "Hidden", BoolFieldInfo(&ModMetadata::hidden) }
 };
 
 std::unordered_map<std::string, ModMetadata> ModMetadata::all_mods;

@@ -25,23 +25,23 @@ struct FieldInfoTraits {
 };
 
 template <typename TObject, typename TField>
-FieldInfo StringFieldInfo(TField field) {
+FieldInfo StringFieldInfo(TField TObject::*field) {
   return FieldInfo([field](void *o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
     (obj->*field) = v;
   });
 }
 
-template <typename TObject, typename TEnum, typename TField>
-FieldInfo EnumFieldInfo(TField field) {
+template <typename TObject, typename TField>
+FieldInfo EnumFieldInfo(TField TObject::*field) {
   return FieldInfo([field](void* o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
-    (obj->*field) = NameToEnum<TEnum>(v);
+    (obj->*field) = NameToEnum<TField>(v);
   });
 }
 
-template <typename TObject, typename TField>
-FieldInfo BoolFieldInfo(TField field) {
+template <typename TObject>
+FieldInfo BoolFieldInfo(bool TObject::*field) {
   return FieldInfo([field](void* o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
     if (v == "true") {
@@ -54,11 +54,11 @@ FieldInfo BoolFieldInfo(TField field) {
   });
 }
 
-template <typename TObject, typename TType, typename TField>
-FieldInfo TypeFieldInfo(TField field) {
+template <typename TObject, typename TField>
+FieldInfo TypeFieldInfo(TField TObject::*field) {
   return FieldInfo([field](void* o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
-    (obj->*field) = FieldInfoTraits<TType>::Parse(v);
+    (obj->*field) = FieldInfoTraits<TField>::Parse(v);
   });
 }
 
