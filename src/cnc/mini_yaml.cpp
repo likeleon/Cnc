@@ -2,7 +2,6 @@
 #include "cnc/mini_yaml.h"
 #include "cnc/debug.h"
 #include "cnc/string.h"
-#include "cnc/yaml_exception.h"
 
 namespace cnc {
 
@@ -40,15 +39,16 @@ static std::list<std::string> ReadAllLines(const std::string& path) {
   return lines;
 }
 
-static std::pair<std::string, std::string> SplitAtColon(const std::string& t,
-                                                        const MiniYamlNode::SourceLocation& location) {
+static std::pair<std::string, std::string> SplitAtColon(const std::string& t) {
+  std::string key;
+  std::string value;
   size_t colon = t.find(':');
-  if (colon == -1) {
-    throw YamlException("Colon not found at " + location.ToString());
+  if (colon != -1) {
+    key = String::Trim(t.substr(0, colon));
+    value = String::Trim(t.substr(colon + 1));
+  } else {
+    key = t;
   }
-
-  std::string value = String::Trim(t.substr(colon + 1));
-  std::string key = String::Trim(t.substr(0, colon));
   return std::make_pair(key, value);
 }
 
@@ -105,14 +105,14 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
     MiniYamlNode::SourceLocation location(filename, line_no);
 
     if (levels.size() <= level) {
-      throw YamlException("Bad indent in miniyaml at " + location.ToString());
+      Debug::Error("Bad indent in miniyaml at " + location.ToString());
     }
     while (levels.size() > level + 1) {
       levels.erase(levels.begin() + static_cast<int32_t>(levels.size()) - 1);
     }
 
     MiniYamlNodesPtr nodes(std::make_shared<std::vector<MiniYamlNode>>());
-    auto pair = SplitAtColon(t, location);
+    auto pair = SplitAtColon(t);
     levels[level]->emplace_back(pair.first, pair.second, nodes, location);
 
     levels.push_back(nodes);
@@ -128,7 +128,10 @@ MiniYamlNodesPtr MiniYaml::FromFile(const std::string& path) {
 std::unordered_map<std::string, MiniYaml> MiniYaml::ToMap() const {
   std::unordered_map<std::string, MiniYaml> result;
   for (const auto& node : nodes()) {
-    result.emplace(node.key(), node.value());
+    bool added = result.emplace(node.key(), node.value()).second;
+    if (!added) {
+      Debug::Error("Duplicate key '" + node.key() + "' in " + node.location().ToString());
+    }
   }
   return result;
 }

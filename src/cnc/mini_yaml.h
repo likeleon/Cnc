@@ -48,6 +48,7 @@ public:
 
   const std::string& key() const { return key_; }
   const MiniYaml& value() const { return value_; }
+  const SourceLocation& location() const { return location_; }
 
   std::string ToString() const;
 

@@ -45,9 +45,9 @@ void Game::Initialize(const Arguments& args) {
     }
   }
 
-  std::cout << "Availble mods:" << std::endl;
+  std::cout << "Available mods:" << std::endl;
   for (const auto& kv : ModMetadata::AllMods()) {
-    std::cout << "\t" << kv.first << ": " + kv.second.title << " (" + kv.second.version + ")";
+    std::cout << "\t" << kv.first << ": " + kv.second.title << " (" + kv.second.version + ")" << std::endl;
   }
 
   InitializeMod(settings_->game().mod, args);

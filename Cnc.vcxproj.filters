@@ -17,7 +17,6 @@
     <ClCompile Include="src\cnc\string.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\yaml_exception.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
     <ClCompile Include="src\cnc\debug.cpp" />
     <ClCompile Include="src\cnc\global_file_system.cpp">
@@ -81,7 +80,6 @@
     <ClInclude Include="src\cnc\string.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\yaml_exception.h" />
     <ClInclude Include="src\cnc\field_loader.h" />
     <ClInclude Include="src\cnc\debug.h" />
     <ClInclude Include="src\cnc\global_file_system.h">

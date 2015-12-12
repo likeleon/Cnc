@@ -1,0 +1,18 @@
+Metadata:
+	Title: Mod Chooser
+	Version: 0.1
+	Author: likeleon
+	Hidden: true
+
+RequiredMods:
+
+Folders:
+	.
+	./mods/modchooser
+
+Assemblies:
+	./mods/common/Cnc.Mods.Common.dll
+
+LoadScreen: ModChooserLoadScreen
+	Image: ./mods/modchooser/chrome.png
+	
