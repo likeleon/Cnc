@@ -62,6 +62,7 @@
     </ClCompile>
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
     <ClCompile Include="src\cnc\mod_data.cpp" />
+    <ClCompile Include="src\cnc\manifest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -132,6 +133,7 @@
     </ClInclude>
     <ClInclude Include="src\cnc\mod_metadata.h" />
     <ClInclude Include="src\cnc\mod_data.h" />
+    <ClInclude Include="src\cnc\manifest.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

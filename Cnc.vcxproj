@@ -23,6 +23,7 @@
     <ClCompile Include="src\cnc\igraphics_device.cpp" />
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\main.cpp" />
+    <ClCompile Include="src\cnc\manifest.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
     <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="src\cnc\iinput_handler.h" />
     <ClInclude Include="src\cnc\input_handler.h" />
     <ClInclude Include="src\cnc\log.h" />
+    <ClInclude Include="src\cnc\manifest.h" />
     <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\mod_data.h" />
     <ClInclude Include="src\cnc\mod_metadata.h" />

@@ -3,7 +3,8 @@
 
 namespace cnc {
 
-ModData::ModData(const std::string& /*mod*/, bool /*use_load_screen*/) {
+ModData::ModData(const std::string& mod, bool /*use_load_screen*/)
+  : manifest_(mod) {
 }
 
 }
