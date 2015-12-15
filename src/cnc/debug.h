@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #ifndef NDEBUG
 #define CNC_ASSERT(condition, message) Debug::CheckAssertion(condition, message)
 #else

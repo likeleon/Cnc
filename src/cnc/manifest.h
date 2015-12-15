@@ -11,6 +11,9 @@ public:
   
   static const std::unordered_map<std::string, Manifest>& AllMods();
 
+  const std::vector<std::string>& folders() const;
+  const std::vector<std::string>& assemblies() const;
+
 private:
   static std::vector<std::string> YamlList(const std::unordered_map<std::string, MiniYaml>& yaml,
                                            const std::string& key,

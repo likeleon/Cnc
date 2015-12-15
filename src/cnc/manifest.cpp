@@ -70,4 +70,12 @@ std::vector<std::string> Manifest::YamlList(const std::unordered_map<std::string
   return ret;
 }
 
+const std::vector<std::string>& Manifest::folders() const {
+  return folders_;
+}
+
+const std::vector<std::string>& Manifest::assemblies() const {
+  return assemblies_;
+}
+
 }

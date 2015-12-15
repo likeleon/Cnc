@@ -64,6 +64,7 @@
     <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\mod_data.h" />
     <ClInclude Include="src\cnc\mod_metadata.h" />
+    <ClInclude Include="src\cnc\object_creator.h" />
     <ClInclude Include="src\cnc\package_entry.h" />
     <ClInclude Include="src\cnc\perf_history.h" />
     <ClInclude Include="src\cnc\perf_item.h" />

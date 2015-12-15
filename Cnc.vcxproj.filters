@@ -134,6 +134,7 @@
     <ClInclude Include="src\cnc\mod_metadata.h" />
     <ClInclude Include="src\cnc\mod_data.h" />
     <ClInclude Include="src\cnc\manifest.h" />
+    <ClInclude Include="src\cnc\object_creator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
