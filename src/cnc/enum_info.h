@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cnc/debug.h"
+#include "cnc/error.h"
 
 namespace cnc {
 
@@ -44,7 +44,7 @@ template <typename E>
 const std::string& EnumToName(E value) {
   const auto& it = EnumInfoTraits<E>::names.find(value);
   if (it == EnumInfoTraits<E>::names.end()) {
-    Debug::Die(std::string("Missing ") + EnumInfoTraits<E>::pretty_name);
+    throw Error(MSG(std::string("Missing ") + EnumInfoTraits<E>::pretty_name));
   }
   return it->second;
 }
@@ -56,7 +56,8 @@ E NameToEnum(const std::string& name) {
       return kvp.first;
     }
   }
-  Debug::Die(std::string("Invalid ") + EnumInfoTraits<E>::pretty_name + " name: '" + name + "'");
+  auto text = std::string("Invalid ") + EnumInfoTraits<E>::pretty_name + " name: '" + name + "'";
+  throw Error(MSG(text));
 }
 
 template <typename E>

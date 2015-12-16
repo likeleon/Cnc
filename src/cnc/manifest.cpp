@@ -2,7 +2,7 @@
 #include "cnc/manifest.h"
 #include "cnc/platform.h"
 #include "cnc/string.h"
-#include "cnc/debug.h"
+#include "cnc/log.h"
 
 namespace cnc {
 
@@ -18,8 +18,8 @@ static std::unordered_map<std::string, Manifest> LoadMods() {
     try {
       ret.emplace(mod, Manifest(mod));
     } catch (const std::exception &e) {
-      Debug::Warning("An exception occured while trying to load mod " + mod + ":");
-      Debug::Warning(e.what());
+      Log::Write("debug", "An exception occured while trying to load mod " + mod + ":");
+      Log::Write("debug", e.what());
     }
   }
   return ret;

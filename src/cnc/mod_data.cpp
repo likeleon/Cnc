@@ -1,6 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/mod_data.h"
 #include "cnc/manifest.h"
+#include "cnc/error.h"
 
 namespace cnc {
 
@@ -12,8 +13,7 @@ ModData::ModData(const std::string& mod, bool /*use_load_screen*/)
   for (const auto& assembly : manifest_.assemblies()) {
     LibraryPtr library(LoadLibraryA(assembly.c_str()));
     if (!library) {
-      Debug::Error("Failed to load library: " + assembly);
-      continue;
+      throw Error(MSG("Failed to load library: " + assembly));
     }
 
     auto register_type_func = reinterpret_cast<RegisterTypeFunc>(GetProcAddress(library.get(), "RegisterTypes"));

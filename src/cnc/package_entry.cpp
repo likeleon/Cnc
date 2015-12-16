@@ -1,7 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/package_entry.h"
 #include "cnc/string.h"
-#include "cnc/debug.h"
+#include "cnc/error.h"
 
 namespace cnc {
 
@@ -22,7 +22,7 @@ uint32_t PackageEntry::HashFilename(const std::string& name, PackageHashType typ
     }
     return result;
   } else {
-    Debug::Die("Unknown hash type");
+    throw Error(MSG("Unknown hash type"));
   }
 }
 

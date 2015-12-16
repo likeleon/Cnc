@@ -4,7 +4,7 @@
 #include "cnc/platform.h"
 #include "cnc/settings.h"
 #include "cnc/global_file_system.h"
-#include "cnc/debug.h"
+#include "cnc/error.h"
 #include "cnc/renderer.h"
 #include "cnc/perf_sample.h"
 #include "cnc/perf_history.h"
@@ -34,7 +34,7 @@ void Game::Initialize(const Arguments& args) {
   std::vector<std::string> renderers{ settings_->graphics().renderer, "Default", "" };
   for (const auto& r : renderers) {
     if (r.empty()) {
-      Debug::Error("No suitable renderes were found. Check graphics.log for details.");
+      throw Error(MSG("No suitable renderes were found. Check graphics.log for details."));
     }
 
     settings_->graphics().renderer = r;

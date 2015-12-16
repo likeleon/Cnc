@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cnc\arguments.cpp" />
-    <ClCompile Include="src\cnc\debug.cpp" />
     <ClCompile Include="src\cnc\device_factory.cpp" />
     <ClCompile Include="src\cnc\error.cpp" />
     <ClCompile Include="src\cnc\error_handler.cpp" />
@@ -49,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\arguments.h" />
-    <ClInclude Include="src\cnc\debug.h" />
     <ClInclude Include="src\cnc\device_factory.h" />
     <ClInclude Include="src\cnc\enum_info.h" />
     <ClInclude Include="src\cnc\error.h" />

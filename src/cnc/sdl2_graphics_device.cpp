@@ -4,6 +4,7 @@
 #include "cnc/game.h"
 #include "cnc/settings.h"
 #include "cnc/error_handler.h"
+#include "cnc/error.h"
 
 namespace cnc {
 
@@ -48,7 +49,8 @@ Sdl2GraphicsDevice::Sdl2GraphicsDevice(const Size& window_size, WindowMode windo
 
   context_ = SDL_GL_CreateContext(window_);
   if (context_ == NULL || SDL_GL_MakeCurrent(window_, context_) < 0) {
-    Debug::Error(std::string("Can not create OpenGL context. (Error: {") + SDL_GetError() + "}");
+    auto text = std::string("Can not create OpenGL context. (Error: {") + SDL_GetError() + "}";
+    throw Error(MSG(text));
   }
 
   ErrorHandler::CheckGlVersion();
@@ -57,7 +59,7 @@ Sdl2GraphicsDevice::Sdl2GraphicsDevice(const Size& window_size, WindowMode windo
   if (SDL_GL_ExtensionSupported("GL_EXT_framebuffer_object") == SDL_bool::SDL_FALSE) {
     ErrorHandler::WriteGraphicsLog("Cnc requires the OpenGL extension GL_EXT_framebuffer_object.\n"
                                    "Please try updating your GPU driver to the lastest version provided by the manufacturer.");
-    Debug::Error("Missing OpenGL extension GL_EXT_framebuffer_object. See graphics.log for details.");
+    throw Error(MSG("Missing OpenGL extension GL_EXT_framebuffer_object. See graphics.log for details."));
   }
 
   glEnableClientState(GL_VERTEX_ARRAY);

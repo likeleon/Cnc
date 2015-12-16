@@ -2,7 +2,7 @@
 #include "cnc/error_handler.h"
 #include "cnc/string.h"
 #include "cnc/log.h"
-#include "cnc/debug.h"
+#include "cnc/error.h"
 
 namespace cnc {
 
@@ -30,7 +30,7 @@ void ErrorHandler::CheckGlVersion() {
   WriteGraphicsLog("Detected OpenGL version: " + version_string);
   if (major < 2) {
     WriteGraphicsLog("Cnc requires OpenGL version 2.0 or greater and detected " + version_string);
-    Debug::Error("OpenGL Version ERror: See graphics.log for details.");
+    throw Error(MSG("OpenGL Version ERror: See graphics.log for details."));
   }
 }
 
@@ -38,7 +38,7 @@ void ErrorHandler::CheckGlError() {
   auto n = glGetError();
   if (n != GL_NO_ERROR) {
     WriteGraphicsLog("GL Error: " + std::to_string(n));
-    Debug::Error("OpenGL Error: See graphics.log for details.");
+    throw Error(MSG("OpenGL Error: See graphics.log for details."));
   }
 }
 void ErrorHandler::WriteGraphicsLog(const std::string& message) {

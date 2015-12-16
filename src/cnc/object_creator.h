@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 #include <typeindex>
-#include "cnc/debug.h"
+#include "cnc/error.h"
 
 namespace cnc {
 
@@ -14,8 +14,7 @@ public:
   T* CreateObject() {
     auto it = create_funcs_.find(typeid(T));
     if (it == create_funcs_.end()) {
-      Debug::Error("type '" + type_index.name + "' not found");
-      return nullptr;
+      throw Error(MSG("type '" + type_index.name + "' not found"));
     }
 
     CreateFunc create_func = it.second;
@@ -24,12 +23,9 @@ public:
 
   template <typename T>
   void Register(CreateFunc create_func) {
-    Debug::CheckAssertion(create_func != nullptr);
-
     auto type_index = typeid(T);
     if (create_funcs_.find(type_index) != create_funcs_.end()) {
-      Debug::Error("type '" + type_index.name + "' already registered");
-      return;
+      throw Error(MSG("type '" + type_index.name + "' already registered"));
     }
 
     create_funcs_.emplace(type_index, create_func);

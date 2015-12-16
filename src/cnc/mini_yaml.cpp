@@ -1,6 +1,6 @@
 #include "cnc/stdafx.h"
 #include "cnc/mini_yaml.h"
-#include "cnc/debug.h"
+#include "cnc/error.h"
 #include "cnc/string.h"
 
 namespace cnc {
@@ -27,8 +27,7 @@ std::unordered_map<std::string, MiniYaml> MiniYaml::MapFromFile(const std::strin
 static std::list<std::string> ReadAllLines(const std::string& path) {
   std::ifstream file(path);
   if (!file) {
-    Debug::Error("Cannot open file: " + path);
-    return {};
+    throw Error(MSG("Cannot open file: " + path));
   }
 
   std::list<std::string> lines;
@@ -105,7 +104,7 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
     MiniYamlNode::SourceLocation location(filename, line_no);
 
     if (levels.size() <= level) {
-      Debug::Error("Bad indent in miniyaml at " + location.ToString());
+      throw Error(MSG("Bad indent in miniyaml at " + location.ToString()));
     }
     while (levels.size() > level + 1) {
       levels.erase(levels.begin() + static_cast<int32_t>(levels.size()) - 1);
@@ -130,7 +129,7 @@ std::unordered_map<std::string, MiniYaml> MiniYaml::ToMap() const {
   for (const auto& node : nodes()) {
     bool added = result.emplace(node.key(), node.value()).second;
     if (!added) {
-      Debug::Error("Duplicate key '" + node.key() + "' in " + node.location().ToString());
+      throw Error(MSG("Duplicate key '" + node.key() + "' in " + node.location().ToString()));
     }
   }
   return result;
