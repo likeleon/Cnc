@@ -1,7 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/log.h"
 #include "cnc/platform.h"
-#include "cnc/fatal_exception.h"
+#include "cnc/error.h"
 
 namespace cnc {
 
@@ -39,7 +39,7 @@ void Log::AddChannel(const std::string& channel_name, const std::string& base_fi
 void Log::Write(const std::string& channel_name, const std::string& value) {
   auto iter = channels_.find(channel_name);
   if (iter == channels_.end()) {
-    throw FatalException("Tried logging to non-existant channel " + channel_name);
+    throw Error(MSG("Tried logging to non-existant channel " + channel_name));
   }
 
   auto& channel = iter->second;

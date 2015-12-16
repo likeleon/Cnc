@@ -5,7 +5,6 @@
     <ClCompile Include="src\cnc\main.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp" />
     <ClCompile Include="src\cnc\platform.cpp" />
-    <ClCompile Include="src\cnc\fatal_exception.cpp" />
     <ClCompile Include="src\cnc\settings.cpp" />
     <ClCompile Include="src\cnc\log.cpp">
       <Filter>support</Filter>
@@ -70,7 +69,6 @@
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\targetver.h" />
     <ClInclude Include="src\cnc\platform.h" />
-    <ClInclude Include="src\cnc\fatal_exception.h" />
     <ClInclude Include="src\cnc\settings.h" />
     <ClInclude Include="src\cnc\log.h">
       <Filter>support</Filter>

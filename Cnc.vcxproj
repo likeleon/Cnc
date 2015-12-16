@@ -15,7 +15,6 @@
     <ClCompile Include="src\cnc\device_factory.cpp" />
     <ClCompile Include="src\cnc\error.cpp" />
     <ClCompile Include="src\cnc\error_handler.cpp" />
-    <ClCompile Include="src\cnc\fatal_exception.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
     <ClCompile Include="src\cnc\folder.cpp" />
     <ClCompile Include="src\cnc\game.cpp" />
@@ -52,7 +51,6 @@
     <ClInclude Include="src\cnc\enum_info.h" />
     <ClInclude Include="src\cnc\error.h" />
     <ClInclude Include="src\cnc\error_handler.h" />
-    <ClInclude Include="src\cnc\fatal_exception.h" />
     <ClInclude Include="src\cnc\field_loader.h" />
     <ClInclude Include="src\cnc\folder.h" />
     <ClInclude Include="src\cnc\game.h" />

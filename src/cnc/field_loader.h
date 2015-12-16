@@ -2,6 +2,7 @@
 
 #include "cnc/mini_yaml.h"
 #include "cnc/enum_info.h"
+#include "cnc/error.h"
 
 namespace cnc {
 

@@ -1,7 +1,7 @@
 #include "cnc/stdafx.h"
 #include <shlobj.h>
 #include "cnc/platform.h"
-#include "cnc/fatal_exception.h"
+#include "cnc/error.h"
 #include "cnc/string.h"
 
 namespace cnc {
@@ -32,7 +32,7 @@ static fs_path GetPersonalDir() {
   LPWSTR ppszPath;
   HRESULT hr = SHGetKnownFolderPath(FOLDERID_Documents, KF_FLAG_DONT_UNEXPAND, nullptr, &ppszPath);
   if (FAILED(hr)) {
-    throw FatalException("Unable to get personal directory");
+    throw Error(MSG("Unable to get personal directory"));
   }
 
   std::wstring dir(ppszPath);
