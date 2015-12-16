@@ -14,6 +14,7 @@
     <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\debug.cpp" />
     <ClCompile Include="src\cnc\device_factory.cpp" />
+    <ClCompile Include="src\cnc\error.cpp" />
     <ClCompile Include="src\cnc\error_handler.cpp" />
     <ClCompile Include="src\cnc\fatal_exception.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
@@ -24,6 +25,7 @@
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\main.cpp" />
     <ClCompile Include="src\cnc\manifest.cpp" />
+    <ClCompile Include="src\cnc\message.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
     <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
@@ -50,6 +52,7 @@
     <ClInclude Include="src\cnc\debug.h" />
     <ClInclude Include="src\cnc\device_factory.h" />
     <ClInclude Include="src\cnc\enum_info.h" />
+    <ClInclude Include="src\cnc\error.h" />
     <ClInclude Include="src\cnc\error_handler.h" />
     <ClInclude Include="src\cnc\fatal_exception.h" />
     <ClInclude Include="src\cnc\field_loader.h" />
@@ -61,6 +64,7 @@
     <ClInclude Include="src\cnc\input_handler.h" />
     <ClInclude Include="src\cnc\log.h" />
     <ClInclude Include="src\cnc\manifest.h" />
+    <ClInclude Include="src\cnc\message.h" />
     <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\mod_data.h" />
     <ClInclude Include="src\cnc\mod_metadata.h" />

@@ -63,6 +63,8 @@
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
     <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\manifest.cpp" />
+    <ClCompile Include="src\cnc\message.cpp" />
+    <ClCompile Include="src\cnc\error.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -135,6 +137,8 @@
     <ClInclude Include="src\cnc\mod_data.h" />
     <ClInclude Include="src\cnc\manifest.h" />
     <ClInclude Include="src\cnc\object_creator.h" />
+    <ClInclude Include="src\cnc\message.h" />
+    <ClInclude Include="src\cnc\error.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
