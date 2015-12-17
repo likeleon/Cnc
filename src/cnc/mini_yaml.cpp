@@ -124,15 +124,12 @@ MiniYamlNodesPtr MiniYaml::FromFile(const std::string& path) {
   return FromLines(ReadAllLines(path), path);
 }
 
+static MiniYaml MiniYamlIdentity(const MiniYaml& y) {
+  return y;
+};
+
 std::unordered_map<std::string, MiniYaml> MiniYaml::ToMap() const {
-  std::unordered_map<std::string, MiniYaml> result;
-  for (const auto& node : nodes()) {
-    bool added = result.emplace(node.key(), node.value()).second;
-    if (!added) {
-      throw Error(MSG("Duplicate key '" + node.key() + "' in " + node.location().ToString()));
-    }
-  }
-  return result;
+  return ToMap<MiniYaml>(MiniYamlIdentity);
 }
 
 MiniYamlNode::SourceLocation::SourceLocation() {

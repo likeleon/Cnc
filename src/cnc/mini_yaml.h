@@ -1,5 +1,9 @@
 #pragma once
 
+#include <functional>
+#include <string>
+#include "cnc/message.h"
+
 namespace cnc {
 
 class MiniYamlNode;
@@ -15,6 +19,22 @@ public:
   static MiniYamlNodesPtr FromFile(const std::string& path);
 
   std::unordered_map<std::string, MiniYaml> ToMap() const;
+  
+  template <typename T>
+  using ElementSelector = std::function<T (const MiniYaml& y)>;
+
+  template <typename T>
+  std::unordered_map<std::string, T> ToMap(const ElementSelector<T>& element_selector) const {
+    std::unordered_map<std::string, T> result;
+    for (const auto& node : nodes()) {
+      T element = element_selector(node.value());
+      bool added = result.emplace(node.key(), element).second;
+      if (!added) {
+        throw Error(MSG("Duplicate key '" + node.key() + "' in " + node.location().ToString()));
+      }
+    }
+    return result;
+  }
 
   const std::string& value() const { return value_; }
   const std::vector<MiniYamlNode>& nodes() const { return *nodes_; }

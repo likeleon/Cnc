@@ -13,6 +13,7 @@ public:
 
   const std::vector<std::string>& folders() const;
   const std::vector<std::string>& assemblies() const;
+  const MiniYaml& load_screen() const;
 
 private:
   static std::vector<std::string> YamlList(const std::unordered_map<std::string, MiniYaml>& yaml,

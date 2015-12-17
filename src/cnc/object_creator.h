@@ -1,38 +1,44 @@
 #pragma once
 
+#include <string>
 #include <unordered_map>
-#include <typeindex>
+#include <memory>
 #include "cnc/error.h"
 
 namespace cnc {
 
+template <typename T>
+T* New() {
+  return new T;
+}
+
 class ObjectCreator {
 public:
-  using CreateFunc = void* (*)();
+  template <typename T>
+  using CreateFunc = T* (*)();
 
   template <typename T>
-  T* CreateObject() {
-    auto it = create_funcs_.find(typeid(T));
+  std::unique_ptr<T> CreateObject(const std::string& type_name) {
+    auto it = create_funcs_.find(type_name);
     if (it == create_funcs_.end()) {
-      throw Error(MSG("type '" + type_index.name + "' not found"));
+      throw Error(MSG("type '" + type_name + "' not found"));
     }
 
-    CreateFunc create_func = it.second;
-    return static_cast<T*>(create_func());
+    T* obj = static_cast<T*>(it->second());
+    return std::unique_ptr<T>(obj);
   }
 
   template <typename T>
-  void Register(CreateFunc create_func) {
-    auto type_index = typeid(T);
-    if (create_funcs_.find(type_index) != create_funcs_.end()) {
-      throw Error(MSG("type '" + type_index.name + "' already registered"));
+  void Register(const std::string& type_name, CreateFunc<T> create_func) {
+    if (create_funcs_.find(type_name) != create_funcs_.end()) {
+      throw Error(MSG("type '" + type_name + "' already registered"));
     }
 
-    create_funcs_.emplace(type_index, create_func);
+    create_funcs_.emplace(type_name, reinterpret_cast<CreateFunc<void>>(create_func));
   }
 
 private:
-  std::unordered_map<std::type_index, CreateFunc> create_funcs_;
+  std::unordered_map<std::string, CreateFunc<void>> create_funcs_;
 };
 
 }

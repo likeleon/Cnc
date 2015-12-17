@@ -78,4 +78,8 @@ const std::vector<std::string>& Manifest::assemblies() const {
   return assemblies_;
 }
 
+const MiniYaml& Manifest::load_screen() const {
+  return *load_screen_;
+}
+
 }
