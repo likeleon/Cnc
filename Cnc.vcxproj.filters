@@ -62,6 +62,15 @@
     <ClCompile Include="src\cnc\message.cpp" />
     <ClCompile Include="src\cnc\error.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp" />
+    <ClCompile Include="src\cnc\float2.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\rectangle.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\point.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -133,6 +142,15 @@
     <ClInclude Include="src\cnc\message.h" />
     <ClInclude Include="src\cnc\error.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
+    <ClInclude Include="src\cnc\float2.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\rectangle.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\point.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

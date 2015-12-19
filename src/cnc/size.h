@@ -3,7 +3,6 @@
 namespace cnc {
 
 struct Size {
-public:
   Size();
   Size(int32_t width, int32_t height);
 
@@ -24,6 +23,6 @@ Size operator*(const Size& size, int32_t factor);
 Size operator*(int32_t factor, const Size& size);
 Size operator/(const Size& size, int32_t divisor);
 
-std::ostream& operator<<(std::ostream& stream, const Size& size);
+std::ostream& operator<<(std::ostream& os, const Size& size);
 
 }

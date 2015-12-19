@@ -62,9 +62,9 @@ Size operator/(const Size& size, int32_t divisor) {
   return{ size.width / divisor, size.height / divisor };
 }
 
-std::ostream& operator<<(std::ostream& stream, const Size& size) {
-  stream << '(' << size.width << ',' << size.height << ')';
-  return stream;
+std::ostream& operator<<(std::ostream& os, const Size& size) {
+  os << size.width << ',' << size.height;
+  return os;
 }
 
 }
