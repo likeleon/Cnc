@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\cnc\game.cpp" />
-    <ClCompile Include="src\cnc\main.cpp" />
-    <ClCompile Include="src\cnc\stdafx.cpp" />
     <ClCompile Include="src\cnc\platform.cpp" />
     <ClCompile Include="src\cnc\settings.cpp" />
     <ClCompile Include="src\cnc\log.cpp">
@@ -63,11 +61,10 @@
     <ClCompile Include="src\cnc\manifest.cpp" />
     <ClCompile Include="src\cnc\message.cpp" />
     <ClCompile Include="src\cnc\error.cpp" />
+    <ClCompile Include="src\cnc\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
-    <ClInclude Include="src\cnc\stdafx.h" />
-    <ClInclude Include="src\cnc\targetver.h" />
     <ClInclude Include="src\cnc\platform.h" />
     <ClInclude Include="src\cnc\settings.h" />
     <ClInclude Include="src\cnc\log.h">
@@ -135,6 +132,7 @@
     <ClInclude Include="src\cnc\object_creator.h" />
     <ClInclude Include="src\cnc\message.h" />
     <ClInclude Include="src\cnc\error.h" />
+    <ClInclude Include="src\cnc\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

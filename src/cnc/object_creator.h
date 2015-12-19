@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
-#include <memory>
 #include "cnc/error.h"
 
 namespace cnc {

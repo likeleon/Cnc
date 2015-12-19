@@ -1,4 +1,4 @@
-#include "cnc/stdafx.h"
+#include "cnc/game/stdafx.h"
 #include "cnc/arguments.h"
 #include "cnc/game.h"
 #include "cnc/log.h"

@@ -1,6 +1,5 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
-#include <windows.h>
-
+#include "cnc/mods/common/stdafx.h"
 #include "cnc/object_creator.h"
 #include "cnc/mod_data.h"
 

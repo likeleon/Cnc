@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdexcept>
 #include "cnc/message.h"
 
 namespace cnc {

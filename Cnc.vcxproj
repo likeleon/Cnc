@@ -21,7 +21,6 @@
     <ClCompile Include="src\cnc\global_file_system.cpp" />
     <ClCompile Include="src\cnc\igraphics_device.cpp" />
     <ClCompile Include="src\cnc\log.cpp" />
-    <ClCompile Include="src\cnc\main.cpp" />
     <ClCompile Include="src\cnc\manifest.cpp" />
     <ClCompile Include="src\cnc\message.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
@@ -78,7 +77,6 @@
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\stop_watch.h" />
     <ClInclude Include="src\cnc\string.h" />
-    <ClInclude Include="src\cnc\targetver.h" />
     <ClInclude Include="src\cnc\thread_affine.h" />
   </ItemGroup>
   <ItemGroup>
@@ -137,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <PrecompiledHeaderFile>cnc\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>cnc/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,7 +156,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <PrecompiledHeaderFile>cnc\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>cnc/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
