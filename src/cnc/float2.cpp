@@ -3,6 +3,8 @@
 
 namespace cnc {
 
+const Float2 Float2::Zero(0.0f, 0.0f);
+
 Float2::Float2(float x, float y)
   : x(x), y(y) {
 }

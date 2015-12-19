@@ -12,6 +12,16 @@ enum class WindowMode {
   PseudoFullscreen
 };
 
+enum class BlendMode {
+  None,
+  Alpha,
+  Additive,
+  Subtractive,
+  Multiply,
+  Multiplicated,
+  DoubleMultiplicated
+};
+
 template <>
 struct EnumInfoTraits<WindowMode> {
   static const std::string pretty_name;

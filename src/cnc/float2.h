@@ -10,6 +10,8 @@ struct Float2 {
   Float2& operator*=(int32_t factor);
   Float2& operator/=(int32_t divisor);
 
+  static const Float2 Zero;
+
   float x = 0.0f;
   float y = 0.0f;
 };

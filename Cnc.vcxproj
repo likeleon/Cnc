@@ -38,7 +38,9 @@
     <ClCompile Include="src\cnc\sdl2_graphics_device.cpp" />
     <ClCompile Include="src\cnc\sdl2_input.cpp" />
     <ClCompile Include="src\cnc\settings.cpp" />
+    <ClCompile Include="src\cnc\sheet.cpp" />
     <ClCompile Include="src\cnc\size.cpp" />
+    <ClCompile Include="src\cnc\sprite.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -79,7 +81,10 @@
     <ClInclude Include="src\cnc\sdl2_graphics_device.h" />
     <ClInclude Include="src\cnc\sdl2_input.h" />
     <ClInclude Include="src\cnc\settings.h" />
+    <ClInclude Include="src\cnc\sheet.h" />
+    <ClInclude Include="src\cnc\sheet_ptr.h" />
     <ClInclude Include="src\cnc\size.h" />
+    <ClInclude Include="src\cnc\sprite.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\stop_watch.h" />
     <ClInclude Include="src\cnc\string.h" />
