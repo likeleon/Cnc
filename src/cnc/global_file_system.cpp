@@ -3,6 +3,8 @@
 #include "cnc/platform.h"
 #include "cnc/string.h"
 #include "cnc/folder.h"
+#include "cnc/error.h"
+#include "cnc/package_entry.h"
 
 namespace cnc {
 
@@ -66,6 +68,38 @@ void GlobalFileSystem::UnmountAll() {
   mounted_folders_.clear();
   classic_hash_index_.clear();
   crc_hash_index_.clear();
+}
+
+std::string GlobalFileSystem::Open(const std::string& filename) {
+  std::string s;
+  if (!TryOpen(filename, s)) {
+    throw Error(MSG("File not found" + filename));
+  }
+  return s;
+}
+
+bool GlobalFileSystem::TryOpen(const std::string& name, std::string& s) {
+  std::string filename = name;
+  std::string foldername = "";
+
+  bool explicit_folder = String::Contains(name, ":") && !Platform::Exists(Platform::GetDirectoryName(name));
+  if (explicit_folder) {
+    auto divide = String::Split(name, ':');
+    foldername = divide.front();
+    filename = divide.back();
+  }
+
+  if (filename.find_first_of("/\\") != std::string::npos && !explicit_folder) {
+    if (GetFromCache(PackageHashType::Classic, filename), s) {
+      return true;
+    }
+    if (GetFromCache(PackageHashType::CRC32, filename), s) {
+      return true;
+    }
+  }
+
+  IFolder* folder;
+  if (explicit_folder && foldername.empty())
 }
 
 }

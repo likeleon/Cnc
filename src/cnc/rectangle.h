@@ -11,6 +11,12 @@ struct Rectangle {
 
   static const Rectangle Empty;
 
+  int32_t Left() const;
+  int32_t Right() const;
+  int32_t Top() const;
+  int32_t Bottom() const;
+  Size Size() const;
+
   int32_t x = 0;
   int32_t y = 0;
   int32_t width = 0;

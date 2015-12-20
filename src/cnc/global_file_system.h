@@ -16,6 +16,9 @@ public:
   static void Mount(const std::string& name, const std::string& annotation = "");
   static void UnmountAll();
 
+  static std::string Open(const std::string& filename);
+  static bool TryOpen(const std::string& filename, std::string& s);
+
 private:
   static IFolderPtr OpenPackage(const std::string& filename,
                                 const std::string& annotation,

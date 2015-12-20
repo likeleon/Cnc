@@ -30,6 +30,12 @@ struct Sprite {
   BlendMode blend_mode;
   TextureChannel channel;
   Float2 size;
+  Float2 offset;
+  Float2 fractional_offset;
+  float top;
+  float left;
+  float bottom;
+  float right;
 };
 
 }
