@@ -2,6 +2,8 @@
 #include "cnc/file_system.h"
 #include "cnc/platform.h"
 #include "cnc/string.h"
+#include "cnc/file.h"
+#include "cnc/path.h"
 #include "cnc/folder.h"
 #include "cnc/error.h"
 #include "cnc/package_entry.h"
@@ -82,7 +84,7 @@ bool FileSystem::TryOpen(const std::string& name, std::string& s) {
   std::string filename = name;
   std::string foldername = "";
 
-  bool explicit_folder = String::Contains(name, ":") && !Platform::Exists(Platform::GetDirectoryName(name));
+  bool explicit_folder = String::Contains(name, ":") && !File::Exists(Path::GetDirectoryName(name));
   if (explicit_folder) {
     auto divide = String::Split(name, ':');
     foldername = divide.front();

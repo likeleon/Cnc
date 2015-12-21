@@ -1,6 +1,8 @@
 #include "cnc/stdafx.h"
 #include "cnc/mod_metadata.h"
 #include "cnc/platform.h"
+#include "cnc/directory.h"
+#include "cnc/file.h"
 #include "cnc/mini_yaml.h"
 
 namespace cnc {
@@ -20,11 +22,11 @@ static std::unordered_map<std::string, ModMetadata> ValidateMods() {
   auto base_path = Platform::ResolvePaths({ std::string("."), "mods" });
   
   std::unordered_map<std::string, ModMetadata> ret;
-  for (const auto& dir : Platform::GetDirectories(base_path)) {
+  for (const auto& dir : Directory::GetDirectories(base_path)) {
     auto m = dir.substr(base_path.length() + 1);
     try {
       auto yaml_path = Platform::ResolvePaths({ ".", "mods", m, "mod.yaml" });
-      if (!Platform::Exists(yaml_path)) {
+      if (!File::Exists(yaml_path)) {
         continue;
       }
 

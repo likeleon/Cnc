@@ -86,42 +86,6 @@ std::string Platform::ResolvePaths(const std::vector<std::string>& paths) {
   return ResolvePath(path.string());
 }
 
-bool Platform::CreateDir(const std::string& path) {
-  return std::tr2::sys::create_directory(path);
-}
-
-bool Platform::Exists(const std::string& path) {
-  return std::tr2::sys::exists(path);
-}
-
-std::vector<std::string> Platform::GetFiles(const std::string& path) {
-  std::vector<std::string> files;
-  for (auto& p : std::tr2::sys::directory_iterator(path)) {
-    if (std::tr2::sys::is_regular_file(p)) {
-      files.emplace_back(p.path().string());
-    }
-  }
-  return files;
-}
-
-std::vector<std::string> Platform::GetDirectories(const std::string& path) {
-  std::vector<std::string> directories;
-  for (auto& p : std::tr2::sys::directory_iterator(path)) {
-    if (std::tr2::sys::is_directory(p)) {
-      directories.emplace_back(p.path().string());
-    }
-  }
-  return directories;
-}
-
-std::string Platform::GetDirectoryName(const std::string& path) {
-  return fs_path(path).parent_path().string();
-}
-
-std::string Platform::GetFileName(const std::string& path) {
-  return fs_path(path).filename().string();
-}
-
 void Platform::Sleep(int64_t duration_ms) {
   std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
 }

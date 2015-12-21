@@ -1,6 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/manifest.h"
 #include "cnc/platform.h"
+#include "cnc/directory.h"
 #include "cnc/string.h"
 #include "cnc/log.h"
 
@@ -8,7 +9,7 @@ namespace cnc {
 
 static std::unordered_map<std::string, Manifest> LoadMods() {
   auto base_path = Platform::ResolvePaths({ ".", "mods" });
-  auto mods = Platform::GetDirectories(base_path);
+  auto mods = Directory::GetDirectories(base_path);
   std::transform(mods.begin(), mods.end(), mods.begin(), [base_path](const auto& s) {
     return s.substr(base_path.length() + 1);
   });

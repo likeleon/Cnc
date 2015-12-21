@@ -80,6 +80,12 @@
     <ClCompile Include="src\cnc\file.cpp">
       <Filter>file_system</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\path.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\directory.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -173,6 +179,12 @@
       <Filter>file_system</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\cnc.h" />
+    <ClInclude Include="src\cnc\path.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\directory.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

@@ -1,6 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/log.h"
 #include "cnc/platform.h"
+#include "cnc/directory.h"
 #include "cnc/error.h"
 
 namespace cnc {
@@ -18,7 +19,7 @@ void Log::AddChannel(const std::string& channel_name, const std::string& base_fi
   }
 
   auto log_dir = Platform::ResolvePaths({ Platform::SupportDir(), "Logs" });
-  Platform::CreateDir(log_dir);
+  Directory::CreateDir(log_dir);
 
   for (int32_t i = 0; ; ++i) {
     std::string filename = (i > 0) ? base_filename + std::to_string(i) : base_filename;

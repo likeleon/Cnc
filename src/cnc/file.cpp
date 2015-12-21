@@ -4,6 +4,10 @@
 
 namespace cnc {
 
+bool File::Exists(const std::string& path) {
+  return std::tr2::sys::exists(path);
+}
+
 std::string File::OpenRead(const std::string& path) {
   std::ifstream ifs(path, std::ios::binary | std::ios::in | std::ios::ate);
   if (!ifs.is_open()) {

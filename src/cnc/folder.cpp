@@ -3,13 +3,15 @@
 #include "cnc/platform.h"
 #include "cnc/package_entry.h"
 #include "cnc/file.h"
+#include "cnc/directory.h"
+#include "cnc/path.h"
 
 namespace cnc {
 
 Folder::Folder(const std::string& path, int32_t priority)
   : path_(path), priority_(priority) {
-  if (!Platform::Exists(path_)) {
-    Platform::CreateDir(path_);
+  if (!File::Exists(path_)) {
+    Directory::CreateDir(path_);
   }
 }
 
@@ -18,13 +20,13 @@ std::string Folder::GetContent(const std::string& filename) const {
 }
 
 bool Folder::Exists(const std::string& filename) const {
-  return Platform::Exists(Platform::ResolvePaths({ path_, filename }));
+  return File::Exists(Platform::ResolvePaths({ path_, filename }));
 }
 
 std::vector<uint32_t> Folder::ClassicHashes() const {
   std::vector<uint32_t> hashes;
-  for (const auto& file : Platform::GetFiles(path_)) {
-    std::string filename = Platform::GetFileName(file);
+  for (const auto& file : Directory::GetFiles(path_)) {
+    std::string filename = Path::GetFileName(file);
     hashes.emplace_back(PackageEntry::HashFilename(filename, PackageHashType::Classic));
   }
   return hashes;

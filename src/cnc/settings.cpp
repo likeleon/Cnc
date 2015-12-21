@@ -1,7 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/settings.h"
 #include "cnc/mini_yaml.h"
-#include "cnc/platform.h"
+#include "cnc/file.h"
 #include "cnc/field_loader.h"
 #include "cnc/enum_info.h"
 
@@ -36,7 +36,7 @@ Settings::Settings(const std::string& path, const Arguments& /*args*/)
   : settings_file_(path) {
   
   try {
-    if (Platform::Exists(settings_file_)) {
+    if (File::Exists(settings_file_)) {
       auto yaml = MiniYaml::MapFromFile(settings_file_);
       LoadSectionYaml("Player", player_, yaml);
       LoadSectionYaml("Game", game_, yaml);

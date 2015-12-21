@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\device_factory.cpp" />
+    <ClCompile Include="src\cnc\directory.cpp" />
     <ClCompile Include="src\cnc\error.cpp" />
     <ClCompile Include="src\cnc\error_handler.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
     <ClCompile Include="src\cnc\package_entry.cpp" />
+    <ClCompile Include="src\cnc\path.cpp" />
     <ClCompile Include="src\cnc\perf_history.cpp" />
     <ClCompile Include="src\cnc\perf_item.cpp" />
     <ClCompile Include="src\cnc\perf_sample.cpp" />
@@ -54,6 +56,7 @@
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\cnc.h" />
     <ClInclude Include="src\cnc\device_factory.h" />
+    <ClInclude Include="src\cnc\directory.h" />
     <ClInclude Include="src\cnc\enum_info.h" />
     <ClInclude Include="src\cnc\error.h" />
     <ClInclude Include="src\cnc\error_handler.h" />
@@ -74,6 +77,7 @@
     <ClInclude Include="src\cnc\mod_metadata.h" />
     <ClInclude Include="src\cnc\object_creator.h" />
     <ClInclude Include="src\cnc\package_entry.h" />
+    <ClInclude Include="src\cnc\path.h" />
     <ClInclude Include="src\cnc\perf_history.h" />
     <ClInclude Include="src\cnc\perf_item.h" />
     <ClInclude Include="src\cnc\perf_sample.h" />
