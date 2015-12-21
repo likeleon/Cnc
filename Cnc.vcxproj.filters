@@ -15,9 +15,6 @@
       <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\field_loader.cpp" />
-    <ClCompile Include="src\cnc\global_file_system.cpp">
-      <Filter>file_system</Filter>
-    </ClCompile>
     <ClCompile Include="src\cnc\folder.cpp">
       <Filter>file_system</Filter>
     </ClCompile>
@@ -77,6 +74,9 @@
     <ClCompile Include="src\cnc\sprite.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\file_system.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -93,9 +93,6 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\field_loader.h" />
-    <ClInclude Include="src\cnc\global_file_system.h">
-      <Filter>file_system</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\folder.h">
       <Filter>file_system</Filter>
     </ClInclude>
@@ -165,6 +162,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\sheet_ptr.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\file_system.h">
+      <Filter>file_system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

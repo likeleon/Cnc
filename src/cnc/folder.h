@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cnc/global_file_system.h"
+#include "cnc/file_system.h"
 
 namespace cnc {
 

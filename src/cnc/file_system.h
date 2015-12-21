@@ -17,7 +17,7 @@ public:
 
 using IFolderPtr = std::shared_ptr<IFolder>;
 
-class GlobalFileSystem {
+class FileSystem {
 public:
   static void Mount(const std::string& name, const std::string& annotation = "");
   static void UnmountAll();

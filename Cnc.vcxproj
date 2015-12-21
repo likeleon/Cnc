@@ -19,7 +19,7 @@
     <ClCompile Include="src\cnc\float2.cpp" />
     <ClCompile Include="src\cnc\folder.cpp" />
     <ClCompile Include="src\cnc\game.cpp" />
-    <ClCompile Include="src\cnc\global_file_system.cpp" />
+    <ClCompile Include="src\cnc\file_system.cpp" />
     <ClCompile Include="src\cnc\igraphics_device.cpp" />
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\manifest.cpp" />
@@ -59,7 +59,7 @@
     <ClInclude Include="src\cnc\float2.h" />
     <ClInclude Include="src\cnc\folder.h" />
     <ClInclude Include="src\cnc\game.h" />
-    <ClInclude Include="src\cnc\global_file_system.h" />
+    <ClInclude Include="src\cnc\file_system.h" />
     <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\iinput_handler.h" />
     <ClInclude Include="src\cnc\input_handler.h" />

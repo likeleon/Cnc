@@ -1,5 +1,5 @@
 #include "cnc/stdafx.h"
-#include "cnc/global_file_system.h"
+#include "cnc/file_system.h"
 #include "cnc/platform.h"
 #include "cnc/string.h"
 #include "cnc/folder.h"
@@ -8,12 +8,12 @@
 
 namespace cnc {
 
-std::vector<IFolderPtr> GlobalFileSystem::mounted_folders_;
-GlobalFileSystem::HashIndex GlobalFileSystem::classic_hash_index_;
-GlobalFileSystem::HashIndex GlobalFileSystem::crc_hash_index_;
-int32_t GlobalFileSystem::order_ = 0;
+std::vector<IFolderPtr> FileSystem::mounted_folders_;
+FileSystem::HashIndex FileSystem::classic_hash_index_;
+FileSystem::HashIndex FileSystem::crc_hash_index_;
+int32_t FileSystem::order_ = 0;
 
-void GlobalFileSystem::Mount(const std::string& name, const std::string& annotation) {
+void FileSystem::Mount(const std::string& name, const std::string& annotation) {
   std::string final_name = name;
   bool optional = String::StartsWith(name, "~");
   if (optional) {
@@ -36,13 +36,13 @@ void GlobalFileSystem::Mount(const std::string& name, const std::string& annotat
   }
 }
 
-IFolderPtr GlobalFileSystem::OpenPackage(const std::string& filename,
+IFolderPtr FileSystem::OpenPackage(const std::string& filename,
                                          const std::string& /*annotation*/,
                                          int32_t order) {
   return std::make_unique<Folder>(filename, order);
 }
 
-void GlobalFileSystem::MountInner(IFolderPtr folder_ptr) {
+void FileSystem::MountInner(IFolderPtr folder_ptr) {
   auto* folder = folder_ptr.get();
   mounted_folders_.emplace_back(std::move(folder_ptr));
 
@@ -61,7 +61,7 @@ void GlobalFileSystem::MountInner(IFolderPtr folder_ptr) {
   }
 }
 
-void GlobalFileSystem::UnmountAll() {
+void FileSystem::UnmountAll() {
   for (auto& folder : mounted_folders_) {
     folder.reset();
   }
@@ -70,7 +70,7 @@ void GlobalFileSystem::UnmountAll() {
   crc_hash_index_.clear();
 }
 
-std::string GlobalFileSystem::Open(const std::string& filename) {
+std::string FileSystem::Open(const std::string& filename) {
   std::string s;
   if (!TryOpen(filename, s)) {
     throw Error(MSG("File not found" + filename));
@@ -78,7 +78,7 @@ std::string GlobalFileSystem::Open(const std::string& filename) {
   return s;
 }
 
-bool GlobalFileSystem::TryOpen(const std::string& name, std::string& s) {
+bool FileSystem::TryOpen(const std::string& name, std::string& s) {
   std::string filename = name;
   std::string foldername = "";
 
@@ -125,7 +125,7 @@ bool GlobalFileSystem::TryOpen(const std::string& name, std::string& s) {
   return true;
 }
 
-bool GlobalFileSystem::GetFromCache(PackageHashType type, const std::string& filename, std::string& s) {
+bool FileSystem::GetFromCache(PackageHashType type, const std::string& filename, std::string& s) {
   auto* index = (type == PackageHashType::CRC32) ? &crc_hash_index_ : &classic_hash_index_;
   auto iter = index->find(PackageEntry::HashFilename(filename, type));
   if (iter == index->end()) {

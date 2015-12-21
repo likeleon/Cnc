@@ -3,7 +3,7 @@
 #include "cnc/log.h"
 #include "cnc/platform.h"
 #include "cnc/settings.h"
-#include "cnc/global_file_system.h"
+#include "cnc/file_system.h"
 #include "cnc/error.h"
 #include "cnc/renderer.h"
 #include "cnc/perf_sample.h"
@@ -30,7 +30,7 @@ void Game::Initialize(const Arguments& args) {
   Log::AddChannel("debug", "debug.log");
   Log::AddChannel("graphics", "graphics.log");
 
-  GlobalFileSystem::Mount(Platform::GameDir());
+  FileSystem::Mount(Platform::GameDir());
   std::vector<std::string> renderers{ settings_->graphics().renderer, "Default", "" };
   for (const auto& r : renderers) {
     if (r.empty()) {
