@@ -4,7 +4,7 @@
 
 namespace cnc {
 
-Sheet::Sheet(SheetType type, const std::string& filename) {
+Sheet::Sheet(SheetType /*type*/, const std::string& filename) {
   auto stream = GlobalFileSystem::Open(filename);
 }
 

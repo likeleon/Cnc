@@ -2,6 +2,7 @@
 #include "cnc/mods/common/stdafx.h"
 #include "cnc/object_creator.h"
 #include "cnc/mod_data.h"
+#include "cnc/sheet.h"
 
 namespace cnc {
 namespace mods {
@@ -12,8 +13,8 @@ public:
   ModChooserLoadScreen() {
   }
 
-  void Init(const Manifest& m, const std::unordered_map<std::string, std::string>& info) override {
-    (m); (info);
+  void Init(const Manifest& /*m*/, const std::unordered_map<std::string, std::string>& info) override {
+    auto sheet = std::make_unique<Sheet>(SheetType::BGRA, info.at("Image"));
   }
   
   void Display() override {

@@ -24,6 +24,7 @@ public:
   static std::vector<std::string> GetFiles(const std::string& path);
   static std::vector<std::string> GetDirectories(const std::string& path);
   
+  static std::string GetDirectoryName(const std::string& path);
   static std::string GetFileName(const std::string& path);
 
   static void Sleep(int64_t duration_ms);

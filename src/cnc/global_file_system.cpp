@@ -9,8 +9,8 @@
 namespace cnc {
 
 std::vector<IFolderPtr> GlobalFileSystem::mounted_folders_;
-std::unordered_map<uint32_t, std::vector<const IFolder*>> GlobalFileSystem::classic_hash_index_;
-std::unordered_map<uint32_t, std::vector<const IFolder*>> GlobalFileSystem::crc_hash_index_;
+GlobalFileSystem::HashIndex GlobalFileSystem::classic_hash_index_;
+GlobalFileSystem::HashIndex GlobalFileSystem::crc_hash_index_;
 int32_t GlobalFileSystem::order_ = 0;
 
 void GlobalFileSystem::Mount(const std::string& name, const std::string& annotation) {
@@ -19,7 +19,7 @@ void GlobalFileSystem::Mount(const std::string& name, const std::string& annotat
   if (optional) {
     final_name = name.substr(1);
   }
-  
+
   final_name = Platform::ResolvePath(final_name);
 
   auto action = [name, annotation]() {
@@ -36,8 +36,8 @@ void GlobalFileSystem::Mount(const std::string& name, const std::string& annotat
   }
 }
 
-IFolderPtr GlobalFileSystem::OpenPackage(const std::string& filename, 
-                                         const std::string& /*annotation*/, 
+IFolderPtr GlobalFileSystem::OpenPackage(const std::string& filename,
+                                         const std::string& /*annotation*/,
                                          int32_t order) {
   return std::make_unique<Folder>(filename, order);
 }
@@ -63,7 +63,7 @@ void GlobalFileSystem::MountInner(IFolderPtr folder_ptr) {
 
 void GlobalFileSystem::UnmountAll() {
   for (auto& folder : mounted_folders_) {
-    folder.release();
+    folder.reset();
   }
   mounted_folders_.clear();
   classic_hash_index_.clear();
@@ -90,16 +90,64 @@ bool GlobalFileSystem::TryOpen(const std::string& name, std::string& s) {
   }
 
   if (filename.find_first_of("/\\") != std::string::npos && !explicit_folder) {
-    if (GetFromCache(PackageHashType::Classic, filename), s) {
+    if (GetFromCache(PackageHashType::Classic, filename, s)) {
       return true;
     }
-    if (GetFromCache(PackageHashType::CRC32, filename), s) {
-      return true;
-    }
+    //if (GetFromCache(PackageHashType::CRC32, filename, s)) {
+    //  return true;
+    //}
   }
 
-  IFolder* folder;
-  if (explicit_folder && foldername.empty())
+  std::vector<IFolderPtr> folders;
+  if (explicit_folder && !foldername.empty()) {
+    std::copy_if(
+      mounted_folders_.begin(), 
+      mounted_folders_.end(), 
+      folders.begin(), 
+      [foldername](const auto& f) { return f->name() == foldername; });
+  } else {
+    std::copy_if(
+      mounted_folders_.begin(),
+      mounted_folders_.end(),
+      folders.begin(),
+      [filename](const auto& f) { return f->Exists(filename); });
+  }
+  auto max_elem = std::max_element(
+    folders.begin(),
+    folders.end(),
+    [](const auto& a, const auto& b) { return a->priority() < b->priority(); });
+  if (max_elem == folders.end()) {
+    return false;
+  }
+
+  IFolderPtr folder = *max_elem;
+  s = folder->GetContent(filename);
+  return true;
+}
+
+bool GlobalFileSystem::GetFromCache(PackageHashType type, const std::string& filename, std::string& s) {
+  auto* index = (type == PackageHashType::CRC32) ? &crc_hash_index_ : &classic_hash_index_;
+  auto iter = index->find(PackageEntry::HashFilename(filename, type));
+  if (iter == index->end()) {
+    return false;
+  }
+  std::vector<const IFolder*> folders;
+  std::copy_if(
+    iter->second.begin(),
+    iter->second.end(),
+    folders.begin(),
+    [filename](const IFolder* f) { return f->Exists(filename); });
+  auto min_elem = std::min_element(
+    folders.begin(),
+    folders.end(),
+    [](const auto& a, const auto& b) { return a->priority() < b->priority(); });
+  if (min_elem == folders.end()) {
+    return false;
+  }
+
+  const IFolder* folder = *min_elem;
+  s = folder->GetContent(filename);
+  return true;
 }
 
 }

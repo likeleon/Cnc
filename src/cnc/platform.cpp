@@ -114,6 +114,10 @@ std::vector<std::string> Platform::GetDirectories(const std::string& path) {
   return directories;
 }
 
+std::string Platform::GetDirectoryName(const std::string& path) {
+  return fs_path(path).parent_path().string();
+}
+
 std::string Platform::GetFileName(const std::string& path) {
   return fs_path(path).filename().string();
 }
