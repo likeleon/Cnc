@@ -1,0 +1,10 @@
+#pragma once
+
+namespace cnc {
+
+class CNC_API File {
+public:
+  static std::string OpenRead(const std::string& path);
+};
+
+}

@@ -14,7 +14,7 @@ enum class TextureChannel {
   Alpha
 };
 
-struct Sprite {
+struct CNC_API Sprite {
   Sprite(const SheetPtr& sheet,
          const Rectangle& bounds,
          TextureChannel channel);

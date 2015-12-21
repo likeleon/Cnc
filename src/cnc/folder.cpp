@@ -2,6 +2,7 @@
 #include "cnc/folder.h"
 #include "cnc/platform.h"
 #include "cnc/package_entry.h"
+#include "cnc/file.h"
 
 namespace cnc {
 
@@ -13,8 +14,7 @@ Folder::Folder(const std::string& path, int32_t priority)
 }
 
 std::string Folder::GetContent(const std::string& filename) const {
-  std::ifstream ifs(filename);
-  return{ std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>() };
+  return File::OpenRead(filename);
 }
 
 bool Folder::Exists(const std::string& filename) const {

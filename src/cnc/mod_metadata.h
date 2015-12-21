@@ -4,7 +4,7 @@
 
 namespace cnc {
 
-struct ModMetadata {
+struct CNC_API ModMetadata {
   static const std::unordered_map<std::string, ModMetadata>& AllMods();
 
   std::string id;

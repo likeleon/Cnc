@@ -9,7 +9,7 @@ enum class PlatformType {
 
 std::ostream& operator<<(std::ostream& os, PlatformType platform);
 
-class Platform {
+class CNC_API Platform {
 public:
   static PlatformType CurrentPlatform();
   

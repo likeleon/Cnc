@@ -7,7 +7,7 @@ enum class PackageHashType {
   CRC32
 };
 
-class PackageEntry {
+class CNC_API PackageEntry {
 public:
   static uint32_t HashFilename(const std::string& name, PackageHashType type);
 };

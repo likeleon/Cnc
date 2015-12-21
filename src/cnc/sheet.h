@@ -10,9 +10,9 @@ enum class SheetType {
   BGRA = 4
 };
 
-class Sheet {
+class CNC_API Sheet {
 public:
-  Sheet(SheetType type, const std::string& filename);
+  Sheet(SheetType type, const std::string& stream);
 
   const Size& size() const;
 

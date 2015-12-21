@@ -2,7 +2,7 @@
 
 namespace cnc {
 
-class IInputHandler {
+class CNC_API IInputHandler {
 public:
   virtual ~IInputHandler() {}
 };

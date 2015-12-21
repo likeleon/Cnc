@@ -2,7 +2,7 @@
 
 namespace cnc {
 
-struct Size {
+struct CNC_API Size {
   Size();
   Size(int32_t width, int32_t height);
 

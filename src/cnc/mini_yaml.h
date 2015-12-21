@@ -10,7 +10,7 @@ class MiniYamlNode;
 
 using MiniYamlNodesPtr = std::shared_ptr<std::vector<MiniYamlNode>>;
 
-class MiniYaml {
+class CNC_API MiniYaml {
 public:
   explicit MiniYaml(const std::string& value);
   MiniYaml(const std::string& value, MiniYamlNodesPtr nodes);
@@ -44,7 +44,7 @@ private:
   MiniYamlNodesPtr nodes_;
 };
 
-class MiniYamlNode {
+class CNC_API MiniYamlNode {
 public:
   class SourceLocation {
   public:

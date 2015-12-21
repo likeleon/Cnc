@@ -3,8 +3,10 @@
   <ItemGroup>
     <ClCompile Include="src\cnc\mods\common\dllmain.cpp" />
     <ClCompile Include="src\cnc\mods\common\stdafx.cpp" />
+    <ClCompile Include="src\cnc\mods\common\mod_chooser_load_screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
+    <ClInclude Include="src\cnc\mods\common\mod_chooser_load_screen.h" />
   </ItemGroup>
 </Project>

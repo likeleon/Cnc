@@ -4,7 +4,7 @@ namespace cnc {
 
 struct Size;
 
-struct Float2 {
+struct CNC_API Float2 {
   Float2(float x, float y);
   explicit Float2(const Size& sz);
 

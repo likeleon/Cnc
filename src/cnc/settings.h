@@ -8,20 +8,20 @@ namespace cnc {
 
 class Arguments;
 
-struct PlayerSettings {
+struct CNC_API PlayerSettings {
   std::string name = "Newbie";
 
   static const std::vector<FieldLoadInfo> load_info;
 };
 
-struct GameSettings {
+struct CNC_API GameSettings {
   std::string mod = "modchooser";
   bool lock_mouse_window = false;
   
   static const std::vector<FieldLoadInfo> load_info;
 };
 
-struct GraphicSettings {
+struct CNC_API GraphicSettings {
   std::string renderer = "Default";
   WindowMode mode = WindowMode::PseudoFullscreen;
   Size fullscreen_size = Size(0, 0);
@@ -30,7 +30,7 @@ struct GraphicSettings {
   static const std::vector<FieldLoadInfo> load_info;
 };
 
-class Settings {
+class CNC_API Settings {
 public:
   Settings(const std::string& path, const Arguments& args);
 

@@ -141,4 +141,8 @@ void Game::RenderTick() {
   PerfHistory::Item("render_flip").Tick();
 }
 
+const Renderer& Game::renderer() {
+  return *renderer_.get();
+}
+
 }

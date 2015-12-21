@@ -9,7 +9,7 @@ T* New() {
   return new T;
 }
 
-class ObjectCreator {
+class CNC_API ObjectCreator {
 public:
   template <typename T>
   using CreateFunc = T* (*)();

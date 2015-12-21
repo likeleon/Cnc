@@ -2,7 +2,7 @@
 
 namespace cnc {
 
-struct Message {
+struct CNC_API Message {
   std::string text;
   const char* file_name;
   uint32_t line_no;
@@ -11,7 +11,7 @@ struct Message {
 
 std::ostream& operator<<(std::ostream& os, const Message& msg);
 
-class MessageBuilder {
+class CNC_API MessageBuilder {
 public:
   MessageBuilder(const std::string& text,
                  const char* file_name,

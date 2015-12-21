@@ -2,7 +2,7 @@
 
 namespace cnc {
 
-class Log {
+class CNC_API Log {
 public:
   Log() = delete;
 

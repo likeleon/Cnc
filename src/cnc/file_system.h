@@ -4,7 +4,7 @@
 
 namespace cnc {
 
-class IFolder {
+class CNC_API IFolder {
 public:
   virtual ~IFolder() {}
   virtual std::string GetContent(const std::string& filename) const = 0;
@@ -17,7 +17,7 @@ public:
 
 using IFolderPtr = std::shared_ptr<IFolder>;
 
-class FileSystem {
+class CNC_API FileSystem {
 public:
   static void Mount(const std::string& name, const std::string& annotation = "");
   static void UnmountAll();

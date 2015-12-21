@@ -2,7 +2,7 @@
 
 namespace cnc {
 
-class Arguments {
+class CNC_API Arguments {
 public:
   static const Arguments& Empty();
 

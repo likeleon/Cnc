@@ -28,7 +28,10 @@
 #include <chrono>
 #include <array>
 #include <ctime>
+#include <sstream>
 
 #include "SDL.h"
 #undef main
 #include "SDL_opengl.h"
+
+#include "cnc/cnc.h"

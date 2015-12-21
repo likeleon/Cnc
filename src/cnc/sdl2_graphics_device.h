@@ -12,7 +12,7 @@ public:
   Sdl2GraphicsDevice(const Size& window_size, WindowMode window_mode);
   virtual ~Sdl2GraphicsDevice();
 
-  const Size& window_size() const { return window_size_; }
+  const Size& window_size() const override { return window_size_; }
 
   void Clear() override;
   void Present() override;

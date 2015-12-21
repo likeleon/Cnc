@@ -77,6 +77,9 @@
     <ClCompile Include="src\cnc\file_system.cpp">
       <Filter>file_system</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\file.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -166,6 +169,10 @@
     <ClInclude Include="src\cnc\file_system.h">
       <Filter>file_system</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\file.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\cnc.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -189,5 +196,8 @@
     <Filter Include="default_platform">
       <UniqueIdentifier>{3845912d-286e-4dd7-a345-b18fcc8da631}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\cnc\enum_info.inl" />
   </ItemGroup>
 </Project>

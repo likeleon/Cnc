@@ -4,7 +4,7 @@ namespace cnc {
 
 struct Size;
 
-struct Point {
+struct CNC_API Point {
   Point(int32_t x, int32_t y);
 
   Point& operator+=(const Size& sz);

@@ -2,7 +2,7 @@
 
 namespace cnc {
 
-class StopWatch {
+class CNC_API StopWatch {
 public:
   StopWatch();
 

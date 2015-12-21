@@ -5,6 +5,7 @@
 namespace cnc {
 
 class IInputHandler;
+struct Size;
 
 enum class WindowMode {
   Windowed,
@@ -23,14 +24,16 @@ enum class BlendMode {
 };
 
 template <>
-struct EnumInfoTraits<WindowMode> {
+struct CNC_API EnumInfoTraits<WindowMode> {
   static const std::string pretty_name;
   static const EnumInfo<WindowMode>::NamesType names;
 };
 
-class IGraphicsDevice {
+class CNC_API IGraphicsDevice {
 public:
   virtual ~IGraphicsDevice() {}
+
+  virtual const Size& window_size() const = 0;
 
   virtual void Clear() = 0;
   virtual void Present() = 0;

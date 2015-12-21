@@ -27,4 +27,8 @@ void Renderer::EndFrame(IInputHandler& input_handler) {
   device_->Present();
 }
 
+const Size& Renderer::Resolution() const {
+  return device_->window_size();
+}
+
 }

@@ -12,3 +12,5 @@
 #include <chrono>
 #include <memory>
 #include <typeindex>
+
+#include "cnc/cnc.h"

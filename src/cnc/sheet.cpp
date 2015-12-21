@@ -4,8 +4,11 @@
 
 namespace cnc {
 
-Sheet::Sheet(SheetType /*type*/, const std::string& filename) {
-  auto stream = FileSystem::Open(filename);
+Sheet::Sheet(SheetType /*type*/, const std::string& /*stream*/) {
+}
+
+const Size& Sheet::size() const {
+  return size_;
 }
 
 }

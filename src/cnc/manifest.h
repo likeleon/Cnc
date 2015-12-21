@@ -5,7 +5,7 @@
 
 namespace cnc {
 
-class Manifest {
+class CNC_API Manifest {
 public:
   Manifest(const std::string& mod);
   

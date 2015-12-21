@@ -7,6 +7,9 @@ namespace cnc {
 
 const Rectangle Rectangle::Empty(0, 0, 0, 0);
 
+Rectangle::Rectangle() {
+}
+
 Rectangle::Rectangle(const Point& location, const cnc::Size& size)
   : x(location.x), y(location.y), width(size.width), height(size.height) {
 }

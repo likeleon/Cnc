@@ -4,7 +4,7 @@
 
 namespace cnc {
 
-class Error : public std::runtime_error {
+class CNC_API Error : public std::runtime_error {
 public:
   Error(const Message& msg, bool store_cause = true);
   

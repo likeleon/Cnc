@@ -4,7 +4,7 @@
 
 namespace cnc {
 
-class Folder : public IFolder {
+class CNC_API Folder : public IFolder {
 public:
   Folder(const std::string& path, int32_t priority);
   

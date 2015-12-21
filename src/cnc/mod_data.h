@@ -7,7 +7,7 @@ namespace cnc {
 
 class Arguments;
 
-class ILoadScreen {
+class CNC_API ILoadScreen {
 public:
   virtual ~ILoadScreen() {}
 
@@ -16,7 +16,7 @@ public:
   virtual void StartGame(const Arguments& args) = 0;
 };
 
-class ModData {
+class CNC_API ModData {
 public:
   ModData(const std::string& mod, bool use_load_screen = false);
 
