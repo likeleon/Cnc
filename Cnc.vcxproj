@@ -101,6 +101,9 @@
     <ProjectReference Include="src\third_party\SDL2-2.0.3\VisualC\SDL\SDL_VS2015.vcxproj">
       <Project>{81ce8daf-ebb2-4761-8e45-b71abcca8c68}</Project>
     </ProjectReference>
+    <ProjectReference Include="src\third_party\SDL2_image-2.0.0\VisualC\SDL_image_VS2015.vcxproj">
+      <Project>{2bd5534e-00e2-4bea-ac96-d9a92ea24696}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\cnc\enum_info.inl" />
@@ -154,7 +157,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;CNC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_image-2.0.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>cnc/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -177,7 +180,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;CNC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_image-2.0.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>cnc/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
