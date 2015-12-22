@@ -4,6 +4,8 @@
 
 namespace cnc {
 
+const Point Point::Zero(0, 0);
+
 Point::Point(int32_t x, int32_t y)
   : x(x), y(y) {
 }

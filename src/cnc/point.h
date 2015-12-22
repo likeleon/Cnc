@@ -10,6 +10,8 @@ struct CNC_API Point {
   Point& operator+=(const Size& sz);
   Point& operator-=(const Size& sz);
 
+  static const Point Zero;
+
   int32_t x = 0;
   int32_t y = 0;
 };
