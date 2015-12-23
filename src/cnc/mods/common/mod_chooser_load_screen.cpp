@@ -5,13 +5,17 @@
 #include "cnc/sheet.h"
 #include "cnc/game.h"
 #include "cnc/renderer.h"
+#include "cnc/input_handler.h"
+#include "cnc/widget_utils.h"
 
 namespace cnc {
 namespace mods {
 namespace common {
 
+static NullInputHandler null_input_handler;
+
 void ModChooserLoadScreen::Init(const Manifest& /*m*/, const std::unordered_map<std::string, std::string>& info) {
-  auto res = Game::renderer().Resolution();
+  auto res = Game::renderer()->Resolution();
   bounds_ = { 0, 0, res.width, res.height };
 
   auto stream = File::OpenRead(info.at("Image"));
@@ -20,6 +24,14 @@ void ModChooserLoadScreen::Init(const Manifest& /*m*/, const std::unordered_map<
 }
 
 void ModChooserLoadScreen::Display() {
+  auto r = Game::renderer();
+  if (r == nullptr) {
+    return;
+  }
+
+  r->BeginFrame();
+  WidgetUtils::FillRectWithSprite(bounds_, *sprite_);
+  r->EndFrame(null_input_handler);
 }
 
 void ModChooserLoadScreen::StartGame(const Arguments & /*args*/) {

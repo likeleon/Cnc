@@ -24,7 +24,7 @@ public:
 
   static Settings& settings() { return *settings_; }
   static int64_t RunTime();
-  static const Renderer& renderer();
+  static Renderer* renderer();
 
   Game() = delete;
   Game(const Game&) = delete;

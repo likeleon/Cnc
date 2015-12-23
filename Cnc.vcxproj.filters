@@ -89,6 +89,12 @@
     <ClCompile Include="src\cnc\graphics_util.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\color.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\widget_utils.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -194,6 +200,12 @@
     <ClInclude Include="src\cnc\surface_ptr.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\color.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\widget_utils.h">
+      <Filter>widgets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -216,6 +228,9 @@
     </Filter>
     <Filter Include="default_platform">
       <UniqueIdentifier>{3845912d-286e-4dd7-a345-b18fcc8da631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widgets">
+      <UniqueIdentifier>{fc419075-6da8-43bd-9298-8ecd130cc40c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

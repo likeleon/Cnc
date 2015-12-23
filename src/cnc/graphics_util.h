@@ -4,6 +4,7 @@ namespace cnc {
 
 class Sheet;
 struct Rectangle;
+struct Color;
 
 class GraphicsUtil {
 public:
@@ -13,6 +14,7 @@ public:
                                  int32_t dest_stride,
                                  const Rectangle& bounds, 
                                  SDL_Surface* src);
+  static Color PremultiplyAlpha(const Color& c);
 };
 
 }

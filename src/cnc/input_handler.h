@@ -4,6 +4,9 @@
 
 namespace cnc {
 
+class NullInputHandler : public IInputHandler {
+};
+
 class DefaultInputHandler : public IInputHandler {
 };
 
