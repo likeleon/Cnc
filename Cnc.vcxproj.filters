@@ -206,6 +206,9 @@
     <ClInclude Include="src\cnc\widget_utils.h">
       <Filter>widgets</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\sprite_renderer.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

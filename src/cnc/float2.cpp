@@ -1,5 +1,6 @@
 #include "cnc/stdafx.h"
 #include "cnc/float2.h"
+#include "cnc/point.h"
 #include "cnc/size.h"
 
 namespace cnc {
@@ -8,6 +9,10 @@ const Float2 Float2::Zero(0.0f, 0.0f);
 
 Float2::Float2(float x, float y)
   : x(x), y(y) {
+}
+
+Float2::Float2(const Point& p)
+  : Float2(static_cast<float>(p.x), static_cast<float>(p.y)) {
 }
 
 Float2::Float2(const Size& sz)

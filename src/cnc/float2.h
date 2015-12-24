@@ -2,11 +2,13 @@
 
 namespace cnc {
 
+struct Point;
 struct Size;
 
 struct CNC_API Float2 {
   Float2(float x, float y);
-  explicit Float2(const Size& sz);
+  Float2(const Point& p);
+  Float2(const Size& sz);
 
   Float2& operator+=(const Float2& other);
   Float2& operator-=(const Float2& other);

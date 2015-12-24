@@ -97,6 +97,7 @@
     <ClInclude Include="src\cnc\sheet_ptr.h" />
     <ClInclude Include="src\cnc\size.h" />
     <ClInclude Include="src\cnc\sprite.h" />
+    <ClInclude Include="src\cnc\sprite_renderer.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\stop_watch.h" />
     <ClInclude Include="src\cnc\string.h" />
