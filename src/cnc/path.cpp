@@ -11,4 +11,8 @@ std::string Path::GetFileName(const std::string& path) {
   return std::tr2::sys::path(path).filename().string();
 }
 
+char Path::DirectorySeparator() {
+  return std::tr2::sys::path::preferred_separator;
+}
+
 }

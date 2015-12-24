@@ -11,6 +11,8 @@ class Sdl2GraphicsDevice : public ThreadAffine, public IGraphicsDevice {
 public:
   Sdl2GraphicsDevice(const Size& window_size, WindowMode window_mode);
   virtual ~Sdl2GraphicsDevice();
+  
+  IShaderPtr CreateShader(const std::string& name) override;
 
   const Size& window_size() const override { return window_size_; }
 

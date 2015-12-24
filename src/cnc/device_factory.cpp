@@ -4,7 +4,7 @@
 
 namespace cnc {
 
-GraphicsDevicePtr DeviceFactory::CreateGraphics(const Size& size, WindowMode window_mode) {
+IGraphicsDevicePtr DeviceFactory::CreateGraphics(const Size& size, WindowMode window_mode) {
   return std::make_unique<Sdl2GraphicsDevice>(size, window_mode);
 }
 

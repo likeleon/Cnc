@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cnc/enum_info.h"
+#include "cnc/ishader.h"
 
 namespace cnc {
 
@@ -33,6 +34,8 @@ class CNC_API IGraphicsDevice {
 public:
   virtual ~IGraphicsDevice() {}
 
+  virtual IShaderPtr CreateShader(const std::string& name) = 0;
+
   virtual const Size& window_size() const = 0;
 
   virtual void Clear() = 0;
@@ -40,6 +43,6 @@ public:
   virtual void PumpInput(IInputHandler& input_handler) = 0;
 };
 
-using GraphicsDevicePtr = std::unique_ptr<IGraphicsDevice>;
+using IGraphicsDevicePtr = std::unique_ptr<IGraphicsDevice>;
 
 }

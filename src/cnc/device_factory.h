@@ -9,6 +9,6 @@ enum class WindowMode;
 
 class DeviceFactory {
 public:
-  static GraphicsDevicePtr CreateGraphics(const Size& size, WindowMode window_mode);
+  static IGraphicsDevicePtr CreateGraphics(const Size& size, WindowMode window_mode);
 };
 }

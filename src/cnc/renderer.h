@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cnc/igraphics_device.h"
+#include "cnc/sprite_renderer.h"
 
 namespace cnc {
 
@@ -15,9 +16,11 @@ public:
   void EndFrame(IInputHandler& input_handler);
 
   const Size& Resolution() const;
+  SpriteRenderer& rgba_sprite_renderer();
 
 private:
-  GraphicsDevicePtr device_;
+  IGraphicsDevicePtr device_;
+  std::unique_ptr<SpriteRenderer> rgba_sprite_renderer_;
 };
 
 }

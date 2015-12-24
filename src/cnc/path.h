@@ -8,6 +8,7 @@ public:
 
   static std::string GetDirectoryName(const std::string& path);
   static std::string GetFileName(const std::string& path);
+  static char DirectorySeparator();
 };
 
 }

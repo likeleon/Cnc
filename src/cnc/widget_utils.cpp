@@ -5,11 +5,12 @@
 #include "cnc/point.h"
 #include "cnc/game.h"
 #include "cnc/renderer.h"
+#include "cnc/sprite_renderer.h"
 
 namespace cnc {
 
-void WidgetUtils::DrawRGBA(const Sprite& s, const Float2& pos) {
-  Game::renderer()->rgba_sprite_renderer().DrawSprite(s, pos);
+void WidgetUtils::DrawRGBA(const Sprite& /*s*/, const Float2& /*pos*/) {
+  //Game::renderer()->rgba_sprite_renderer().DrawSprite(s, pos);
 }
 
 void WidgetUtils::FillRectWithSprite(const Rectangle& r, const Sprite& s) {

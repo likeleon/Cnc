@@ -2,6 +2,7 @@
 #include "cnc/renderer.h"
 #include "cnc/settings.h"
 #include "cnc/device_factory.h"
+#include "cnc/sprite_renderer.h"
 
 namespace cnc {
 
@@ -16,6 +17,8 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
   auto renderer_name = graphic_settings.renderer;
 
   device_ = DeviceFactory::CreateGraphics(resolution, graphic_settings.mode);
+
+  rgba_sprite_renderer_ = std::make_unique<SpriteRenderer>(this, device_->CreateShader("rgba"));
 }
 
 void Renderer::BeginFrame() {
@@ -29,6 +32,10 @@ void Renderer::EndFrame(IInputHandler& input_handler) {
 
 const Size& Renderer::Resolution() const {
   return device_->window_size();
+}
+
+SpriteRenderer& Renderer::rgba_sprite_renderer() {
+  return *rgba_sprite_renderer_;
 }
 
 }

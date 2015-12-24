@@ -5,6 +5,7 @@
 #include "cnc/settings.h"
 #include "cnc/error_handler.h"
 #include "cnc/error.h"
+#include "cnc/shader.h"
 
 namespace cnc {
 
@@ -80,6 +81,11 @@ Sdl2GraphicsDevice::~Sdl2GraphicsDevice() {
   }
 
   SDL_Quit();
+}
+
+IShaderPtr Sdl2GraphicsDevice::CreateShader(const std::string& name) {
+  VerifyThreadAffinity();
+  return std::make_unique<Shader>(name);
 }
 
 void Sdl2GraphicsDevice::GrabWindowMouseFocus() {
