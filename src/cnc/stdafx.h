@@ -30,9 +30,11 @@
 #include <ctime>
 #include <sstream>
 
+#define GLEW_STATIC
+#include "GL/glew.h"
+
 #include "SDL.h"
 #undef main
-#define GL_GLEXT_PROTOTYPES
 #include "SDL_opengl.h"
 #include "SDL_image.h"
 

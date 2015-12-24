@@ -69,6 +69,13 @@ Sdl2GraphicsDevice::Sdl2GraphicsDevice(const Size& window_size, WindowMode windo
   ErrorHandler::CheckGlError();
 
   SDL_SetModState(SDL_Keymod::KMOD_NONE);
+
+  GLenum err = glewInit();
+  if (err != GLEW_OK) {
+    const char* err_str = reinterpret_cast<const char*>(glewGetErrorString(err));
+    auto text = std::string("glewInit failed. (Error: {") + err_str + "}";
+    throw Error(MSG(text));
+  }
 }
 
 Sdl2GraphicsDevice::~Sdl2GraphicsDevice() {
