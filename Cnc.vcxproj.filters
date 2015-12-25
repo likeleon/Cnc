@@ -101,6 +101,15 @@
     <ClCompile Include="src\cnc\shader.cpp">
       <Filter>default_platform</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\vertex.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\texture.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\math_utils.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -220,6 +229,30 @@
     </ClInclude>
     <ClInclude Include="src\cnc\shader.h">
       <Filter>default_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\vertex.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\ibatch_renderer.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\blend_mode.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\itexture.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\ivertex_buffer.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\vertex_buffer.h">
+      <Filter>default_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\texture.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\math_utils.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,13 +6,7 @@ namespace cnc {
 std::unordered_map<std::string, PerfItem> PerfHistory::items_;
 
 void PerfHistory::Increment(const std::string& name, double x) {
-  auto iter = items_.find(name);
-  if (iter == items_.end()) {
-    iter = items_.emplace(name, PerfItem(name)).first;
-  }
-
-  PerfItem& perf_item = iter->second;
-  perf_item.IncreaseVal(x);
+  Items(name).IncreaseVal(x);
 }
 
 void PerfHistory::Tick() {
@@ -24,8 +18,12 @@ void PerfHistory::Tick() {
   }
 }
 
-PerfItem& PerfHistory::Item(const std::string& name) {
-  return items_.at(name);
+PerfItem& PerfHistory::Items(const std::string& name) {
+  auto iter = items_.find(name);
+  if (iter == items_.end()) {
+    iter = items_.emplace(name, PerfItem(name)).first;
+  }
+  return iter->second;
 }
 
 }

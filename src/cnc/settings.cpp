@@ -19,7 +19,8 @@ const std::vector<FieldLoadInfo> GraphicSettings::load_info = {
   { "Renderer", StringFieldInfo(&GraphicSettings::renderer) },
   { "Mode", EnumFieldInfo(&GraphicSettings::mode) },
   { "FullscreenSize", TypeFieldInfo(&GraphicSettings::fullscreen_size) },
-  { "WindowedSize", TypeFieldInfo(&GraphicSettings::windowed_size) }
+  { "WindowedSize", TypeFieldInfo(&GraphicSettings::windowed_size) },
+  { "SheetSize", Int32FieldInfo(&GraphicSettings::batch_size) }
 };
 
 template <typename T>

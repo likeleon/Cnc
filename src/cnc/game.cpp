@@ -65,6 +65,8 @@ void Game::InitializeMod(const std::string& mod, const Arguments& /*args*/) {
   settings_->game().mod = mod;
 
   mod_data_ = std::make_unique<ModData>(mod, true);
+
+  PerfHistory::Items("render").set_has_normal_tick(false);
 }
 
 RunStatus Game::Run() {
@@ -129,7 +131,7 @@ void Game::RenderTick() {
   PERF_SAMPLE(render, {
     ++render_frame_;
 
-    renderer_->BeginFrame();
+    renderer_->BeginFrame(Point::Zero, 1.0f);
 
     PERF_SAMPLE(render_flip, {
       DefaultInputHandler input_handler;
@@ -137,8 +139,9 @@ void Game::RenderTick() {
     });
   })
 
-  PerfHistory::Item("render").Tick();
-  PerfHistory::Item("render_flip").Tick();
+  PerfHistory::Items("render").Tick();
+  PerfHistory::Items("batches").Tick();
+  PerfHistory::Items("render_flip").Tick();
 }
 
 Renderer* Game::renderer() {

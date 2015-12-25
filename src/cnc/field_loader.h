@@ -42,6 +42,14 @@ FieldInfo EnumFieldInfo(TField TObject::*field) {
 }
 
 template <typename TObject>
+FieldInfo Int32FieldInfo(int32_t TObject::*field) {
+  return FieldInfo([field](void* o, const std::string& v) {
+    TObject* obj = static_cast<TObject*>(o);
+    (obj->*field) = std::stoi(v);
+  });
+}
+
+template <typename TObject>
 FieldInfo BoolFieldInfo(bool TObject::*field) {
   return FieldInfo([field](void* o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);

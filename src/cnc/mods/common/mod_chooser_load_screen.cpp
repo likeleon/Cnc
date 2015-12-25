@@ -29,7 +29,7 @@ void ModChooserLoadScreen::Display() {
     return;
   }
 
-  r->BeginFrame();
+  r->BeginFrame(Point::Zero, 1.0f);
   WidgetUtils::FillRectWithSprite(bounds_, *sprite_);
   r->EndFrame(null_input_handler);
 }

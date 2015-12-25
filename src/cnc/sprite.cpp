@@ -24,10 +24,10 @@ Sprite::Sprite(const SheetPtr& sheet,
   size(bounds.Size()),
   blend_mode(blend_mode),
   fractional_offset(offset / size) {
-  left = static_cast<float>(std::min(bounds.Left(), bounds.Right()) / sheet->size().width);
-  top = static_cast<float>(std::min(bounds.Top(), bounds.Bottom()) / sheet->size().height);
-  right = static_cast<float>(std::max(bounds.Left(), bounds.Right()) / sheet->size().width);
-  bottom = static_cast<float>(std::max(bounds.Top(), bounds.Bottom()) / sheet->size().height);
+  left = static_cast<float>(std::min(bounds.Left(), bounds.Right())) / sheet->size().width;
+  top = static_cast<float>(std::min(bounds.Top(), bounds.Bottom())) / sheet->size().height;
+  right = static_cast<float>(std::max(bounds.Left(), bounds.Right())) / sheet->size().width;
+  bottom = static_cast<float>(std::max(bounds.Top(), bounds.Bottom())) / sheet->size().height;
 }
 
 }

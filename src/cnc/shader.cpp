@@ -5,6 +5,7 @@
 #include "cnc/error_handler.h"
 #include "cnc/log.h"
 #include "cnc/error.h"
+#include "cnc/texture.h"
 
 namespace cnc {
 
@@ -91,6 +92,43 @@ Shader::Shader(const std::string& name) {
       ++next_tex_unit;
     }
   }
+}
+
+void Shader::SetVec(const std::string& name, float x, float y) {
+  VerifyThreadAffinity();
+  glUseProgram(program_);
+  ErrorHandler::CheckGlError();
+  auto param = glGetUniformLocation(program_, name.c_str());
+  ErrorHandler::CheckGlError();
+  glUniform2f(param, x, y);
+  ErrorHandler::CheckGlError();
+}
+
+void Shader::SetTexture(const std::string& name, const ITexturePtr& t) {
+  VerifyThreadAffinity();
+  if (t == nullptr) {
+    return;
+  }
+
+  auto iter = samplers_.find(name);
+  if (iter != samplers_.end()) {
+    textures_[iter->second] = t;
+  }
+}
+
+void Shader::Render(const RenderAction& a) {
+  VerifyThreadAffinity();
+  glUseProgram(program_);
+
+  for (const auto& kvp : textures_) {
+    glActiveTexture(GL_TEXTURE0 + kvp.first);
+    auto* texture = static_cast<Texture*>(kvp.second.get());
+    glBindTexture(GL_TEXTURE_2D, texture->id());
+  }
+
+  ErrorHandler::CheckGlError();
+  a();
+  ErrorHandler::CheckGlError();
 }
 
 }

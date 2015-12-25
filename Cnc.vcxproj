@@ -27,6 +27,7 @@
     <ClCompile Include="src\cnc\igraphics_device.cpp" />
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\manifest.cpp" />
+    <ClCompile Include="src\cnc\math_utils.cpp" />
     <ClCompile Include="src\cnc\message.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
     <ClCompile Include="src\cnc\mod_data.cpp" />
@@ -54,11 +55,14 @@
     </ClCompile>
     <ClCompile Include="src\cnc\stop_watch.cpp" />
     <ClCompile Include="src\cnc\string.cpp" />
+    <ClCompile Include="src\cnc\texture.cpp" />
     <ClCompile Include="src\cnc\thread_affine.cpp" />
+    <ClCompile Include="src\cnc\vertex.cpp" />
     <ClCompile Include="src\cnc\widget_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\arguments.h" />
+    <ClInclude Include="src\cnc\blend_mode.h" />
     <ClInclude Include="src\cnc\cnc.h" />
     <ClInclude Include="src\cnc\color.h" />
     <ClInclude Include="src\cnc\device_factory.h" />
@@ -73,12 +77,16 @@
     <ClInclude Include="src\cnc\game.h" />
     <ClInclude Include="src\cnc\file_system.h" />
     <ClInclude Include="src\cnc\graphics_util.h" />
+    <ClInclude Include="src\cnc\ibatch_renderer.h" />
     <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\iinput_handler.h" />
     <ClInclude Include="src\cnc\input_handler.h" />
     <ClInclude Include="src\cnc\ishader.h" />
+    <ClInclude Include="src\cnc\itexture.h" />
+    <ClInclude Include="src\cnc\ivertex_buffer.h" />
     <ClInclude Include="src\cnc\log.h" />
     <ClInclude Include="src\cnc\manifest.h" />
+    <ClInclude Include="src\cnc\math_utils.h" />
     <ClInclude Include="src\cnc\message.h" />
     <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\mod_data.h" />
@@ -106,7 +114,10 @@
     <ClInclude Include="src\cnc\stop_watch.h" />
     <ClInclude Include="src\cnc\string.h" />
     <ClInclude Include="src\cnc\surface_ptr.h" />
+    <ClInclude Include="src\cnc\texture.h" />
     <ClInclude Include="src\cnc\thread_affine.h" />
+    <ClInclude Include="src\cnc\vertex.h" />
+    <ClInclude Include="src\cnc\vertex_buffer.h" />
     <ClInclude Include="src\cnc\widget_utils.h" />
   </ItemGroup>
   <ItemGroup>

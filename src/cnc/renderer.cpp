@@ -18,24 +18,74 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
 
   device_ = DeviceFactory::CreateGraphics(resolution, graphic_settings.mode);
 
+  temp_buffer_size_ = graphic_settings.batch_size;
+
   rgba_sprite_renderer_ = std::make_unique<SpriteRenderer>(this, device_->CreateShader("rgba"));
+
+  temp_buffer_ = device_->CreateVertexBuffer(temp_buffer_size_);
 }
 
-void Renderer::BeginFrame() {
+void Renderer::BeginFrame(const Point& scroll, float zoom) {
   device_->Clear();
+  SetViewportParms(scroll, zoom);
+}
+
+void Renderer::SetViewportParms(const Point& scroll, float zoom) {
+  bool resolution_changed = last_resolution_ != Resolution();
+  if (resolution_changed) {
+    last_resolution_ = Resolution();
+    rgba_sprite_renderer_->SetViewportParams(Resolution(), 1.0f, Point::Zero);
+  }
+
+  if (resolution_changed || last_scroll_ != scroll || last_zoom_ != zoom) {
+    last_scroll_ = scroll;
+    last_zoom_ = zoom;
+  }
 }
 
 void Renderer::EndFrame(IInputHandler& input_handler) {
+  Flush();
   device_->PumpInput(input_handler);
   device_->Present();
+}
+
+void Renderer::DrawBatch(const std::vector<Vertex>& vertices, int32_t num_vertices, PrimitiveType type) {
+  temp_buffer_->SetData(vertices, num_vertices);
+  DrawBatch(*temp_buffer_, 0, num_vertices, type);
+}
+
+int32_t Renderer::temp_buffer_size() const {
+  return temp_buffer_size_;
 }
 
 const Size& Renderer::Resolution() const {
   return device_->window_size();
 }
 
+IGraphicsDevice& Renderer::device() {
+  return *device_;
+}
+
 SpriteRenderer& Renderer::rgba_sprite_renderer() {
   return *rgba_sprite_renderer_;
+}
+
+void Renderer::SetCurrentBatchRenderer(IBatchRenderer* r) {
+  if (current_batch_renderer_ == r) {
+    return;
+  }
+  if (current_batch_renderer_ != nullptr) {
+    current_batch_renderer_->Flush();
+  }
+  current_batch_renderer_ = r;
+}
+
+IBatchRenderer* Renderer::current_batch_renderer() const {
+  return current_batch_renderer_;
+}
+
+void Renderer::Flush() {
+  SetCurrentBatchRenderer(nullptr);
 }
 
 }

@@ -6,6 +6,9 @@
 #include "cnc/error_handler.h"
 #include "cnc/error.h"
 #include "cnc/shader.h"
+#include "cnc/vertex.h"
+#include "cnc/vertex_buffer.h"
+#include "cnc/texture.h"
 
 namespace cnc {
 
@@ -90,9 +93,20 @@ Sdl2GraphicsDevice::~Sdl2GraphicsDevice() {
   SDL_Quit();
 }
 
+
+std::unique_ptr<IVertexBuffer<Vertex>> Sdl2GraphicsDevice::CreateVertexBuffer(int32_t size) {
+  VerifyThreadAffinity();
+  return std::make_unique<VertexBuffer<Vertex>>(size);
+}
+
 IShaderPtr Sdl2GraphicsDevice::CreateShader(const std::string& name) {
   VerifyThreadAffinity();
   return std::make_unique<Shader>(name);
+}
+
+ITexturePtr Sdl2GraphicsDevice::CreateTexture() {
+  VerifyThreadAffinity();
+  return std::make_unique<Texture>();
 }
 
 void Sdl2GraphicsDevice::GrabWindowMouseFocus() {
@@ -103,6 +117,27 @@ void Sdl2GraphicsDevice::GrabWindowMouseFocus() {
 void Sdl2GraphicsDevice::ReleaseWindowMouseFocus() {
   VerifyThreadAffinity();
   SDL_SetWindowGrab(window_, SDL_bool::SDL_FALSE);
+}
+
+static GLenum ModeFromPrimitiveType(PrimitiveType pt) {
+  switch (pt) {
+  case PrimitiveType::PointList:
+    return GL_POINTS;
+  case PrimitiveType::LineList:
+    return GL_LINES;
+  case PrimitiveType::TriangleList:
+    return GL_TRIANGLES;
+  case PrimitiveType::QuadList:
+    return GL_QUADS;
+  default:
+    throw Error(MSG(std::string("Unknown PrimitiveType: ") + std::to_string(static_cast<int32_t>(pt))));
+  }
+}
+
+void Sdl2GraphicsDevice::DrawPrimitives(PrimitiveType pt, int32_t first_vertex, int32_t num_vertices) {
+  VerifyThreadAffinity();
+  glDrawArrays(ModeFromPrimitiveType(pt), first_vertex, num_vertices);
+  ErrorHandler::CheckGlError();
 }
 
 void Sdl2GraphicsDevice::Clear() {
@@ -121,6 +156,55 @@ void Sdl2GraphicsDevice::Present() {
 void Sdl2GraphicsDevice::PumpInput(IInputHandler& input_handler) {
   VerifyThreadAffinity();
   input_.PumpInput(input_handler);
+}
+
+void Sdl2GraphicsDevice::SetBlendMode(BlendMode mode) {
+  VerifyThreadAffinity();
+  glBlendEquation(GL_FUNC_ADD);
+  ErrorHandler::CheckGlError();
+ 
+  switch (mode) {
+  case BlendMode::None:
+    glDisable(GL_BLEND);
+    break;
+
+  case BlendMode::Alpha:
+    glEnable(GL_BLEND);
+    ErrorHandler::CheckGlError();
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    break;
+  
+  case BlendMode::Additive:
+  case BlendMode::Subtractive:
+    glEnable(GL_BLEND);
+    ErrorHandler::CheckGlError();
+    glBlendFunc(GL_ONE, GL_ONE);
+    if (mode == BlendMode::Subtractive) {
+      ErrorHandler::CheckGlError();
+      glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
+    }
+    break;
+  
+  case BlendMode::Multiply:
+    glEnable(GL_BLEND);
+    ErrorHandler::CheckGlError();
+    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+    ErrorHandler::CheckGlError();
+    break;
+
+  case BlendMode::Multiplicative:
+    glEnable(GL_BLEND);
+    ErrorHandler::CheckGlError();
+    glBlendFunc(GL_ZERO, GL_ONE_MINUS_SRC_COLOR);
+    break;
+
+  case BlendMode::DoubleMultiplicative:
+    glEnable(GL_BLEND);
+    ErrorHandler::CheckGlError();
+    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_COLOR);
+    break;
+  }
+  ErrorHandler::CheckGlError();
 }
 
 }

@@ -7,8 +7,15 @@
 #include "cnc/point.h"
 #include "cnc/sprite.h"
 #include "cnc/surface_ptr.h"
+#include "cnc/game.h"
+#include "cnc/renderer.h"
 
 namespace cnc {
+
+
+Sheet::Sheet(SheetType type, ITexturePtr texture)
+  : type_(type), texture_(texture), size_(texture->size()) {
+}
 
 static SdlSurfacePtr SurfaceFromStream(const std::string& stream) {
   auto* rw = SDL_RWFromMem(const_cast<char*>(stream.data()), static_cast<int32_t>(stream.size()));
@@ -31,12 +38,16 @@ Sheet::Sheet(SheetType type, const std::string& stream) {
   ReleaseBuffer();
 }
 
+SheetType Sheet::type() const {
+  return type_;
+}
+
 const Size& Sheet::size() const {
   return size_;
 }
 
 bool Sheet::Buffered() const {
-  return !data_.empty();
+  return !data_.empty() || texture_ == nullptr;
 }
 
 std::string& Sheet::GetData() {
@@ -44,11 +55,32 @@ std::string& Sheet::GetData() {
   return data_;
 }
 
+ITexturePtr Sheet::GetTexture() {
+  if (texture_ == nullptr) {
+    texture_ = Game::renderer()->device().CreateTexture();
+    dirty_ = true;
+  }
+
+  if (!data_.empty() && dirty_) {
+    texture_->SetData(data_, size_.width, size_.height);
+    dirty_ = false;
+    if (release_buffer_on_commit_) {
+      data_.clear();
+    }
+  }
+
+  return texture_;
+}
+
 void Sheet::CreateBuffer() {
   if (!data_.empty()) {
     return;
   }
-  data_.resize(4 * size_.width * size_.height);
+  if (texture_ == nullptr) {
+    data_.resize(4 * size_.width * size_.height);
+  } else {
+    data_ = texture_->GetData();
+  }
   release_buffer_on_commit_ = false;
 }
 
