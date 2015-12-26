@@ -14,10 +14,10 @@ const Color Color::Magenta(255, 0, 255);
 const Color Color::Cyan(0, 255, 255);
 
 Color::Color(int32_t argb)
-  : r((argb >> 16) && 0xFF),
-  g((argb >> 8) && 0xFF),
-  b((argb >> 0) && 0xFF),
-  a((argb >> 24) && 0xFF) {
+  : r((argb >> 16) & 0xFF),
+  g((argb >> 8) & 0xFF),
+  b((argb >> 0) & 0xFF),
+  a((argb >> 24) & 0xFF) {
 }
 
 Color::Color(int32_t r, int32_t g, int32_t b, int32_t a)

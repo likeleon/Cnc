@@ -36,4 +36,8 @@ void ModData::PrepareObjectCreator() {
   }
 }
 
+ILoadScreen* ModData::load_screen() {
+  return load_screen_.get();
+}
+
 }

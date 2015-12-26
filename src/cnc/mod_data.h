@@ -20,6 +20,8 @@ class CNC_API ModData {
 public:
   ModData(const std::string& mod, bool use_load_screen = false);
 
+  ILoadScreen* load_screen();
+
 private:
   struct LibraryDeleter {
     typedef HMODULE pointer;

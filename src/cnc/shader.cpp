@@ -82,7 +82,7 @@ Shader::Shader(const std::string& name) {
     ErrorHandler::CheckGlError();
 
     if (type == GL_SAMPLER_2D) {
-      samplers_.emplace(sampler, next_tex_unit);
+      samplers_.emplace(sampler.c_str(), next_tex_unit);
 
       auto loc = glGetUniformLocation(program_, sampler.c_str());
       ErrorHandler::CheckGlError();
@@ -112,7 +112,7 @@ void Shader::SetTexture(const std::string& name, const ITexturePtr& t) {
 
   auto iter = samplers_.find(name);
   if (iter != samplers_.end()) {
-    textures_[iter->second] = t;
+    textures_.emplace(iter->second, t);
   }
 }
 

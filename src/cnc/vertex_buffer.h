@@ -43,8 +43,7 @@ void VertexBuffer<T>::Bind() {
   ErrorHandler::CheckGlError();
   glVertexPointer(3, GL_FLOAT, VertexSize, NULL);
   ErrorHandler::CheckGlError();
-  static const int32_t TexCoordsOffset = 12;
-  glTexCoordPointer(4, GL_FLOAT, VertexSize, static_cast<const void *>(&TexCoordsOffset));
+  glTexCoordPointer(4, GL_FLOAT, VertexSize, (const void *)(12));
   ErrorHandler::CheckGlError();
 }
 

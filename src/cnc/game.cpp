@@ -92,7 +92,7 @@ void Game::Loop() {
 
   while (state_ == RunStatus::Running) {
     int64_t logic_interval = Timestep;
-    int32_t max_framerate = 1000;
+    int32_t max_framerate = 60;
     int32_t render_interval = 1000 / max_framerate;
 
     auto now = RunTime();
@@ -121,8 +121,11 @@ void Game::Loop() {
 
         RenderTick();
       }
+
+      //std::cout << "now:" << std::to_string(now) << " next_render:" << std::to_string(next_render) << std::endl;
     } else {
       Platform::Sleep(next_update - now);
+      //std::cout << "now:" << std::to_string(now) << " sleep:" << std::to_string(next_update - now) << std::endl;
     }
   }
 }
