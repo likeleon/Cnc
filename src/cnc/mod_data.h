@@ -2,6 +2,7 @@
 
 #include "cnc/manifest.h"
 #include "cnc/object_creator.h"
+#include "cnc/widget_loader.h"
 
 namespace cnc {
 
@@ -39,6 +40,7 @@ private:
   ObjectCreator object_creator_;
   std::vector<LibraryPtr> loaded_libraries_;
   std::unique_ptr<ILoadScreen> load_screen_;
+  std::unique_ptr<WidgetLoader> widget_loader_;
 };
 
 }

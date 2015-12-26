@@ -2,6 +2,7 @@
 #include "cnc/mod_data.h"
 #include "cnc/manifest.h"
 #include "cnc/error.h"
+#include "cnc/widget_loader.h"
 
 namespace cnc {
 
@@ -18,6 +19,8 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
     load_screen_->Init(manifest_, init_info);
     load_screen_->Display();
   }
+
+  widget_loader_ = std::make_unique<WidgetLoader>(*this);
 }
 
 void ModData::PrepareObjectCreator() {

@@ -14,6 +14,7 @@ public:
   const ModMetadata& mod() const;
   const std::vector<std::string>& folders() const;
   const std::vector<std::string>& assemblies() const;
+  const std::vector<std::string>& chrome_layout() const;
   const MiniYaml& load_screen() const;
 
 private:
@@ -25,6 +26,7 @@ private:
   std::unordered_map<std::string, MiniYaml> yaml_;
   std::vector<std::string> folders_;
   std::vector<std::string> assemblies_;
+  std::vector<std::string> chrome_layout_;
   MiniYaml* load_screen_;
 };
 

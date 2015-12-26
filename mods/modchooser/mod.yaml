@@ -13,6 +13,10 @@ Folders:
 Assemblies:
 	./mods/common/Cnc.Mods.Common.dll
 
+ChromeLayout:
+	./mods/modchooser/modchooser.yaml
+	./mods/modchooser/install.yaml
+
 LoadScreen: ModChooserLoadScreen
 	Image: ./mods/modchooser/chrome.png
 	

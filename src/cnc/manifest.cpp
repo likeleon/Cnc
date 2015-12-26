@@ -45,6 +45,7 @@ Manifest::Manifest(const std::string& mod) {
 
   folders_ = YamlList(yaml_, "Folders", true);
   assemblies_ = YamlList(yaml_, "Assemblies", true);
+  chrome_layout_ = YamlList(yaml_, "ChromeLayout", true);
 
   auto iter = yaml_.find("LoadScreen");
   if (iter == yaml_.end()) {
@@ -81,6 +82,10 @@ const std::vector<std::string>& Manifest::folders() const {
 
 const std::vector<std::string>& Manifest::assemblies() const {
   return assemblies_;
+}
+
+const std::vector<std::string>& Manifest::chrome_layout() const {
+  return chrome_layout_;
 }
 
 const MiniYaml& Manifest::load_screen() const {
