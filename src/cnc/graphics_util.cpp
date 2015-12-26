@@ -51,7 +51,7 @@ static SdlSurfacePtr CloneWith32bbpArgbPixelFormat(SDL_Surface& src) {
   return cloned;
 }
 
-void GraphicsUtil::FastCopyIntoSprite(std::string& dest_data,
+void GraphicsUtil::FastCopyIntoSprite(std::vector<char>& dest_data,
                                       int32_t dest_stride, 
                                       const Rectangle& bounds,
                                       SDL_Surface* src) {

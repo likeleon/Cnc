@@ -8,7 +8,7 @@ bool File::Exists(const std::string& path) {
   return std::tr2::sys::exists(path);
 }
 
-std::string File::OpenRead(const std::string& path) {
+std::vector<char> File::OpenRead(const std::string& path) {
   std::ifstream ifs(path, std::ios::binary | std::ios::in | std::ios::ate);
   if (!ifs.is_open()) {
     throw Error(MSG("File not found: " + path));
@@ -19,7 +19,7 @@ std::string File::OpenRead(const std::string& path) {
 
   std::vector<char> bytes(size);
   ifs.read(&bytes[0], size);
-  return{ &bytes[0], size };
+  return bytes;
 }
 
 std::string File::ReadAllText(const std::string& path) {

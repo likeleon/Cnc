@@ -28,7 +28,7 @@ public:
                              float palette_texture_index,
                              int32_t nv);
   
-  static void FastCopyIntoSprite(std::string& dest_data,
+  static void FastCopyIntoSprite(std::vector<char>& dest_data,
                                  int32_t dest_stride,
                                  const Rectangle& bounds, 
                                  SDL_Surface* src);

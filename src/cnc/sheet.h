@@ -14,13 +14,13 @@ enum class SheetType {
 class CNC_API Sheet {
 public:
   Sheet(SheetType type, ITexturePtr texture);
-  Sheet(SheetType type, const std::string& stream);
+  Sheet(SheetType type, const std::vector<char>& stream);
 
   ITexturePtr GetTexture();
   void CreateBuffer();
   void ReleaseBuffer();
   bool Buffered() const;
-  std::string& GetData();
+  std::vector<char>& GetData();
 
   SheetType type() const;
   const Size& size() const;
@@ -31,7 +31,7 @@ private:
   bool dirty_ = false;
   bool release_buffer_on_commit_ = false;
   ITexturePtr texture_;
-  std::string data_;
+  std::vector<char> data_;
 };
 
 }

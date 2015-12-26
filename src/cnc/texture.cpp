@@ -15,7 +15,7 @@ Texture::~Texture() {
   glDeleteTextures(1, &texture_);
 }
 
-void Texture::SetData(const std::string & colors, int32_t width, int32_t height) {
+void Texture::SetData(const std::vector<char>& colors, int32_t width, int32_t height) {
   VerifyThreadAffinity();
   if (!IsPowerOf2(width) || !IsPowerOf2(height)) {
     std::ostringstream oss;
@@ -53,9 +53,9 @@ void Texture::PrepareTexture() {
   ErrorHandler::CheckGlError();
 }
 
-std::string Texture::GetData() {
+std::vector<char> Texture::GetData() {
   VerifyThreadAffinity();
-  std::string data;
+  std::vector<char> data;
   data.resize(4 * size_.width * size_.height);
 
   ErrorHandler::CheckGlError();

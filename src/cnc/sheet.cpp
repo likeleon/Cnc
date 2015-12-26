@@ -17,7 +17,7 @@ Sheet::Sheet(SheetType type, ITexturePtr texture)
   : type_(type), texture_(texture), size_(texture->size()) {
 }
 
-static SdlSurfacePtr SurfaceFromStream(const std::string& stream) {
+static SdlSurfacePtr SurfaceFromStream(const std::vector<char>& stream) {
   auto* rw = SDL_RWFromMem(const_cast<char*>(stream.data()), static_cast<int32_t>(stream.size()));
   SdlSurfacePtr surface(IMG_Load_RW(rw, 0));
   SDL_RWclose(rw);
@@ -27,7 +27,7 @@ static SdlSurfacePtr SurfaceFromStream(const std::string& stream) {
   return surface;
 }
 
-Sheet::Sheet(SheetType type, const std::string& stream) {
+Sheet::Sheet(SheetType type, const std::vector<char>& stream) {
   auto surface = SurfaceFromStream(stream);
   size_ = { surface->w, surface->h };
   data_.resize(4 * size_.width * size_.height);
@@ -50,7 +50,7 @@ bool Sheet::Buffered() const {
   return !data_.empty() || texture_ == nullptr;
 }
 
-std::string& Sheet::GetData() {
+std::vector<char>& Sheet::GetData() {
   CreateBuffer();
   return data_;
 }

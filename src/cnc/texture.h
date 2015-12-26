@@ -15,8 +15,8 @@ public:
 
   GLuint id() const;
 
-  void SetData(const std::string & colors, int32_t width, int32_t height) override;
-  std::string GetData() override;
+  void SetData(const std::vector<char>& colors, int32_t width, int32_t height) override;
+  std::vector<char> GetData() override;
   const Size & size() const override;
   TextureScaleFilter scale_filter() const override;
 

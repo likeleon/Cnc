@@ -15,7 +15,7 @@ Folder::Folder(const std::string& path, int32_t priority)
   }
 }
 
-std::string Folder::GetContent(const std::string& filename) const {
+std::vector<char> Folder::GetContent(const std::string& filename) const {
   return File::OpenRead(filename);
 }
 
