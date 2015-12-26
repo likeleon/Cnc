@@ -22,6 +22,6 @@ private:
   std::exception_ptr cause_;
 };
 
-std::ostream& operator<<(std::ostream& os, const Error& e);
+CNC_API std::ostream& operator<<(std::ostream& os, const Error& e);
 
 }

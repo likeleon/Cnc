@@ -22,7 +22,8 @@ public:
   static RunStatus Run();
   static void Exit();
 
-  static Settings& settings() { return *settings_; }
+  static const ModData* mod_data();
+  static Settings& settings();
   static int64_t RunTime();
   static Renderer* renderer();
 

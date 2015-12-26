@@ -36,6 +36,10 @@ void ModData::PrepareObjectCreator() {
   }
 }
 
+const Manifest& ModData::manifest() const {
+  return manifest_;
+}
+
 ILoadScreen* ModData::load_screen() {
   return load_screen_.get();
 }

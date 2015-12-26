@@ -71,6 +71,10 @@ std::vector<std::string> Manifest::YamlList(const std::unordered_map<std::string
   return ret;
 }
 
+const ModMetadata& Manifest::mod() const {
+  return mod_;
+}
+
 const std::vector<std::string>& Manifest::folders() const {
   return folders_;
 }

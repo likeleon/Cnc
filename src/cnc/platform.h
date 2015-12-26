@@ -7,7 +7,7 @@ enum class PlatformType {
   Windows
 };
 
-std::ostream& operator<<(std::ostream& os, PlatformType platform);
+CNC_API std::ostream& operator<<(std::ostream& os, PlatformType platform);
 
 class CNC_API Platform {
 public:

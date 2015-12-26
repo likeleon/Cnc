@@ -20,6 +20,7 @@ class CNC_API ModData {
 public:
   ModData(const std::string& mod, bool use_load_screen = false);
 
+  const Manifest& manifest() const;
   ILoadScreen* load_screen();
 
 private:

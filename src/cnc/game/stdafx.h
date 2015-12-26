@@ -5,10 +5,12 @@
 
 #pragma once
 
+#include <windows.h>
 #include <unordered_map>
 #include <sstream>
 #include <iostream>
 #include <chrono>
 #include <memory>
+#include <typeindex>
 
 #include "cnc/cnc.h"

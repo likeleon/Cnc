@@ -121,11 +121,8 @@ void Game::Loop() {
 
         RenderTick();
       }
-
-      //std::cout << "now:" << std::to_string(now) << " next_render:" << std::to_string(next_render) << std::endl;
     } else {
       Platform::Sleep(next_update - now);
-      //std::cout << "now:" << std::to_string(now) << " sleep:" << std::to_string(next_update - now) << std::endl;
     }
   }
 }
@@ -149,6 +146,14 @@ void Game::RenderTick() {
 
 Renderer* Game::renderer() {
   return renderer_.get();
+}
+
+const ModData* Game::mod_data() {
+  return mod_data_.get();
+}
+
+Settings& Game::settings() {
+  return *settings_;
 }
 
 }

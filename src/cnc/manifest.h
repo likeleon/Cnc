@@ -11,6 +11,7 @@ public:
   
   static const std::unordered_map<std::string, Manifest>& AllMods();
 
+  const ModMetadata& mod() const;
   const std::vector<std::string>& folders() const;
   const std::vector<std::string>& assemblies() const;
   const MiniYaml& load_screen() const;
