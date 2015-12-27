@@ -57,7 +57,7 @@ void Game::InitializeSettings(const Arguments& args) {
   settings_ = std::make_unique<Settings>(Platform::ResolvePaths(paths), args);
 }
 
-void Game::InitializeMod(const std::string& mod, const Arguments& /*args*/) {
+void Game::InitializeMod(const std::string& mod, const Arguments& args) {
   mod_data_.reset();
 
   std::cout << "Loading mod: " << mod << std::endl;
@@ -69,6 +69,11 @@ void Game::InitializeMod(const std::string& mod, const Arguments& /*args*/) {
   mod_data_->InitializeLoaders();
 
   PerfHistory::Items("render").set_has_normal_tick(false);
+  PerfHistory::Items("batches").set_has_normal_tick(false);
+  PerfHistory::Items("render_widgets").set_has_normal_tick(false);
+  PerfHistory::Items("render_flip").set_has_normal_tick(false);
+
+  mod_data_->load_screen()->StartGame(args);
 }
 
 RunStatus Game::Run() {
@@ -143,6 +148,7 @@ void Game::RenderTick() {
 
   PerfHistory::Items("render").Tick();
   PerfHistory::Items("batches").Tick();
+  PerfHistory::Items("render_widgets").Tick();
   PerfHistory::Items("render_flip").Tick();
 }
 
