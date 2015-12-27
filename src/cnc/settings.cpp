@@ -24,9 +24,7 @@ const std::vector<FieldLoadInfo> GraphicSettings::load_info = {
 };
 
 template <typename T>
-static void LoadSectionYaml(const std::string& key, 
-                            T& section, 
-                            const std::unordered_map<std::string, MiniYaml>& yaml) {
+static void LoadSectionYaml(const std::string& key, T& section, const MiniYamlMap& yaml) {
   auto iter = yaml.find(key);
   if (iter != yaml.end()) {
     FieldLoader::Load(section, iter->second);

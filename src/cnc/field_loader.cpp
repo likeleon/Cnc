@@ -31,9 +31,7 @@ const char* FieldLoader::MissingFieldsException::what() const {
   return (": " + String::Join(missing_, ", ")).c_str();
 }
 
-bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name,
-                                      const std::unordered_map<std::string, MiniYaml>& mm,
-                                      std::string& value) {
+bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name, const MiniYamlMap& mm, std::string& value) {
   auto iter = mm.find(yaml_name);
   if (iter == mm.end()) {
     return false;

@@ -16,8 +16,8 @@ MiniYaml::MiniYaml(const std::string& value, MiniYamlNodesPtr nodes)
   }
 }
 
-std::unordered_map<std::string, MiniYaml> MiniYaml::MapFromFile(const std::string& path) {
-  std::unordered_map<std::string, MiniYaml> map;
+MiniYamlMap MiniYaml::MapFromFile(const std::string& path) {
+  MiniYamlMap map;
   auto nodes = FromFile(path);
   std::transform(nodes->begin(), nodes->end(), std::inserter(map, map.end()),
                  [](const auto& node) { return std::make_pair(node.key(), node.value()); });
@@ -128,7 +128,7 @@ static MiniYaml MiniYamlIdentity(const MiniYaml& y) {
   return y;
 };
 
-std::unordered_map<std::string, MiniYaml> MiniYaml::ToMap() const {
+MiniYamlMap MiniYaml::ToMap() const {
   return ToMap<MiniYaml>(MiniYamlIdentity);
 }
 

@@ -129,9 +129,7 @@ public:
   }
 
 private:
-  static bool TryGetValueFromYaml(const std::string& yaml_name,
-                                  const std::unordered_map<std::string, MiniYaml>& mm,
-                                  std::string& value);
+  static bool TryGetValueFromYaml(const std::string& yaml_name, const MiniYamlMap& mm, std::string& value);
 
   template <typename T>
   static const std::vector<FieldLoadInfo>& RetrieveLoadInfo() {

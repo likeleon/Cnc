@@ -20,7 +20,7 @@ public:
 
 private:
   ModMetadata mod_;
-  std::unordered_map<std::string, MiniYaml> yaml_;
+  MiniYamlMap yaml_;
   std::vector<std::string> folders_;
   std::vector<std::string> assemblies_;
   std::vector<std::string> chrome_layout_;

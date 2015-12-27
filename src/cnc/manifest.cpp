@@ -37,9 +37,7 @@ const std::unordered_map<std::string, Manifest>& Manifest::AllMods() {
   return all_mods;
 }
 
-std::vector<std::string> YamlList(const std::unordered_map<std::string, MiniYaml>& yaml,
-                                  const std::string& key,
-                                  bool parse_paths) {
+std::vector<std::string> YamlList(const MiniYamlMap& yaml, const std::string& key, bool parse_paths = false) {
   if (yaml.find(key) == yaml.end()) {
     return{};
   }
@@ -54,8 +52,7 @@ std::vector<std::string> YamlList(const std::unordered_map<std::string, MiniYaml
   return vec;
 }
 
-std::map<std::string, std::string> YamlMap(const std::unordered_map<std::string, MiniYaml>& yaml,
-                                           const std::string& key) {
+std::map<std::string, std::string> YamlMap(const MiniYamlMap& yaml, const std::string& key) {
   if (yaml.find(key) == yaml.end()) {
     return{};
   }
