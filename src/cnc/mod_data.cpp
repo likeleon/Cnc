@@ -3,6 +3,7 @@
 #include "cnc/manifest.h"
 #include "cnc/error.h"
 #include "cnc/widget_loader.h"
+#include "cnc/file_system.h"
 
 namespace cnc {
 
@@ -39,12 +40,20 @@ void ModData::PrepareObjectCreator() {
   }
 }
 
+void ModData::MountFiles() {
+  mod_files_.LoadFromManifest(manifest_);
+}
+
 const Manifest& ModData::manifest() const {
   return manifest_;
 }
 
 ILoadScreen* ModData::load_screen() {
   return load_screen_.get();
+}
+
+FileSystem& ModData::mod_files() {
+  return mod_files_;
 }
 
 }

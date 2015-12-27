@@ -7,13 +7,9 @@
 #include "cnc/folder.h"
 #include "cnc/error.h"
 #include "cnc/package_entry.h"
+#include "cnc/manifest.h"
 
 namespace cnc {
-
-std::vector<IFolderPtr> FileSystem::mounted_folders_;
-FileSystem::HashIndex FileSystem::classic_hash_index_;
-FileSystem::HashIndex FileSystem::crc_hash_index_;
-int32_t FileSystem::order_ = 0;
 
 void FileSystem::Mount(const std::string& name, const std::string& annotation) {
   std::string final_name = name;
@@ -24,7 +20,7 @@ void FileSystem::Mount(const std::string& name, const std::string& annotation) {
 
   final_name = Platform::ResolvePath(final_name);
 
-  auto action = [name, annotation]() {
+  auto action = [this, name, annotation]() {
     MountInner(OpenPackage(name, annotation, order_++));
   };
 
@@ -70,6 +66,16 @@ void FileSystem::UnmountAll() {
   mounted_folders_.clear();
   classic_hash_index_.clear();
   crc_hash_index_.clear();
+}
+
+void FileSystem::LoadFromManifest(const Manifest& manifest) {
+  UnmountAll();
+  for (const auto& dir : manifest.folders()) {
+    Mount(dir);
+  }
+  for (const auto& pkg : manifest.packages()) {
+    Mount(pkg.first, pkg.second);
+  }
 }
 
 std::vector<char> FileSystem::Open(const std::string& filename) {

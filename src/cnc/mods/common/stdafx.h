@@ -6,6 +6,7 @@
 #pragma once
 
 #include <Windows.h>
+#include <map>
 #include <unordered_map>
 #include <sstream>
 #include <iostream>

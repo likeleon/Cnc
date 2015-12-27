@@ -4,6 +4,7 @@
 #include "cnc/directory.h"
 #include "cnc/string.h"
 #include "cnc/log.h"
+#include "cnc/mini_yaml.h"
 
 namespace cnc {
 
@@ -36,40 +37,58 @@ const std::unordered_map<std::string, Manifest>& Manifest::AllMods() {
   return all_mods;
 }
 
+std::vector<std::string> YamlList(const std::unordered_map<std::string, MiniYaml>& yaml,
+                                  const std::string& key,
+                                  bool parse_paths) {
+  if (yaml.find(key) == yaml.end()) {
+    return{};
+  }
+
+  std::vector<std::string> vec;
+  for (const auto& kv : yaml.at(key).ToMap()) {
+    vec.emplace_back(kv.first);
+  }
+  if (parse_paths) {
+    std::transform(vec.begin(), vec.end(), vec.begin(), Platform::ResolvePath);
+  }
+  return vec;
+}
+
+std::map<std::string, std::string> YamlMap(const std::unordered_map<std::string, MiniYaml>& yaml,
+                                           const std::string& key) {
+  if (yaml.find(key) == yaml.end()) {
+    return{};
+  }
+
+  std::map<std::string, std::string> map;
+  for (const auto& node : yaml.at(key).nodes()) {
+    if (node.key().find('@') != std::string::npos) {
+      auto split = String::Split(node.key(), '@');
+      map.emplace(split[0], split[1]);
+    } else {
+      map.emplace(node.key(), "");
+    }
+  }
+  return map;
+}
+
 Manifest::Manifest(const std::string& mod) {
   auto path = Platform::ResolvePaths({ ".", "mods", mod, "mod.yaml" });
   yaml_ = MiniYaml("", MiniYaml::FromFile(path)).ToMap();
-  
+
   mod_ = FieldLoader::Load<ModMetadata>(yaml_.at("Metadata"));
   mod_.id = mod;
 
   folders_ = YamlList(yaml_, "Folders", true);
   assemblies_ = YamlList(yaml_, "Assemblies", true);
   chrome_layout_ = YamlList(yaml_, "ChromeLayout", true);
+  packages_ = YamlMap(yaml_, "Packages");
 
   auto iter = yaml_.find("LoadScreen");
   if (iter == yaml_.end()) {
     throw std::exception("'LoadScreen' section is not defined.");
   }
   load_screen_ = &(iter->second);
-}
-
-std::vector<std::string> Manifest::YamlList(const std::unordered_map<std::string, MiniYaml>& yaml,
-                                            const std::string& key,
-                                            bool parse_paths) {
-  std::vector<std::string> ret;
-  
-  if (yaml.find(key) == yaml.end()) {
-    return ret;
-  }
-
-  for (const auto& kv : yaml.at(key).ToMap()) {
-    ret.emplace_back(kv.first);
-  }
-  if (parse_paths) {
-    std::transform(ret.begin(), ret.end(), ret.begin(), Platform::ResolvePath);
-  }
-  return ret;
 }
 
 const ModMetadata& Manifest::mod() const {
@@ -86,6 +105,10 @@ const std::vector<std::string>& Manifest::assemblies() const {
 
 const std::vector<std::string>& Manifest::chrome_layout() const {
   return chrome_layout_;
+}
+
+const std::map<std::string, std::string>& Manifest::packages() const {
+  return packages_;
 }
 
 const MiniYaml& Manifest::load_screen() const {

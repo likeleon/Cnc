@@ -22,6 +22,7 @@
 #include <regex>
 #include <sstream>
 #include <string>
+#include <map>
 #include <unordered_map>
 #include <typeindex>
 #include <thread>

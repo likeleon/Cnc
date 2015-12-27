@@ -4,6 +4,8 @@
 
 namespace cnc {
 
+class Manifest;
+
 class CNC_API IFolder {
 public:
   virtual ~IFolder() {}
@@ -19,25 +21,24 @@ using IFolderPtr = std::shared_ptr<IFolder>;
 
 class CNC_API FileSystem {
 public:
-  static void Mount(const std::string& name, const std::string& annotation = "");
-  static void UnmountAll();
+  void Mount(const std::string& name, const std::string& annotation = "");
+  void UnmountAll();
+  void LoadFromManifest(const Manifest& manifest);
 
-  static std::vector<char> Open(const std::string& filename);
-  static bool TryOpen(const std::string& filename, std::vector<char>& s);
+  std::vector<char> Open(const std::string& filename);
+  bool TryOpen(const std::string& filename, std::vector<char>& s);
 
 private:
   using HashIndex = std::unordered_map<uint32_t, std::vector<const IFolder*>>;
 
-  static IFolderPtr OpenPackage(const std::string& filename,
-                                const std::string& annotation,
-                                int32_t order);
-  static void MountInner(IFolderPtr folder);
-  static bool GetFromCache(PackageHashType type, const std::string& filename, std::vector<char>& s);
+  IFolderPtr OpenPackage(const std::string& filename, const std::string& annotation, int32_t order);
+  void MountInner(IFolderPtr folder);
+  bool GetFromCache(PackageHashType type, const std::string& filename, std::vector<char>& s);
 
-  static std::vector<IFolderPtr> mounted_folders_;
-  static HashIndex classic_hash_index_;
-  static HashIndex crc_hash_index_;
-  static int32_t order_;
+  std::vector<IFolderPtr> mounted_folders_;
+  HashIndex classic_hash_index_;
+  HashIndex crc_hash_index_;
+  int32_t order_ = 0;
 };
 
 }

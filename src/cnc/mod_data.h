@@ -3,6 +3,7 @@
 #include "cnc/manifest.h"
 #include "cnc/object_creator.h"
 #include "cnc/widget_loader.h"
+#include "cnc/file_system.h"
 
 namespace cnc {
 
@@ -21,8 +22,11 @@ class CNC_API ModData {
 public:
   ModData(const std::string& mod, bool use_load_screen = false);
 
+  void MountFiles();
+
   const Manifest& manifest() const;
   ILoadScreen* load_screen();
+  FileSystem& mod_files();
 
 private:
   struct LibraryDeleter {
@@ -41,6 +45,7 @@ private:
   std::vector<LibraryPtr> loaded_libraries_;
   std::unique_ptr<ILoadScreen> load_screen_;
   std::unique_ptr<WidgetLoader> widget_loader_;
+  FileSystem mod_files_;
 };
 
 }

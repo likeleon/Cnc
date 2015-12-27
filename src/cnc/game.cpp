@@ -30,7 +30,6 @@ void Game::Initialize(const Arguments& args) {
   Log::AddChannel("debug", "debug.log");
   Log::AddChannel("graphics", "graphics.log");
 
-  FileSystem::Mount(Platform::GameDir());
   std::vector<std::string> renderers{ settings_->graphics().renderer, "Default", "" };
   for (const auto& r : renderers) {
     if (r.empty()) {
@@ -65,6 +64,8 @@ void Game::InitializeMod(const std::string& mod, const Arguments& /*args*/) {
   settings_->game().mod = mod;
 
   mod_data_ = std::make_unique<ModData>(mod, true);
+
+  mod_data_->MountFiles();
 
   PerfHistory::Items("render").set_has_normal_tick(false);
 }
