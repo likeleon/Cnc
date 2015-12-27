@@ -195,6 +195,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_image-2.0.0;$(ProjectDir)src\third_party\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>cnc/stdafx.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4592</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -218,6 +219,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_image-2.0.0;$(ProjectDir)src\third_party\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>cnc/stdafx.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4592</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
