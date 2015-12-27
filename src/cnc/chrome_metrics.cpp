@@ -4,6 +4,8 @@
 
 namespace cnc {
 
+std::map<std::string, std::string> ChromeMetrics::data_;
+
 void ChromeMetrics::Initialize(const std::vector<std::string>& yaml) {
   std::vector<MiniYamlNodes> yy;
   for (const auto& y : yaml) {

@@ -62,8 +62,8 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
 
     std::string line(l);
     size_t comment_index = line.find('#');
-    if (comment_index != -1) {
-      String::TrimEnd(line.substr(0, comment_index), " \t");
+    if (comment_index != std::string::npos) {
+      line = String::TrimEnd(line.substr(0, comment_index), " \t");
     }
 
     if (line.empty()) {

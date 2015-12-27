@@ -20,7 +20,8 @@ std::map<TKey, TElement> ToMapWithConflictLog(
 
     if (map.find(key) != map.end()) {
       if (dup_keys.find(key) == dup_keys.end()) {
-        dup_keys.emplace(key, { log_value(map.at(key)) });
+        std::vector<std::string> dup_key_messages = { log_value(map.at(key)) };
+        dup_keys.emplace(key, dup_key_messages);
       }
       dup_keys.at(key).emplace_back(log_value(element));
       continue;
