@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\chrome_metrics.cpp" />
+    <ClCompile Include="src\cnc\chrome_provider.cpp" />
     <ClCompile Include="src\cnc\color.cpp" />
     <ClCompile Include="src\cnc\device_factory.cpp" />
     <ClCompile Include="src\cnc\directory.cpp" />
@@ -28,6 +29,7 @@
     <ClCompile Include="src\cnc\igraphics_device.cpp" />
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\manifest.cpp" />
+    <ClCompile Include="src\cnc\mapped_image.cpp" />
     <ClCompile Include="src\cnc\math_utils.cpp" />
     <ClCompile Include="src\cnc\message.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
@@ -66,6 +68,7 @@
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\blend_mode.h" />
     <ClInclude Include="src\cnc\chrome_metrics.h" />
+    <ClInclude Include="src\cnc\chrome_provider.h" />
     <ClInclude Include="src\cnc\cnc.h" />
     <ClInclude Include="src\cnc\color.h" />
     <ClInclude Include="src\cnc\container_utils.h" />
@@ -90,6 +93,7 @@
     <ClInclude Include="src\cnc\ivertex_buffer.h" />
     <ClInclude Include="src\cnc\log.h" />
     <ClInclude Include="src\cnc\manifest.h" />
+    <ClInclude Include="src\cnc\mapped_image.h" />
     <ClInclude Include="src\cnc\math_utils.h" />
     <ClInclude Include="src\cnc\message.h" />
     <ClInclude Include="src\cnc\mini_yaml.h" />

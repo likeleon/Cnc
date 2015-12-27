@@ -2,6 +2,7 @@
 #include "cnc/field_loader.h"
 #include "cnc/string.h"
 #include "cnc/size.h"
+#include "cnc/rectangle.h"
 
 namespace cnc {
 
@@ -46,6 +47,17 @@ template <>
 Size FieldInfoTraits<Size>::Parse(const std::string& s) {
   auto parts = String::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
   return{ std::stoi(parts[0]), std::stoi(parts[1]) };
+}
+
+template <>
+Rectangle FieldInfoTraits<Rectangle>::Parse(const std::string& s) {
+  auto parts = String::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
+  return{ 
+    std::stoi(parts[0]), 
+    std::stoi(parts[1]),
+    std::stoi(parts[2]),
+    std::stoi(parts[3])
+  };
 }
 
 }

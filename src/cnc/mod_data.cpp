@@ -5,6 +5,7 @@
 #include "cnc/widget_loader.h"
 #include "cnc/file_system.h"
 #include "cnc/chrome_metrics.h"
+#include "cnc/chrome_provider.h"
 
 namespace cnc {
 
@@ -47,6 +48,7 @@ void ModData::MountFiles() {
 
 void ModData::InitializeLoaders() {
   ChromeMetrics::Initialize(manifest_.chrome_metrics());
+  ChromeProvider::Initialize(manifest_.chrome());
 }
 
 const Manifest& ModData::manifest() const {

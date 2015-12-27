@@ -12,7 +12,7 @@ void ChromeMetrics::Initialize(const std::vector<std::string>& yaml) {
     yy.emplace_back(*MiniYaml::FromFile(y));
   }
   MiniYamlNodes (*accumulator)(const MiniYamlNodes&, const MiniYamlNodes&) = &MiniYaml::MergePartial;
-  MiniYamlNodes partial = std::accumulate(yy.begin(), yy.end(), MiniYamlNodes(), accumulator);
+  auto partial = std::accumulate(yy.begin(), yy.end(), MiniYamlNodes(), accumulator);
 
   auto metrics = MiniYaml::ApplyRemovals(partial);
   for (const auto& m : metrics) {

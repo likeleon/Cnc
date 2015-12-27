@@ -22,7 +22,7 @@ public:
   static RunStatus Run();
   static void Exit();
 
-  static const ModData* mod_data();
+  static ModData* mod_data();
   static Settings& settings();
   static int64_t RunTime();
   static Renderer* renderer();

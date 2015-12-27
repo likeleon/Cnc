@@ -6,8 +6,6 @@
 
 namespace cnc {
 
-struct Size;
-
 class FieldInfo {
 public:
   using Setter = std::function<void(void* obj, const std::string& value)>;
@@ -126,6 +124,11 @@ public:
     if (!missing.empty()) {
       throw MissingFieldsException(std::move(missing));
     }
+  }
+
+  template <typename T>
+  static void LoadField(T& obj, const FieldInfo& fi, const std::string& value) {
+    fi.SetValue(&obj, value);
   }
 
 private:

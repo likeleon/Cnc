@@ -150,7 +150,7 @@ Renderer* Game::renderer() {
   return renderer_.get();
 }
 
-const ModData* Game::mod_data() {
+ModData* Game::mod_data() {
   return mod_data_.get();
 }
 
