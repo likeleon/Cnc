@@ -13,18 +13,22 @@ public:
 
   const ModMetadata& mod() const;
   const std::vector<std::string>& folders() const;
+  const std::map<std::string, std::string>& packages() const;
+  const std::vector<std::string>& chrome() const;
   const std::vector<std::string>& assemblies() const;
   const std::vector<std::string>& chrome_layout() const;
-  const std::map<std::string, std::string>& packages() const;
+  const std::vector<std::string>& chrome_metrics() const;
   const MiniYaml& load_screen() const;
 
 private:
   ModMetadata mod_;
   MiniYamlMap yaml_;
   std::vector<std::string> folders_;
+  std::map<std::string, std::string> packages_;
+  std::vector<std::string> chrome_;
   std::vector<std::string> assemblies_;
   std::vector<std::string> chrome_layout_;
-  std::map<std::string, std::string> packages_;
+  std::vector<std::string> chrome_metrics_;
   MiniYaml* load_screen_;
 };
 

@@ -7,7 +7,8 @@
 namespace cnc {
 
 class MiniYamlNode;
-using MiniYamlNodesPtr = std::shared_ptr<std::vector<MiniYamlNode>>;
+using MiniYamlNodes = std::vector<MiniYamlNode>;
+using MiniYamlNodesPtr = std::shared_ptr<MiniYamlNodes>;
 
 class MiniYaml;
 using MiniYamlMap = std::map<std::string, MiniYaml>;
@@ -19,6 +20,11 @@ public:
 
   static MiniYamlMap MapFromFile(const std::string& path);
   static MiniYamlNodesPtr FromFile(const std::string& path);
+
+  static MiniYamlNodes MergePartial(const MiniYamlNodes& a, const MiniYamlNodes& b);
+  static MiniYaml MergePartial(const MiniYaml& a, const MiniYaml& b);
+
+  static MiniYamlNodes ApplyRemovals(const MiniYamlNodes& a);
 
   MiniYamlMap ToMap() const;
   
@@ -39,7 +45,7 @@ public:
   }
 
   const std::string& value() const { return value_; }
-  const std::vector<MiniYamlNode>& nodes() const { return *nodes_; }
+  const MiniYamlNodes& nodes() const { return *nodes_; }
 
 private:
   std::string value_;

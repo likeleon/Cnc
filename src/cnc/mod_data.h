@@ -23,6 +23,7 @@ public:
   ModData(const std::string& mod, bool use_load_screen = false);
 
   void MountFiles();
+  void InitializeLoaders();
 
   const Manifest& manifest() const;
   ILoadScreen* load_screen();

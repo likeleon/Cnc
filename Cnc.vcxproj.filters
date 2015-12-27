@@ -113,6 +113,9 @@
     <ClCompile Include="src\cnc\widget_loader.cpp">
       <Filter>widgets</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\chrome_metrics.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -259,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="src\cnc\widget_loader.h">
       <Filter>widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\chrome_metrics.h">
+      <Filter>widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\container_utils.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

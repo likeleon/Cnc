@@ -77,9 +77,11 @@ Manifest::Manifest(const std::string& mod) {
   mod_.id = mod;
 
   folders_ = YamlList(yaml_, "Folders", true);
+  packages_ = YamlMap(yaml_, "Packages");
+  chrome_ = YamlList(yaml_, "Chrome", true);
   assemblies_ = YamlList(yaml_, "Assemblies", true);
   chrome_layout_ = YamlList(yaml_, "ChromeLayout", true);
-  packages_ = YamlMap(yaml_, "Packages");
+  chrome_metrics_ = YamlList(yaml_, "ChromeMetrics", true);
 
   auto iter = yaml_.find("LoadScreen");
   if (iter == yaml_.end()) {
@@ -96,6 +98,14 @@ const std::vector<std::string>& Manifest::folders() const {
   return folders_;
 }
 
+const std::map<std::string, std::string>& Manifest::packages() const {
+  return packages_;
+}
+
+const std::vector<std::string>& Manifest::chrome() const {
+  return chrome_;
+}
+
 const std::vector<std::string>& Manifest::assemblies() const {
   return assemblies_;
 }
@@ -104,8 +114,8 @@ const std::vector<std::string>& Manifest::chrome_layout() const {
   return chrome_layout_;
 }
 
-const std::map<std::string, std::string>& Manifest::packages() const {
-  return packages_;
+const std::vector<std::string>& Manifest::chrome_metrics() const {
+  return chrome_metrics_;
 }
 
 const MiniYaml& Manifest::load_screen() const {

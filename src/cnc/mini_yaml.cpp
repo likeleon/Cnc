@@ -2,6 +2,7 @@
 #include "cnc/mini_yaml.h"
 #include "cnc/error.h"
 #include "cnc/string.h"
+#include "cnc/container_utils.h"
 
 namespace cnc {
 
@@ -12,7 +13,7 @@ MiniYaml::MiniYaml(const std::string& value)
 MiniYaml::MiniYaml(const std::string& value, MiniYamlNodesPtr nodes)
   : value_(value), nodes_(nodes) {
   if (nodes_ == nullptr) {
-    nodes_ = std::make_shared<std::vector<MiniYamlNode>>();
+    nodes_ = std::make_shared<MiniYamlNodes>();
   }
 }
 
@@ -53,7 +54,7 @@ static std::pair<std::string, std::string> SplitAtColon(const std::string& t) {
 
 static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std::string& filename) {
   std::vector<MiniYamlNodesPtr> levels;
-  levels.push_back(std::make_shared<std::vector<MiniYamlNode>>());
+  levels.push_back(std::make_shared<MiniYamlNodes>());
 
   int32_t line_no = 0;
   for (const auto& l : lines) {
@@ -110,7 +111,7 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
       levels.erase(levels.begin() + static_cast<int32_t>(levels.size()) - 1);
     }
 
-    MiniYamlNodesPtr nodes(std::make_shared<std::vector<MiniYamlNode>>());
+    MiniYamlNodesPtr nodes(std::make_shared<MiniYamlNodes>());
     auto pair = SplitAtColon(t);
     levels[level]->emplace_back(pair.first, pair.second, nodes, location);
 
@@ -122,6 +123,95 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
 
 MiniYamlNodesPtr MiniYaml::FromFile(const std::string& path) {
   return FromLines(ReadAllLines(path), path);
+}
+
+MiniYamlNodes MiniYaml::MergePartial(const MiniYamlNodes& a, const MiniYamlNodes& b) {
+  if (a.empty()) {
+    return b;
+  }
+
+  if (b.empty()) {
+    return a;
+  }
+
+  MiniYamlNodes nodes;
+  
+  auto key_selector = [](const MiniYamlNode& n) { return n.key(); };
+  auto log_value = [](const MiniYamlNode& n) { 
+    std::ostringstream oss;
+    oss << n.key() << "( at " << n.location().ToString() << ")";
+    return oss.str();
+  };
+  auto map_a = ToMapWithConflictLog<MiniYamlNode, std::string>(a, key_selector, "MiniYaml::Merge", nullptr, log_value);
+  auto map_b = ToMapWithConflictLog<MiniYamlNode, std::string>(b, key_selector, "MiniYaml::Merge", nullptr, log_value);
+  
+  std::set<std::string> all_keys;
+  for (const auto& kvp : map_a) {
+    all_keys.insert(kvp.first);
+  }
+  for (const auto& kvp : map_b) {
+    all_keys.insert(kvp.first);
+  }
+
+  for (const auto& key : all_keys) {
+    auto aa = map_a.find(key);
+    auto bb = map_b.find(key);
+    
+    if (aa == map_a.end()) {
+      nodes.emplace_back(bb->second);
+    } else if (bb == map_b.end()) {
+      nodes.emplace_back(aa->second);
+    } else {
+      auto loc = (aa == map_a.end()) ? MiniYamlNode::SourceLocation() : aa->second.location();
+      nodes.emplace_back(key, MergePartial(aa->second.value(), bb->second.value()), loc);
+    }
+  }
+  
+  return nodes;
+}
+
+MiniYaml MiniYaml::MergePartial(const MiniYaml& a, const MiniYaml& b) {
+  std::string key = a.value();
+  if (key.empty()) {
+    key = b.value();
+  }
+  auto nodes = std::make_shared<MiniYamlNodes>(MergePartial(a.nodes(), b.nodes()));
+  return{ key, nodes };
+}
+
+MiniYamlNodes MiniYaml::ApplyRemovals(const MiniYamlNodes& a) {
+  std::set<std::string> remove_keys;
+  for (const auto& node : a) {
+    auto key = node.key();
+    if (key.empty() || key[0] != '-') {
+      continue;
+    }
+    remove_keys.insert(key.substr(1));
+  }
+
+  MiniYamlNodes nodes;
+  for (const auto& x : a) {
+    if (x.key()[0] == '-') {
+      continue;
+    }
+
+    if (remove_keys.find(x.key()) != remove_keys.end()) {
+      remove_keys.erase(x.key());
+    } else {
+      nodes.emplace_back(
+        x.key(),
+        x.value().value(),
+        std::make_shared<MiniYamlNodes>(ApplyRemovals(x.value().nodes())));
+    }
+  }
+
+  if (!remove_keys.empty()) {
+    std::ostringstream oss;
+    oss << "Bogus yaml removals: " << String::Join({ remove_keys.begin(), remove_keys.end() }, ", ");
+    throw Error(MSG(oss.str()));
+  }
+
+  return nodes;
 }
 
 static MiniYaml MiniYamlIdentity(const MiniYaml& y) {

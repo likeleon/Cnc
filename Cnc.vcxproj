@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cnc\arguments.cpp" />
+    <ClCompile Include="src\cnc\chrome_metrics.cpp" />
     <ClCompile Include="src\cnc\color.cpp" />
     <ClCompile Include="src\cnc\device_factory.cpp" />
     <ClCompile Include="src\cnc\directory.cpp" />
@@ -64,8 +65,10 @@
   <ItemGroup>
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\blend_mode.h" />
+    <ClInclude Include="src\cnc\chrome_metrics.h" />
     <ClInclude Include="src\cnc\cnc.h" />
     <ClInclude Include="src\cnc\color.h" />
+    <ClInclude Include="src\cnc\container_utils.h" />
     <ClInclude Include="src\cnc\device_factory.h" />
     <ClInclude Include="src\cnc\directory.h" />
     <ClInclude Include="src\cnc\enum_info.h" />

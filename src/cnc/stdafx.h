@@ -23,6 +23,7 @@
 #include <sstream>
 #include <string>
 #include <map>
+#include <set>
 #include <unordered_map>
 #include <typeindex>
 #include <thread>

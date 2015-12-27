@@ -4,6 +4,7 @@
 #include "cnc/error.h"
 #include "cnc/widget_loader.h"
 #include "cnc/file_system.h"
+#include "cnc/chrome_metrics.h"
 
 namespace cnc {
 
@@ -42,6 +43,10 @@ void ModData::PrepareObjectCreator() {
 
 void ModData::MountFiles() {
   mod_files_.LoadFromManifest(manifest_);
+}
+
+void ModData::InitializeLoaders() {
+  ChromeMetrics::Initialize(manifest_.chrome_metrics());
 }
 
 const Manifest& ModData::manifest() const {

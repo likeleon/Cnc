@@ -10,6 +10,9 @@ Folders:
 	.
 	./mods/modchooser
 
+Chrome:
+	./mods/modchooser/chrome.yaml
+
 Assemblies:
 	./mods/common/Cnc.Mods.Common.dll
 
@@ -20,3 +23,5 @@ ChromeLayout:
 LoadScreen: ModChooserLoadScreen
 	Image: ./mods/modchooser/chrome.png
 	
+ChromeMetrics:
+	./mods/modchooser/metrics.yaml
