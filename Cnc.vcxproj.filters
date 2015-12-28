@@ -122,6 +122,9 @@
     <ClCompile Include="src\cnc\mapped_image.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\widget.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -280,6 +283,10 @@
     </ClInclude>
     <ClInclude Include="src\cnc\mapped_image.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\any.h" />
+    <ClInclude Include="src\cnc\widget.h">
+      <Filter>widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
