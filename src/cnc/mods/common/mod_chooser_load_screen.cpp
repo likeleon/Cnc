@@ -7,12 +7,16 @@
 #include "cnc/renderer.h"
 #include "cnc/input_handler.h"
 #include "cnc/widget_utils.h"
+#include "cnc/widget.h"
 
 namespace cnc {
 namespace mods {
 namespace common {
 
 static NullInputHandler null_input_handler;
+
+ModChooserLoadScreen::ModChooserLoadScreen(const std::map<std::string, Any>& /*args*/) {
+}
 
 void ModChooserLoadScreen::Init(const Manifest& /*m*/, const std::map<std::string, std::string>& info) {
   auto res = Game::renderer()->Resolution();
@@ -34,7 +38,11 @@ void ModChooserLoadScreen::Display() {
   r->EndFrame(null_input_handler);
 }
 
-void ModChooserLoadScreen::StartGame(const Arguments & /*args*/) {
+void ModChooserLoadScreen::StartGame(const Arguments& /*args*/) {
+  WidgetArgs widget_args;
+
+  // TODO: nullptr -> Ui::Root
+  Ui::LoadWidget("MODCHOOSER_BACKGROUND", nullptr, widget_args);
 }
 
 }

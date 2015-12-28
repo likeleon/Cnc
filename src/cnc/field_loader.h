@@ -90,6 +90,7 @@ public:
 
   private:
     std::vector<std::string> missing_;
+    std::string message_;
   };
 
   template <typename T>
@@ -129,6 +130,15 @@ public:
   template <typename T>
   static void LoadField(T& obj, const FieldInfo& fi, const std::string& value) {
     fi.SetValue(&obj, value);
+  }
+
+  template <typename T>
+  static void LoadField(T& obj, const std::string& name, const std::string& value) {
+    const FieldInfo* fi = obj.GetFieldInfo(name);
+    if (fi == nullptr) {
+      throw MissingFieldsException({ name });
+    }
+    LoadField(obj, *fi, value);
   }
 
 private:

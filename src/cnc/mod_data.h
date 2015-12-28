@@ -26,7 +26,9 @@ public:
   void InitializeLoaders();
 
   const Manifest& manifest() const;
+  ObjectCreator& object_creator();
   ILoadScreen* load_screen();
+  WidgetLoader& widget_loader();
   FileSystem& mod_files();
 
 private:

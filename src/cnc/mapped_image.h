@@ -19,7 +19,7 @@ public:
 
 private:
   std::string src_;
-  Rectangle rect_ = Rectangle::Empty;
+  Rectangle rect_;
 };
 
 }

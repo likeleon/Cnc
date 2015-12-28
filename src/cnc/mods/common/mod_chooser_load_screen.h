@@ -11,6 +11,8 @@ namespace common {
 
 class ModChooserLoadScreen : public ILoadScreen {
 public:
+  ModChooserLoadScreen(const std::map<std::string, Any>& args);
+
   void Init(const Manifest& m, const std::map<std::string, std::string>& info) override;
   void Display() override;
   void StartGame(const Arguments & /*args*/) override;

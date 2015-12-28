@@ -41,7 +41,7 @@ static void FatalError(const T& e) {
   
   std::string report = BuildExceptionReport(e).str();
   Log::Write("exception", report);
-  std::cerr << report.c_str();
+  std::cerr << report.c_str() << std::endl;
 }
 
 static RunStatus Run(int32_t argc, char** argv) {

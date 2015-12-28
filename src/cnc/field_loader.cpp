@@ -25,11 +25,11 @@ FieldLoadInfo::FieldLoadInfo(const std::string& yaml_name,
 }
 
 FieldLoader::MissingFieldsException::MissingFieldsException(std::vector<std::string>&& missing)
-  : missing_(std::move(missing)) {
+  : missing_(std::move(missing)), message_(String::Join(missing_, ", ") ) {
 }
 
 const char* FieldLoader::MissingFieldsException::what() const {
-  return (": " + String::Join(missing_, ", ")).c_str();
+  return message_.c_str();
 }
 
 bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name, const MiniYamlMap& mm, std::string& value) {

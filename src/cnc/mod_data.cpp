@@ -16,7 +16,7 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
   PrepareObjectCreator();
 
   if (use_load_screen) {
-    load_screen_ = object_creator_.CreateObject<ILoadScreen>(manifest_.load_screen().value());
+    load_screen_ = object_creator_.CreateObject<ILoadScreen>(manifest_.load_screen().value(), {});
     auto element_selector = [](const auto& y) -> std::string { return y.value(); };
     auto init_info = manifest_.load_screen().ToMap<std::string>(element_selector);
     load_screen_->Init(manifest_, init_info);
@@ -55,8 +55,16 @@ const Manifest& ModData::manifest() const {
   return manifest_;
 }
 
+ObjectCreator& ModData::object_creator() {
+  return object_creator_;
+}
+
 ILoadScreen* ModData::load_screen() {
   return load_screen_.get();
+}
+
+WidgetLoader& ModData::widget_loader() {
+  return *widget_loader_;
 }
 
 FileSystem& ModData::mod_files() {
