@@ -288,6 +288,9 @@
     <ClInclude Include="src\cnc\widget.h">
       <Filter>widgets</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\widget_ptr.h">
+      <Filter>widgets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

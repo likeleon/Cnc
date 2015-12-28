@@ -130,6 +130,7 @@
     <ClInclude Include="src\cnc\vertex_buffer.h" />
     <ClInclude Include="src\cnc\widget.h" />
     <ClInclude Include="src\cnc\widget_loader.h" />
+    <ClInclude Include="src\cnc\widget_ptr.h" />
     <ClInclude Include="src\cnc\widget_utils.h" />
   </ItemGroup>
   <ItemGroup>

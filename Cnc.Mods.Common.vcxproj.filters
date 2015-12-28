@@ -3,10 +3,28 @@
   <ItemGroup>
     <ClCompile Include="src\cnc\mods\common\dllmain.cpp" />
     <ClCompile Include="src\cnc\mods\common\stdafx.cpp" />
-    <ClCompile Include="src\cnc\mods\common\mod_chooser_load_screen.cpp" />
+    <ClCompile Include="src\cnc\mods\common\mod_chooser_load_screen.cpp">
+      <Filter>LoadScreens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\background_widget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
-    <ClInclude Include="src\cnc\mods\common\mod_chooser_load_screen.h" />
+    <ClInclude Include="src\cnc\mods\common\mod_chooser_load_screen.h">
+      <Filter>LoadScreens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\background_widget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="LoadScreens">
+      <UniqueIdentifier>{470697a5-343b-4b11-9aa3-e82220baf12f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{4b23fcaa-f951-49fe-812d-840c447c4205}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
