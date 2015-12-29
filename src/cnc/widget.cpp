@@ -9,9 +9,10 @@
 
 namespace cnc {
 
-WidgetPtr Ui::LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args) {
-  return Game::mod_data()->widget_loader().LoadWidget(args, parent, id);
-}
+class RootWidget : public ContainerWidget {
+};
+
+WidgetPtr Ui::root_ = std::make_shared<RootWidget>();
 
 WidgetArgs::WidgetArgs() {
 }
@@ -93,6 +94,10 @@ const FieldInfo* Widget::GetFieldInfo(const std::string& name) const {
   return OnGetFieldInfo(name);
 }
 
+const FieldInfo* Widget::OnGetFieldInfo(const std::string& /*name*/) const {
+  return nullptr;
+}
+
 void Widget::set_parent(WidgetPtr parent) {
   parent_ = parent;
 }
@@ -103,6 +108,14 @@ Widget* Widget::parent() {
 
 const Rectangle& Widget::bounds() const {
   return bounds_;
+}
+
+WidgetPtr Ui::LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args) {
+  return Game::mod_data()->widget_loader().LoadWidget(args, parent, id);
+}
+
+const WidgetPtr& Ui::root() {
+  return root_;
 }
 
 }

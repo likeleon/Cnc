@@ -23,7 +23,7 @@ private:
 };
 
 class CNC_API Widget : public std::enable_shared_from_this<Widget> {
-public:
+public:  
   virtual void Initialize(const WidgetArgs& args);
   virtual void PostInit(const WidgetArgs& args);
   virtual void AddChild(const WidgetPtr& child);
@@ -32,8 +32,8 @@ public:
   Widget* parent();
 
   const Rectangle& bounds() const;
-
   const FieldInfo* GetFieldInfo(const std::string& name) const;
+
   std::string id_;
   std::string x_ = "0";
   std::string y_ = "0";
@@ -41,7 +41,7 @@ public:
   std::string height_ = "0";
 
 protected:
-  virtual const FieldInfo* OnGetFieldInfo(const std::string& name) const = 0;
+  virtual const FieldInfo* OnGetFieldInfo(const std::string& name) const;
 
 private:
   WidgetPtr parent_;
@@ -49,11 +49,19 @@ private:
   std::vector<WidgetPtr> children_;
 };
 
+class CNC_API ContainerWidget : public Widget {
+};
+
 class CNC_API Ui {
 public:
   Ui() = delete;
 
   static WidgetPtr LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args);
+
+  static const WidgetPtr& root();
+
+private:
+  static WidgetPtr root_;
 };
 
 }

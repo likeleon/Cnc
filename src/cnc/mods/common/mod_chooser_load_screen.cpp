@@ -41,8 +41,7 @@ void ModChooserLoadScreen::Display() {
 void ModChooserLoadScreen::StartGame(const Arguments& /*args*/) {
   WidgetArgs widget_args;
 
-  // TODO: nullptr -> Ui::Root
-  Ui::LoadWidget("MODCHOOSER_BACKGROUND", nullptr, widget_args);
+  Ui::LoadWidget("MODCHOOSER_BACKGROUND", Ui::root(), widget_args);
 }
 
 }
