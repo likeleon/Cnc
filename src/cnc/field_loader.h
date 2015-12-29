@@ -6,7 +6,7 @@
 
 namespace cnc {
 
-class FieldInfo {
+class CNC_API FieldInfo {
 public:
   using Setter = std::function<void(void* obj, const std::string& value)>;
 

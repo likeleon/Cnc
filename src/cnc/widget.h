@@ -34,14 +34,14 @@ public:
   const Rectangle& bounds() const;
 
   const FieldInfo* GetFieldInfo(const std::string& name) const;
-  std::string id;
-  int32_t x = 0;
-  int32_t y = 0;
-  int32_t width = 0;
-  int32_t height = 0;
+  std::string id_;
+  std::string x_ = "0";
+  std::string y_ = "0";
+  std::string width_ = "0";
+  std::string height_ = "0";
 
 protected:
-  const FieldInfo* OnGetFieldInfo(const std::string& name) const;
+  virtual const FieldInfo* OnGetFieldInfo(const std::string& name) const = 0;
 
 private:
   WidgetPtr parent_;

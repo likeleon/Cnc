@@ -125,6 +125,9 @@
     <ClCompile Include="src\cnc\widget.cpp">
       <Filter>widgets</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\evaluator.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -290,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\widget_ptr.h">
       <Filter>widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\evaluator.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

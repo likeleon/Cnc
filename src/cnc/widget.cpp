@@ -5,6 +5,7 @@
 #include "cnc/widget_loader.h"
 #include "cnc/error.h"
 #include "cnc/renderer.h"
+#include "cnc/evaluator.h"
 
 namespace cnc {
 
@@ -44,10 +45,29 @@ void Widget::Initialize(const WidgetArgs& args) {
     : parent_->bounds();
 
   if (args.ContainsKey("substitutions")) {
-    throw Error(MSG("'substitutions' not yet supported"));
+    throw Error(MSG("WidgetArgs 'substitutions' not yet supported"));
   }
 
-  bounds_ = { x, y, width, height };
+  std::map<std::string, int32_t> substitutions = {
+    { "WINDOW_RIGHT", Game::renderer()->Resolution().width },
+    { "WINDOW_BOTTOM", Game::renderer()->Resolution().height },
+    { "PARENT_RIGHT", parent_bounds.width },
+    { "PARENT_LEFT", parent_bounds.Left() },
+    { "PARENT_TOP", parent_bounds.Top() },
+    { "PARENT_BOTTOM", parent_bounds.height }
+  };
+  auto width = Evaluator::Evaluate(width_, substitutions);
+  auto height = Evaluator::Evaluate(height_, substitutions);
+
+  substitutions.emplace("WIDTH", width);
+  substitutions.emplace("HEIGHT", height);
+
+  bounds_ = { 
+    Evaluator::Evaluate(x_, substitutions), 
+    Evaluator::Evaluate(y_, substitutions),
+    width, 
+    height 
+  };
 }
 
 void Widget::PostInit(const WidgetArgs& /*args*/) {
@@ -60,14 +80,17 @@ void Widget::AddChild(const WidgetPtr& child) {
 
 const FieldInfo* Widget::GetFieldInfo(const std::string& name) const {
   static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
-    { "Id", StringFieldInfo(&Widget::id) },
-    { "X", Int32FieldInfo(&Widget::x) },
-    { "Y", Int32FieldInfo(&Widget::y) },
-    { "Width", Int32FieldInfo(&Widget::width) },
-    { "Height", Int32FieldInfo(&Widget::height) }
+    { "Id", StringFieldInfo(&Widget::id_) },
+    { "X", StringFieldInfo(&Widget::x_) },
+    { "Y", StringFieldInfo(&Widget::y_) },
+    { "Width", StringFieldInfo(&Widget::width_) },
+    { "Height", StringFieldInfo(&Widget::height_) }
   };
   auto kvp = WidgetFieldInfo.find(name);
-  return (kvp != WidgetFieldInfo.end()) ? &kvp->second : nullptr;
+  if (kvp != WidgetFieldInfo.end()) {
+    return &kvp->second;
+  }
+  return OnGetFieldInfo(name);
 }
 
 void Widget::set_parent(WidgetPtr parent) {

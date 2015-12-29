@@ -31,6 +31,7 @@
 #include <array>
 #include <ctime>
 #include <sstream>
+#include <stack>
 
 #define GLEW_STATIC
 #include "GL/glew.h"

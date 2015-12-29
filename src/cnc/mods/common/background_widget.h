@@ -10,7 +10,7 @@ class BackgroundWidget : public Widget {
 public:
   BackgroundWidget(const WidgetArgs& args);
   
-  const FieldInfo* GetFieldInfo(const std::string& name) const override;
+  const FieldInfo* OnGetFieldInfo(const std::string& name) const override;
 
   std::string background;
 };
