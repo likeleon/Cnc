@@ -14,5 +14,6 @@
 #include <memory>
 #include <typeindex>
 #include <array>
+#include <stack>
 
 #include "cnc/cnc.h"

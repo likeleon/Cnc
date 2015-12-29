@@ -27,6 +27,11 @@ public:
   virtual void Initialize(const WidgetArgs& args);
   virtual void PostInit(const WidgetArgs& args);
   virtual void AddChild(const WidgetPtr& child);
+  virtual void RemoveChild(const WidgetPtr& child);
+  virtual void HideChild(const WidgetPtr& child);
+  virtual void RemoveChildren();
+  virtual void Hidden();
+  virtual void Removed();
 
   void set_parent(WidgetPtr parent);
   Widget* parent();
@@ -57,11 +62,17 @@ public:
   Ui() = delete;
 
   static WidgetPtr LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args);
+  static WidgetPtr OpenWindow(const std::string& id);
+  static WidgetPtr OpenWindow(const std::string& id, const WidgetArgs& args);
+  static void CloseWindow();
+
+  static void ResetAll();
 
   static const WidgetPtr& root();
 
 private:
   static WidgetPtr root_;
+  static std::stack<WidgetPtr> window_list_;
 };
 
 }

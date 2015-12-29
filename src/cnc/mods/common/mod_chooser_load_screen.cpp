@@ -8,6 +8,7 @@
 #include "cnc/input_handler.h"
 #include "cnc/widget_utils.h"
 #include "cnc/widget.h"
+#include "cnc/arguments.h"
 
 namespace cnc {
 namespace mods {
@@ -38,10 +39,17 @@ void ModChooserLoadScreen::Display() {
   r->EndFrame(null_input_handler);
 }
 
-void ModChooserLoadScreen::StartGame(const Arguments& /*args*/) {
+void ModChooserLoadScreen::StartGame(const Arguments& args) {
   WidgetArgs widget_args;
 
   Ui::LoadWidget("MODCHOOSER_BACKGROUND", Ui::root(), widget_args);
+
+  if (args.Contains("installMusic")) {
+    widget_args.Add("modId", args.GetValue("installMusic", ""));
+    Ui::OpenWindow("INSTALL_MUSIC_PANEL", widget_args);
+  } else {
+    Ui::OpenWindow("MODCHOOSER_DIALOG", widget_args);
+  }
 }
 
 }

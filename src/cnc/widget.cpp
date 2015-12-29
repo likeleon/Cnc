@@ -13,6 +13,7 @@ class RootWidget : public ContainerWidget {
 };
 
 WidgetPtr Ui::root_ = std::make_shared<RootWidget>();
+std::stack<WidgetPtr> Ui::window_list_;
 
 WidgetArgs::WidgetArgs() {
 }
@@ -79,6 +80,38 @@ void Widget::AddChild(const WidgetPtr& child) {
   children_.emplace_back(child);
 }
 
+void Widget::RemoveChild(const WidgetPtr& child) {
+  if (child != nullptr) {
+    children_.erase(std::remove(children_.begin(), children_.end(), child), children_.end());
+    child->Removed();
+  }
+}
+
+void Widget::HideChild(const WidgetPtr& child) {
+  if (child != nullptr) {
+    children_.erase(std::remove(children_.begin(), children_.end(), child), children_.end());
+    child->Hidden();
+  }
+}
+
+void Widget::RemoveChildren() {
+  while (!children_.empty()) {
+    RemoveChild(children_.back());
+  }
+}
+
+void Widget::Hidden() {
+  for (auto it = children_.rbegin(); it != children_.rend(); ++it) {
+    (*it)->Hidden();
+  }
+}
+
+void Widget::Removed() {
+  for (auto it = children_.rbegin(); it != children_.rend(); ++it) {
+    (*it)->Removed();
+  }
+}
+
 const FieldInfo* Widget::GetFieldInfo(const std::string& name) const {
   static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
     { "Id", StringFieldInfo(&Widget::id_) },
@@ -112,6 +145,37 @@ const Rectangle& Widget::bounds() const {
 
 WidgetPtr Ui::LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args) {
   return Game::mod_data()->widget_loader().LoadWidget(args, parent, id);
+}
+
+WidgetPtr Ui::OpenWindow(const std::string& id) {
+  return OpenWindow(id, {});
+}
+
+WidgetPtr Ui::OpenWindow(const std::string& id, const WidgetArgs& args) {
+  auto window = Game::mod_data()->widget_loader().LoadWidget(args, root_, id);
+  if (!window_list_.empty()) {
+    root_->HideChild(window_list_.top());
+  }
+  window_list_.push(window);
+  return window;
+}
+
+void Ui::CloseWindow() {
+  if (!window_list_.empty()) {
+    root_->RemoveChild(window_list_.top());
+    window_list_.pop();
+  }
+  if (!window_list_.empty()) {
+    root_->AddChild(window_list_.top());
+  }
+}
+
+void Ui::ResetAll() {
+  root_->RemoveChildren();
+
+  while (!window_list_.empty()) {
+    CloseWindow();
+  }
 }
 
 const WidgetPtr& Ui::root() {

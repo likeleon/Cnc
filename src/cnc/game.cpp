@@ -11,6 +11,7 @@
 #include "cnc/input_handler.h"
 #include "cnc/mod_metadata.h"
 #include "cnc/mod_data.h"
+#include "cnc/widget.h"
 
 namespace cnc {
 
@@ -58,6 +59,8 @@ void Game::InitializeSettings(const Arguments& args) {
 }
 
 void Game::InitializeMod(const std::string& mod, const Arguments& args) {
+  Ui::ResetAll();
+
   mod_data_.reset();
 
   std::cout << "Loading mod: " << mod << std::endl;

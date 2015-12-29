@@ -13,5 +13,6 @@
 #include <chrono>
 #include <memory>
 #include <typeindex>
+#include <stack>
 
 #include "cnc/cnc.h"
