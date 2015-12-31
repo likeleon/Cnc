@@ -3,6 +3,7 @@
 #include "cnc/mini_yaml.h"
 #include "cnc/enum_info.h"
 #include "cnc/error.h"
+#include "cnc/string.h"
 
 namespace cnc {
 
@@ -23,11 +24,22 @@ struct FieldInfoTraits {
   static T Parse(const std::string& s);
 };
 
-template <typename TObject, typename TField>
-FieldInfo StringFieldInfo(TField TObject::*field) {
+template <typename TObject>
+FieldInfo StringFieldInfo(std::string TObject::*field) {
   return FieldInfo([field](void *o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
     (obj->*field) = v;
+  });
+}
+
+template <typename TObject>
+FieldInfo StringVectorFieldInfo(std::vector<std::string> TObject::*field) {
+  return FieldInfo([field](void *o, const std::string& v) {
+    TObject* obj = static_cast<TObject*>(o);
+    auto parts = String::Split(v, ',', StringSplitOptions::RemoveEmptyEntries);
+    for (const auto& part : parts) {
+      (obj->*field).emplace_back(String::Trim(part));
+    }
   });
 }
 

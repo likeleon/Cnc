@@ -10,6 +10,11 @@ T* New(const std::map<std::string, Any>& args) {
   return new T(args);
 }
 
+template <typename T>
+T* NewWithoutArgs(const std::map<std::string, Any>& /*args*/) {
+  return new T();
+}
+
 class CNC_API ObjectCreator {
 public:
   template <typename T>

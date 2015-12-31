@@ -118,7 +118,8 @@ const FieldInfo* Widget::GetFieldInfo(const std::string& name) const {
     { "X", StringFieldInfo(&Widget::x_) },
     { "Y", StringFieldInfo(&Widget::y_) },
     { "Width", StringFieldInfo(&Widget::width_) },
-    { "Height", StringFieldInfo(&Widget::height_) }
+    { "Height", StringFieldInfo(&Widget::height_) },
+    { "Logic", StringVectorFieldInfo(&Widget::logic_) }
   };
   auto kvp = WidgetFieldInfo.find(name);
   if (kvp != WidgetFieldInfo.end()) {

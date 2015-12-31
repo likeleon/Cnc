@@ -44,6 +44,7 @@ public:
   std::string y_ = "0";
   std::string width_ = "0";
   std::string height_ = "0";
+  std::vector<std::string> logic_;
 
 protected:
   virtual const FieldInfo* OnGetFieldInfo(const std::string& name) const;
