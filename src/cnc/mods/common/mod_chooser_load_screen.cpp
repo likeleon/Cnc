@@ -16,9 +16,6 @@ namespace common {
 
 static NullInputHandler null_input_handler;
 
-ModChooserLoadScreen::ModChooserLoadScreen(const std::map<std::string, Any>& /*args*/) {
-}
-
 void ModChooserLoadScreen::Init(const Manifest& /*m*/, const std::map<std::string, std::string>& info) {
   auto res = Game::renderer()->Resolution();
   bounds_ = { 0, 0, res.width, res.height };

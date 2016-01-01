@@ -8,11 +8,9 @@ namespace common {
 
 class BackgroundWidget : public Widget {
 public:
-  BackgroundWidget(const WidgetArgs& args);
-  
   const FieldInfo* OnGetFieldInfo(const std::string& name) const override;
 
-  std::string background;
+  std::string background_;
 };
 
 }

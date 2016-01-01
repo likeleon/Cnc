@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\cnc\mods\common\background_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\dllmain.cpp" />
+    <ClCompile Include="src\cnc\mods\common\label_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\mod_chooser_load_screen.cpp" />
     <ClCompile Include="src\cnc\mods\common\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\background_widget.h" />
+    <ClInclude Include="src\cnc\mods\common\label_widget.h" />
     <ClInclude Include="src\cnc\mods\common\mod_chooser_load_screen.h" />
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
   </ItemGroup>
@@ -114,6 +116,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ProjectDir)src</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>cnc/mods/common/stdafx.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4592</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +148,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ProjectDir)src</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>cnc/mods/common/stdafx.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4592</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

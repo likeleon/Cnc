@@ -9,6 +9,9 @@
     <ClCompile Include="src\cnc\mods\common\background_widget.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\label_widget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -16,6 +19,9 @@
       <Filter>LoadScreens</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\mods\common\background_widget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\label_widget.h">
       <Filter>Widgets</Filter>
     </ClInclude>
   </ItemGroup>
