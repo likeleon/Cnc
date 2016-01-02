@@ -7,7 +7,7 @@ enum class StringSplitOptions {
   RemoveEmptyEntries
 };
 
-class String {
+class CNC_API String {
 public:
   static bool Contains(const std::string& s, const std::string& value);
   static bool StartsWith(const std::string& s, const std::string& starting);

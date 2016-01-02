@@ -23,7 +23,11 @@ class LabelWidget : public Widget {
 public:
   std::map<std::string, FieldInfo> GetFieldInfoMap() const override;
 
+  LabelWidget();
+
+  std::string text_;
   TextAlign align_ = TextAlign::Left;
+  std::string font_;
 };
 
 }

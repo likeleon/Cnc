@@ -7,6 +7,7 @@
 namespace cnc {
 
 std::unordered_map<std::type_index, std::vector<FieldLoadInfo>> FieldLoader::type_load_info_;
+std::function<void(const std::string&, const type_info&)> FieldLoader::unknown_field_action_ = FieldLoader::DefaultUnknownFieldAction;
 
 FieldInfo::FieldInfo(Setter setter)
   : setter_(setter) {
@@ -41,6 +42,10 @@ bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name, const MiniYa
   const auto& yaml = iter->second;
   value = String::Trim(yaml.value());
   return true;
+}
+
+void FieldLoader::DefaultUnknownFieldAction(const std::string& s, const type_info& f) {
+  throw Error(MSG("FieldLoader: Missing field '" + s + "' on '" + f.name() + "'"));
 }
 
 template <>
