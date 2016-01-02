@@ -47,9 +47,11 @@ public:
   std::vector<std::string> logic_;
 
 protected:
-  virtual const FieldInfo* OnGetFieldInfo(const std::string& name) const;
+  virtual std::map<std::string, FieldInfo> GetFieldInfoMap() const;
 
 private:
+  static const std::map<std::string, FieldInfo>& GetFieldInfoMapCache(const Widget& widget);
+    
   WidgetPtr parent_;
   Rectangle bounds_;
   std::vector<WidgetPtr> children_;

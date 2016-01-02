@@ -5,15 +5,10 @@ namespace cnc {
 namespace mods {
 namespace common {
 
-const FieldInfo* BackgroundWidget::OnGetFieldInfo(const std::string& name) const {
-  static const std::map<std::string, FieldInfo> BackgroundWidgetFieldInfo = {
+std::map<std::string, FieldInfo> BackgroundWidget::GetFieldInfoMap() const {
+  return {
     { "Background", StringFieldInfo(&BackgroundWidget::background_) },
   };
-  auto kvp = BackgroundWidgetFieldInfo.find(name);
-  if (kvp == BackgroundWidgetFieldInfo.end()) {
-    return nullptr;
-  }
-  return &kvp->second;
 }
 
 }

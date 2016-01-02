@@ -12,9 +12,6 @@ namespace cnc {
 class RootWidget : public ContainerWidget {
 };
 
-WidgetPtr Ui::root_ = std::make_shared<RootWidget>();
-std::stack<WidgetPtr> Ui::window_list_;
-
 WidgetArgs::WidgetArgs() {
 }
 
@@ -112,24 +109,43 @@ void Widget::Removed() {
   }
 }
 
-const FieldInfo* Widget::GetFieldInfo(const std::string& name) const {
-  static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
-    { "Id", StringFieldInfo(&Widget::id_) },
-    { "X", StringFieldInfo(&Widget::x_) },
-    { "Y", StringFieldInfo(&Widget::y_) },
-    { "Width", StringFieldInfo(&Widget::width_) },
-    { "Height", StringFieldInfo(&Widget::height_) },
-    { "Logic", StringVectorFieldInfo(&Widget::logic_) }
-  };
-  auto kvp = WidgetFieldInfo.find(name);
-  if (kvp != WidgetFieldInfo.end()) {
-    return &kvp->second;
+static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
+  { "Id", StringFieldInfo(&Widget::id_) },
+  { "X", StringFieldInfo(&Widget::x_) },
+  { "Y", StringFieldInfo(&Widget::y_) },
+  { "Width", StringFieldInfo(&Widget::width_) },
+  { "Height", StringFieldInfo(&Widget::height_) },
+  { "Logic", StringVectorFieldInfo(&Widget::logic_) }
+};
+
+const std::map<std::string, FieldInfo>& Widget::GetFieldInfoMapCache(const Widget& widget) {
+  static std::map<std::type_index, std::map<std::string, FieldInfo>> field_info_map_cache_;
+  const auto& type_info = typeid(widget);
+  auto iter = field_info_map_cache_.find(type_info);
+  if (iter == field_info_map_cache_.end()) {
+    std::map<std::string, FieldInfo> map(WidgetFieldInfo);
+    for (const auto& f : widget.GetFieldInfoMap()) {
+      if (map.find(f.first) != map.end()) {
+        throw Error(MSG("Duplicated key found: " + f.first));
+      }
+      map.emplace(f.first, f.second);
+    }
+    iter = field_info_map_cache_.emplace(type_info, map).first;
   }
-  return OnGetFieldInfo(name);
+  return iter->second;
 }
 
-const FieldInfo* Widget::OnGetFieldInfo(const std::string& /*name*/) const {
-  return nullptr;
+const FieldInfo* Widget::GetFieldInfo(const std::string& name) const {
+  const auto& cache = GetFieldInfoMapCache(*this);
+  auto iter = cache.find(name);
+  if (iter == cache.end()) {
+    return nullptr;
+  }
+  return &iter->second;
+}
+
+std::map<std::string, FieldInfo> Widget::GetFieldInfoMap() const {
+  return{};
 }
 
 void Widget::set_parent(WidgetPtr parent) {
@@ -143,6 +159,9 @@ Widget* Widget::parent() {
 const Rectangle& Widget::bounds() const {
   return bounds_;
 }
+
+WidgetPtr Ui::root_ = std::make_shared<RootWidget>();
+std::stack<WidgetPtr> Ui::window_list_;
 
 WidgetPtr Ui::LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args) {
   return Game::mod_data()->widget_loader().LoadWidget(args, parent, id);

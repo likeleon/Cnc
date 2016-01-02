@@ -21,7 +21,7 @@ struct TextAlignTraits {
 
 class LabelWidget : public Widget {
 public:
-  const FieldInfo* OnGetFieldInfo(const std::string& name) const override;
+  std::map<std::string, FieldInfo> GetFieldInfoMap() const override;
 
   TextAlign align_ = TextAlign::Left;
 };

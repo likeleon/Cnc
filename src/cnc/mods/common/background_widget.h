@@ -8,7 +8,7 @@ namespace common {
 
 class BackgroundWidget : public Widget {
 public:
-  const FieldInfo* OnGetFieldInfo(const std::string& name) const override;
+  std::map<std::string, FieldInfo> GetFieldInfoMap() const override;
 
   std::string background_;
 };

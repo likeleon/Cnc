@@ -14,16 +14,10 @@ const EnumNamesType<TextAlignTraits> TextAlignTraits::names = {
   { TextAlign::Right, "Right" }
 };
 
-const FieldInfo* LabelWidget::OnGetFieldInfo(const std::string& name) const {
-
-  static const std::map<std::string, FieldInfo> BackgroundWidgetFieldInfo = {
+std::map<std::string, FieldInfo> LabelWidget::GetFieldInfoMap() const {
+  return {
     { "Align", EnumFieldInfo<TextAlignTraits>(&LabelWidget::align_) },
   };
-  auto kvp = BackgroundWidgetFieldInfo.find(name);
-  if (kvp == BackgroundWidgetFieldInfo.end()) {
-    return nullptr;
-  }
-  return &kvp->second;
 }
 
 }
