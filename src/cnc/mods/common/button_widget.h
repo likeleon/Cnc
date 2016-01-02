@@ -11,6 +11,8 @@ public:
   std::map<std::string, FieldInfo> GetFieldInfoMap() const override;
 
   std::string tooltip_container_;
+  std::string key_;
+  std::string text_;
   std::string background_;
 };
 

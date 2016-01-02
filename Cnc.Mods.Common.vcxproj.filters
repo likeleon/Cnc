@@ -17,6 +17,9 @@
     <ClCompile Include="src\cnc\mods\common\image_widget.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\tooltip_container_widget.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -36,6 +39,9 @@
       <Filter>Widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\mods\common\image_widget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\tooltip_container_widget.h">
       <Filter>Widgets</Filter>
     </ClInclude>
   </ItemGroup>
