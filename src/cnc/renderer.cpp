@@ -3,6 +3,8 @@
 #include "cnc/settings.h"
 #include "cnc/device_factory.h"
 #include "cnc/sprite_renderer.h"
+#include "cnc/manifest.h"
+#include "cnc/platform.h"
 
 namespace cnc {
 
@@ -23,6 +25,16 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
   rgba_sprite_renderer_ = std::make_unique<SpriteRenderer>(this, device_->CreateShader("rgba"));
 
   temp_buffer_ = device_->CreateVertexBuffer(temp_buffer_size_);
+}
+
+void Renderer::InitializeFonts(const Manifest& m) {
+  // TODO: PerfTimer
+  font_sheet_builder_ = std::make_unique<SheetBuilder>(SheetType::BGRA);
+  fonts_.clear();
+  for (const auto& f : m.fonts()) {
+    auto font = std::make_unique<SpriteFont>(Platform::ResolvePath(f.second.first), f.second.second, *font_sheet_builder_);
+    fonts_.emplace(f.first, std::move(font));
+  }
 }
 
 void Renderer::BeginFrame(const Point& scroll, float zoom) {

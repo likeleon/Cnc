@@ -6,6 +6,8 @@
 #include "cnc/perf_history.h"
 #include "cnc/size.h"
 #include "cnc/point.h"
+#include "cnc/sheet_builder.h"
+#include "cnc/sprite_font.h"
 
 namespace cnc {
 
@@ -13,10 +15,13 @@ struct GraphicSettings;
 class IInputHandler;
 class IBatchRenderer;
 struct Vertex;
+class Manifest;
 
 class CNC_API Renderer {
 public:
   explicit Renderer(const GraphicSettings& graphic_settings);
+
+  void InitializeFonts(const Manifest& m);
 
   void BeginFrame(const Point& scroll, float zoom);
   void SetViewportParms(const Point& scroll, float zoom);
@@ -44,6 +49,8 @@ private:
   std::unique_ptr<SpriteRenderer> rgba_sprite_renderer_;
   IBatchRenderer* current_batch_renderer_ = nullptr;
   std::unique_ptr<IVertexBuffer<Vertex>> temp_buffer_;
+  std::unique_ptr<SheetBuilder> font_sheet_builder_;
+  std::map<std::string, SpriteFontPtr> fonts_;
   Size last_resolution_;
   Point last_scroll_ = Point::Zero;
   float last_zoom_ = 0.0f;

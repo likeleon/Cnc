@@ -87,6 +87,12 @@ Manifest::Manifest(const std::string& mod) {
   if (iter == yaml_.end()) {
     throw std::exception("'LoadScreen' section is not defined.");
   }
+
+  fonts_ = yaml_.at("Fonts").ToMap<std::pair<std::string, int32_t>>([](const MiniYaml& my) {
+    auto nd = my.ToMap();
+    return std::make_pair(nd.at("Font").value(), std::stoi(nd.at("Size").value()));
+  });
+
   load_screen_ = &(iter->second);
 }
 
@@ -120,6 +126,10 @@ const std::vector<std::string>& Manifest::chrome_metrics() const {
 
 const MiniYaml& Manifest::load_screen() const {
   return *load_screen_;
+}
+
+const std::map<std::string, std::pair<std::string, int32_t>>& Manifest::fonts() const {
+  return fonts_;
 }
 
 }

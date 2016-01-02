@@ -2,14 +2,9 @@
 
 #include "cnc/size.h"
 #include "cnc/itexture.h"
+#include "cnc/sheet_builder.h"
 
 namespace cnc {
-
-enum class SheetType {
-  Indexed = 1,
-  DualIndexed = 2,
-  BGRA = 4
-};
 
 class CNC_API Sheet {
 public:

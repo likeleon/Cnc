@@ -70,6 +70,7 @@ void Game::InitializeMod(const std::string& mod, const Arguments& args) {
 
   mod_data_->MountFiles();
   mod_data_->InitializeLoaders();
+  renderer_->InitializeFonts(mod_data_->manifest());
 
   PerfHistory::Items("render").set_has_normal_tick(false);
   PerfHistory::Items("batches").set_has_normal_tick(false);

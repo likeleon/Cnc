@@ -50,8 +50,10 @@
     <ClCompile Include="src\cnc\settings.cpp" />
     <ClCompile Include="src\cnc\shader.cpp" />
     <ClCompile Include="src\cnc\sheet.cpp" />
+    <ClCompile Include="src\cnc\sheet_builder.cpp" />
     <ClCompile Include="src\cnc\size.cpp" />
     <ClCompile Include="src\cnc\sprite.cpp" />
+    <ClCompile Include="src\cnc\sprite_font.cpp" />
     <ClCompile Include="src\cnc\sprite_renderer.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -118,9 +120,11 @@
     <ClInclude Include="src\cnc\settings.h" />
     <ClInclude Include="src\cnc\shader.h" />
     <ClInclude Include="src\cnc\sheet.h" />
+    <ClInclude Include="src\cnc\sheet_builder.h" />
     <ClInclude Include="src\cnc\sheet_ptr.h" />
     <ClInclude Include="src\cnc\size.h" />
     <ClInclude Include="src\cnc\sprite.h" />
+    <ClInclude Include="src\cnc\sprite_font.h" />
     <ClInclude Include="src\cnc\sprite_renderer.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\stop_watch.h" />

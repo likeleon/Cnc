@@ -25,3 +25,23 @@ LoadScreen: ModChooserLoadScreen
 	
 ChromeMetrics:
 	./mods/modchooser/metrics.yaml
+
+Fonts:
+	Regular:
+		Font:./mods/common/FreeSans.ttf
+		Size:14
+	Bold:
+		Font:./mods/common/FreeSansBold.ttf
+		Size:14
+	BigBold:
+		Font:./mods/common/FreeSansBold.ttf
+		Size:24
+	MediumBold:
+		Font:./mods/common/FreeSansBold.ttf
+		Size:18
+	Tiny:
+		Font:./mods/common/FreeSans.ttf
+		Size:10
+	TinyBold:
+		Font:./mods/common/FreeSansBold.ttf
+		Size:10

@@ -128,6 +128,12 @@
     <ClCompile Include="src\cnc\evaluator.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\sheet_builder.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\sprite_font.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -296,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="src\cnc\evaluator.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\sprite_font.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\sheet_builder.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
