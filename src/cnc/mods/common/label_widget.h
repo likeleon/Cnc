@@ -13,6 +13,11 @@ enum class TextAlign {
   Right
 };
 
+struct TextAlignTraits {
+  using E = TextAlign;
+  static const std::string pretty_name;
+  static const EnumNamesType<TextAlignTraits> names;
+};
 
 class LabelWidget : public Widget {
 public:
@@ -23,14 +28,4 @@ public:
 
 }
 }
-}
-
-namespace cnc {
-
-template <>
-struct EnumInfoTraits<mods::common::TextAlign> {
-  static const std::string pretty_name;
-  static const EnumInfo<mods::common::TextAlign>::NamesType names;
-};
-
 }

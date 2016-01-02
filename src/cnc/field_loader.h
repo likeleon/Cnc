@@ -43,11 +43,11 @@ FieldInfo StringVectorFieldInfo(std::vector<std::string> TObject::*field) {
   });
 }
 
-template <typename TObject, typename TField>
-FieldInfo EnumFieldInfo(TField TObject::*field) {
+template <typename TEnumTraits, typename TObject>
+FieldInfo EnumFieldInfo(typename TEnumTraits::E TObject::*field) {
   return FieldInfo([field](void* o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
-    (obj->*field) = NameToEnum<TField>(v);
+    (obj->*field) = NameToEnum<TEnumTraits>(v);
   });
 }
 

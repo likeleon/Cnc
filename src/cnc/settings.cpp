@@ -17,7 +17,7 @@ const std::vector<FieldLoadInfo> GameSettings::load_info = {
 
 const std::vector<FieldLoadInfo> GraphicSettings::load_info = {
   { "Renderer", StringFieldInfo(&GraphicSettings::renderer) },
-  { "Mode", EnumFieldInfo(&GraphicSettings::mode) },
+  { "Mode", EnumFieldInfo<WindowModeTraits>(&GraphicSettings::mode) },
   { "FullscreenSize", TypeFieldInfo(&GraphicSettings::fullscreen_size) },
   { "WindowedSize", TypeFieldInfo(&GraphicSettings::windowed_size) },
   { "SheetSize", Int32FieldInfo(&GraphicSettings::batch_size) }

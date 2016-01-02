@@ -4,30 +4,17 @@
 
 namespace cnc {
 
-template <typename E>
-class EnumInfo {
-public:
-  using NamesType = std::unordered_map<E, std::string>;
+template <typename ETraits>
+using EnumNamesType = std::unordered_map<typename ETraits::E, std::string>;
 
-  static const std::vector<E>& enums();
-  static const std::vector<std::string>& names();
+template <typename ETraits>
+const std::string& EnumToName(typename ETraits::E value);
 
-private:
-  static std::vector<E> enums_;
-  static std::vector<std::string> names_;
-};
+template <typename ETraits>
+typename ETraits::E NameToEnum(const std::string& name);
 
-template <typename E>
-struct EnumInfoTraits;
-
-template <typename E>
-const std::string& EnumToName(E value);
-
-template <typename E>
-E NameToEnum(const std::string& name);
-
-template <typename E>
-E NameToEnum(const std::string& name, E default_value);
+template <typename ETraits>
+typename ETraits::E NameToEnum(const std::string& name, typename ETraits::E default_value);
 
 }
 

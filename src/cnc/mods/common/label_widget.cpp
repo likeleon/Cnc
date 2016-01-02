@@ -6,10 +6,18 @@ namespace cnc {
 namespace mods {
 namespace common {
 
+const std::string TextAlignTraits::pretty_name = "TextAlign";
+
+const EnumNamesType<TextAlignTraits> TextAlignTraits::names = {
+  { TextAlign::Left, "Left" },
+  { TextAlign::Center, "Center" },
+  { TextAlign::Right, "Right" }
+};
+
 const FieldInfo* LabelWidget::OnGetFieldInfo(const std::string& name) const {
 
   static const std::map<std::string, FieldInfo> BackgroundWidgetFieldInfo = {
-    { "Align", EnumFieldInfo(&LabelWidget::align_) },
+    { "Align", EnumFieldInfo<TextAlignTraits>(&LabelWidget::align_) },
   };
   auto kvp = BackgroundWidgetFieldInfo.find(name);
   if (kvp == BackgroundWidgetFieldInfo.end()) {
@@ -20,18 +28,4 @@ const FieldInfo* LabelWidget::OnGetFieldInfo(const std::string& name) const {
 
 }
 }
-}
-
-namespace cnc {
-
-using TextAlign = mods::common::TextAlign;
-
-const std::string EnumInfoTraits<TextAlign>::pretty_name = "TextAlign";
-
-const EnumInfo<mods::common::TextAlign>::NamesType EnumInfoTraits<TextAlign>::names = {
-  { TextAlign::Left, "Left" },
-  { TextAlign::Center, "Center" },
-  { TextAlign::Right, "Right" }
-};
-
 }

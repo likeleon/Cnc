@@ -3,9 +3,9 @@
 
 namespace cnc {
 
-const std::string EnumInfoTraits<WindowMode>::pretty_name = "WindowMode";
+const std::string WindowModeTraits::pretty_name = "WindowMode";
 
-const EnumInfo<WindowMode>::NamesType EnumInfoTraits<WindowMode>::names = {
+const EnumNamesType<WindowModeTraits> WindowModeTraits::names = {
   { WindowMode::Windowed, "Windowed" },
   { WindowMode::Fullscreen, "Fullscreen" },
   { WindowMode::PseudoFullscreen, "PseudoFullscreen" }

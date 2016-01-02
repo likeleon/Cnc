@@ -26,10 +26,10 @@ enum class WindowMode {
   PseudoFullscreen
 };
 
-template <>
-struct CNC_API EnumInfoTraits<WindowMode> {
+struct CNC_API WindowModeTraits {
+  using E = WindowMode;
   static const std::string pretty_name;
-  static const EnumInfo<WindowMode>::NamesType names;
+  static const EnumNamesType<WindowModeTraits> names;
 };
 
 class CNC_API IGraphicsDevice {
