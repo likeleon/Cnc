@@ -10,6 +10,10 @@ Point::Point(int32_t x, int32_t y)
   : x(x), y(y) {
 }
 
+Point::operator Size() const {
+  return{ x, y };
+}
+
 Point& Point::operator+=(const Size& sz) {
   x += sz.width;
   y += sz.height;

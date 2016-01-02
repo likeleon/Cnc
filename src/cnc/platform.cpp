@@ -3,6 +3,7 @@
 #include "cnc/platform.h"
 #include "cnc/error.h"
 #include "cnc/string.h"
+#include "cnc/path.h"
 
 namespace cnc {
 
@@ -81,9 +82,7 @@ std::string Platform::ResolvePath(const std::string& p) {
 }
 
 std::string Platform::ResolvePaths(const std::vector<std::string>& paths) {
-  auto path = std::accumulate(paths.begin(), paths.end(), fs_path{},
-                              [](const fs_path& a, const std::string& b) { return a / b; });
-  return ResolvePath(path.string());
+  return ResolvePath(Path::Combine(paths));
 }
 
 void Platform::Sleep(int64_t duration_ms) {

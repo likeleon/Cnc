@@ -109,6 +109,30 @@ void Widget::Removed() {
   }
 }
 
+void Widget::PrepareRenderables() {
+}
+
+void Widget::PrepareRenderablesOuter() {
+  if (IsVisible()) {
+    PrepareRenderables();
+    for (const auto& child : children_) {
+      child->PrepareRenderablesOuter();
+    }
+  }
+}
+
+void Widget::Draw() {
+}
+
+void Widget::DrawOuter() {
+  if (IsVisible()) {
+    Draw();
+    for (const auto& child : children_) {
+      child->DrawOuter();
+    }
+  }
+}
+
 static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
   { "Id", StringFieldInfo(&Widget::id_) },
   { "X", StringFieldInfo(&Widget::x_) },
@@ -162,6 +186,20 @@ const Rectangle& Widget::bounds() const {
   return bounds_;
 }
 
+Point Widget::RenderOrigin() const {
+  auto offset = (parent_ == nullptr) ? Point::Zero : parent_->ChildOrigin();
+  return Point(bounds_.x, bounds_.y) + Size(offset);
+}
+
+Point Widget::ChildOrigin() const {
+  return RenderOrigin();
+}
+
+Rectangle Widget::RenderBounds() const {
+  auto ro = RenderOrigin();
+  return{ ro.x, ro.y, bounds_.width, bounds_.height };
+}
+
 WidgetPtr Ui::root_ = std::make_shared<RootWidget>();
 std::stack<WidgetPtr> Ui::window_list_;
 
@@ -198,6 +236,14 @@ void Ui::ResetAll() {
   while (!window_list_.empty()) {
     CloseWindow();
   }
+}
+
+void Ui::PrepareRenderables() {
+  root_->PrepareRenderablesOuter();
+}
+
+void Ui::Draw() {
+  root_->DrawOuter();
 }
 
 const WidgetPtr& Ui::root() {

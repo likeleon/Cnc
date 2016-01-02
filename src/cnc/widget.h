@@ -33,10 +33,19 @@ public:
   virtual void Hidden();
   virtual void Removed();
 
+  virtual void PrepareRenderables();
+  virtual void PrepareRenderablesOuter();
+  virtual void Draw();
+  virtual void DrawOuter();
+
+  const Rectangle& bounds() const;
+  virtual Point RenderOrigin() const;
+  virtual Point ChildOrigin() const;
+  virtual Rectangle RenderBounds() const;
+
   void set_parent(WidgetPtr parent);
   Widget* parent();
 
-  const Rectangle& bounds() const;
   const FieldInfo* GetFieldInfo(const std::string& name) const;
 
   std::string id_;
@@ -45,8 +54,11 @@ public:
   std::string width_ = "0";
   std::string height_ = "0";
   std::vector<std::string> logic_;
+  bool visible_ = true;
   bool ignore_mouse_over_ = false;
   bool ignore_child_mouse_over_ = false;
+
+  std::function<bool()> IsVisible = [this] { return visible_; };
 
 protected:
   virtual std::map<std::string, FieldInfo> GetFieldInfoMap() const;
@@ -72,6 +84,9 @@ public:
   static void CloseWindow();
 
   static void ResetAll();
+
+  static void PrepareRenderables();
+  static void Draw();
 
   static const WidgetPtr& root();
 

@@ -7,6 +7,8 @@ struct Size;
 struct CNC_API Point {
   Point(int32_t x, int32_t y);
 
+  explicit operator Size() const;
+  
   Point& operator+=(const Size& sz);
   Point& operator-=(const Size& sz);
 

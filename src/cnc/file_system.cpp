@@ -111,13 +111,13 @@ bool FileSystem::TryOpen(const std::string& name, std::vector<char>& s) {
     std::copy_if(
       mounted_folders_.begin(), 
       mounted_folders_.end(), 
-      folders.begin(), 
+      std::back_inserter(folders),
       [foldername](const auto& f) { return f->name() == foldername; });
   } else {
     std::copy_if(
       mounted_folders_.begin(),
       mounted_folders_.end(),
-      folders.begin(),
+      std::back_inserter(folders),
       [filename](const auto& f) { return f->Exists(filename); });
   }
   auto max_elem = std::max_element(
@@ -143,7 +143,7 @@ bool FileSystem::GetFromCache(PackageHashType type, const std::string& filename,
   std::copy_if(
     iter->second.begin(),
     iter->second.end(),
-    folders.begin(),
+    std::back_inserter(folders),
     [filename](const IFolder* f) { return f->Exists(filename); });
   auto min_elem = std::min_element(
     folders.begin(),

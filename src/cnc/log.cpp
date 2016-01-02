@@ -3,6 +3,7 @@
 #include "cnc/platform.h"
 #include "cnc/directory.h"
 #include "cnc/error.h"
+#include "cnc/path.h"
 
 namespace cnc {
 
@@ -23,7 +24,7 @@ void Log::AddChannel(const std::string& channel_name, const std::string& base_fi
 
   for (int32_t i = 0; ; ++i) {
     std::string filename = (i > 0) ? base_filename + std::to_string(i) : base_filename;
-    filename = Platform::ResolvePaths({ log_dir, filename });
+    filename = Path::Combine({ log_dir, filename });
     auto writer = std::make_unique<std::ofstream>(filename, std::ios_base::trunc);
     if (writer->fail()) {
       continue;

@@ -1,6 +1,5 @@
 #include "cnc/stdafx.h"
 #include "cnc/folder.h"
-#include "cnc/platform.h"
 #include "cnc/package_entry.h"
 #include "cnc/file.h"
 #include "cnc/directory.h"
@@ -16,11 +15,11 @@ Folder::Folder(const std::string& path, int32_t priority)
 }
 
 std::vector<char> Folder::GetContent(const std::string& filename) const {
-  return File::OpenRead(filename);
+  return File::OpenRead(Path::Combine({ path_, filename }));
 }
 
 bool Folder::Exists(const std::string& filename) const {
-  return File::Exists(Platform::ResolvePaths({ path_, filename }));
+  return File::Exists(Path::Combine({ path_, filename }));
 }
 
 std::vector<uint32_t> Folder::ClassicHashes() const {

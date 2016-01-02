@@ -143,6 +143,11 @@ void Game::RenderTick() {
 
     renderer_->BeginFrame(Point::Zero, 1.0f);
 
+    PERF_SAMPLE(render_widgets, {
+      Ui::PrepareRenderables();
+      Ui::Draw();
+    });
+
     PERF_SAMPLE(render_flip, {
       DefaultInputHandler input_handler;
       renderer_->EndFrame(input_handler);
