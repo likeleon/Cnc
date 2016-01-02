@@ -15,6 +15,14 @@ const EnumNamesType<TextAlignTraits> TextAlignTraits::names = {
   { TextAlign::Right, "Right" }
 };
 
+const std::string TextVAlignTraits::pretty_name = "TextVAlign";
+
+const EnumNamesType<TextVAlignTraits> TextVAlignTraits::names = {
+  { TextVAlign::Top, "Top" },
+  { TextVAlign::Middle, "Middle" },
+  { TextVAlign::Bottom, "Bottom" }
+};
+
 LabelWidget::LabelWidget()
 : font_(ChromeMetrics::Get<std::string>("TextFont")) {
 }
@@ -23,6 +31,7 @@ std::map<std::string, FieldInfo> LabelWidget::GetFieldInfoMap() const {
   return {
     { "Text", StringFieldInfo(&LabelWidget::text_) },
     { "Align", EnumFieldInfo<TextAlignTraits>(&LabelWidget::align_) },
+    { "VAlign", EnumFieldInfo<TextVAlignTraits>(&LabelWidget::valign_) },
     { "Font", StringFieldInfo(&LabelWidget::font_) }
   };
 }

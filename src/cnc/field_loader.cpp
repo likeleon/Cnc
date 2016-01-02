@@ -25,12 +25,9 @@ FieldLoadInfo::FieldLoadInfo(const std::string& yaml_name,
   : yaml_name(std::move(yaml_name)), required(required), field_info(field_info) {
 }
 
-FieldLoader::MissingFieldsException::MissingFieldsException(std::vector<std::string>&& missing)
-  : missing_(std::move(missing)), message_(String::Join(missing_, ", ") ) {
-}
-
-const char* FieldLoader::MissingFieldsException::what() const {
-  return message_.c_str();
+FieldLoader::MissingFieldsException::MissingFieldsException(const Message& msg, std::vector<std::string>&& missing)
+  : Error(MessageBuilder(String::Join(missing, ", "), msg.file_name, msg.line_no, msg.function_name)),
+  missing_(std::move(missing)) {
 }
 
 bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name, const MiniYamlMap& mm, std::string& value) {

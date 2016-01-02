@@ -13,10 +13,22 @@ enum class TextAlign {
   Right
 };
 
+enum class TextVAlign {
+  Top,
+  Middle,
+  Bottom
+};
+
 struct TextAlignTraits {
   using E = TextAlign;
   static const std::string pretty_name;
   static const EnumNamesType<TextAlignTraits> names;
+};
+
+struct TextVAlignTraits {
+  using E = TextVAlign;
+  static const std::string pretty_name;
+  static const EnumNamesType<TextVAlignTraits> names;
 };
 
 class LabelWidget : public Widget {
@@ -27,6 +39,7 @@ public:
 
   std::string text_;
   TextAlign align_ = TextAlign::Left;
+  TextVAlign valign_ = TextVAlign::Middle;
   std::string font_;
 };
 

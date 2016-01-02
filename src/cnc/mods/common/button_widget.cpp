@@ -7,7 +7,8 @@ namespace common {
 
 std::map<std::string, FieldInfo> ButtonWidget::GetFieldInfoMap() const {
   return{
-    { "TooltipContainer", StringFieldInfo(&ButtonWidget::tooltip_container_) }
+    { "TooltipContainer", StringFieldInfo(&ButtonWidget::tooltip_container_) },
+    { "Background", StringFieldInfo(&ButtonWidget::background_) }
   };
 }
 

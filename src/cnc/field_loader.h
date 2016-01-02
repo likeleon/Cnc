@@ -93,16 +93,14 @@ struct FieldLoadInfo {
 
 class CNC_API FieldLoader {
 public:
-  class MissingFieldsException : public std::exception {
+  class MissingFieldsException : public Error {
   public:
-    explicit MissingFieldsException(std::vector<std::string>&& missing);
+    explicit MissingFieldsException(const Message& msg, std::vector<std::string>&& missing);
 
-    const char* what() const override;
     const std::vector<std::string>& missing() const { return missing_; }
 
   private:
     std::vector<std::string> missing_;
-    std::string message_;
   };
 
   template <typename T>
@@ -135,7 +133,7 @@ public:
     }
 
     if (!missing.empty()) {
-      throw MissingFieldsException(std::move(missing));
+      throw MissingFieldsException(MSG(""), std::move(missing));
     }
   }
 
@@ -148,7 +146,7 @@ public:
   static void LoadField(T& obj, const std::string& name, const std::string& value) {
     const FieldInfo* fi = obj.GetFieldInfo(name);
     if (fi == nullptr) {
-      throw MissingFieldsException({ name });
+      throw MissingFieldsException(MSG(""), { name });
     }
     LoadField(obj, *fi, value);
   }

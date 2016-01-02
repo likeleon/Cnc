@@ -5,6 +5,8 @@
 #include "cnc/mods/common/background_widget.h"
 #include "cnc/mods/common/label_widget.h"
 #include "cnc/mods/common/button_widget.h"
+#include "cnc/mods/common/rgba_sprite_widget.h"
+#include "cnc/mods/common/image_widget.h"
 
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
@@ -13,6 +15,8 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register("BackgroundWidget", &cnc::NewWithoutArgs<BackgroundWidget>);
   object_creator.Register("LabelWidget", &cnc::NewWithoutArgs<LabelWidget>);
   object_creator.Register("ButtonWidget", &cnc::NewWithoutArgs<ButtonWidget>);
+  object_creator.Register("RGBASpriteWidget", &cnc::NewWithoutArgs<RGBASpriteWidget>);
+  object_creator.Register("ImageWidget", &cnc::NewWithoutArgs<ImageWidget>);
 }
 
 BOOL APIENTRY DllMain(HMODULE /*hModule*/,

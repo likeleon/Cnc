@@ -6,12 +6,12 @@ namespace cnc {
 namespace mods {
 namespace common {
 
-class ButtonWidget : public Widget {
+class ImageWidget : public Widget {
 public:
   std::map<std::string, FieldInfo> GetFieldInfoMap() const override;
 
-  std::string tooltip_container_;
-  std::string background_;
+  std::string image_collection_;
+  std::string image_name_;
 };
 
 }
