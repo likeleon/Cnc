@@ -14,7 +14,7 @@ template <typename ETraits>
 typename ETraits::E NameToEnum(const std::string& name);
 
 template <typename ETraits>
-typename ETraits::E NameToEnum(const std::string& name, typename ETraits::E default_value);
+typename ETraits::E NameToEnumOrDefault(const std::string& name, typename ETraits::E default_value);
 
 }
 

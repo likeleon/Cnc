@@ -4,6 +4,7 @@
 #include "cnc/mods/common/mod_chooser_load_screen.h"
 #include "cnc/mods/common/background_widget.h"
 #include "cnc/mods/common/label_widget.h"
+#include "cnc/mods/common/button_widget.h"
 
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
@@ -11,6 +12,7 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register("ModChooserLoadScreen", &cnc::NewWithoutArgs<ModChooserLoadScreen>);
   object_creator.Register("BackgroundWidget", &cnc::NewWithoutArgs<BackgroundWidget>);
   object_creator.Register("LabelWidget", &cnc::NewWithoutArgs<LabelWidget>);
+  object_creator.Register("ButtonWidget", &cnc::NewWithoutArgs<ButtonWidget>);
 }
 
 BOOL APIENTRY DllMain(HMODULE /*hModule*/,

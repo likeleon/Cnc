@@ -45,6 +45,8 @@ public:
   std::string width_ = "0";
   std::string height_ = "0";
   std::vector<std::string> logic_;
+  bool ignore_mouse_over_ = false;
+  bool ignore_child_mouse_over_ = false;
 
 protected:
   virtual std::map<std::string, FieldInfo> GetFieldInfoMap() const;

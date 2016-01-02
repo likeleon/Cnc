@@ -115,7 +115,9 @@ static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
   { "Y", StringFieldInfo(&Widget::y_) },
   { "Width", StringFieldInfo(&Widget::width_) },
   { "Height", StringFieldInfo(&Widget::height_) },
-  { "Logic", StringVectorFieldInfo(&Widget::logic_) }
+  { "Logic", StringVectorFieldInfo(&Widget::logic_) },
+  { "IgnoreMouseOver", BoolFieldInfo(&Widget::ignore_mouse_over_) },
+  { "IgnoreChildMouseOver", BoolFieldInfo(&Widget::ignore_child_mouse_over_) }
 };
 
 const std::map<std::string, FieldInfo>& Widget::GetFieldInfoMapCache(const Widget& widget) {

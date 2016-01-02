@@ -1,3 +1,5 @@
+#include "cnc/string.h"
+
 namespace cnc {
 
 template <typename ETraits>
@@ -10,9 +12,9 @@ const std::string& EnumToName(typename ETraits::E value) {
 }
 
 template <typename ETraits>
-typename ETraits::E NameToEnum(const std::string& name) {
+typename ETraits::E NameToEnum(const std::string& name, bool ignore_case = false) {
   for (const auto& kvp : ETraits::names) {
-    if (kvp.second == name) {
+    if (String::Equals(kvp.second, name, ignore_case)) {
       return kvp.first;
     }
   }
@@ -21,9 +23,9 @@ typename ETraits::E NameToEnum(const std::string& name) {
 }
 
 template <typename ETraits>
-typename ETraits::E NameToEnum(const std::string& name, typename ETraits::E default_value) {
+typename ETraits::E NameToEnumOrDefault(const std::string& name, typename ETraits::E default_value, bool ignore_case = false) {
   for (const auto& kvp : ETraits::names) {
-    if (kvp.second == name) {
+    if (String::Equals(kvp.second, name, ignore_case)) {
       return kvp.first;
     }
   }

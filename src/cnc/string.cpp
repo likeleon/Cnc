@@ -3,6 +3,21 @@
 
 namespace cnc {
 
+static bool CharCompareIgnoreCase(char a, char b) {
+  return (toupper(a) == toupper(b));
+}
+
+bool String::Equals(const std::string& a, const std::string& b, bool ignore_case) {
+  if (!ignore_case) {
+    return a == b;
+  } else {
+    if (a.size() != b.size()) {
+      return false;
+    }
+    return std::equal(a.begin(), a.end(), b.begin(), CharCompareIgnoreCase);
+  }
+}
+
 bool String::Contains(const std::string& s, const std::string& value) {
   return s.find(value) != std::string::npos;
 }

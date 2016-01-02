@@ -12,6 +12,7 @@
     <ClCompile Include="src\cnc\mods\common\label_widget.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\button_widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -22,6 +23,9 @@
       <Filter>Widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\mods\common\label_widget.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\button_widget.h">
       <Filter>Widgets</Filter>
     </ClInclude>
   </ItemGroup>

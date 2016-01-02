@@ -9,6 +9,8 @@ enum class StringSplitOptions {
 
 class CNC_API String {
 public:
+  static bool Equals(const std::string& a, const std::string& b, bool ignore_case);
+
   static bool Contains(const std::string& s, const std::string& value);
   static bool StartsWith(const std::string& s, const std::string& starting);
   static bool EndsWith(const std::string& s, const std::string& ending);

@@ -47,7 +47,7 @@ template <typename TEnumTraits, typename TObject>
 FieldInfo EnumFieldInfo(typename TEnumTraits::E TObject::*field) {
   return FieldInfo([field](void* o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
-    (obj->*field) = NameToEnum<TEnumTraits>(v);
+    (obj->*field) = NameToEnum<TEnumTraits>(v, true);
   });
 }
 
