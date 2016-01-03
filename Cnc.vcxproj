@@ -41,6 +41,7 @@
     <ClCompile Include="src\cnc\perf_history.cpp" />
     <ClCompile Include="src\cnc\perf_item.cpp" />
     <ClCompile Include="src\cnc\perf_sample.cpp" />
+    <ClCompile Include="src\cnc\perf_timer.cpp" />
     <ClCompile Include="src\cnc\platform.cpp" />
     <ClCompile Include="src\cnc\point.cpp" />
     <ClCompile Include="src\cnc\rectangle.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="src\cnc\perf_history.h" />
     <ClInclude Include="src\cnc\perf_item.h" />
     <ClInclude Include="src\cnc\perf_sample.h" />
+    <ClInclude Include="src\cnc\perf_timer.h" />
     <ClInclude Include="src\cnc\platform.h" />
     <ClInclude Include="src\cnc\point.h" />
     <ClInclude Include="src\cnc\rectangle.h" />

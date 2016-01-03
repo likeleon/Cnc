@@ -134,6 +134,9 @@
     <ClCompile Include="src\cnc\sprite_font.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\perf_timer.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -308,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\sheet_builder.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\perf_timer.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
