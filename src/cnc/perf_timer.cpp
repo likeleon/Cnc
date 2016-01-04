@@ -19,15 +19,24 @@ PerfTimer::PerfTimer(const std::string & name, float threshold_ms)
 }
 
 PerfTimer::~PerfTimer() {
-  elapsed_ms_ = stop_watch_.ElapsedMilliseconds();
+  auto elapsed_ms = stop_watch_.ElapsedMilliseconds();
 
   parent_thread_local_ = parent_;
 
   if (parent_ == nullptr) {
-    Write();
-  } else if (elapsed_ms_ > threshold_ms_) {
-    parent_->children_.emplace_back(*this);
+    MakeReport(elapsed_ms).Write();
+  } else if (elapsed_ms > threshold_ms_) {
+    parent_->child_reports_.emplace_back(MakeReport(elapsed_ms));
   }
+}
+
+PerfTimer::Report PerfTimer::MakeReport(int64_t elapsed_ms) const {
+  Report report;
+  report.name = name_;
+  report.elapsed_ms = elapsed_ms;
+  report.depth = depth_;
+  report.children = child_reports_;
+  return report;
 }
 
 static std::string FormatString(int64_t elapsed_ms, const std::string& text) {
@@ -44,21 +53,21 @@ static std::string GetFooter(const std::string& indentation) {
   return indentation + std::string(std::max(15U, 50 - indentation.length()), '-');
 }
 
-void PerfTimer::Write() const {
-  if (!children_.empty()) {
-    Log::Write("perf", GetHeader(Indentation(), name_));
-    for (const auto& child : children_) {
+void PerfTimer::Report::Write() const {
+  if (!children.empty()) {
+    Log::Write("perf", GetHeader(Indentation(), name));
+    for (const auto& child : children) {
       child.Write();
     }
-    Log::Write("perf", FormatString(elapsed_ms_, GetFooter(Indentation())));
+    Log::Write("perf", FormatString(elapsed_ms, GetFooter(Indentation())));
   } else {
-    Log::Write("perf", FormatString(elapsed_ms_, Indentation() + name_));
+    Log::Write("perf", FormatString(elapsed_ms, Indentation() + name));
   }
 }
 
-std::string PerfTimer::Indentation() const {
+std::string PerfTimer::Report::Indentation() const {
   std::string res;
-  for (auto i = 0; i < depth_; ++i) {
+  for (auto i = 0; i < depth; ++i) {
     res += IndentationString;
   }
   return res;

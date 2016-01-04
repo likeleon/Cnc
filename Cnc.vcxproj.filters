@@ -315,6 +315,9 @@
     <ClInclude Include="src\cnc\perf_timer.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\pair_hash.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

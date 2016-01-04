@@ -29,7 +29,7 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
 }
 
 void Renderer::InitializeFonts(const Manifest& m) {
-  PERF_TIMER(SpriteFonts, {
+  PERF_TIMER("SpriteFonts", {
     font_sheet_builder_ = std::make_unique<SheetBuilder>(SheetType::BGRA);
     fonts_.clear();
     for (const auto& f : m.fonts()) {

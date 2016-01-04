@@ -28,3 +28,14 @@ bool operator==(const Color& lhs, const Color& rhs);
 bool operator!=(const Color& lhs, const Color& rhs);
 
 }
+
+namespace std {
+
+template<>
+struct hash<cnc::Color> {
+  size_t operator()(const cnc::Color& c) const {
+    return std::hash<size_t>()(c.ToArgb());
+  }
+};
+
+}
