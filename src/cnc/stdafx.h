@@ -32,6 +32,7 @@
 #include <ctime>
 #include <sstream>
 #include <stack>
+#include <iomanip>
 
 #define GLEW_STATIC
 #include "GL/glew.h"

@@ -5,6 +5,7 @@
 #include "cnc/sprite_renderer.h"
 #include "cnc/manifest.h"
 #include "cnc/platform.h"
+#include "cnc/perf_timer.h"
 
 namespace cnc {
 
@@ -28,13 +29,14 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
 }
 
 void Renderer::InitializeFonts(const Manifest& m) {
-  // TODO: PerfTimer
-  font_sheet_builder_ = std::make_unique<SheetBuilder>(SheetType::BGRA);
-  fonts_.clear();
-  for (const auto& f : m.fonts()) {
-    auto font = std::make_unique<SpriteFont>(Platform::ResolvePath(f.second.first), f.second.second, *font_sheet_builder_);
-    fonts_.emplace(f.first, std::move(font));
-  }
+  PERF_TIMER(SpriteFonts, {
+    font_sheet_builder_ = std::make_unique<SheetBuilder>(SheetType::BGRA);
+    fonts_.clear();
+    for (const auto& f : m.fonts()) {
+      auto font = std::make_unique<SpriteFont>(Platform::ResolvePath(f.second.first), f.second.second, *font_sheet_builder_);
+      fonts_.emplace(f.first, std::move(font));
+    }
+  });
 }
 
 void Renderer::BeginFrame(const Point& scroll, float zoom) {

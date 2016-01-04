@@ -2,6 +2,13 @@
 
 #include "cnc/stop_watch.h"
 
+#define PERF_TIMER(name, body) \
+{ \
+  PerfTimer name(#name); \
+  (name); \
+  body \
+}
+
 namespace cnc {
 
 class PerfTimer {
@@ -10,8 +17,9 @@ public:
   ~PerfTimer();
   
 private:
-  void Write();
-
+  void Write() const;
+  std::string Indentation() const;
+  
   std::string name_;
   float threshold_ms_;
   int32_t depth_ = 0;
