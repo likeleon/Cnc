@@ -26,18 +26,27 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
   rgba_sprite_renderer_ = std::make_unique<SpriteRenderer>(this, device_->CreateShader("rgba"));
 
   temp_buffer_ = device_->CreateVertexBuffer(temp_buffer_size_);
+
+  TTF_Init();
+}
+
+Renderer::~Renderer() {
+  device_ = nullptr;
+  temp_buffer_ = nullptr;
+  
+  font_sheet_builder_ = nullptr;
+  fonts_.clear();
+  TTF_Quit();
 }
 
 void Renderer::InitializeFonts(const Manifest& m) {
   PERF_TIMER("SpriteFonts", {
-    TTF_Init();
     font_sheet_builder_ = std::make_unique<SheetBuilder>(SheetType::BGRA);
     fonts_.clear();
     for (const auto& f : m.fonts()) {
       auto font = std::make_unique<SpriteFont>(Platform::ResolvePath(f.second.first), f.second.second, *font_sheet_builder_);
       fonts_.emplace(f.first, std::move(font));
     }
-    TTF_Quit();
   });
 }
 

@@ -5,6 +5,11 @@
 
 namespace cnc {
 
+// TODO: Delete
+Sprite::Sprite()
+  : size(Float2::Zero), offset(Float2::Zero), fractional_offset(Float2::Zero) {
+}
+
 Sprite::Sprite(const SheetPtr& sheet,
                const Rectangle& bounds,
                TextureChannel channel)

@@ -15,6 +15,7 @@ enum class TextureChannel {
 };
 
 struct CNC_API Sprite {
+  Sprite(); // TODO: Delete
   Sprite(const SheetPtr& sheet,
          const Rectangle& bounds,
          TextureChannel channel);

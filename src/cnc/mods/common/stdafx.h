@@ -17,3 +17,6 @@
 #include <stack>
 
 #include "cnc/cnc.h"
+
+#include "SDL.h"
+#include "SDL_ttf.h"

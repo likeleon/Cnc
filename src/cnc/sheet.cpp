@@ -17,9 +17,9 @@ Sheet::Sheet(SheetType type, ITexturePtr texture)
   : type_(type), texture_(texture), size_(texture->size()) {
 }
 
-static SdlSurfacePtr SurfaceFromStream(const std::vector<char>& stream) {
+static SDL_Surface_UniquePtr SurfaceFromStream(const std::vector<char>& stream) {
   auto* rw = SDL_RWFromMem(const_cast<char*>(stream.data()), static_cast<int32_t>(stream.size()));
-  SdlSurfacePtr surface(IMG_Load_RW(rw, 0));
+  SDL_Surface_UniquePtr surface(IMG_Load_RW(rw, 0));
   SDL_RWclose(rw);
   if (surface == nullptr) {
     throw Error(MSG("Cannot load image"));

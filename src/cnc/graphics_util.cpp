@@ -43,8 +43,8 @@ void GraphicsUtil::FastCreateQuad(std::vector<Vertex>& vertices,
   vertices[nv + 3] = { d, r.left, r.bottom, palette_texture_index, attrib_c };
 }
 
-static SdlSurfacePtr CloneWith32bbpArgbPixelFormat(SDL_Surface& src) {
-  SdlSurfacePtr cloned(SDL_ConvertSurfaceFormat(&src, SDL_PIXELFORMAT_ARGB8888, 0));
+static SDL_Surface_UniquePtr CloneWith32bbpArgbPixelFormat(SDL_Surface& src) {
+  SDL_Surface_UniquePtr cloned(SDL_ConvertSurfaceFormat(&src, SDL_PIXELFORMAT_ARGB8888, 0));
   if (cloned == nullptr) {
     throw Error(MSG(std::string("SDL_ConvertSurfaceFormat error: ") + SDL_GetError()));
   }
@@ -55,7 +55,7 @@ void GraphicsUtil::FastCopyIntoSprite(std::vector<char>& dest_data,
                                       int32_t dest_stride, 
                                       const Rectangle& bounds,
                                       SDL_Surface* src) {
-  SdlSurfacePtr cloned_src;
+  SDL_Surface_UniquePtr cloned_src;
   if (src->format->format != SDL_PIXELFORMAT_ARGB8888) {
     cloned_src = CloneWith32bbpArgbPixelFormat(*src);
     src = cloned_src.get();

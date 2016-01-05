@@ -20,6 +20,7 @@ class Manifest;
 class CNC_API Renderer {
 public:
   explicit Renderer(const GraphicSettings& graphic_settings);
+  ~Renderer();
 
   void InitializeFonts(const Manifest& m);
 
@@ -50,7 +51,7 @@ private:
   IBatchRenderer* current_batch_renderer_ = nullptr;
   std::unique_ptr<IVertexBuffer<Vertex>> temp_buffer_;
   std::unique_ptr<SheetBuilder> font_sheet_builder_;
-  std::map<std::string, SpriteFontPtr> fonts_;
+  std::map<std::string, SpriteFontUniquePtr> fonts_;
   Size last_resolution_;
   Point last_scroll_ = Point::Zero;
   float last_zoom_ = 0.0f;
