@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cnc", "Cnc.vcxproj", "{E929BB85-0074-47ED-A68A-45C81ABABF22}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -17,6 +17,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SDL2_image", "src\third_party\SDL2_image-2.0.0\VisualC\SDL_image_VS2015.vcxproj", "{2BD5534E-00E2-4BEA-AC96-D9A92EA24696}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew_static", "src\third_party\glew-1.13.0\build\vc12\glew_static.vcxproj", "{664E6F0D-6784-4760-9565-D54F8EB1EDF4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SDL2_ttf", "src\third_party\SDL2_ttf-2.0.13\VisualC\SDL_ttf_VS2015.vcxproj", "{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,6 +178,30 @@ Global
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Release|x64.Build.0 = Release|x64
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Release|x86.ActiveCfg = Release|Win32
 		{664E6F0D-6784-4760-9565-D54F8EB1EDF4}.Release|x86.Build.0 = Release|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug Library|x64.ActiveCfg = Debug|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug Library|x64.Build.0 = Debug|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug Library|x86.ActiveCfg = Debug|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug Library|x86.Build.0 = Debug|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug MX|x64.ActiveCfg = Debug|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug MX|x64.Build.0 = Debug|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug MX|x86.ActiveCfg = Debug|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug MX|x86.Build.0 = Debug|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug|x64.ActiveCfg = Debug|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug|x64.Build.0 = Debug|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug|x86.ActiveCfg = Debug|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Debug|x86.Build.0 = Debug|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release Library|x64.ActiveCfg = Release|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release Library|x64.Build.0 = Release|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release Library|x86.ActiveCfg = Release|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release Library|x86.Build.0 = Release|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release MX|x64.ActiveCfg = Release|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release MX|x64.Build.0 = Release|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release MX|x86.ActiveCfg = Release|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release MX|x86.Build.0 = Release|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release|x64.ActiveCfg = Release|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release|x64.Build.0 = Release|x64
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release|x86.ActiveCfg = Release|Win32
+		{DDDBD07D-DC76-4AF6-8D02-3E2DEB6EE255}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

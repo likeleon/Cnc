@@ -30,12 +30,14 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
 
 void Renderer::InitializeFonts(const Manifest& m) {
   PERF_TIMER("SpriteFonts", {
+    TTF_Init();
     font_sheet_builder_ = std::make_unique<SheetBuilder>(SheetType::BGRA);
     fonts_.clear();
     for (const auto& f : m.fonts()) {
       auto font = std::make_unique<SpriteFont>(Platform::ResolvePath(f.second.first), f.second.second, *font_sheet_builder_);
       fonts_.emplace(f.first, std::move(font));
     }
+    TTF_Quit();
   });
 }
 
