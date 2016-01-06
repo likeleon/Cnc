@@ -8,11 +8,13 @@ namespace cnc {
 
 class CNC_API Sheet {
 public:
+  Sheet(SheetType type, const Size& size);
   Sheet(SheetType type, ITexturePtr texture);
   Sheet(SheetType type, const std::vector<char>& stream);
 
   ITexturePtr GetTexture();
   void CreateBuffer();
+  void CommitBufferedData();
   void ReleaseBuffer();
   bool Buffered() const;
   std::vector<char>& GetData();

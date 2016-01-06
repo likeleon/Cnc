@@ -12,11 +12,11 @@
 namespace cnc {
 
 void GraphicsUtil::FastCreateQuad(std::vector<Vertex>& vertices,
-                           const Float2& o,
-                           const Sprite& r,
-                           float palette_texture_index,
-                           int32_t nv,
-                           const Float2& size) {
+                                  const Float2& o,
+                                  const Sprite& r,
+                                  float palette_texture_index,
+                                  int32_t nv,
+                                  const Float2& size) {
   Float2 b(o.x + size.x, o.y);
   Float2 c(o.x + size.x, o.y + size.y);
   Float2 d(o.x, o.y + size.y);
@@ -24,13 +24,13 @@ void GraphicsUtil::FastCreateQuad(std::vector<Vertex>& vertices,
 }
 
 void GraphicsUtil::FastCreateQuad(std::vector<Vertex>& vertices,
-                           const Float2& a,
-                           const Float2& b,
-                           const Float2& c,
-                           const Float2& d,
-                           const Sprite& r,
-                           float palette_texture_index,
-                           int32_t nv) {
+                                  const Float2& a,
+                                  const Float2& b,
+                                  const Float2& c,
+                                  const Float2& d,
+                                  const Sprite& r,
+                                  float palette_texture_index,
+                                  int32_t nv) {
   static const std::array<float, 4> ChannelSelect = { 0.2f, 0.4f, 0.6f, 0.8f };
   auto attrib_c = ChannelSelect[static_cast<int32_t>(r.channel)];
   if (r.sheet->type() == SheetType::DualIndexed) {
@@ -52,7 +52,7 @@ static SDL_Surface_UniquePtr CloneWith32bbpArgbPixelFormat(SDL_Surface& src) {
 }
 
 void GraphicsUtil::FastCopyIntoSprite(std::vector<char>& dest_data,
-                                      int32_t dest_stride, 
+                                      int32_t dest_stride,
                                       const Rectangle& bounds,
                                       SDL_Surface* src) {
   SDL_Surface_UniquePtr cloned_src;
@@ -65,7 +65,7 @@ void GraphicsUtil::FastCopyIntoSprite(std::vector<char>& dest_data,
   auto height = bounds.height;
 
   SDL_LockSurface(src);
-  
+
   int32_t* c = static_cast<int32_t*>(src->pixels);
   int32_t* data = reinterpret_cast<int32_t*>(&dest_data[0]);
   auto x = bounds.x;

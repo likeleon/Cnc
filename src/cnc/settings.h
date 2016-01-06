@@ -27,6 +27,7 @@ struct CNC_API GraphicSettings {
   Size fullscreen_size = Size(0, 0);
   Size windowed_size = Size(1024, 768);
   int32_t batch_size = 8192;
+  int32_t sheet_size = 2048;
 
   static const std::vector<FieldLoadInfo> load_info;
 };

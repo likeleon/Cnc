@@ -36,7 +36,7 @@ private:
 
   void PrecacheColor(const Color& color, const std::string& color_name, const std::string& name);
   GlyphInfo& Glyph(char character, const Color& color);
-  GlyphInfo CreateGlyph(const std::pair<char, Color>& c);
+  GlyphInfo CreateGlyph(char ch, const Color& c);
   float LineWidth(const std::string& line);
 
   int32_t size_;

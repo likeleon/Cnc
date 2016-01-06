@@ -4,6 +4,7 @@ namespace cnc {
 
 struct Color {
   Color(int32_t argb);
+  Color(int32_t a, const Color& base_color);
   Color(int32_t r, int32_t g, int32_t b, int32_t a = 255);
 
   int32_t ToArgb() const;

@@ -20,6 +20,10 @@ Color::Color(int32_t argb)
   a((argb >> 24) & 0xFF) {
 }
 
+Color::Color(int32_t a, const Color& base_color)
+  : Color(base_color.r, base_color.g, base_color.b, a) {
+}
+
 Color::Color(int32_t r, int32_t g, int32_t b, int32_t a)
   : r(static_cast<uint8_t>(r)),
   g(static_cast<uint8_t>(g)),

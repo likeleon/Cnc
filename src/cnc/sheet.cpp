@@ -12,6 +12,9 @@
 
 namespace cnc {
 
+Sheet::Sheet(SheetType type, const Size& size)
+  : type_(type), size_(size) {
+}
 
 Sheet::Sheet(SheetType type, ITexturePtr texture)
   : type_(type), texture_(texture), size_(texture->size()) {
@@ -82,6 +85,16 @@ void Sheet::CreateBuffer() {
     data_ = texture_->GetData();
   }
   release_buffer_on_commit_ = false;
+}
+
+void Sheet::CommitBufferedData() {
+  if (!Buffered()) {
+    throw Error(MSG("This sheet is unbuffered. You cannot call CommitBufferedData on an unbuffered sheet. "
+                    "If you need to completely replace the texture data you should set data into the texture directly. "
+                    "If you need to make only small changes to the texture data consider creating a buffered sheet instead."));
+  }
+
+  dirty_ = true;
 }
 
 void Sheet::ReleaseBuffer() {
