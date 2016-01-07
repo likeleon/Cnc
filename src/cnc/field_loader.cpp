@@ -3,11 +3,12 @@
 #include "cnc/string.h"
 #include "cnc/size.h"
 #include "cnc/rectangle.h"
+#include "cnc/color.h"
+#include "cnc/hsl_color.h"
 
 namespace cnc {
 
 std::unordered_map<std::type_index, std::vector<FieldLoadInfo>> FieldLoader::type_load_info_;
-std::function<void(const std::string&, const type_info&)> FieldLoader::unknown_field_action_ = FieldLoader::DefaultUnknownFieldAction;
 
 FieldInfo::FieldInfo(Setter setter)
   : setter_(setter) {
@@ -41,18 +42,14 @@ bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name, const MiniYa
   return true;
 }
 
-void FieldLoader::DefaultUnknownFieldAction(const std::string& s, const type_info& f) {
-  throw Error(MSG("FieldLoader: Missing field '" + s + "' on '" + f.name() + "'"));
-}
-
 template <>
-Size FieldInfoTraits<Size>::Parse(const std::string& s) {
+Size CNC_API FieldInfoTraits<Size>::Parse(const std::string& s) {
   auto parts = String::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
   return{ std::stoi(parts[0]), std::stoi(parts[1]) };
 }
 
 template <>
-Rectangle FieldInfoTraits<Rectangle>::Parse(const std::string& s) {
+Rectangle CNC_API FieldInfoTraits<Rectangle>::Parse(const std::string& s) {
   auto parts = String::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
   return{ 
     std::stoi(parts[0]), 
@@ -60,6 +57,21 @@ Rectangle FieldInfoTraits<Rectangle>::Parse(const std::string& s) {
     std::stoi(parts[2]),
     std::stoi(parts[3])
   };
+}
+
+template <>
+std::string CNC_API FieldInfoTraits<std::string>::Parse(const std::string& s) {
+  return s;
+}
+
+template <>
+Color CNC_API FieldInfoTraits<Color>::Parse(const std::string& s) {
+  Color rgb = Color::Transparent;
+  if (HSLColor::TryParseRGB(s, rgb)) {
+    return rgb;
+  }
+  // TODO: InvalidValueAction(value, ...)
+  throw Error(MSG("Invalid value for color, s: " + s));
 }
 
 }

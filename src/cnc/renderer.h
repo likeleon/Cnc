@@ -40,6 +40,7 @@ public:
   
   IGraphicsDevice& device();
   SpriteRenderer& rgba_sprite_renderer();
+  const std::map<std::string, SpriteFontUniquePtr>& fonts() const;
 
   void SetCurrentBatchRenderer(IBatchRenderer* r);
   IBatchRenderer* current_batch_renderer() const;

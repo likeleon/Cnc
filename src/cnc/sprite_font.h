@@ -5,13 +5,21 @@
 #include "cnc/color.h"
 #include "cnc/pair_hash.h"
 
+#ifdef DrawText
+#undef DrawText
+#endif
+
 namespace cnc {
 
 class SheetBuilder;
+struct Float2;
 
-class SpriteFont {
+class CNC_API SpriteFont {
 public:
   SpriteFont(const std::string& name, int32_t size, SheetBuilder& builder);
+
+  void DrawText(const std::string& text, const Float2& location, const Color& c);
+  Size Measure(const std::string& text);
 
 private:
   struct GlyphInfo {

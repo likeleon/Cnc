@@ -8,6 +8,9 @@
 #include "cnc/size.h"
 #include "cnc/sheet.h"
 #include "cnc/graphics_util.h"
+#include "cnc/game.h"
+#include "cnc/renderer.h"
+#include "cnc/sprite_renderer.h"
 
 namespace cnc {
 
@@ -26,6 +29,35 @@ SpriteFont::SpriteFont(const std::string& name, int32_t size, SheetBuilder& buil
 
   PrecacheColor(Color::White, "White", name);
   PrecacheColor(Color::Red, "Red", name);
+}
+
+void SpriteFont::DrawText(const std::string& text, const Float2& loc, const Color& color) {
+  Float2 location{ loc.x, loc.y + size_ };
+
+  auto p = location;
+  for (char c : text) {
+    if (c == '\n') {
+      location.y += size_;
+      p = location;
+      continue;
+    }
+
+    const auto& g = Glyph(c, color);
+    Float2 draw_loc{ std::roundf(p.x + g.offset.x), p.y + g.offset.y };
+    Game::renderer()->rgba_sprite_renderer().DrawSprite(g.sprite, draw_loc);
+    p.x += g.advance;
+  }
+}
+
+Size SpriteFont::Measure(const std::string& text) {
+  if (text.empty()) {
+    return{ 0, size_ };
+  }
+
+  auto lines = String::Split(text, '\n');
+  auto width_compare = [this](const auto& a, const auto& b) { return LineWidth(a) < LineWidth(b); };
+  auto width = static_cast<int32_t>(std::max_element(lines.begin(), lines.end(), width_compare)->size());
+  return{ width, static_cast<int32_t>(lines.size() * size_) };
 }
 
 static std::string PerfTimerName(const std::string& name,
@@ -72,16 +104,17 @@ SpriteFont::GlyphInfo SpriteFont::CreateGlyph(char ch, const Color& color) {
   };
 
   SDL_LockSurface(surface.get());
-  
+
   auto& s = g.sprite;
-  char* p = static_cast<char*>(surface->pixels);
+  int32_t* p = static_cast<int32_t*>(surface->pixels);
   char* dest = &s.sheet->GetData()[0];
   auto dest_stride = s.sheet->size().width * 4;
-  for (auto y = 0; y < s.size.y; ++y) {
-    for (auto x = 0; x < s.size.x; ++x) {
-      if (p[x] != 0) {
-        auto q = dest_stride * (y + s.bounds.Top()) + 4 * (x + s.bounds.Left());
-        auto pmc = GraphicsUtil::PremultiplyAlpha(Color(p[0], color));
+  for (auto y = min_y; y < max_y; ++y) {
+    for (auto x = min_x; x < max_x; ++x) {
+      Color cc(*(p + (y * surface->pitch >> 2) + x));
+      if (cc.a != 0) {
+        auto q = dest_stride * (y - min_y + s.bounds.Top()) + 4 * (x - min_x + s.bounds.Left());
+        auto pmc = GraphicsUtil::PremultiplyAlpha(Color(cc.a, color));
 
         dest[q] = pmc.b;
         dest[q + 1] = pmc.g;
@@ -89,9 +122,8 @@ SpriteFont::GlyphInfo SpriteFont::CreateGlyph(char ch, const Color& color) {
         dest[q + 3] = pmc.a;
       }
     }
-    p += surface->pitch;
   }
-  
+
   SDL_UnlockSurface(surface.get());
   surface = nullptr;
 

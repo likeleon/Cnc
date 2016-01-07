@@ -95,6 +95,10 @@ SpriteRenderer& Renderer::rgba_sprite_renderer() {
   return *rgba_sprite_renderer_;
 }
 
+const std::map<std::string, SpriteFontUniquePtr>& Renderer::fonts() const {
+  return fonts_;
+}
+
 void Renderer::SetCurrentBatchRenderer(IBatchRenderer* r) {
   if (current_batch_renderer_ == r) {
     return;

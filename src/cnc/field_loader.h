@@ -162,21 +162,13 @@ public:
   }
 
   template <typename T>
-  static T GetValue(const std::string& /*field_name*/, const std::type_info& field_type, const MiniYaml& yaml) {
+  static T GetValue(const std::string& /*field_name*/, const std::type_info& /*field_type*/, const MiniYaml& yaml) {
     auto value = String::Trim(yaml.value());
-    if (field_type == typeid(std::string)) {
-      return value;
-    }
-
-    unknown_field_action_("[Type] " + value, field_type);
-    return T();
+    return FieldInfoTraits<T>::Parse(value);
   }
-
-  static std::function<void(const std::string&, const type_info&)> unknown_field_action_;
 
 private:
   static bool TryGetValueFromYaml(const std::string& yaml_name, const MiniYamlMap& mm, std::string& value);
-  static void DefaultUnknownFieldAction(const std::string& s, const type_info& f);
 
   template <typename T>
   static const std::vector<FieldLoadInfo>& RetrieveLoadInfo() {

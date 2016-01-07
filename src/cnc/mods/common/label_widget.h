@@ -2,6 +2,7 @@
 
 #include "cnc/widget.h"
 #include "cnc/enum_info.h"
+#include "cnc/color.h"
 
 namespace cnc {
 namespace mods {
@@ -35,12 +36,15 @@ class LabelWidget : public Widget {
 public:
   LabelWidget();
 
+  void Draw() override;
+
   std::map<std::string, FieldInfo> GetFieldInfoMap() const override;
 
   std::string text_;
   TextAlign align_ = TextAlign::Left;
   TextVAlign valign_ = TextVAlign::Middle;
   std::string font_;
+  Color text_color_;
 };
 
 }

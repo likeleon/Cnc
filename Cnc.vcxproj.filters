@@ -137,6 +137,7 @@
     <ClCompile Include="src\cnc\perf_timer.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\hsl_color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -316,6 +317,9 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\pair_hash.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\hsl_color.h">
       <Filter>primitives</Filter>
     </ClInclude>
   </ItemGroup>
