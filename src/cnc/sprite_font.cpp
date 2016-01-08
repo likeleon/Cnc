@@ -33,7 +33,6 @@ SpriteFont::SpriteFont(const std::string& name, int32_t size, SheetBuilder& buil
 
 void SpriteFont::DrawText(const std::string& text, const Float2& loc, const Color& color) {
   Float2 location{ loc.x, loc.y + size_ };
-
   auto p = location;
   for (char c : text) {
     if (c == '\n') {
@@ -99,7 +98,7 @@ SpriteFont::GlyphInfo SpriteFont::CreateGlyph(char ch, const Color& color) {
 
   GlyphInfo g{
     advance,
-    { min_x, -min_y },
+    { min_x, -max_y },
     builder_.Allocate({ max_x - min_x, max_y - min_y })
   };
 
@@ -109,11 +108,13 @@ SpriteFont::GlyphInfo SpriteFont::CreateGlyph(char ch, const Color& color) {
   int32_t* p = static_cast<int32_t*>(surface->pixels);
   char* dest = &s.sheet->GetData()[0];
   auto dest_stride = s.sheet->size().width * 4;
-  for (auto y = min_y; y < max_y; ++y) {
-    for (auto x = min_x; x < max_x; ++x) {
+  for (auto j = 0; j < s.size.y; ++j) {
+    for (auto i = 0; i < s.size.x; ++i) {
+      auto x = i + min_x;
+      auto y = j + TTF_FontAscent(ttf_font_.get()) - max_y;
       Color cc(*(p + (y * surface->pitch >> 2) + x));
       if (cc.a != 0) {
-        auto q = dest_stride * (y - min_y + s.bounds.Top()) + 4 * (x - min_x + s.bounds.Left());
+        auto q = dest_stride * (j + s.bounds.Top()) + 4 * (i + s.bounds.Left());
         auto pmc = GraphicsUtil::PremultiplyAlpha(Color(cc.a, color));
 
         dest[q] = pmc.b;

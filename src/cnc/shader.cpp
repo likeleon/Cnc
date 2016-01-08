@@ -112,7 +112,7 @@ void Shader::SetTexture(const std::string& name, const ITexturePtr& t) {
 
   auto iter = samplers_.find(name);
   if (iter != samplers_.end()) {
-    textures_.emplace(iter->second, t);
+    textures_.insert_or_assign(iter->second, t);
   }
 }
 
