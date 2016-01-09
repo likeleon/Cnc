@@ -21,6 +21,9 @@ public:
   
   static RunStatus Run();
   static void Exit();
+  
+  static bool IsModInstalled(std::pair<std::string, std::string> mod);
+  static bool IsModInstalled(const std::string& mod_id);
 
   static ModData* mod_data();
   static Settings& settings();

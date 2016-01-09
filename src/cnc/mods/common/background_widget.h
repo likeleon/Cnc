@@ -12,7 +12,7 @@ public:
 
   std::map<std::string, FieldInfo> GetFieldInfoMap() const override;
 
-  std::string background_;
+  std::string background_ = "dialog";
 };
 
 }

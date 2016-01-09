@@ -1,14 +1,17 @@
 Metadata:
 	Title: Mod Chooser
-	Version: 0.1
-	Author: likeleon
+	Version: {DEV_VERSION}
+	Author: The OpenRA Developers
 	Hidden: true
 
-RequiredMods:
+RequiresMods:
 
 Folders:
 	.
 	./mods/modchooser
+
+Cursors:
+	./mods/modchooser/cursors.yaml
 
 Chrome:
 	./mods/modchooser/chrome.yaml
@@ -20,9 +23,12 @@ ChromeLayout:
 	./mods/modchooser/modchooser.yaml
 	./mods/modchooser/install.yaml
 
+Notifications:
+	./mods/modchooser/notifications.yaml
+
 LoadScreen: ModChooserLoadScreen
 	Image: ./mods/modchooser/chrome.png
-	
+
 ChromeMetrics:
 	./mods/modchooser/metrics.yaml
 
@@ -45,3 +51,11 @@ Fonts:
 	TinyBold:
 		Font:./mods/common/FreeSansBold.ttf
 		Size:10
+
+LobbyDefaults:
+
+SoundFormats:
+
+SpriteFormats: ShpTD
+
+SpriteSequenceFormat: DefaultSpriteSequence

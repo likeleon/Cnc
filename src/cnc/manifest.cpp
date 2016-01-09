@@ -5,6 +5,7 @@
 #include "cnc/string.h"
 #include "cnc/log.h"
 #include "cnc/mini_yaml.h"
+#include "cnc/file.h"
 
 namespace cnc {
 
@@ -17,6 +18,10 @@ static std::unordered_map<std::string, Manifest> LoadMods() {
 
   std::unordered_map<std::string, Manifest> ret;
   for (const auto& mod : mods) {
+    if (!File::Exists(Platform::ResolvePaths({ ".", "mods", mod, "mod.yaml" }))) {
+      continue;
+    }
+
     try {
       ret.emplace(mod, Manifest(mod));
     } catch (const std::exception &e) {
@@ -93,6 +98,8 @@ Manifest::Manifest(const std::string& mod) {
     return std::make_pair(nd.at("Font").value(), std::stoi(nd.at("Size").value()));
   });
 
+  requires_mods_ = yaml_.at("RequiresMods").ToMap<std::string>([](const auto& m) { return m.value(); });
+
   load_screen_ = &(iter->second);
 }
 
@@ -126,6 +133,10 @@ const std::vector<std::string>& Manifest::chrome_metrics() const {
 
 const MiniYaml& Manifest::load_screen() const {
   return *load_screen_;
+}
+
+const std::map<std::string, std::string>& Manifest::requires_mods() const {
+  return requires_mods_;
 }
 
 const std::map<std::string, std::pair<std::string, int32_t>>& Manifest::fonts() const {

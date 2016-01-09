@@ -60,9 +60,6 @@ void FileSystem::MountInner(IFolderPtr folder_ptr) {
 }
 
 void FileSystem::UnmountAll() {
-  for (auto& folder : mounted_folders_) {
-    folder.reset();
-  }
   mounted_folders_.clear();
   classic_hash_index_.clear();
   crc_hash_index_.clear();

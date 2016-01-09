@@ -19,6 +19,7 @@ public:
   const std::vector<std::string>& chrome_layout() const;
   const std::vector<std::string>& chrome_metrics() const;
   const MiniYaml& load_screen() const;
+  const std::map<std::string, std::string>& requires_mods() const;
   const std::map<std::string, std::pair<std::string, int32_t>>& fonts() const;
 
 private:
@@ -31,6 +32,7 @@ private:
   std::vector<std::string> chrome_layout_;
   std::vector<std::string> chrome_metrics_;
   MiniYaml* load_screen_;
+  std::map<std::string, std::string> requires_mods_;
   std::map<std::string, std::pair<std::string, int32_t>> fonts_;
 };
 

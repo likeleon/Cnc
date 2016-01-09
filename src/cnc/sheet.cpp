@@ -35,7 +35,7 @@ Sheet::Sheet(SheetType type, const std::vector<char>& stream) {
   size_ = { surface->w, surface->h };
   data_.resize(4 * size_.width * size_.height);
   GraphicsUtil::FastCopyIntoSprite(GetData(), size_.width, { Point::Zero, size_ }, surface.get());
-  surface.reset();
+  surface = nullptr;
 
   type_ = type;
   ReleaseBuffer();

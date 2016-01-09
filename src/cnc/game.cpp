@@ -58,10 +58,32 @@ void Game::InitializeSettings(const Arguments& args) {
   settings_ = std::make_unique<Settings>(Platform::ResolvePaths(paths), args);
 }
 
-void Game::InitializeMod(const std::string& mod, const Arguments& args) {
+bool Game::IsModInstalled(std::pair<std::string, std::string> mod) {
+  const auto& all_mods = ModMetadata::AllMods();
+  return all_mods.find(mod.first) != all_mods.end() &&
+         all_mods.at(mod.first).version == mod.second &&
+         IsModInstalled(mod.first);
+}
+
+bool Game::IsModInstalled(const std::string& mod_id) {
+  const auto& required_mods = Manifest::AllMods().at(mod_id).requires_mods();
+  return std::all_of(required_mods.begin(), required_mods.end(),
+                     [](const auto& m) { return IsModInstalled(m); });
+}
+
+void Game::InitializeMod(const std::string& m, const Arguments& args) {
   Ui::ResetAll();
 
-  mod_data_.reset();
+  if (mod_data_ != nullptr) {
+    mod_data_->mod_files().UnmountAll();
+    mod_data_ = nullptr;
+  }
+
+  std::string mod = m;
+  const auto& all_mods = ModMetadata::AllMods();
+  if (all_mods.find(mod) == all_mods.end() || !IsModInstalled(mod)) {
+    mod = GameSettings().mod;
+  }
 
   std::cout << "Loading mod: " << mod << std::endl;
   settings_->game().mod = mod;
@@ -82,7 +104,7 @@ void Game::InitializeMod(const std::string& mod, const Arguments& args) {
 
 RunStatus Game::Run() {
   Loop();
-  renderer_.reset();
+  renderer_ = nullptr;
   return state_;
 }
 
