@@ -12,7 +12,9 @@ namespace common {
 
 class ModBrowserLogic : public ChromeLogic {
 public:
-  ModBrowserLogic(const std::map<std::string, Any>& args);
+  ModBrowserLogic(const WidgetPtr& widget);
+
+  static const std::vector<std::string> CtorArgNames;
 
 private:
   WidgetPtr mod_chooser_panel_;

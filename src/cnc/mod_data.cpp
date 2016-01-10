@@ -28,7 +28,7 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
 }
 
 void ModData::PrepareObjectCreator() {
-  object_creator_.Register("ContainerWidget", &NewWithoutArgs<ContainerWidget>);
+  object_creator_.Register<ContainerWidget>("ContainerWidget");
  
   for (const auto& assembly : manifest_.assemblies()) {
     LibraryPtr library(LoadLibraryA(assembly.c_str()));

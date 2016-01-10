@@ -13,14 +13,14 @@
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   using namespace cnc::mods::common;
-  object_creator.Register("ModChooserLoadScreen", &cnc::NewWithoutArgs<ModChooserLoadScreen>);
-  object_creator.Register("BackgroundWidget", &cnc::NewWithoutArgs<BackgroundWidget>);
-  object_creator.Register("LabelWidget", &cnc::NewWithoutArgs<LabelWidget>);
-  object_creator.Register("ButtonWidget", &cnc::NewWithoutArgs<ButtonWidget>);
-  object_creator.Register("RGBASpriteWidget", &cnc::NewWithoutArgs<RGBASpriteWidget>);
-  object_creator.Register("ImageWidget", &cnc::NewWithoutArgs<ImageWidget>);
-  object_creator.Register("TooltipContainerWidget", &cnc::NewWithoutArgs<TooltipContainerWidget>);
-  object_creator.Register("ModBrowserLogic", &cnc::New<ModBrowserLogic>);
+  object_creator.Register<ModChooserLoadScreen>("ModChooserLoadScreen");
+  object_creator.Register<BackgroundWidget>("BackgroundWidget");
+  object_creator.Register<LabelWidget>("LabelWidget");
+  object_creator.Register<ButtonWidget>("ButtonWidget");
+  object_creator.Register<RGBASpriteWidget>("RGBASpriteWidget");
+  object_creator.Register<ImageWidget>("ImageWidget");
+  object_creator.Register<TooltipContainerWidget>("TooltipContainerWidget");
+  object_creator.Register<ModBrowserLogic, const cnc::WidgetPtr&>("ModBrowserLogic");
 }
 
 BOOL APIENTRY DllMain(HMODULE /*hModule*/,

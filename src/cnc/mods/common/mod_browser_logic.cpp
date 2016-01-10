@@ -7,8 +7,12 @@ namespace cnc {
 namespace mods {
 namespace common {
 
-ModBrowserLogic::ModBrowserLogic(const std::map<std::string, Any>& args) {
-  mod_chooser_panel_ = AnyCast<WidgetPtr>(args.at("widget"));
+const std::vector<std::string> ModBrowserLogic::CtorArgNames = {
+  "widget"
+};
+
+ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget) {
+  mod_chooser_panel_ = widget;
 }
 
 }

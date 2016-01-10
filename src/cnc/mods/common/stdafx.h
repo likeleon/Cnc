@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <Windows.h>
+#include <windows.h>
 #include <map>
 #include <unordered_map>
 #include <sstream>
@@ -15,6 +15,7 @@
 #include <typeindex>
 #include <array>
 #include <stack>
+#include <functional>
 
 #include "cnc/cnc.h"
 
