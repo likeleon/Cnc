@@ -4,6 +4,7 @@
 #include "cnc/Sprite.h"
 #include "cnc/color.h"
 #include "cnc/pair_hash.h"
+#include "cnc/cache.h"
 
 #ifdef DrawText
 #undef DrawText
@@ -43,7 +44,6 @@ private:
   using TTF_Font_UniquePtr = std::unique_ptr<TTF_Font, TTF_Font_Deleter>;
 
   void PrecacheColor(const Color& color, const std::string& color_name, const std::string& name);
-  GlyphInfo& Glyph(char character, const Color& color);
   GlyphInfo CreateGlyph(char ch, const Color& c);
   float LineWidth(const std::string& line);
 
@@ -52,7 +52,7 @@ private:
   std::vector<char> font_buffer_;
   SDL_RWops_UniquePtr sdl_rw_;
   TTF_Font_UniquePtr ttf_font_;
-  std::unordered_map<std::pair<char, Color>, GlyphInfo, PairHash> glyphs_;
+  Cache<std::pair<char, Color>, GlyphInfo, PairHash> glyphs_;
 };
 
 using SpriteFontUniquePtr = std::unique_ptr<SpriteFont>;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "package_entry.h"
+#include "cnc/package_entry.h"
 
 namespace cnc {
 

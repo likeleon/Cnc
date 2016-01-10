@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cnc/perf_item.h"
+#include "cnc/cache.h"
 
 namespace cnc {
 
@@ -11,7 +12,7 @@ public:
   static PerfItem& Items(const std::string& name);
 
 private:
-  static std::unordered_map<std::string, PerfItem> items_;
+  static Cache<std::string, PerfItem> items_;
 };
 
 }

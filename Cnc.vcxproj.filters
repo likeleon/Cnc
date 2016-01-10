@@ -331,6 +331,9 @@
     <ClInclude Include="src\cnc\widget_args.h">
       <Filter>widgets</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\cache.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
