@@ -6,8 +6,9 @@
 #include "cnc/game.h"
 #include "cnc/renderer.h"
 #include "cnc/input_handler.h"
-#include "cnc/widget_utils.h"
 #include "cnc/widget.h"
+#include "cnc/widget_args.h"
+#include "cnc/widget_utils.h"
 #include "cnc/arguments.h"
 
 namespace cnc {

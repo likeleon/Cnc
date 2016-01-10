@@ -1,11 +1,12 @@
 #pragma once
 
 #include "cnc/mini_yaml.h"
-#include "cnc/widget.h"
+#include "cnc/widget_ptr.h"
 
 namespace cnc {
 
 class ModData;
+class WidgetArgs;
 
 class WidgetLoader {
 public:

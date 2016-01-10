@@ -31,7 +31,6 @@
     <ClCompile Include="src\cnc\igraphics_device.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\stop_watch.cpp" />
     <ClCompile Include="src\cnc\perf_sample.cpp">
       <Filter>support</Filter>
     </ClCompile>
@@ -138,6 +137,10 @@
       <Filter>support</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\hsl_color.cpp" />
+    <ClCompile Include="src\cnc\stop_watch.cpp" />
+    <ClCompile Include="src\cnc\widget_args.cpp">
+      <Filter>widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -171,7 +174,6 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\enum_info.h" />
-    <ClInclude Include="src\cnc\stop_watch.h" />
     <ClInclude Include="src\cnc\perf_sample.h">
       <Filter>support</Filter>
     </ClInclude>
@@ -321,6 +323,13 @@
     </ClInclude>
     <ClInclude Include="src\cnc\hsl_color.h">
       <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\stop_watch.h" />
+    <ClInclude Include="src\cnc\chrome_logic.h">
+      <Filter>widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\widget_args.h">
+      <Filter>widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "cnc/mod_data.h"
 #include "cnc/manifest.h"
 #include "cnc/error.h"
+#include "cnc/widget.h"
 #include "cnc/widget_loader.h"
 #include "cnc/file_system.h"
 #include "cnc/chrome_metrics.h"

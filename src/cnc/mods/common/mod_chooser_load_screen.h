@@ -5,7 +5,6 @@
 #include "cnc/sprite.h"
 
 namespace cnc {
-
 namespace mods {
 namespace common {
 

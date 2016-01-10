@@ -1,5 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/widget_loader.h"
+#include "cnc/widget.h"
+#include "cnc/widget_args.h"
 #include "cnc/mod_data.h"
 #include "cnc/mini_yaml.h"
 #include "cnc/string.h"

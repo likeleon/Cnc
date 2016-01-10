@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cnc/error.h"
+
 namespace cnc {
 
 class Any {
@@ -60,6 +62,13 @@ public:
     Any().Swap(*this);
   }
 
+  const std::type_info& type() const {
+    if (content_ == nullptr) {
+      return typeid(void);
+    }
+    return content_->type();
+  }
+
 private:
   class PlaceHolder {
   public:
@@ -91,10 +100,37 @@ private:
   };
 
   PlaceHolder* content_ = nullptr;
+
+  template <typename ValueType>
+  friend ValueType* AnyCast(Any*);
 };
 
 inline void Swap(Any& lhs, Any& rhs) {
   lhs.Swap(rhs);
+}
+
+template <typename ValueType>
+ValueType* AnyCast(Any* any) {
+  if (any == nullptr || any->type() != typeid(ValueType)) {
+    return nullptr;
+  }
+  return &static_cast<Any::Holder<ValueType>*>(any->content_)->value_;
+}
+
+template <typename ValueType>
+ValueType AnyCast(Any& any) {
+  using NonRef = std::remove_reference_t<ValueType>;
+  NonRef* result = AnyCast<NonRef>(&any);
+  if (result == nullptr) {
+    throw Error(MSG("Failed conversion using AnyCast"));
+  }
+  return *result;
+}
+
+template <typename ValueType>
+ValueType AnyCast(const Any& any) {
+  using NonRef = std::remove_reference_t<ValueType>;
+  return AnyCast<const NonRef&>(const_cast<Any&>(any));
 }
 
 }

@@ -4,26 +4,19 @@
 #include "cnc/widget_ptr.h"
 #include "cnc/rectangle.h"
 #include "cnc/field_loader.h"
+#include "cnc/chrome_logic.h"
 
 namespace cnc {
 
-class CNC_API WidgetArgs {
-public:
-  WidgetArgs();
-  WidgetArgs(const std::map<std::string, Any>& args);
-
-  void Add(const std::string& key, Any&& value);
-  bool Remove(const std::string& key);
-  bool ContainsKey(const std::string& key) const;
-
-  const std::map<std::string, Any>& args() const;
-
-private:
-  std::map<std::string, Any> args_;
-};
+class WidgetArgs;
 
 class CNC_API Widget : public std::enable_shared_from_this<Widget> {
-public:  
+public:
+  Widget();
+
+  Widget(const Widget&) = delete;
+  Widget& operator=(const Widget&) = delete;
+
   virtual void Initialize(const WidgetArgs& args);
   virtual void PostInit(const WidgetArgs& args);
   virtual void AddChild(const WidgetPtr& child);
@@ -43,8 +36,8 @@ public:
   virtual Point ChildOrigin() const;
   virtual Rectangle RenderBounds() const;
 
-  void set_parent(WidgetPtr parent);
-  Widget* parent();
+  void set_parent(const Widget* parent);
+  const Widget* parent();
 
   const FieldInfo* GetFieldInfo(const std::string& name) const;
 
@@ -54,6 +47,7 @@ public:
   std::string width_ = "0";
   std::string height_ = "0";
   std::vector<std::string> logic_;
+  std::vector<ChromeLogicUniquePtr> logic_objects_;
   bool visible_ = true;
   bool ignore_mouse_over_ = false;
   bool ignore_child_mouse_over_ = false;
@@ -66,7 +60,7 @@ protected:
 private:
   static const std::map<std::string, FieldInfo>& GetFieldInfoMapCache(const Widget& widget);
     
-  WidgetPtr parent_;
+  const Widget* parent_;
   Rectangle bounds_;
   std::vector<WidgetPtr> children_;
 };

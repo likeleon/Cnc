@@ -20,6 +20,7 @@
     <ClCompile Include="src\cnc\mods\common\tooltip_container_widget.cpp">
       <Filter>Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\mod_browser_logic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -44,6 +45,9 @@
     <ClInclude Include="src\cnc\mods\common\tooltip_container_widget.h">
       <Filter>Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\mod_browser_logic.h">
+      <Filter>Widgets\Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="LoadScreens">
@@ -51,6 +55,9 @@
     </Filter>
     <Filter Include="Widgets">
       <UniqueIdentifier>{4b23fcaa-f951-49fe-812d-840c447c4205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Widgets\Logic">
+      <UniqueIdentifier>{6c26c79f-07ec-4089-a7c3-c333819edecc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

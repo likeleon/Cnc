@@ -67,6 +67,7 @@
     <ClCompile Include="src\cnc\thread_affine.cpp" />
     <ClCompile Include="src\cnc\vertex.cpp" />
     <ClCompile Include="src\cnc\widget.cpp" />
+    <ClCompile Include="src\cnc\widget_args.cpp" />
     <ClCompile Include="src\cnc\widget_loader.cpp" />
     <ClCompile Include="src\cnc\widget_utils.cpp" />
   </ItemGroup>
@@ -74,6 +75,7 @@
     <ClInclude Include="src\cnc\any.h" />
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\blend_mode.h" />
+    <ClInclude Include="src\cnc\chrome_logic.h" />
     <ClInclude Include="src\cnc\chrome_metrics.h" />
     <ClInclude Include="src\cnc\chrome_provider.h" />
     <ClInclude Include="src\cnc\cnc.h" />
@@ -140,6 +142,7 @@
     <ClInclude Include="src\cnc\vertex.h" />
     <ClInclude Include="src\cnc\vertex_buffer.h" />
     <ClInclude Include="src\cnc\widget.h" />
+    <ClInclude Include="src\cnc\widget_args.h" />
     <ClInclude Include="src\cnc\widget_loader.h" />
     <ClInclude Include="src\cnc\widget_ptr.h" />
     <ClInclude Include="src\cnc\widget_utils.h" />

@@ -1,5 +1,6 @@
 #include "cnc/stdafx.h"
 #include "cnc/widget.h"
+#include "cnc/widget_args.h"
 #include "cnc/game.h"
 #include "cnc/mod_data.h"
 #include "cnc/widget_loader.h"
@@ -10,32 +11,11 @@
 namespace cnc {
 
 class RootWidget : public ContainerWidget {
+public:
+  RootWidget() {}
 };
 
-WidgetArgs::WidgetArgs() {
-}
-
-WidgetArgs::WidgetArgs(const std::map<std::string, Any>& args)
-  : args_(args) {
-}
-
-void WidgetArgs::Add(const std::string& key, Any&& value) {
-  if (ContainsKey(key)) {
-    throw Error(MSG("key '" + key + "' already added"));
-  }
-  args_.emplace(key, std::forward<Any>(value));
-}
-
-bool WidgetArgs::Remove(const std::string& key) {
-  return (args_.erase(key) != 0);
-}
-
-bool WidgetArgs::ContainsKey(const std::string& key) const {
-  return args_.find(key) != args_.end();
-}
-
-const std::map<std::string, Any>& WidgetArgs::args() const {
-  return args_;
+Widget::Widget() {
 }
 
 void Widget::Initialize(const WidgetArgs& args) {
@@ -61,19 +41,30 @@ void Widget::Initialize(const WidgetArgs& args) {
   substitutions.emplace("WIDTH", width);
   substitutions.emplace("HEIGHT", height);
 
-  bounds_ = { 
-    Evaluator::Evaluate(x_, substitutions), 
+  bounds_ = {
+    Evaluator::Evaluate(x_, substitutions),
     Evaluator::Evaluate(y_, substitutions),
-    width, 
-    height 
+    width,
+    height
   };
 }
 
-void Widget::PostInit(const WidgetArgs& /*args*/) {
+void Widget::PostInit(const WidgetArgs& a) {
+  if (logic_.empty()) {
+    return;
+  }
+
+  WidgetArgs args = a;
+  args.AddOrAssign("widget", shared_from_this());
+
+  for (const auto& l : logic_) {
+    auto logic_object = Game::mod_data()->object_creator().CreateObject<ChromeLogic>(l, args.args());
+    logic_objects_.emplace_back(std::move(logic_object));
+  }
 }
 
 void Widget::AddChild(const WidgetPtr& child) {
-  child->set_parent(shared_from_this());
+  child->set_parent(this);
   children_.emplace_back(child);
 }
 
@@ -174,12 +165,12 @@ std::map<std::string, FieldInfo> Widget::GetFieldInfoMap() const {
   return{};
 }
 
-void Widget::set_parent(WidgetPtr parent) {
+void Widget::set_parent(const Widget* parent) {
   parent_ = parent;
 }
 
-Widget* Widget::parent() {
-  return parent_.get();
+const Widget* Widget::parent() {
+  return parent_;
 }
 
 const Rectangle& Widget::bounds() const {
@@ -200,7 +191,7 @@ Rectangle Widget::RenderBounds() const {
   return{ ro.x, ro.y, bounds_.width, bounds_.height };
 }
 
-WidgetPtr Ui::root_ = std::make_shared<RootWidget>();
+WidgetPtr Ui::root_(new RootWidget());
 std::stack<WidgetPtr> Ui::window_list_;
 
 WidgetPtr Ui::LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args) {
