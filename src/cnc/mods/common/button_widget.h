@@ -16,6 +16,8 @@ public:
   std::string background_;
 };
 
+using ButtonWidgetPtr = std::shared_ptr<ButtonWidget>;
+
 }
 }
 }

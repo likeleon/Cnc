@@ -2,6 +2,7 @@
 
 #include "cnc/chrome_logic.h"
 #include "cnc/widget_ptr.h"
+#include "cnc/mods/common/button_widget.h"
 
 namespace cnc {
 
@@ -18,6 +19,7 @@ public:
 
 private:
   WidgetPtr mod_chooser_panel_;
+  ButtonWidgetPtr load_button_;
 };
 
 }

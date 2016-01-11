@@ -31,6 +31,14 @@ public:
   virtual void Draw();
   virtual void DrawOuter();
 
+  WidgetPtr GetOrNull(const std::string id);
+
+  template <typename T>
+  std::shared_ptr<T> GetOrNull(const std::string& id);
+
+  template <typename T>
+  std::shared_ptr<T> Get(const std::string& id);
+
   const Rectangle& bounds() const;
   virtual Point RenderOrigin() const;
   virtual Point ChildOrigin() const;
@@ -88,5 +96,21 @@ private:
   static WidgetPtr root_;
   static std::stack<WidgetPtr> window_list_;
 };
+
+template <typename T>
+std::shared_ptr<T> Widget::GetOrNull(const std::string& id) {
+  return std::static_pointer_cast<T>(GetOrNull(id));
+}
+
+template <typename T>
+std::shared_ptr<T> Widget::Get(const std::string& id) {
+  auto t = GetOrNull<T>(id);
+  if (t == nullptr) {
+    std::ostringstream oss;
+    oss << "Widget " << id_ << " has no child " << id << " of type " << typeid(T).name();
+    throw Error(MSG(oss.str()));
+  }
+  return t;
+}
 
 }

@@ -124,6 +124,21 @@ void Widget::DrawOuter() {
   }
 }
 
+WidgetPtr Widget::GetOrNull(const std::string id) {
+  if (id_ == id) {
+    return shared_from_this();
+  }
+
+  for (const auto& child : children_) {
+    auto w = child->GetOrNull(id);
+    if (w != nullptr) {
+      return w;
+    }
+  }
+
+  return nullptr;
+}
+
 static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
   { "Id", StringFieldInfo(&Widget::id_) },
   { "X", StringFieldInfo(&Widget::x_) },

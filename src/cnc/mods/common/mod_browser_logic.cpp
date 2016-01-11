@@ -13,6 +13,8 @@ const std::vector<std::string> ModBrowserLogic::CtorArgNames = {
 
 ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget) {
   mod_chooser_panel_ = widget;
+  
+  load_button_ = mod_chooser_panel_->Get<ButtonWidget>("LOAD_BUTTON");
 }
 
 }
