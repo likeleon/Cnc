@@ -74,4 +74,9 @@ Color CNC_API FieldInfoTraits<Color>::Parse(const std::string& s) {
   throw Error(MSG("Invalid value for color, s: " + s));
 }
 
+template <>
+int32_t CNC_API FieldInfoTraits<int32_t>::Parse(const std::string& s) {
+  return std::stoi(s);
+}
+
 }

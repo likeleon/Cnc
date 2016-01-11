@@ -21,17 +21,17 @@ struct CNC_API Float2 {
   float y = 0.0f;
 };
 
-bool operator==(const Float2& lhs, const Float2& rhs);
-bool operator!=(const Float2& lhs, const Float2& rhs);
-Float2 operator+(const Float2& lhs, const Float2& rhs);
-Float2 operator-(const Float2& lhs, const Float2& rhs);
-Float2 operator*(const Float2& f2, float factor);
-Float2 operator*(float factor, const Float2& f2);
-Float2 operator*(const Float2& f2, const Float2& factor);
-Float2 operator*(const Float2& factor, const Float2& f2);
-Float2 operator/(const Float2& f2, float divisor);
-Float2 operator/(const Float2& f2, const Float2& divisor);
+CNC_API bool operator==(const Float2& lhs, const Float2& rhs);
+CNC_API bool operator!=(const Float2& lhs, const Float2& rhs);
+CNC_API Float2 operator+(const Float2& lhs, const Float2& rhs);
+CNC_API Float2 operator-(const Float2& lhs, const Float2& rhs);
+CNC_API Float2 operator*(const Float2& f2, float factor);
+CNC_API Float2 operator*(float factor, const Float2& f2);
+CNC_API Float2 operator*(const Float2& f2, const Float2& factor);
+CNC_API Float2 operator*(const Float2& factor, const Float2& f2);
+CNC_API Float2 operator/(const Float2& f2, float divisor);
+CNC_API Float2 operator/(const Float2& f2, const Float2& divisor);
 
-std::ostream& operator<<(std::ostream& stream, const Float2& size);
+CNC_API std::ostream& operator<<(std::ostream& stream, const Float2& size);
 
 }

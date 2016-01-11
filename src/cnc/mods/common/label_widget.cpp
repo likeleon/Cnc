@@ -37,7 +37,7 @@ void LabelWidget::Draw() {
     throw Error(MSG("Requested font '" + font_ + "' was not found."));
   }
 
-  auto* font = iter->second.get();
+  auto font = iter->second.get();
   if (text_.empty()) {
     return;
   }

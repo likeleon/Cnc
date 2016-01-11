@@ -208,6 +208,7 @@ Rectangle Widget::RenderBounds() const {
 
 WidgetPtr Ui::root_(new RootWidget());
 std::stack<WidgetPtr> Ui::window_list_;
+WidgetPtr Ui::mouse_over_widget_;
 
 WidgetPtr Ui::LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args) {
   return Game::mod_data()->widget_loader().LoadWidget(args, parent, id);
@@ -254,6 +255,10 @@ void Ui::Draw() {
 
 const WidgetPtr& Ui::root() {
   return root_;
+}
+
+Widget* Ui::mouse_over_widget() {
+  return mouse_over_widget_.get();
 }
 
 }

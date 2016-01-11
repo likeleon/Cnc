@@ -55,9 +55,10 @@ Size SpriteFont::Measure(const std::string& text) {
   }
 
   auto lines = String::Split(text, '\n');
-  auto width_compare = [this](const auto& a, const auto& b) { return LineWidth(a) < LineWidth(b); };
-  auto width = static_cast<int32_t>(std::max_element(lines.begin(), lines.end(), width_compare)->size());
-  return{ width, static_cast<int32_t>(lines.size() * size_) };
+  std::vector<float> widths;
+  std::transform(lines.begin(), lines.end(), std::back_inserter(widths), [this](const auto& s) { return LineWidth(s); });
+  auto max_width = static_cast<int32_t>(*std::max_element(widths.begin(), widths.end()));
+  return{ max_width, static_cast<int32_t>(lines.size() * size_) };
 }
 
 static std::string PerfTimerName(const std::string& name,
@@ -126,9 +127,8 @@ SpriteFont::GlyphInfo SpriteFont::CreateGlyph(char ch, const Color& color) {
 }
 
 float SpriteFont::LineWidth(const std::string& line) {
-  return std::accumulate(line.begin(), line.end(),
-                         0.0f,
-                         [this](float sum, char c) { return sum + glyphs_[std::make_pair(c, Color::White)].advance; });
+  auto sum = [this](float sum, char c) { return sum + glyphs_[std::make_pair(c, Color::White)].advance; };
+  return std::accumulate(line.begin(), line.end(), 0.0f, sum);
 }
 
 }

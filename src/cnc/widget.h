@@ -91,10 +91,12 @@ public:
   static void Draw();
 
   static const WidgetPtr& root();
+  static Widget* mouse_over_widget();
 
 private:
   static WidgetPtr root_;
   static std::stack<WidgetPtr> window_list_;
+  static WidgetPtr mouse_over_widget_;
 };
 
 template <typename T>
