@@ -52,6 +52,8 @@ void ModData::MountFiles() {
 void ModData::InitializeLoaders() {
   ChromeMetrics::Initialize(manifest_.chrome_metrics());
   ChromeProvider::Initialize(manifest_.chrome());
+
+  cursor_provider_ = std::make_unique<CursorProvider>(*this);
 }
 
 const Manifest& ModData::manifest() const {

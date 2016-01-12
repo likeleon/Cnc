@@ -83,6 +83,7 @@ Manifest::Manifest(const std::string& mod) {
 
   folders_ = YamlList(yaml_, "Folders", true);
   packages_ = YamlMap(yaml_, "Packages");
+  cursors_ = YamlList(yaml_, "Cursors", true);
   chrome_ = YamlList(yaml_, "Chrome", true);
   assemblies_ = YamlList(yaml_, "Assemblies", true);
   chrome_layout_ = YamlList(yaml_, "ChromeLayout", true);
@@ -109,6 +110,10 @@ const ModMetadata& Manifest::mod() const {
 
 const std::vector<std::string>& Manifest::folders() const {
   return folders_;
+}
+
+const std::vector<std::string>& Manifest::cursors() const {
+  return cursors_;
 }
 
 const std::map<std::string, std::string>& Manifest::packages() const {

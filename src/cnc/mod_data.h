@@ -4,6 +4,7 @@
 #include "cnc/object_creator.h"
 #include "cnc/widget_loader.h"
 #include "cnc/file_system.h"
+#include "cnc/cursor_provider.h"
 
 namespace cnc {
 
@@ -48,6 +49,7 @@ private:
   std::vector<LibraryPtr> loaded_libraries_;
   std::unique_ptr<ILoadScreen> load_screen_;
   std::unique_ptr<WidgetLoader> widget_loader_;
+  std::unique_ptr<CursorProvider> cursor_provider_;
   FileSystem mod_files_;
 };
 

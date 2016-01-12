@@ -15,6 +15,7 @@
     <ClCompile Include="src\cnc\chrome_metrics.cpp" />
     <ClCompile Include="src\cnc\chrome_provider.cpp" />
     <ClCompile Include="src\cnc\color.cpp" />
+    <ClCompile Include="src\cnc\cursor_provider.cpp" />
     <ClCompile Include="src\cnc\device_factory.cpp" />
     <ClCompile Include="src\cnc\directory.cpp" />
     <ClCompile Include="src\cnc\error.cpp" />
@@ -82,6 +83,7 @@
     <ClInclude Include="src\cnc\cnc.h" />
     <ClInclude Include="src\cnc\color.h" />
     <ClInclude Include="src\cnc\container_utils.h" />
+    <ClInclude Include="src\cnc\cursor_provider.h" />
     <ClInclude Include="src\cnc\device_factory.h" />
     <ClInclude Include="src\cnc\directory.h" />
     <ClInclude Include="src\cnc\enum_info.h" />
