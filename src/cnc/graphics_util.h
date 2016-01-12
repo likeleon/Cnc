@@ -27,6 +27,9 @@ public:
                              const Sprite& r,
                              float palette_texture_index,
                              int32_t nv);
+
+  static void FastCopyIntoChannel(Sprite& dest, const std::vector<char>& src);
+  static void FastCopyIntoChannel(Sprite& dest, int32_t channel_offset, const std::vector<char>& src);
   
   static void FastCopyIntoSprite(std::vector<char>& dest_data,
                                  int32_t dest_stride,

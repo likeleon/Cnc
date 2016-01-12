@@ -57,6 +57,7 @@
     <ClCompile Include="src\cnc\size.cpp" />
     <ClCompile Include="src\cnc\sprite.cpp" />
     <ClCompile Include="src\cnc\sprite_font.cpp" />
+    <ClCompile Include="src\cnc\sprite_loader.cpp" />
     <ClCompile Include="src\cnc\sprite_renderer.cpp" />
     <ClCompile Include="src\cnc\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -135,6 +136,7 @@
     <ClInclude Include="src\cnc\size.h" />
     <ClInclude Include="src\cnc\sprite.h" />
     <ClInclude Include="src\cnc\sprite_font.h" />
+    <ClInclude Include="src\cnc\sprite_loader.h" />
     <ClInclude Include="src\cnc\sprite_renderer.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\stop_watch.h" />

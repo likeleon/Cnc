@@ -8,6 +8,7 @@ namespace cnc {
 
 struct Float2;
 struct Size;
+class ISpriteFrame;
 
 enum class SheetType {
   Indexed = 1,
@@ -21,9 +22,16 @@ public:
   SheetBuilder(SheetType t, int32_t sheet_size);
   SheetBuilder(SheetType t, const std::function<SheetPtr()>& allocate_sheet);
 
+  SheetBuilder(const SheetBuilder&) = delete;
+  SheetBuilder& operator=(const SheetBuilder&) = delete;
+
   static SheetPtr AllocateSheet(SheetType t, int32_t sheet_size);
 
   SheetType type() const;
+
+  Sprite Add(ISpriteFrame& frame);
+  Sprite Add(const std::vector<char>& src, const Size& size);
+  Sprite Add(const std::vector<char>& src, const Size& size, const Float2& sprite_offset);
 
   Sprite Allocate(const Size& image_size);
   Sprite Allocate(const Size& image_size, const Float2& sprite_offset);

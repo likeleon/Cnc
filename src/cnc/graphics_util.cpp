@@ -10,6 +10,9 @@
 #include "cnc/vertex.h"
 
 namespace cnc {
+  
+static const std::array<int32_t, 4> ChannelMasks = { 2, 1, 0, 3 };
+static const std::array<float, 4> ChannelSelect = { 0.2f, 0.4f, 0.6f, 0.8f };
 
 void GraphicsUtil::FastCreateQuad(std::vector<Vertex>& vertices,
                                   const Float2& o,
@@ -31,7 +34,6 @@ void GraphicsUtil::FastCreateQuad(std::vector<Vertex>& vertices,
                                   const Sprite& r,
                                   float palette_texture_index,
                                   int32_t nv) {
-  static const std::array<float, 4> ChannelSelect = { 0.2f, 0.4f, 0.6f, 0.8f };
   auto attrib_c = ChannelSelect[static_cast<int32_t>(r.channel)];
   if (r.sheet->type() == SheetType::DualIndexed) {
     attrib_c *= -1;
@@ -41,6 +43,30 @@ void GraphicsUtil::FastCreateQuad(std::vector<Vertex>& vertices,
   vertices[nv + 1] = { b, r.right, r.top, palette_texture_index, attrib_c };
   vertices[nv + 2] = { c, r.right, r.bottom, palette_texture_index, attrib_c };
   vertices[nv + 3] = { d, r.left, r.bottom, palette_texture_index, attrib_c };
+}
+
+void GraphicsUtil::FastCopyIntoChannel(Sprite& dest, const std::vector<char>& src) {
+  return FastCopyIntoChannel(dest, 0, src);
+}
+
+void GraphicsUtil::FastCopyIntoChannel(Sprite& dest, int32_t channel_offset, const std::vector<char>& src) {
+  auto& data = dest.sheet->GetData();
+  auto src_stride = dest.bounds.width;
+  auto dest_stride = dest.sheet->size().width * 4;
+  auto dest_offset = dest_stride * dest.bounds.Top() + 
+    dest.bounds.Left() * 4 + 
+    ChannelMasks[static_cast<int32_t>(dest.channel) + channel_offset];
+  auto dest_skip = dest_stride - 4 * src_stride;
+  auto height = dest.bounds.height;
+
+  auto src_offset = 0;
+  for (auto j = 0; j < height; ++j) {
+    for (auto i = 0; i < src_stride; ++i, ++src_offset) {
+      data[dest_offset] = src[src_offset];
+      dest_offset += 4;
+    }
+    dest_offset += dest_skip;
+  }
 }
 
 static SDL_Surface_UniquePtr CloneWith32bbpArgbPixelFormat(SDL_Surface& src) {

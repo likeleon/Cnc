@@ -5,6 +5,8 @@
 #include "cnc/game.h"
 #include "cnc/settings.h"
 #include "cnc/sheet.h"
+#include "cnc/sprite_loader.h"
+#include "cnc/graphics_util.h"
 
 namespace cnc {
 
@@ -29,6 +31,25 @@ SheetPtr SheetBuilder::AllocateSheet(SheetType type, int32_t sheet_size) {
 
 SheetType SheetBuilder::type() const {
   return type_;
+}
+
+Sprite SheetBuilder::Add(ISpriteFrame& frame) {
+  return Add(frame.data(), frame.size(), frame.offset());
+}
+
+Sprite SheetBuilder::Add(const std::vector<char>& src, const Size& size) {
+  return Add(src, size, Float2::Zero);
+}
+
+Sprite SheetBuilder::Add(const std::vector<char>& src, const Size& size, const Float2& sprite_offset) {
+  if (size.width == 0 || size.height == 0) {
+    return Sprite(current_, Rectangle::Empty, sprite_offset, channel_, BlendMode::Alpha);
+  }
+
+  auto sprite = Allocate(size, sprite_offset);
+  GraphicsUtil::FastCopyIntoChannel(sprite, src);
+  current_->CommitBufferedData();
+  return sprite;
 }
 
 Sprite SheetBuilder::Allocate(const Size& image_size) {

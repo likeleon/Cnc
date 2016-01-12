@@ -142,6 +142,7 @@
       <Filter>widgets</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\cursor_provider.cpp" />
+    <ClCompile Include="src\cnc\sprite_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -336,6 +337,9 @@
       <Filter>primitives</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\cursor_provider.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\sprite_loader.h">
       <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
