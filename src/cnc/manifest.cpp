@@ -102,6 +102,10 @@ Manifest::Manifest(const std::string& mod) {
   requires_mods_ = yaml_.at("RequiresMods").ToMap<std::string>([](const auto& m) { return m.value(); });
 
   load_screen_ = &(iter->second);
+
+  if (yaml_.find("SpriteFormats") != yaml_.end()) {
+    sprite_formats_ = String::Split(yaml_.at("SpriteFormats").value(), ',', StringSplitOptions::RemoveEmptyEntries);
+  }
 }
 
 const ModMetadata& Manifest::mod() const {
@@ -146,6 +150,10 @@ const std::map<std::string, std::string>& Manifest::requires_mods() const {
 
 const std::map<std::string, std::pair<std::string, int32_t>>& Manifest::fonts() const {
   return fonts_;
+}
+
+const std::vector<std::string>& Manifest::sprite_formats() const {
+  return sprite_formats_;
 }
 
 }

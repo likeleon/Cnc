@@ -144,17 +144,12 @@ public:
   }
 
   template <typename T>
-  static T GetValue(const std::string& field_name, const std::string& value) {
-    return GetValue<T>(field_name, typeid(T), value);
+  static T GetValue(const std::string& value) {
+    return GetValue<T>(MiniYaml(value));
   }
 
   template <typename T>
-  static T GetValue(const std::string& field_name, const std::type_info& field_type, const std::string& value) {
-    return GetValue<T>(field_name, field_type, MiniYaml(value));
-  }
-
-  template <typename T>
-  static T GetValue(const std::string& /*field_name*/, const std::type_info& /*field_type*/, const MiniYaml& yaml) {
+  static T GetValue(const MiniYaml& yaml) {
     auto value = String::Trim(yaml.value());
     return FieldInfoTraits<T>::Parse(value);
   }

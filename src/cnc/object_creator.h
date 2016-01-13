@@ -7,8 +7,6 @@ namespace cnc {
 
 class CNC_API ObjectCreator {
 public:
-  using CreateFunc = std::function<void* (const std::map<std::string, Any>&)>;
-
   template <typename T>
   std::unique_ptr<T> CreateObject(const std::string& type_name, const std::map<std::string, Any>& args) {
     auto it = create_funcs_.find(type_name);
@@ -29,7 +27,13 @@ public:
     create_funcs_.emplace(type_name, &Ctor<T, CtorArgs...>::Create);
   }
 
+  bool TypeRegistered(const std::string& type_name) {
+    return (create_funcs_.find(type_name) != create_funcs_.end());
+  }
+
 private:
+  using CreateFunc = std::function<void* (const std::map<std::string, Any>&)>;
+  
   template <typename T, typename... CtorArgs>
   class Ctor {
   public:

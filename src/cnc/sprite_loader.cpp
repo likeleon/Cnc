@@ -9,7 +9,7 @@ SpriteCache::SpriteCache(const std::vector<SpriteLoaderPtr>& loaders, std::uniqu
   : loaders_(loaders), sheet_builder_(std::move(sheet_builder)) {
 }
 
-const std::vector<Sprite>& SpriteCache::operator[](const std::string& filename) {
+std::vector<Sprite>& SpriteCache::operator[](const std::string& filename) {
   auto iter = sprites_.find(filename);
   if (iter == sprites_.end()) {
     auto sprites = SpriteLoader::GetSprites(filename, loaders_, *sheet_builder_);
@@ -18,21 +18,34 @@ const std::vector<Sprite>& SpriteCache::operator[](const std::string& filename) 
   return iter->second;
 }
 
-std::vector<Sprite> SpriteLoader::GetSprites(const std::string& filename, 
-                                             const std::vector<SpriteLoaderPtr>& loaders, 
+FrameCache::FrameCache(const std::vector<SpriteLoaderPtr>& loaders)
+  : loaders_(loaders) {
+}
+
+std::vector<ISpriteFramePtr>& FrameCache::operator[](const std::string& filename) {
+  auto iter = frames_.find(filename);
+  if (iter == frames_.end()) {
+    auto frames = SpriteLoader::GetFrames(filename, loaders_);
+    frames_.emplace(filename, std::move(frames));
+  }
+  return iter->second;
+}
+
+std::vector<Sprite> SpriteLoader::GetSprites(const std::string& filename,
+                                             const std::vector<SpriteLoaderPtr>& loaders,
                                              SheetBuilder& sheet_builder) {
   std::vector<Sprite> sprites;
   auto frames = GetFrames(filename, loaders);
-  std::transform(frames.begin(), frames.end(), std::back_inserter(sprites), 
+  std::transform(frames.begin(), frames.end(), std::back_inserter(sprites),
                  [&sheet_builder](const auto& frame) { return sheet_builder.Add(*frame); });
   return sprites;
 }
 
-std::vector<ISpriteFrameUniquePtr> SpriteLoader::GetFrames(const std::string& filename,
+std::vector<ISpriteFramePtr> SpriteLoader::GetFrames(const std::string& filename,
                                                            const std::vector<SpriteLoaderPtr>& loaders) {
   auto stream = Game::mod_data()->mod_files().Open(filename);
   for (const auto& loader : loaders) {
-    std::vector<ISpriteFrameUniquePtr> frames;
+    std::vector<ISpriteFramePtr> frames;
     if (loader->TryParseSprite(stream, frames)) {
       return frames;
     }

@@ -9,6 +9,7 @@
 #include "cnc/mods/common/image_widget.h"
 #include "cnc/mods/common/tooltip_container_widget.h"
 #include "cnc/mods/common/mod_browser_logic.h"
+#include "cnc/mods/common/shp_td_loader.h"
 
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
@@ -21,6 +22,7 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register<ImageWidget>("ImageWidget");
   object_creator.Register<TooltipContainerWidget>("TooltipContainerWidget");
   object_creator.Register<ModBrowserLogic, const cnc::WidgetPtr&>("ModBrowserLogic");
+  object_creator.Register<ShpTDLoader>("ShpTDLoader");
 }
 
 BOOL APIENTRY DllMain(HMODULE /*hModule*/,

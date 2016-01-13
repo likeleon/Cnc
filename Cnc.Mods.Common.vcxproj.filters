@@ -21,6 +21,7 @@
       <Filter>Widgets</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\mods\common\mod_browser_logic.cpp" />
+    <ClCompile Include="src\cnc\mods\common\shp_td_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -48,6 +49,9 @@
     <ClInclude Include="src\cnc\mods\common\mod_browser_logic.h">
       <Filter>Widgets\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\shp_td_loader.h">
+      <Filter>SpriteLoaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="LoadScreens">
@@ -58,6 +62,9 @@
     </Filter>
     <Filter Include="Widgets\Logic">
       <UniqueIdentifier>{6c26c79f-07ec-4089-a7c3-c333819edecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpriteLoaders">
+      <UniqueIdentifier>{e1a59277-aaa8-454c-a593-fb333b7c33e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

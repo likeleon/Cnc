@@ -12,7 +12,7 @@ public:
 
   template <typename T>
   static T Get(const std::string& key) {
-    return FieldLoader::GetValue<T>(key, data_[key]);
+    return FieldLoader::GetValue<T>(data_[key]);
   }
 
 private:

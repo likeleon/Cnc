@@ -12,6 +12,22 @@ namespace cnc {
 
 using RegisterTypeFunc = void(*)(ObjectCreator& object_creator);
 
+template <typename T>
+std::vector<std::shared_ptr<T>> GetLoaders(ObjectCreator& object_creator,
+                                           const std::vector<std::string>& formats, 
+                                           const std::string& name) {
+  std::vector<std::shared_ptr<T>> loaders;
+  for (const auto& format : formats) {
+    std::string loader_name = format + "Loader";
+    if (!object_creator.TypeRegistered(loader_name)) {
+      throw Error(MSG("Unable to find a " + name + " loader for type '" + format + "'."));
+    }
+    auto unique_obj = object_creator.CreateObject<T>(loader_name, {});
+    loaders.emplace_back(unique_obj.release());
+  }
+  return loaders;
+}
+
 ModData::ModData(const std::string& mod, bool use_load_screen)
   : manifest_(mod) {
   PrepareObjectCreator();
@@ -25,6 +41,7 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
   }
 
   widget_loader_ = std::make_unique<WidgetLoader>(*this);
+  sprite_loaders_ = GetLoaders<ISpriteLoader>(object_creator_, manifest_.sprite_formats(), "sprite");
 }
 
 void ModData::PrepareObjectCreator() {
@@ -62,6 +79,10 @@ const Manifest& ModData::manifest() const {
 
 ObjectCreator& ModData::object_creator() {
   return object_creator_;
+}
+
+const std::vector<SpriteLoaderPtr>& ModData::sprite_loaders() {
+  return sprite_loaders_;
 }
 
 ILoadScreen* ModData::load_screen() {

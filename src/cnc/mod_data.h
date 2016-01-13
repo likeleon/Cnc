@@ -5,6 +5,7 @@
 #include "cnc/widget_loader.h"
 #include "cnc/file_system.h"
 #include "cnc/cursor_provider.h"
+#include "cnc/sprite_loader.h"
 
 namespace cnc {
 
@@ -28,6 +29,7 @@ public:
 
   const Manifest& manifest() const;
   ObjectCreator& object_creator();
+  const std::vector<SpriteLoaderPtr>& sprite_loaders();
   ILoadScreen* load_screen();
   WidgetLoader& widget_loader();
   FileSystem& mod_files();
@@ -47,6 +49,7 @@ private:
   Manifest manifest_;
   ObjectCreator object_creator_;
   std::vector<LibraryPtr> loaded_libraries_;
+  std::vector<SpriteLoaderPtr> sprite_loaders_;
   std::unique_ptr<ILoadScreen> load_screen_;
   std::unique_ptr<WidgetLoader> widget_loader_;
   std::unique_ptr<CursorProvider> cursor_provider_;

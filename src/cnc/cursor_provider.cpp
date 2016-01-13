@@ -5,7 +5,7 @@
 
 namespace cnc {
 
-CursorProvider::CursorProvider(const ModData& mod_data)
+CursorProvider::CursorProvider(ModData& mod_data)
   : mod_data_(mod_data) {
   auto sequence_files = mod_data_.manifest().cursors();
   auto yy = MiniYaml::FromFiles(sequence_files);
@@ -20,7 +20,32 @@ CursorProvider::CursorProvider(const ModData& mod_data)
     shadow_index.emplace_back(std::stoi(nodes_map.at("ShadowIndex").value()));
   }
 
-  // TODO
+  //TODO: palettes
+
+  FrameCache frame_cache(mod_data_.sprite_loaders());
+  for (const auto& s : nodes_map.at("Cursors").nodes()) {
+    for (const auto& sequence : s.value().nodes()) {
+      cursors_.emplace(std::piecewise_construct,
+                       std::forward_as_tuple(sequence.key()), 
+                       std::forward_as_tuple(frame_cache, sequence.key(), s.key(), s.value().value(), sequence.value()));
+    }
+  }
+}
+
+bool CursorProvider::HasCursorSequence(const std::string& cursor) const {
+  return cursors_.find(cursor) != cursors_.end();
+}
+
+const CursorSequence& CursorProvider::GetCursorSequence(const std::string& cursor) const {
+  try {
+    return cursors_.at(cursor);
+  } catch (const std::out_of_range&) {
+    throw Error(MSG("Cursor does not have a sequence '" + cursor + "'"));
+  }
+}
+
+const std::map<std::string, CursorSequence>& CursorProvider::cursors() const {
+  return cursors_;
 }
 
 }

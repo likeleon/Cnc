@@ -22,6 +22,7 @@ public:
   const MiniYaml& load_screen() const;
   const std::map<std::string, std::string>& requires_mods() const;
   const std::map<std::string, std::pair<std::string, int32_t>>& fonts() const;
+  const std::vector<std::string>& sprite_formats() const;
 
 private:
   ModMetadata mod_;
@@ -36,6 +37,7 @@ private:
   MiniYaml* load_screen_;
   std::map<std::string, std::string> requires_mods_;
   std::map<std::string, std::pair<std::string, int32_t>> fonts_;
+  std::vector<std::string> sprite_formats_;
 };
 
 }
