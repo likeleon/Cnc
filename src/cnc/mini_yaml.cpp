@@ -125,6 +125,14 @@ MiniYamlNodesPtr MiniYaml::FromFile(const std::string& path) {
   return FromLines(ReadAllLines(path), path);
 }
 
+std::vector<MiniYamlNodes> MiniYaml::FromFiles(const std::vector<std::string>& paths) {
+  std::vector<MiniYamlNodes> yy;
+  for (const auto& f : paths) {
+    yy.emplace_back(*MiniYaml::FromFile(f));
+  }
+  return yy;
+}
+
 MiniYamlNodes MiniYaml::MergePartial(const MiniYamlNodes& a, const MiniYamlNodes& b) {
   if (a.empty()) {
     return b;

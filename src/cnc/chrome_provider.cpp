@@ -14,11 +14,8 @@ std::map<std::string, SheetPtr> ChromeProvider::cached_sheets_;
 std::map<std::string, std::map<std::string, Sprite>> ChromeProvider::cached_sprites_;
 
 void ChromeProvider::Initialize(const std::vector<std::string>& chrome_files) {
-  std::vector<MiniYamlNodes> yy;
-  for (const auto& f : chrome_files) {
-    yy.emplace_back(*MiniYaml::FromFile(f));
-  }
-  MiniYamlNodes(*accumulator)(const MiniYamlNodes&, const MiniYamlNodes&) = &MiniYaml::MergePartial;
+  auto yy = MiniYaml::FromFiles(chrome_files);
+  auto accumulator = [](const auto& a, const auto& b) { return MiniYaml::MergePartial(a, b); };
   auto partial = std::accumulate(yy.begin(), yy.end(), MiniYamlNodes(), accumulator);
  
   auto chrome = MiniYaml::ApplyRemovals(partial);

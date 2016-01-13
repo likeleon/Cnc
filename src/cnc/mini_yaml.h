@@ -20,6 +20,7 @@ public:
 
   static MiniYamlMap MapFromFile(const std::string& path);
   static MiniYamlNodesPtr FromFile(const std::string& path);
+  static std::vector<MiniYamlNodes> FromFiles(const std::vector<std::string>& paths);
 
   static MiniYamlNodes MergePartial(const MiniYamlNodes& a, const MiniYamlNodes& b);
   static MiniYaml MergePartial(const MiniYaml& a, const MiniYaml& b);

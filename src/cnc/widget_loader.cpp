@@ -14,12 +14,9 @@ namespace cnc {
 
 WidgetLoader::WidgetLoader(const ModData& mod_data)
   : mod_data_(mod_data) {
-  std::vector<MiniYamlNodesPtr> files;
-  for (const auto& c : mod_data_.manifest().chrome_layout()) {
-    files.emplace_back(MiniYaml::FromFile(c));
-  }
+  auto files = MiniYaml::FromFiles(mod_data_.manifest().chrome_layout());
   for (const auto& file : files) {
-    for (const auto& w : *file) {
+    for (const auto& w : file) {
       auto key = w.key().substr(w.key().find('@') + 1);
       if (widgets_.find(key) != widgets_.end()) {
         std::ostringstream oss;
