@@ -13,7 +13,7 @@ std::ifstream File::OpenRead(const std::string& path) {
   if (!ifs.is_open()) {
     throw Error(MSG("File not found: " + path));
   }
-
+  ifs.exceptions(std::ifstream::eofbit | std::ifstream::failbit | std::ifstream::badbit);
   return ifs;
 }
 

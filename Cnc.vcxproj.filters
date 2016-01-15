@@ -148,6 +148,7 @@
       <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\cursor_sequence.cpp" />
+    <ClCompile Include="src\cnc\buffer_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -350,6 +351,7 @@
     <ClInclude Include="src\cnc\cursor_sequence.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\buffer_utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
