@@ -8,11 +8,17 @@ bool File::Exists(const std::string& path) {
   return std::tr2::sys::exists(path);
 }
 
-std::vector<char> File::ReadAllBytes(const std::string& path) {
+std::ifstream File::OpenRead(const std::string& path) {
   std::ifstream ifs(path, std::ios::binary | std::ios::in | std::ios::ate);
   if (!ifs.is_open()) {
     throw Error(MSG("File not found: " + path));
   }
+
+  return ifs;
+}
+
+std::vector<char> File::ReadAllBytes(const std::string& path) {
+  std::ifstream ifs = OpenRead(path);
   
   size_t size = static_cast<size_t>(ifs.tellg());
   ifs.seekg(0, std::ios::beg);
