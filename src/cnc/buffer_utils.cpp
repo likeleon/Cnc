@@ -5,25 +5,26 @@
 namespace cnc {
 
 template <typename T>
-static T ReadBytes(const std::vector<char>& s, size_t start_index) {
+static T ReadBytes(const std::vector<char>& s, size_t& offset) {
   if (s.size() < start_index || sizeof(T) > s.size() - start_index) {
     throw Error(MSG("End of stream"));
   }
   T t;
   memcpy(&t, &s[start_index], sizeof(T));
+  offset += sizeof(T);
   return t;
 }
 
-uint8_t BufferUtils::ReadUInt8(const std::vector<char>& s, size_t start_index) {
-  return ReadBytes<uint8_t>(s, start_index);
+uint8_t BufferUtils::ReadUInt8(const std::vector<char>& s, size_t& offset) {
+  return ReadBytes<uint8_t>(s, offset);
 }
 
-uint16_t BufferUtils::ReadUInt16(const std::vector<char>& s, size_t start_index) {
-  return ReadBytes<uint16_t>(s, start_index);
+uint16_t BufferUtils::ReadUInt16(const std::vector<char>& s, size_t& offset) {
+  return ReadBytes<uint16_t>(s, offset);
 }
 
-uint32_t BufferUtils::ReadUInt32(const std::vector<char>& s, size_t start_index) {
-  return ReadBytes<uint32_t>(s, start_index);
+uint32_t BufferUtils::ReadUInt32(const std::vector<char>& s, size_t& offset) {
+  return ReadBytes<uint32_t>(s, offset);
 }
 
 }
