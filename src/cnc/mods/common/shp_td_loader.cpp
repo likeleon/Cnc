@@ -33,7 +33,7 @@ static bool IsShpTD(const std::vector<char>& s) {
   return b == 0x20 || b == 0x40 || b == 0x80;
 }
 
-class ShpTDSprite {
+class ShpTDSprite : public std::enable_shared_from_this<ShpTDSprite> {
 public:
   enum class Format {
     XORPrev = 0x20,
@@ -47,11 +47,18 @@ public:
   public:
     ImageHeader(const std::vector<char>& stream, size_t offset, ShpTDSprite::Ptr reader);
 
-    const Size & size() const override { return reader_->size(); }
+    const Size& size() const override { return reader_->size(); }
     const Size& frame_size() const override { return reader_->size(); }
     const Float2& offset() const override { return Float2::Zero; }
-    const std::vector<char>& data() const override { return data_; }
+    std::vector<char>& data() override { return data_; }
     bool disable_export_padding() const override { return false; }
+
+    uint32_t file_offset() const { return file_offset_; }
+    Format format() const { return format_; }
+    uint32_t ref_offset() const { return ref_offset_; }
+    Format ref_format() const { return ref_format_; }
+    const std::shared_ptr<ImageHeader>& ref_image() const { return ref_image_; }
+    void set_ref_image(const std::shared_ptr<ImageHeader>& ref_image) { ref_image_ = ref_image; }
 
   private:
     ShpTDSprite::Ptr reader_;
@@ -60,16 +67,23 @@ public:
     Format format_;
     uint32_t ref_offset_;
     Format ref_format_;
+    std::shared_ptr<ImageHeader> ref_image_;
   };
 
   explicit ShpTDSprite(const std::vector<char>& stream);
-  
+
+  const Size& size() const { return size_; }
   std::vector<ISpriteFramePtr>& frames() { return frames_; }
 
 private:
+  void Decompress(const std::shared_ptr<ImageHeader>& h);
+
+  int32_t recurse_depth_ = 0;
   int32_t image_count_;
   Size size_;
   std::vector<ISpriteFramePtr> frames_;
+  size_t shp_bytes_file_offset_;
+  std::vector<char> shp_bytes_;
 };
 
 ShpTDSprite::ImageHeader::ImageHeader(const std::vector<char>& stream, size_t offset, ShpTDSprite::Ptr reader)
@@ -91,11 +105,68 @@ ShpTDSprite::ShpTDSprite(const std::vector<char>& stream) {
   size_ = { width, height };
 
   offset += 4;
-  for (auto i = 0; i < image_count_; ++i) {
-    frames_.emplace_back(std::make_shared<ImageHeader>(stream, offset, this));
+  std::vector<std::shared_ptr<ImageHeader>> headers(image_count_);
+  for (size_t i = 0; i < headers.size(); ++i) {
+    headers[i] = std::make_shared<ImageHeader>(stream, offset, shared_from_this());
+    frames_.emplace_back(headers[i]);
   }
 
   offset += 16;
+
+  std::map<uint32_t, std::shared_ptr<ImageHeader>> offsets;
+  for (const auto& header : headers) {
+    offsets.emplace(header->file_offset(), header);
+  }
+  for (auto i = 0; i < image_count_; ++i) {
+    auto h = headers[i];
+    if (h->format() == Format::XORPrev) {
+      h->set_ref_image(headers[i - 1]);
+    } else if (h->format() == Format::XORLCW && offsets.find(h->ref_offset()) == offsets.end()) {
+      std::ostringstream oss;
+      oss << "Reference doesn't point to image data " << h->file_offset() << "->" << h->ref_offset();
+      throw Error(MSG(oss.str()));
+    }
+  }
+
+  shp_bytes_file_offset_ = offset;
+  shp_bytes_ = BufferUtils::ReadBytes(stream, offset, stream.size() - offset);
+
+  for (auto& h : headers) {
+    Decompress(h);
+  }
+}
+
+void ShpTDSprite::Decompress(const std::shared_ptr<ShpTDSprite::ImageHeader>& h) {
+  if (h->size().width == 0 || h->size().height == 0) {
+    return;
+  }
+
+  if (recurse_depth_ > image_count_) {
+    throw Error(MSG("Format20/40 headers contain infinite loop"));
+  }
+
+  switch (h->format()) {
+  case Format::XORPrev:
+  case Format::XORLCW:
+    if (h->ref_image()->data().empty()) {
+      ++recurse_depth_;
+      Decompress(h->ref_image());
+      --recurse_depth_;
+    }
+
+    std::copy(h->ref_image()->data().begin(), h->ref_image()->data().end(), std::back_inserter(h->data()));
+    // TODO: XOR Decompress
+    break;
+
+  case Format::LCW: {
+    std::vector<char> image_bytes(size_.width * size_.height);
+    // TODO: LCW Decompress
+    h->data() = std::move(image_bytes);
+    break;
+    }
+  default:
+    throw Error(MSG("Invalid data format"));
+  }
 }
 
 bool ShpTDLoader::TryParseSprite(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
@@ -103,8 +174,8 @@ bool ShpTDLoader::TryParseSprite(const std::vector<char>& s, std::vector<ISprite
     return false;
   }
 
-  ShpTDSprite sprite(s);
-  std::copy(sprite.frames().begin(), sprite.frames().end(), std::back_inserter(frames));
+  auto sprite = std::make_shared<ShpTDSprite>(s);
+  std::copy(sprite->frames().begin(), sprite->frames().end(), std::back_inserter(frames));
   return true;
 }
 

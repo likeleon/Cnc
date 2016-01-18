@@ -16,7 +16,7 @@ public:
   virtual const Size& size() const = 0;
   virtual const Size& frame_size() const = 0;
   virtual const Float2& offset() const = 0;
-  virtual const std::vector<char>& data() const = 0;
+  virtual std::vector<char>& data() = 0;
   virtual bool disable_export_padding() const = 0;
 };
 
