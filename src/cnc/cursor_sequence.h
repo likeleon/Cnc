@@ -21,7 +21,7 @@ private:
   int32_t start_;
   int32_t length_;
   std::string palette_;
-  Point hotsopt_ = Point::Zero;
+  Point hotspot_ = Point::Zero;
   std::vector<ISpriteFramePtr> frames_;
 };
 

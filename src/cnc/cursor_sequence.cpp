@@ -24,11 +24,11 @@ CursorSequence::CursorSequence(FrameCache& cache, const std::string& name, const
                  cache[cursor_src].begin() + start_ + length_);
 
   if (d.find("X") != d.end()) {
-    hotsopt_.x = std::stoi(d.at("X").value());
+    hotspot_.x = std::stoi(d.at("X").value());
   }
 
   if (d.find("Y") != d.end()) {
-    hotsopt_.x = std::stoi(d.at("Y").value());
+    hotspot_.x = std::stoi(d.at("Y").value());
   }
 }
 

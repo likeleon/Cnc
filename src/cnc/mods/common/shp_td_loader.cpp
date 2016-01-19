@@ -2,6 +2,7 @@
 #include "cnc/mods/common/shp_td_loader.h"
 #include "cnc/buffer_utils.h"
 #include "cnc/size.h"
+#include "cnc/mods/common/lcw_compression.h"
 
 namespace cnc {
 namespace mods {
@@ -43,6 +44,8 @@ public:
 
   using Ptr = std::shared_ptr<ShpTDSprite>;
 
+  static Ptr LoadFrom(const std::vector<char>& stream);
+
   class ImageHeader : public ISpriteFrame {
   public:
     ImageHeader(const std::vector<char>& stream, size_t offset, ShpTDSprite::Ptr reader);
@@ -70,19 +73,19 @@ public:
     std::shared_ptr<ImageHeader> ref_image_;
   };
 
-  explicit ShpTDSprite(const std::vector<char>& stream);
 
   const Size& size() const { return size_; }
   std::vector<ISpriteFramePtr>& frames() { return frames_; }
 
 private:
+  void LoadFrames(const std::vector<char>& stream);
   void Decompress(const std::shared_ptr<ImageHeader>& h);
 
   int32_t recurse_depth_ = 0;
-  int32_t image_count_;
+  int32_t image_count_ = 0;
   Size size_;
   std::vector<ISpriteFramePtr> frames_;
-  size_t shp_bytes_file_offset_;
+  size_t shp_bytes_file_offset_ = 0;
   std::vector<char> shp_bytes_;
 };
 
@@ -96,7 +99,13 @@ ShpTDSprite::ImageHeader::ImageHeader(const std::vector<char>& stream, size_t of
   ref_format_ = static_cast<Format>(BufferUtils::ReadUInt16(stream, offset));
 }
 
-ShpTDSprite::ShpTDSprite(const std::vector<char>& stream) {
+ShpTDSprite::Ptr ShpTDSprite::LoadFrom(const std::vector<char>& stream) {
+  auto sprite = std::make_shared<ShpTDSprite>();
+  sprite->LoadFrames(stream);
+  return sprite;
+}
+
+void ShpTDSprite::LoadFrames(const std::vector<char>& stream) {
   size_t offset = 0;
   image_count_ = BufferUtils::ReadUInt16(stream, offset);
   offset += 4;
@@ -155,12 +164,12 @@ void ShpTDSprite::Decompress(const std::shared_ptr<ShpTDSprite::ImageHeader>& h)
     }
 
     std::copy(h->ref_image()->data().begin(), h->ref_image()->data().end(), std::back_inserter(h->data()));
-    // TODO: XOR Decompress
+    throw Error(MSG("TODO: Decompress data format 'Format40'"));
     break;
 
   case Format::LCW: {
     std::vector<char> image_bytes(size_.width * size_.height);
-    // TODO: LCW Decompress
+    LCWCompression::DecodeInto(shp_bytes_, image_bytes, h->file_offset() - shp_bytes_file_offset_);
     h->data() = std::move(image_bytes);
     break;
     }
@@ -174,7 +183,7 @@ bool ShpTDLoader::TryParseSprite(const std::vector<char>& s, std::vector<ISprite
     return false;
   }
 
-  auto sprite = std::make_shared<ShpTDSprite>(s);
+  auto sprite = ShpTDSprite::LoadFrom(s);
   std::copy(sprite->frames().begin(), sprite->frames().end(), std::back_inserter(frames));
   return true;
 }

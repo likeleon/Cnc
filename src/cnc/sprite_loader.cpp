@@ -13,7 +13,7 @@ std::vector<Sprite>& SpriteCache::operator[](const std::string& filename) {
   auto iter = sprites_.find(filename);
   if (iter == sprites_.end()) {
     auto sprites = SpriteLoader::GetSprites(filename, loaders_, *sheet_builder_);
-    sprites_.emplace(filename, std::move(sprites));
+    iter = sprites_.emplace(filename, std::move(sprites)).first;
   }
   return iter->second;
 }
@@ -26,7 +26,7 @@ std::vector<ISpriteFramePtr>& FrameCache::operator[](const std::string& filename
   auto iter = frames_.find(filename);
   if (iter == frames_.end()) {
     auto frames = SpriteLoader::GetFrames(filename, loaders_);
-    frames_.emplace(filename, std::move(frames));
+    iter = frames_.emplace(filename, std::move(frames)).first;
   }
   return iter->second;
 }
