@@ -56,6 +56,7 @@
     <ClCompile Include="src\cnc\sheet.cpp" />
     <ClCompile Include="src\cnc\sheet_builder.cpp" />
     <ClCompile Include="src\cnc\size.cpp" />
+    <ClCompile Include="src\cnc\software_cursor.cpp" />
     <ClCompile Include="src\cnc\sprite.cpp" />
     <ClCompile Include="src\cnc\sprite_font.cpp" />
     <ClCompile Include="src\cnc\sprite_loader.cpp" />
@@ -103,6 +104,7 @@
     <ClInclude Include="src\cnc\graphics_util.h" />
     <ClInclude Include="src\cnc\hsl_color.h" />
     <ClInclude Include="src\cnc\ibatch_renderer.h" />
+    <ClInclude Include="src\cnc\icursor.h" />
     <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\iinput_handler.h" />
     <ClInclude Include="src\cnc\input_handler.h" />
@@ -137,6 +139,7 @@
     <ClInclude Include="src\cnc\sheet_builder.h" />
     <ClInclude Include="src\cnc\sheet_ptr.h" />
     <ClInclude Include="src\cnc\size.h" />
+    <ClInclude Include="src\cnc\software_cursor.h" />
     <ClInclude Include="src\cnc\sprite.h" />
     <ClInclude Include="src\cnc\sprite_font.h" />
     <ClInclude Include="src\cnc\sprite_loader.h" />

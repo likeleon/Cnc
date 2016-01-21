@@ -2,6 +2,8 @@
 #include "cnc/cursor_provider.h"
 #include "cnc/mod_data.h"
 #include "cnc/manifest.h"
+#include "cnc/game.h"
+#include "cnc/settings.h"
 
 namespace cnc {
 
@@ -30,6 +32,11 @@ CursorProvider::CursorProvider(ModData& mod_data)
                        std::forward_as_tuple(frame_cache, sequence.key(), s.key(), s.value().value(), sequence.value()));
     }
   }
+}
+
+bool CursorProvider::CursorViewportZoomed() {
+  const auto& g = Game::settings().graphics();
+  return g.cursor_double && g.pixel_double;
 }
 
 bool CursorProvider::HasCursorSequence(const std::string& cursor) const {

@@ -20,6 +20,8 @@ const std::vector<FieldLoadInfo> GraphicSettings::load_info = {
   { "Mode", EnumFieldInfo<WindowModeTraits>(&GraphicSettings::mode) },
   { "FullscreenSize", TypeFieldInfo(&GraphicSettings::fullscreen_size) },
   { "WindowedSize", TypeFieldInfo(&GraphicSettings::windowed_size) },
+  { "PixelDouble", TypeFieldInfo(&GraphicSettings::pixel_double) },
+  { "CursorDouble", TypeFieldInfo(&GraphicSettings::cursor_double) },
   { "BatchSize", TypeFieldInfo(&GraphicSettings::batch_size) },
   { "SheetSize", TypeFieldInfo(&GraphicSettings::sheet_size) }
 };

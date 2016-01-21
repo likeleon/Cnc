@@ -13,6 +13,8 @@ public:
   CursorProvider(const CursorProvider&) = delete;
   CursorProvider& operator=(const CursorProvider&) = delete;
 
+  static bool CursorViewportZoomed();
+
   bool HasCursorSequence(const std::string& cursor) const;
   const CursorSequence& GetCursorSequence(const std::string& cursor) const;
   const std::map<std::string, CursorSequence>& cursors() const;

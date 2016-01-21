@@ -15,6 +15,12 @@ public:
 
   CursorSequence(const CursorSequence&) = delete;
   CursorSequence& operator=(const CursorSequence&) = delete;
+  
+  std::string name() const;
+  int32_t start() const;
+  int32_t length() const;
+  const Point& hotspot() const;
+  const std::vector<ISpriteFramePtr>& frames() const;
 
 private:
   std::string name_;

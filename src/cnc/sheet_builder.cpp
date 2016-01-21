@@ -33,6 +33,10 @@ SheetType SheetBuilder::type() const {
   return type_;
 }
 
+SheetPtr SheetBuilder::current() {
+  return current_;
+}
+
 Sprite SheetBuilder::Add(ISpriteFrame& frame) {
   return Add(frame.data(), frame.size(), frame.offset());
 }

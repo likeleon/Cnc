@@ -32,4 +32,24 @@ CursorSequence::CursorSequence(FrameCache& cache, const std::string& name, const
   }
 }
 
+std::string CursorSequence::name() const {
+  return name_;
+}
+
+int32_t CursorSequence::start() const {
+  return start_;
+}
+
+int32_t CursorSequence::length() const {
+  return length_;
+}
+
+const Point& CursorSequence::hotspot() const {
+  return hotspot_;
+}
+
+const std::vector<ISpriteFramePtr>& CursorSequence::frames() const {
+  return frames_;
+}
+
 }

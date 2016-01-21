@@ -26,6 +26,8 @@ struct CNC_API GraphicSettings {
   WindowMode mode = WindowMode::PseudoFullscreen;
   Size fullscreen_size = Size(0, 0);
   Size windowed_size = Size(1024, 768);
+  bool pixel_double = false;
+  bool cursor_double = false;
   int32_t batch_size = 8192;
   int32_t sheet_size = 2048;
 

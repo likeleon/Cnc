@@ -28,6 +28,7 @@ public:
   static SheetPtr AllocateSheet(SheetType t, int32_t sheet_size);
 
   SheetType type() const;
+  SheetPtr current();
 
   Sprite Add(ISpriteFrame& frame);
   Sprite Add(const std::vector<char>& src, const Size& size);

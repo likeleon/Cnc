@@ -136,7 +136,6 @@
     <ClCompile Include="src\cnc\perf_timer.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\hsl_color.cpp" />
     <ClCompile Include="src\cnc\stop_watch.cpp" />
     <ClCompile Include="src\cnc\widget_args.cpp">
       <Filter>widgets</Filter>
@@ -147,8 +146,16 @@
     <ClCompile Include="src\cnc\sprite_loader.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\cursor_sequence.cpp" />
     <ClCompile Include="src\cnc\buffer_utils.cpp" />
+    <ClCompile Include="src\cnc\cursor_sequence.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\software_cursor.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\hsl_color.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -352,6 +359,12 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\buffer_utils.h" />
+    <ClInclude Include="src\cnc\software_cursor.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\icursor.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

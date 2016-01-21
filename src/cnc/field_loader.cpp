@@ -71,12 +71,34 @@ Color CNC_API FieldInfoTraits<Color>::Parse(const std::string& s) {
     return rgb;
   }
   // TODO: InvalidValueAction(value, ...)
-  throw Error(MSG("Invalid value for color, s: " + s));
+  throw Error(MSG("Invalid value for color: " + s));
 }
 
 template <>
 int32_t CNC_API FieldInfoTraits<int32_t>::Parse(const std::string& s) {
   return std::stoi(s);
+}
+
+static bool ParseYesNo(const std::string& s) {
+  if (s.empty()) {
+    throw Error(MSG("Invalid value for bool: " + s));
+  }
+
+  std::string str = s;
+  std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+  if (str == "yes" || str == "true") {
+    return true;
+  }
+  if (str == "no" || str == "false") {
+    return false;
+  }
+ 
+  throw Error(MSG("Invalid value for bool: " + s));
+}
+
+template <>
+bool CNC_API FieldInfoTraits<bool>::Parse(const std::string& s) {
+  return ParseYesNo(s);
 }
 
 }

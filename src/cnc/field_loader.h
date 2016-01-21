@@ -51,20 +51,6 @@ FieldInfo EnumFieldInfo(typename TEnumTraits::E TObject::*field) {
   });
 }
 
-template <typename TObject>
-FieldInfo BoolFieldInfo(bool TObject::*field) {
-  return FieldInfo([field](void* o, const std::string& v) {
-    TObject* obj = static_cast<TObject*>(o);
-    if (v == "true") {
-      (obj->*field) = true;
-    } else if (v == "false") {
-      (obj->*field) = false;
-    } else {
-      throw std::invalid_argument("invalid bool string");
-    }
-  });
-}
-
 template <typename TObject, typename TField>
 FieldInfo TypeFieldInfo(TField TObject::*field) {
   return FieldInfo([field](void* o, const std::string& v) {

@@ -12,7 +12,7 @@ const std::vector<FieldLoadInfo> ModMetadata::load_info = {
   { "Description", StringFieldInfo(&ModMetadata::description) },
   { "Version", StringFieldInfo(&ModMetadata::version) },
   { "Author", StringFieldInfo(&ModMetadata::author) },
-  { "Hidden", BoolFieldInfo(&ModMetadata::hidden) }
+  { "Hidden", TypeFieldInfo(&ModMetadata::hidden) }
 };
 
 std::unordered_map<std::string, ModMetadata> ModMetadata::all_mods;
