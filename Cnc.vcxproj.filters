@@ -156,6 +156,10 @@
     <ClCompile Include="src\cnc\hsl_color.cpp">
       <Filter>primitives</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\hardware_palette.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\palette.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -364,6 +368,12 @@
     </ClInclude>
     <ClInclude Include="src\cnc\icursor.h">
       <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\hardware_palette.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\palette.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

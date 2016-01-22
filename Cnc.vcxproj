@@ -29,6 +29,7 @@
     <ClCompile Include="src\cnc\game.cpp" />
     <ClCompile Include="src\cnc\file_system.cpp" />
     <ClCompile Include="src\cnc\graphics_util.cpp" />
+    <ClCompile Include="src\cnc\hardware_palette.cpp" />
     <ClCompile Include="src\cnc\hsl_color.cpp" />
     <ClCompile Include="src\cnc\igraphics_device.cpp" />
     <ClCompile Include="src\cnc\log.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
     <ClCompile Include="src\cnc\package_entry.cpp" />
+    <ClCompile Include="src\cnc\palette.cpp" />
     <ClCompile Include="src\cnc\path.cpp" />
     <ClCompile Include="src\cnc\perf_history.cpp" />
     <ClCompile Include="src\cnc\perf_item.cpp" />
@@ -102,6 +104,7 @@
     <ClInclude Include="src\cnc\game.h" />
     <ClInclude Include="src\cnc\file_system.h" />
     <ClInclude Include="src\cnc\graphics_util.h" />
+    <ClInclude Include="src\cnc\hardware_palette.h" />
     <ClInclude Include="src\cnc\hsl_color.h" />
     <ClInclude Include="src\cnc\ibatch_renderer.h" />
     <ClInclude Include="src\cnc\icursor.h" />
@@ -122,6 +125,7 @@
     <ClInclude Include="src\cnc\object_creator.h" />
     <ClInclude Include="src\cnc\package_entry.h" />
     <ClInclude Include="src\cnc\pair_hash.h" />
+    <ClInclude Include="src\cnc\palette.h" />
     <ClInclude Include="src\cnc\path.h" />
     <ClInclude Include="src\cnc\perf_history.h" />
     <ClInclude Include="src\cnc\perf_item.h" />
