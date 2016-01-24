@@ -32,6 +32,7 @@ public:
   const std::vector<SpriteLoaderPtr>& sprite_loaders();
   ILoadScreen* load_screen();
   WidgetLoader& widget_loader();
+  CursorProvider* cursor_provider();
   FileSystem& mod_files();
 
 private:

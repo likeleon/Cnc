@@ -111,6 +111,7 @@
     <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\iinput_handler.h" />
     <ClInclude Include="src\cnc\input_handler.h" />
+    <ClInclude Include="src\cnc\ipalette.h" />
     <ClInclude Include="src\cnc\ishader.h" />
     <ClInclude Include="src\cnc\itexture.h" />
     <ClInclude Include="src\cnc\ivertex_buffer.h" />
@@ -126,6 +127,7 @@
     <ClInclude Include="src\cnc\package_entry.h" />
     <ClInclude Include="src\cnc\pair_hash.h" />
     <ClInclude Include="src\cnc\palette.h" />
+    <ClInclude Include="src\cnc\palette_ptr.h" />
     <ClInclude Include="src\cnc\path.h" />
     <ClInclude Include="src\cnc\perf_history.h" />
     <ClInclude Include="src\cnc\perf_item.h" />

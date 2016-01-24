@@ -12,10 +12,12 @@
 #include "cnc/mod_metadata.h"
 #include "cnc/mod_data.h"
 #include "cnc/widget.h"
+#include "cnc/software_cursor.h"
 
 namespace cnc {
 
 std::unique_ptr<Settings> Game::settings_;
+std::unique_ptr<ICursor> Game::cursor_;
 std::unique_ptr<Renderer> Game::renderer_;
 StopWatch Game::stop_watch_;
 RunStatus Game::state_ = RunStatus::Running;
@@ -94,6 +96,11 @@ void Game::InitializeMod(const std::string& m, const Arguments& args) {
   mod_data_->InitializeLoaders();
   renderer_->InitializeFonts(mod_data_->manifest());
 
+  cursor_ = nullptr;
+
+  // TODO: hardware cursor
+  cursor_ = std::make_unique<SoftwareCursor>(*mod_data_->cursor_provider());
+
   PerfHistory::Items("render").set_has_normal_tick(false);
   PerfHistory::Items("batches").set_has_normal_tick(false);
   PerfHistory::Items("render_widgets").set_has_normal_tick(false);
@@ -169,6 +176,8 @@ void Game::RenderTick() {
     PERF_SAMPLE(render_widgets, {
       Ui::PrepareRenderables();
       Ui::Draw();
+
+      // TODO: Draw cursor
     });
 
     PERF_SAMPLE(render_flip, {

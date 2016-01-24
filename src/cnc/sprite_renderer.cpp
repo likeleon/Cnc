@@ -35,6 +35,10 @@ void SpriteRenderer::DrawSprite(const Sprite& s,
   nv_ += 4;
 }
 
+void SpriteRenderer::SetPalette(const ITexturePtr& palette) {
+  shader_->SetTexture("Palette", palette);
+}
+
 void SpriteRenderer::SetRenderStateForSprite(const Sprite& s) {
   renderer_->SetCurrentBatchRenderer(this);
 

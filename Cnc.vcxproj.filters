@@ -159,7 +159,9 @@
     <ClCompile Include="src\cnc\hardware_palette.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\palette.cpp" />
+    <ClCompile Include="src\cnc\palette.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -373,6 +375,12 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\palette.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\palette_ptr.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\ipalette.h">
       <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>

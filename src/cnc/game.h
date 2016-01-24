@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cnc/stop_watch.h"
+#include "cnc/icursor.h"
 
 namespace cnc {
 
@@ -44,6 +45,7 @@ private:
 
   static std::unique_ptr<ModData> mod_data_;
   static std::unique_ptr<Settings> settings_;
+  static std::unique_ptr<ICursor> cursor_;
   static std::unique_ptr<Renderer> renderer_;
 
   static StopWatch stop_watch_;

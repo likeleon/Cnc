@@ -16,6 +16,7 @@ class IInputHandler;
 class IBatchRenderer;
 struct Vertex;
 class Manifest;
+class HardwarePalette;
 
 class CNC_API Renderer {
 public:
@@ -34,6 +35,8 @@ public:
   void DrawBatch(IVertexBuffer<T>& vertices, int32_t first_vertex, int32_t num_vertices, PrimitiveType type);
 
   void Flush();
+
+  void SetPalette(const HardwarePalette& palette);
 
   int32_t temp_buffer_size() const;
   const Size& Resolution() const;
@@ -56,6 +59,7 @@ private:
   Size last_resolution_;
   Point last_scroll_ = Point::Zero;
   float last_zoom_ = 0.0f;
+  ITexturePtr current_palette_texture_;
 };
 
 template <typename T>

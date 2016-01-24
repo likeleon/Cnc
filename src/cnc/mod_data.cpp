@@ -93,6 +93,10 @@ WidgetLoader& ModData::widget_loader() {
   return *widget_loader_;
 }
 
+CursorProvider* ModData::cursor_provider() {
+  return cursor_provider_.get();
+}
+
 FileSystem& ModData::mod_files() {
   return mod_files_;
 }

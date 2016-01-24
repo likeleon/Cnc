@@ -10,6 +10,12 @@ namespace cnc {
 
 SoftwareCursor::SoftwareCursor(CursorProvider& cursor_provider)
   : cursor_provider_(cursor_provider), sheet_builder_(SheetType::Indexed) {
+
+  for (const auto& kv : cursor_provider_.palettes()) {
+    palette_.AddPalette(kv.first, kv.second, false);
+  }
+  palette_.Initialize();
+
   for (const auto& kv : cursor_provider_.cursors()) {
     std::vector<Sprite> s;
     for (const auto& f : kv.second.frames()) {
@@ -20,7 +26,7 @@ SoftwareCursor::SoftwareCursor(CursorProvider& cursor_provider)
   sheet_builder_.current()->ReleaseBuffer();
 }
 
-void SoftwareCursor::Render(Renderer& /*renderer*/) {
+void SoftwareCursor::Render(Renderer& renderer) {
   if (cursor_name_.empty()) {
     return;
   }
@@ -33,7 +39,9 @@ void SoftwareCursor::Render(Renderer& /*renderer*/) {
     ? (2 * cursor_sequence.hotspot()) + cursor_sprite.size.ToPoint()
     : cursor_sequence.hotspot() + (0.5f * cursor_sprite.size).ToPoint();
 
-  // TODO
+  renderer.SetPalette(palette_);
+
+  // TODO: DrawSprite
 }
 
 void SoftwareCursor::SetCursor(const std::string& cursor) {

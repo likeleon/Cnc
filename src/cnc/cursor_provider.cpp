@@ -4,6 +4,7 @@
 #include "cnc/manifest.h"
 #include "cnc/game.h"
 #include "cnc/settings.h"
+#include "cnc/palette.h"
 
 namespace cnc {
 
@@ -22,7 +23,10 @@ CursorProvider::CursorProvider(ModData& mod_data)
     shadow_index.emplace_back(std::stoi(nodes_map.at("ShadowIndex").value()));
   }
 
-  //TODO: palettes
+  for (const auto& p : nodes_map.at("Palettes").nodes()) {
+    auto palette = std::make_shared<ImmutablePalette>(mod_data_.mod_files().Open(p.value().value()), shadow_index);
+    palettes_.emplace(p.key(), palette);
+  }
 
   FrameCache frame_cache(mod_data_.sprite_loaders());
   for (const auto& s : nodes_map.at("Cursors").nodes()) {
@@ -53,6 +57,10 @@ const CursorSequence& CursorProvider::GetCursorSequence(const std::string& curso
 
 const std::map<std::string, CursorSequence>& CursorProvider::cursors() const {
   return cursors_;
+}
+
+const std::map<std::string, ImmutablePalettePtr>& CursorProvider::palettes() const {
+  return palettes_;
 }
 
 }

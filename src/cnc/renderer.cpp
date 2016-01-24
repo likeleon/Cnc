@@ -6,6 +6,7 @@
 #include "cnc/manifest.h"
 #include "cnc/platform.h"
 #include "cnc/perf_timer.h"
+#include "cnc/hardware_palette.h"
 
 namespace cnc {
 
@@ -115,6 +116,17 @@ IBatchRenderer* Renderer::current_batch_renderer() const {
 
 void Renderer::Flush() {
   SetCurrentBatchRenderer(nullptr);
+}
+
+void Renderer::SetPalette(const HardwarePalette& palette) {
+  if (palette.texture() == current_palette_texture_) {
+    return;
+  }
+
+  Flush();
+  current_palette_texture_ = palette.texture();
+
+  rgba_sprite_renderer_->SetPalette(current_palette_texture_);
 }
 
 }

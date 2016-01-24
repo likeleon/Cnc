@@ -20,6 +20,7 @@ public:
 
   void DrawSprite(const Sprite& s, const Float2& location);
   void SetViewportParams(const Size& screen, float zoom, const Point& scroll);
+  void SetPalette(const ITexturePtr& texture);
 
   void Flush() override;
 
