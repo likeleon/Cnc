@@ -14,8 +14,10 @@ public:
   void Initialize();
   
   bool Contais(const std::string& name) const;
-  const IPalette& GetPalette(const std::string& name) const;
+  IPalettePtr GetPalette(const std::string& name) const;
+  int32_t GetPaletteIndex(const std::string& name) const;
   const ITexturePtr& texture() const;
+  int32_t height() const;
 
 private:
   void CopyPaletteToBuffer(int32_t index, const IPalette& p);

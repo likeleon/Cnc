@@ -10,4 +10,6 @@ public:
   virtual void CopyToArray(std::vector<char>& destination, int32_t destination_offset) const = 0;
 };
 
+using IPalettePtr = std::shared_ptr<IPalette>;
+
 }

@@ -42,6 +42,7 @@
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
     <ClCompile Include="src\cnc\package_entry.cpp" />
     <ClCompile Include="src\cnc\palette.cpp" />
+    <ClCompile Include="src\cnc\palette_reference.cpp" />
     <ClCompile Include="src\cnc\path.cpp" />
     <ClCompile Include="src\cnc\perf_history.cpp" />
     <ClCompile Include="src\cnc\perf_item.cpp" />
@@ -73,6 +74,7 @@
     <ClCompile Include="src\cnc\texture.cpp" />
     <ClCompile Include="src\cnc\thread_affine.cpp" />
     <ClCompile Include="src\cnc\vertex.cpp" />
+    <ClCompile Include="src\cnc\viewport.cpp" />
     <ClCompile Include="src\cnc\widget.cpp" />
     <ClCompile Include="src\cnc\widget_args.cpp" />
     <ClCompile Include="src\cnc\widget_loader.cpp" />
@@ -128,6 +130,7 @@
     <ClInclude Include="src\cnc\pair_hash.h" />
     <ClInclude Include="src\cnc\palette.h" />
     <ClInclude Include="src\cnc\palette_ptr.h" />
+    <ClInclude Include="src\cnc\palette_reference.h" />
     <ClInclude Include="src\cnc\path.h" />
     <ClInclude Include="src\cnc\perf_history.h" />
     <ClInclude Include="src\cnc\perf_item.h" />
@@ -159,6 +162,7 @@
     <ClInclude Include="src\cnc\thread_affine.h" />
     <ClInclude Include="src\cnc\vertex.h" />
     <ClInclude Include="src\cnc\vertex_buffer.h" />
+    <ClInclude Include="src\cnc\viewport.h" />
     <ClInclude Include="src\cnc\widget.h" />
     <ClInclude Include="src\cnc\widget_args.h" />
     <ClInclude Include="src\cnc\widget_loader.h" />

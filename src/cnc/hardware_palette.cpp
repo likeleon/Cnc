@@ -17,16 +17,24 @@ bool HardwarePalette::Contais(const std::string& name) const {
     palettes_.find(name) != palettes_.end();
 }
 
-const IPalette& HardwarePalette::GetPalette(const std::string& name) const {
+IPalettePtr HardwarePalette::GetPalette(const std::string& name) const {
   auto it1 = modifiable_palettes_.find(name);
   if (it1 != modifiable_palettes_.end()) {
-    return *it1->second;
+    return it1->second;
   }
   auto it2 = palettes_.find(name);
   if (it2 != palettes_.end()) {
-    return *it2->second;
+    return it2->second;
   }
   throw Error(MSG("Palette '" + name + "' does not exist"));
+}
+
+int32_t HardwarePalette::GetPaletteIndex(const std::string& name) const {
+  auto iter = indices_.find(name);
+  if (iter == indices_.end()) {
+    throw Error(MSG("Palette '" + name + "' does not exist"));
+  }
+  return iter->second;
 }
 
 void HardwarePalette::AddPalette(const std::string& name, const ImmutablePalettePtr& p, bool allow_modifiers) {
@@ -71,6 +79,10 @@ void HardwarePalette::CopyBufferToTexture() {
 
 const ITexturePtr& HardwarePalette::texture() const {
   return texture_;
+}
+
+int32_t HardwarePalette::height() const {
+  return height_;
 }
 
 }

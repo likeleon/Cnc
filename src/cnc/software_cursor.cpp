@@ -5,11 +5,13 @@
 #include "cnc/sheet.h"
 #include "cnc/game.h"
 #include "cnc/renderer.h"
+#include "cnc/palette_reference.h"
 
 namespace cnc {
 
 SoftwareCursor::SoftwareCursor(CursorProvider& cursor_provider)
-  : cursor_provider_(cursor_provider), sheet_builder_(SheetType::Indexed) {
+  : cursor_provider_(cursor_provider), sheet_builder_(SheetType::Indexed), 
+  palette_references_([this](auto n) { return CreatePaletteReference(n); }) {
 
   for (const auto& kv : cursor_provider_.palettes()) {
     palette_.AddPalette(kv.first, kv.second, false);
@@ -24,6 +26,11 @@ SoftwareCursor::SoftwareCursor(CursorProvider& cursor_provider)
     sprites_.emplace(kv.first, std::move(s));
   }
   sheet_builder_.current()->ReleaseBuffer();
+}
+
+PaletteReference SoftwareCursor::CreatePaletteReference(const std::string& name) {
+  auto pal = palette_.GetPalette(name);
+  return PaletteReference(name, palette_.GetPaletteIndex(name), pal, palette_);
 }
 
 void SoftwareCursor::Render(Renderer& renderer) {
