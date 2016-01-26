@@ -13,6 +13,7 @@
 #include "cnc/mod_data.h"
 #include "cnc/widget.h"
 #include "cnc/software_cursor.h"
+#include "cnc/viewport.h"
 
 namespace cnc {
 
@@ -177,7 +178,14 @@ void Game::RenderTick() {
       Ui::PrepareRenderables();
       Ui::Draw();
 
-      // TODO: Draw cursor
+      if (mod_data_ != nullptr && mod_data_->cursor_provider() != nullptr) {
+        std::string cursor_name = Ui::root()->GetCursorOuter(Viewport::last_mouse_pos());
+        if (cursor_name.empty()) {
+          cursor_name = "default";
+        }
+        cursor_->SetCursor(cursor_name);
+        cursor_->Render(*renderer_);
+      }
     });
 
     PERF_SAMPLE(render_flip, {

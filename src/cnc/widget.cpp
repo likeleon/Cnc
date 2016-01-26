@@ -100,6 +100,25 @@ void Widget::Removed() {
   }
 }
 
+std::string Widget::GetCursor(const Point& /*pos*/) const {
+  return "default";
+}
+
+std::string Widget::GetCursorOuter(const Point& pos) const {
+  if (!IsVisible()) {
+    return "";
+  }
+
+  for (auto riter = children_.cbegin(); riter != children_.end(); ++riter) {
+    auto cc = (*riter)->GetCursorOuter(pos);
+    if (!cc.empty()) {
+      return cc;
+    }
+  }
+
+  return GetCursor(pos);
+}
+
 void Widget::PrepareRenderables() {
 }
 

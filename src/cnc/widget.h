@@ -26,6 +26,9 @@ public:
   virtual void Hidden();
   virtual void Removed();
 
+  virtual std::string GetCursor(const Point& pos) const;
+  std::string GetCursorOuter(const Point& pos) const;
+
   virtual void PrepareRenderables();
   virtual void PrepareRenderablesOuter();
   virtual void Draw();

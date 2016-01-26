@@ -52,7 +52,6 @@ void SoftwareCursor::Render(Renderer& renderer) {
                                         Viewport::last_mouse_pos() - cursor_offset,
                                         palette_references_[cursor_sequence.palette()],
                                         cursor_size);
-  // TODO: DrawSprite
 }
 
 void SoftwareCursor::SetCursor(const std::string& cursor) {
