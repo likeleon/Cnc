@@ -43,6 +43,7 @@ public:
   
   IGraphicsDevice& device();
   SpriteRenderer& rgba_sprite_renderer();
+  SpriteRenderer& sprite_renderer();
   const std::map<std::string, SpriteFontUniquePtr>& fonts() const;
 
   void SetCurrentBatchRenderer(IBatchRenderer* r);
@@ -52,6 +53,7 @@ private:
   IGraphicsDevicePtr device_;
   int32_t temp_buffer_size_ = 0;
   std::unique_ptr<SpriteRenderer> rgba_sprite_renderer_;
+  std::unique_ptr<SpriteRenderer> sprite_renderer_;
   IBatchRenderer* current_batch_renderer_ = nullptr;
   std::unique_ptr<IVertexBuffer<Vertex>> temp_buffer_;
   std::unique_ptr<SheetBuilder> font_sheet_builder_;

@@ -44,6 +44,10 @@ int32_t CursorSequence::length() const {
   return length_;
 }
 
+const std::string& CursorSequence::palette() const {
+  return palette_;
+}
+
 const Point& CursorSequence::hotspot() const {
   return hotspot_;
 }

@@ -13,12 +13,15 @@ namespace cnc {
 class Renderer;
 struct Sprite;
 struct Float2;
+class PaletteReference;
 
 class SpriteRenderer : public IBatchRenderer {
 public:
   SpriteRenderer(Renderer* renderer, IShaderPtr shader);
 
   void DrawSprite(const Sprite& s, const Float2& location);
+  void DrawSprite(const Sprite& s, const Float2& location, const PaletteReference& pal, const Float2& size);
+
   void SetViewportParams(const Size& screen, float zoom, const Point& scroll);
   void SetPalette(const ITexturePtr& texture);
 

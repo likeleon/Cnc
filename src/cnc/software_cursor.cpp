@@ -6,6 +6,7 @@
 #include "cnc/game.h"
 #include "cnc/renderer.h"
 #include "cnc/palette_reference.h"
+#include "cnc/viewport.h"
 
 namespace cnc {
 
@@ -47,7 +48,10 @@ void SoftwareCursor::Render(Renderer& renderer) {
     : cursor_sequence.hotspot() + (0.5f * cursor_sprite.size).ToPoint();
 
   renderer.SetPalette(palette_);
-
+  renderer.sprite_renderer().DrawSprite(cursor_sprite, 
+                                        Viewport::last_mouse_pos() - cursor_offset,
+                                        palette_references_[cursor_sequence.palette()],
+                                        cursor_size);
   // TODO: DrawSprite
 }
 

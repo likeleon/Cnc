@@ -5,6 +5,7 @@
 #include "cnc/shader.h"
 #include "cnc/graphics_util.h"
 #include "cnc/sheet.h"
+#include "cnc/palette_reference.h"
 
 namespace cnc {
 
@@ -18,6 +19,10 @@ SpriteRenderer::SpriteRenderer(Renderer* renderer, IShaderPtr shader)
 
 void SpriteRenderer::DrawSprite(const Sprite& s, const Float2& location) {
   DrawSprite(s, location, 0, s.size);
+}
+
+void SpriteRenderer::DrawSprite(const Sprite& s, const Float2& location, const PaletteReference& pal, const Float2& size) {
+  DrawSprite(s, location, pal.TextureIndex(), size);
 }
 
 void SpriteRenderer::SetViewportParams(const Size& screen, float zoom, const Point& scroll) {

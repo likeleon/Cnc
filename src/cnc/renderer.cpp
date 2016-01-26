@@ -25,6 +25,7 @@ Renderer::Renderer(const GraphicSettings& graphic_settings) {
   temp_buffer_size_ = graphic_settings.batch_size;
 
   rgba_sprite_renderer_ = std::make_unique<SpriteRenderer>(this, device_->CreateShader("rgba"));
+  sprite_renderer_ = std::make_unique<SpriteRenderer>(this, device_->CreateShader("shp"));
 
   temp_buffer_ = device_->CreateVertexBuffer(temp_buffer_size_);
 
@@ -61,6 +62,7 @@ void Renderer::SetViewportParms(const Point& scroll, float zoom) {
   if (resolution_changed) {
     last_resolution_ = Resolution();
     rgba_sprite_renderer_->SetViewportParams(Resolution(), 1.0f, Point::Zero);
+    sprite_renderer_->SetViewportParams(Resolution(), 1.0f, Point::Zero);
   }
 
   if (resolution_changed || last_scroll_ != scroll || last_zoom_ != zoom) {
@@ -96,6 +98,10 @@ SpriteRenderer& Renderer::rgba_sprite_renderer() {
   return *rgba_sprite_renderer_;
 }
 
+SpriteRenderer& Renderer::sprite_renderer() {
+  return *sprite_renderer_;
+}
+
 const std::map<std::string, SpriteFontUniquePtr>& Renderer::fonts() const {
   return fonts_;
 }
@@ -127,6 +133,7 @@ void Renderer::SetPalette(const HardwarePalette& palette) {
   current_palette_texture_ = palette.texture();
 
   rgba_sprite_renderer_->SetPalette(current_palette_texture_);
+  sprite_renderer_->SetPalette(current_palette_texture_);
 }
 
 }

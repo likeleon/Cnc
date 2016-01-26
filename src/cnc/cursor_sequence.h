@@ -19,6 +19,7 @@ public:
   std::string name() const;
   int32_t start() const;
   int32_t length() const;
+  const std::string& palette() const;
   const Point& hotspot() const;
   const std::vector<ISpriteFramePtr>& frames() const;
 
