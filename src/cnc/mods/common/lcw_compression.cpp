@@ -26,7 +26,7 @@ public:
   }
 
   void CopyTo(std::vector<char>& dest, int32_t offset, int32_t count) {
-    std::copy(src_.begin() + offset, src_.begin() + offset + count, std::back_inserter(dest));
+    std::copy(src_.begin() + offset_, src_.begin() + offset_ + count, dest.begin() + offset);
     offset_ += count;
   }
 

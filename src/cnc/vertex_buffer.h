@@ -4,6 +4,7 @@
 #include "cnc/ivertex_buffer.h"
 #include "cnc/error_handler.h"
 #include "cnc/game.h"
+#include "cnc/shader.h"
 
 namespace cnc {
 
@@ -41,9 +42,9 @@ void VertexBuffer<T>::Bind() {
   VerifyThreadAffinity();
   glBindBuffer(GL_ARRAY_BUFFER, buffer_);
   ErrorHandler::CheckGlError();
-  glVertexPointer(3, GL_FLOAT, VertexSize, NULL);
+  glVertexAttribPointer(Shader::VertexPosAttributeIndex, 3, GL_FLOAT, false, VertexSize, NULL);
   ErrorHandler::CheckGlError();
-  glTexCoordPointer(4, GL_FLOAT, VertexSize, (const void *)(12));
+  glVertexAttribPointer(Shader::TexCoordAttributeIndex, 4, GL_FLOAT, false, VertexSize, (const void *)(12));
   ErrorHandler::CheckGlError();
 }
 

@@ -6,12 +6,13 @@
 #include "cnc/log.h"
 #include "cnc/error.h"
 #include "cnc/texture.h"
+#include "cnc/platform.h"
 
 namespace cnc {
 
 static int32_t CompileShaderObject(GLenum type, const std::string& name) {
   auto ext = (type == GL_VERTEX_SHADER) ? "vert" : "frag";
-  auto filename = std::string("glsl") + Path::DirectorySeparator() + name + "." + ext;
+  auto filename = Path::Combine({ Platform::GameDir(), "glsl", name + "." + ext });
   auto code = File::ReadAllText(filename);
 
   auto shader = glCreateShader(type);
@@ -44,6 +45,12 @@ Shader::Shader(const std::string& name) {
   // Assemble program
   program_ = glCreateProgram();
   ErrorHandler::CheckGlError();
+
+  glBindAttribLocation(program_, VertexPosAttributeIndex, "aVertexPosition");
+  ErrorHandler::CheckGlError();
+  glBindAttribLocation(program_, TexCoordAttributeIndex, "aVertexTexCoord");
+  ErrorHandler::CheckGlError();
+
   glAttachShader(program_, vertex_shader);
   ErrorHandler::CheckGlError();
   glAttachShader(program_, fragment_shader);

@@ -66,19 +66,19 @@ Sdl2GraphicsDevice::Sdl2GraphicsDevice(const Size& window_size, WindowMode windo
     throw Error(MSG("Missing OpenGL extension GL_EXT_framebuffer_object. See graphics.log for details."));
   }
 
-  glEnableClientState(GL_VERTEX_ARRAY);
-  ErrorHandler::CheckGlError();
-  glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-  ErrorHandler::CheckGlError();
-
-  SDL_SetModState(SDL_Keymod::KMOD_NONE);
-
   GLenum err = glewInit();
   if (err != GLEW_OK) {
     const char* err_str = reinterpret_cast<const char*>(glewGetErrorString(err));
     auto text = std::string("glewInit failed. (Error: {") + err_str + "}";
     throw Error(MSG(text));
   }
+
+  glEnableVertexAttribArray(Shader::VertexPosAttributeIndex);
+  ErrorHandler::CheckGlError();
+  glEnableVertexAttribArray(Shader::TexCoordAttributeIndex);
+  ErrorHandler::CheckGlError();
+
+  SDL_SetModState(SDL_Keymod::KMOD_NONE);
 }
 
 Sdl2GraphicsDevice::~Sdl2GraphicsDevice() {
@@ -127,8 +127,6 @@ static GLenum ModeFromPrimitiveType(PrimitiveType pt) {
     return GL_LINES;
   case PrimitiveType::TriangleList:
     return GL_TRIANGLES;
-  case PrimitiveType::QuadList:
-    return GL_QUADS;
   default:
     throw Error(MSG(std::string("Unknown PrimitiveType: ") + std::to_string(static_cast<int32_t>(pt))));
   }

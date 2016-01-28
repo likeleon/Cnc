@@ -48,7 +48,7 @@ public:
 
   class ImageHeader : public ISpriteFrame {
   public:
-    ImageHeader(const std::vector<char>& stream, size_t offset, ShpTDSprite::Ptr reader);
+    ImageHeader(const std::vector<char>& stream, size_t& offset, ShpTDSprite::Ptr reader);
 
     const Size& size() const override { return reader_->size(); }
     const Size& frame_size() const override { return reader_->size(); }
@@ -89,7 +89,7 @@ private:
   std::vector<char> shp_bytes_;
 };
 
-ShpTDSprite::ImageHeader::ImageHeader(const std::vector<char>& stream, size_t offset, ShpTDSprite::Ptr reader)
+ShpTDSprite::ImageHeader::ImageHeader(const std::vector<char>& stream, size_t& offset, ShpTDSprite::Ptr reader)
   : reader_(reader) {
   auto data = BufferUtils::ReadUInt32(stream, offset);
   file_offset_ = data & 0xffffff;

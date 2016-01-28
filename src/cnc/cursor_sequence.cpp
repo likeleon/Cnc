@@ -28,7 +28,7 @@ CursorSequence::CursorSequence(FrameCache& cache, const std::string& name, const
   }
 
   if (d.find("Y") != d.end()) {
-    hotspot_.x = std::stoi(d.at("Y").value());
+    hotspot_.y = std::stoi(d.at("Y").value());
   }
 }
 

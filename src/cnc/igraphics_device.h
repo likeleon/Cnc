@@ -16,8 +16,7 @@ class IVertexBuffer;
 enum class PrimitiveType {
   PointList,
   LineList,
-  TriangleList,
-  QuadList
+  TriangleList
 };
 
 enum class WindowMode {

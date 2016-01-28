@@ -13,7 +13,7 @@ SpriteRenderer::SpriteRenderer(Renderer* renderer, IShaderPtr shader)
   : renderer_(renderer), shader_(std::move(shader)) {
   vertices_.resize(renderer->temp_buffer_size(), { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f });
   render_action_ = [this]() { 
-    renderer_->DrawBatch(vertices_, nv_, PrimitiveType::QuadList);
+    renderer_->DrawBatch(vertices_, nv_, PrimitiveType::TriangleList);
   };
 }
 
@@ -37,7 +37,7 @@ void SpriteRenderer::DrawSprite(const Sprite& s,
                                 const Float2& size) {
   SetRenderStateForSprite(s);
   GraphicsUtil::FastCreateQuad(vertices_, location + s.fractional_offset * size, s, palette_texture_index, nv_, size);
-  nv_ += 4;
+  nv_ += 6;
 }
 
 void SpriteRenderer::SetPalette(const ITexturePtr& palette) {
@@ -47,7 +47,7 @@ void SpriteRenderer::SetPalette(const ITexturePtr& palette) {
 void SpriteRenderer::SetRenderStateForSprite(const Sprite& s) {
   renderer_->SetCurrentBatchRenderer(this);
 
-  if (s.blend_mode != current_blend_ || s.sheet != current_sheet_ || nv_ + 4 > renderer_->temp_buffer_size()) {
+  if (s.blend_mode != current_blend_ || s.sheet != current_sheet_ || nv_ + 6 > renderer_->temp_buffer_size()) {
     Flush();
   }
 

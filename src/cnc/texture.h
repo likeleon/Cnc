@@ -25,7 +25,7 @@ private:
 
   GLuint texture_ = 0;
   Size size_;
-  TextureScaleFilter scale_filter_ = TextureScaleFilter::Linear;
+  TextureScaleFilter scale_filter_ = TextureScaleFilter::Nearest;
 };
 
 }

@@ -42,7 +42,9 @@ void GraphicsUtil::FastCreateQuad(std::vector<Vertex>& vertices,
   vertices[nv] = { a, r.left, r.top, palette_texture_index, attrib_c };
   vertices[nv + 1] = { b, r.right, r.top, palette_texture_index, attrib_c };
   vertices[nv + 2] = { c, r.right, r.bottom, palette_texture_index, attrib_c };
-  vertices[nv + 3] = { d, r.left, r.bottom, palette_texture_index, attrib_c };
+  vertices[nv + 3] = { c, r.right, r.bottom, palette_texture_index, attrib_c };
+  vertices[nv + 4] = { d, r.left, r.bottom, palette_texture_index, attrib_c };
+  vertices[nv + 5] = { a, r.left, r.top, palette_texture_index, attrib_c };
 }
 
 void GraphicsUtil::FastCopyIntoChannel(Sprite& dest, const std::vector<char>& src) {
