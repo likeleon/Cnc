@@ -326,7 +326,6 @@
     <ClInclude Include="src\cnc\mapped_image.h">
       <Filter>graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\any.h" />
     <ClInclude Include="src\cnc\widget.h">
       <Filter>widgets</Filter>
     </ClInclude>
@@ -394,6 +393,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\palette_reference.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\any.h">
+      <Filter>primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
