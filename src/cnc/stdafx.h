@@ -43,4 +43,13 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 
+#pragma warning(disable:4702)
+#include "cnc/optional.h"
+#pragma warning(default:4702)
+
+template <typename T>
+using optional = std::experimental::optional<T>;
+
 #include "cnc/cnc.h"
+
+

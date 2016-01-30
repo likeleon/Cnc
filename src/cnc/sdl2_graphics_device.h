@@ -25,6 +25,8 @@ public:
   
   void SetBlendMode(BlendMode mode) override;
 
+  void SetHardwareCursor(const IHardwareCursor* cursor) override;
+
 private:
   void GrabWindowMouseFocus();
   void ReleaseWindowMouseFocus();

@@ -5,11 +5,8 @@
 namespace cnc {
 
 class Viewport {
-public:
-  static void set_last_mouse_pos(const Point& pos);
-  static const Point& last_mouse_pos();
-
-private:
+ public:
+  static int32_t ticks_since_last_move_;
   static Point last_mouse_pos_;
 };
 

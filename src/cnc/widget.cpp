@@ -7,6 +7,8 @@
 #include "cnc/error.h"
 #include "cnc/renderer.h"
 #include "cnc/evaluator.h"
+#include "cnc/iinput_handler.h"
+#include "cnc/viewport.h"
 
 namespace cnc {
 
@@ -270,6 +272,17 @@ void Ui::PrepareRenderables() {
 
 void Ui::Draw() {
   root_->DrawOuter();
+}
+
+bool Ui::HandleInput(const MouseInput& mi) {
+  bool handled = false;
+
+  if (mi.event == MouseInputEvent::Move) {
+    Viewport::last_mouse_pos_ = mi.location;
+    Viewport::ticks_since_last_move_ = 0;
+  }
+
+  return handled;
 }
 
 const WidgetPtr& Ui::root() {

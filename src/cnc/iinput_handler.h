@@ -4,11 +4,6 @@
 
 namespace cnc {
 
-class CNC_API IInputHandler {
-public:
-  virtual ~IInputHandler() {}
-};
-
 enum class MouseInputEvent {
   Down,
   Move,
@@ -31,6 +26,7 @@ enum class Modifiers {
   Meta = 8
 };
 
+
 struct MouseInput {
   MouseInputEvent event;
   MouseButton button;
@@ -52,6 +48,14 @@ struct MouseInput {
     modifiers(modifiers),
     multi_tap_count(multi_tap_count) {
   }
+};
+
+class CNC_API IInputHandler {
+public:
+  virtual ~IInputHandler() {}
+
+  virtual void ModifierKeys(Modifiers mods) = 0;
+  virtual void OnMouseInput(const MouseInput& input) = 0;
 };
 
 }

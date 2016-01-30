@@ -27,6 +27,8 @@ SoftwareCursor::SoftwareCursor(CursorProvider& cursor_provider)
     sprites_.emplace(kv.first, std::move(s));
   }
   sheet_builder_.current()->ReleaseBuffer();
+
+  Game::renderer()->device().SetHardwareCursor(nullptr);
 }
 
 PaletteReference SoftwareCursor::CreatePaletteReference(const std::string& name) {
@@ -49,7 +51,7 @@ void SoftwareCursor::Render(Renderer& renderer) {
 
   renderer.SetPalette(palette_);
   renderer.sprite_renderer().DrawSprite(cursor_sprite, 
-                                        Viewport::last_mouse_pos() - cursor_offset,
+                                        Viewport::last_mouse_pos_ - cursor_offset,
                                         palette_references_[cursor_sequence.palette()],
                                         cursor_size);
 }

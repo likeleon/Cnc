@@ -31,6 +31,11 @@ struct CNC_API WindowModeTraits {
   static const EnumNamesType<WindowModeTraits> names;
 };
 
+class IHardwareCursor {
+public:
+  virtual ~IHardwareCursor() {}
+};
+
 class CNC_API IGraphicsDevice {
 public:
   virtual ~IGraphicsDevice() {}
@@ -47,6 +52,8 @@ public:
   virtual void DrawPrimitives(PrimitiveType pt, int32_t first_vertex, int32_t num_vertices) = 0;
 
   virtual void SetBlendMode(BlendMode mode) = 0;
+
+  virtual void SetHardwareCursor(const IHardwareCursor* cursor) = 0;
 };
 
 using IGraphicsDevicePtr = std::unique_ptr<IGraphicsDevice>;

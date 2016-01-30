@@ -9,6 +9,7 @@
 namespace cnc {
 
 class WidgetArgs;
+struct MouseInput;
 
 class CNC_API Widget : public std::enable_shared_from_this<Widget> {
 public:
@@ -92,6 +93,8 @@ public:
 
   static void PrepareRenderables();
   static void Draw();
+
+  static bool HandleInput(const MouseInput& mi);
 
   static const WidgetPtr& root();
   static Widget* mouse_over_widget();

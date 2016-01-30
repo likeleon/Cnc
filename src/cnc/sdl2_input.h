@@ -1,12 +1,15 @@
 #pragma once
 
-namespace cnc {
+#include "cnc/iinput_handler.h"
 
-class IInputHandler;
+namespace cnc {
 
 class Sdl2Input {
 public:
   void PumpInput(IInputHandler& input_handler);
+
+private:
+  MouseButton last_button_bits_ = static_cast<MouseButton>(0);
 };
 
 }

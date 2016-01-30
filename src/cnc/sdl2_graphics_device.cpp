@@ -205,4 +205,11 @@ void Sdl2GraphicsDevice::SetBlendMode(BlendMode mode) {
   ErrorHandler::CheckGlError();
 }
 
+void Sdl2GraphicsDevice::SetHardwareCursor(const IHardwareCursor* cursor) {
+  VerifyThreadAffinity();
+  if (cursor == nullptr) {
+    SDL_ShowCursor(SDL_FALSE);
+  }
+}
+
 }

@@ -4,14 +4,7 @@
 
 namespace cnc {
 
+int32_t Viewport::ticks_since_last_move_ = 0;
 Point Viewport::last_mouse_pos_ = Point::Zero;
-
-void Viewport::set_last_mouse_pos(const Point& pos) {
-  last_mouse_pos_ = pos;
-}
-
-const Point& Viewport::last_mouse_pos() {
-  return last_mouse_pos_;
-}
 
 }

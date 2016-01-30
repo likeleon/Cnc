@@ -24,6 +24,7 @@ StopWatch Game::stop_watch_;
 RunStatus Game::state_ = RunStatus::Running;
 int32_t Game::render_frame_ = 0;
 std::unique_ptr<ModData> Game::mod_data_;
+Modifiers Game::modifiers_ = Modifiers::None;
 
 void Game::Initialize(const Arguments& args) {
   std::cout << "Platform is " << Platform::CurrentPlatform() << std::endl;
@@ -179,7 +180,7 @@ void Game::RenderTick() {
       Ui::Draw();
 
       if (mod_data_ != nullptr && mod_data_->cursor_provider() != nullptr) {
-        std::string cursor_name = Ui::root()->GetCursorOuter(Viewport::last_mouse_pos());
+        std::string cursor_name = Ui::root()->GetCursorOuter(Viewport::last_mouse_pos_);
         if (cursor_name.empty()) {
           cursor_name = "default";
         }
@@ -210,6 +211,14 @@ ModData* Game::mod_data() {
 
 Settings& Game::settings() {
   return *settings_;
+}
+
+Modifiers Game::GetModifierKeys() {
+  return modifiers_;
+}
+
+void Game::HandleModifierKeys(Modifiers mods) {
+  modifiers_ = mods;
 }
 
 }

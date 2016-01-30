@@ -2,6 +2,7 @@
 
 #include "cnc/stop_watch.h"
 #include "cnc/icursor.h"
+#include "cnc/iinput_handler.h"
 
 namespace cnc {
 
@@ -31,6 +32,9 @@ public:
   static int64_t RunTime();
   static Renderer* renderer();
 
+  static Modifiers GetModifierKeys();
+  static void HandleModifierKeys(Modifiers mods);
+
   Game() = delete;
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
@@ -51,6 +55,8 @@ private:
   static StopWatch stop_watch_;
   static RunStatus state_;
   static int32_t render_frame_;
+  
+  static Modifiers modifiers_;
 };
 
 }

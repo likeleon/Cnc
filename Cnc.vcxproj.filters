@@ -168,6 +168,9 @@
     <ClCompile Include="src\cnc\palette_reference.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\input_handler.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -395,6 +398,9 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\any.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\optional.h">
       <Filter>primitives</Filter>
     </ClInclude>
   </ItemGroup>
