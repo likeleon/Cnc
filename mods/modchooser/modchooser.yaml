@@ -3,7 +3,7 @@ Background@MODCHOOSER_BACKGROUND:
 	Width:WINDOW_RIGHT
 	Height:WINDOW_BOTTOM
 	
-Background@MODCHOOSER_DIALOG:
+Container@MODCHOOSER_DIALOG:
 	Logic:ModBrowserLogic
 	Children:
 		Container:

@@ -65,6 +65,20 @@ void Widget::PostInit(const WidgetArgs& a) {
   }
 }
 
+Rectangle Widget::EventBounds() const {
+  return RenderBounds();
+}
+
+Rectangle Widget::GetEventBounds() const {
+  auto bounds = EventBounds();
+  for (const auto& child : children_) {
+    if (child->IsVisible()) {
+      bounds = Rectangle::Union(bounds, child->GetEventBounds());
+    }
+  }
+  return bounds;
+}
+
 void Widget::AddChild(const WidgetPtr& child) {
   child->set_parent(this);
   children_.emplace_back(child);
@@ -107,7 +121,7 @@ std::string Widget::GetCursor(const Point& /*pos*/) const {
 }
 
 std::string Widget::GetCursorOuter(const Point& pos) const {
-  if (!IsVisible()) {
+  if (!(IsVisible() && GetEventBounds().Contains(pos))) {
     return "";
   }
 
@@ -118,7 +132,37 @@ std::string Widget::GetCursorOuter(const Point& pos) const {
     }
   }
 
-  return GetCursor(pos);
+  return EventBounds().Contains(pos) ? GetCursor(pos) : "";
+}
+
+void Widget::MouseEntered() {
+}
+
+void Widget::MouseExited() {
+}
+
+bool Widget::HandleMouseInput(const MouseInput& /*mi*/) {
+  return false;
+}
+
+bool Widget::HandleMouseInputOuter(const MouseInput& mi) {
+  if (!(IsVisible() && GetEventBounds().Contains(mi.location))) {
+    return false;
+  }
+
+  auto old_mouse_over = Ui::mouse_over_widget();
+
+  for (auto riter = children_.crbegin(); riter != children_.crend(); ++riter) {
+    if ((*riter)->HandleMouseInputOuter(mi)) {
+      return true;
+    }
+  }
+
+  if (mi.event == MouseInputEvent::Move && Ui::mouse_over_widget() == nullptr) {
+    Ui::set_mouse_over_widget(shared_from_this());
+  }
+
+  return HandleMouseInput(mi);
 }
 
 void Widget::PrepareRenderables() {
@@ -275,11 +319,31 @@ void Ui::Draw() {
 }
 
 bool Ui::HandleInput(const MouseInput& mi) {
+  auto was_mouse_over = mouse_over_widget_;
+
+  if (mi.event == MouseInputEvent::Move) {
+    mouse_over_widget_ = nullptr;
+  }
+
   bool handled = false;
+
+  if (!handled && root_->HandleMouseInputOuter(mi)) {
+    handled = true;
+  }
 
   if (mi.event == MouseInputEvent::Move) {
     Viewport::last_mouse_pos_ = mi.location;
     Viewport::ticks_since_last_move_ = 0;
+  }
+
+  if (was_mouse_over != mouse_over_widget_) {
+    if (was_mouse_over != nullptr) {
+      was_mouse_over->MouseExited();
+    }
+
+    if (mouse_over_widget_ != nullptr) {
+      mouse_over_widget_->MouseEntered();
+    }
   }
 
   return handled;
@@ -289,8 +353,12 @@ const WidgetPtr& Ui::root() {
   return root_;
 }
 
-Widget* Ui::mouse_over_widget() {
-  return mouse_over_widget_.get();
+const WidgetPtr& Ui::mouse_over_widget() {
+  return mouse_over_widget_;
+}
+
+void Ui::set_mouse_over_widget(const WidgetPtr& w) {
+  mouse_over_widget_ = w;
 }
 
 }

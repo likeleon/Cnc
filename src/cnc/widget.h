@@ -20,15 +20,25 @@ public:
 
   virtual void Initialize(const WidgetArgs& args);
   virtual void PostInit(const WidgetArgs& args);
+
+  virtual Rectangle EventBounds() const;
+  virtual Rectangle GetEventBounds() const;
+
   virtual void AddChild(const WidgetPtr& child);
   virtual void RemoveChild(const WidgetPtr& child);
   virtual void HideChild(const WidgetPtr& child);
   virtual void RemoveChildren();
+  
   virtual void Hidden();
   virtual void Removed();
 
   virtual std::string GetCursor(const Point& pos) const;
   std::string GetCursorOuter(const Point& pos) const;
+
+  virtual void MouseEntered();
+  virtual void MouseExited();
+  virtual bool HandleMouseInput(const MouseInput& mi);
+  bool HandleMouseInputOuter(const MouseInput& mi);
 
   virtual void PrepareRenderables();
   virtual void PrepareRenderablesOuter();
@@ -97,7 +107,9 @@ public:
   static bool HandleInput(const MouseInput& mi);
 
   static const WidgetPtr& root();
-  static Widget* mouse_over_widget();
+
+  static const WidgetPtr& mouse_over_widget();
+  static void set_mouse_over_widget(const WidgetPtr& w);
 
 private:
   static WidgetPtr root_;

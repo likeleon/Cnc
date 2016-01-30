@@ -49,7 +49,7 @@ void ButtonWidget::Draw() {
     rb.y - base_line_ + (bounds().height - s.height) / 2 
   };
 
-  DrawBackground(rb, disabled, depressed_, Ui::mouse_over_widget() == this, highlighted);
+  DrawBackground(rb, disabled, depressed_, Ui::mouse_over_widget().get() == this, highlighted);
   font->DrawText(text, position + state_offset, disabled ? color_disabled : color);
 }
 
