@@ -41,6 +41,7 @@
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
     <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
+    <ClCompile Include="src\cnc\multi_tap_detection.cpp" />
     <ClCompile Include="src\cnc\package_entry.cpp" />
     <ClCompile Include="src\cnc\palette.cpp" />
     <ClCompile Include="src\cnc\palette_reference.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="src\cnc\mini_yaml.h" />
     <ClInclude Include="src\cnc\mod_data.h" />
     <ClInclude Include="src\cnc\mod_metadata.h" />
+    <ClInclude Include="src\cnc\multi_tap_detection.h" />
     <ClInclude Include="src\cnc\object_creator.h" />
     <ClInclude Include="src\cnc\optional.h" />
     <ClInclude Include="src\cnc\package_entry.h" />

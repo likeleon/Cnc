@@ -30,21 +30,21 @@ enum class Modifiers {
 struct MouseInput {
   MouseInputEvent event;
   MouseButton button;
-  int scroll_delta;
+  int32_t scroll_delta;
   Point location;
   Modifiers modifiers;
-  int multi_tap_count;
+  int32_t multi_tap_count;
 
   MouseInput(MouseInputEvent event,
              MouseButton button,
-             int scroll_delta,
-             Point&& location,
+             int32_t scroll_delta,
+             const Point& location,
              Modifiers modifiers,
-             int multi_tap_count)
+             int32_t multi_tap_count)
     : event(event),
     button(button),
     scroll_delta(scroll_delta),
-    location(std::move(location)),
+    location(location),
     modifiers(modifiers),
     multi_tap_count(multi_tap_count) {
   }

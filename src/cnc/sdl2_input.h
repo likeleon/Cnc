@@ -9,7 +9,7 @@ public:
   void PumpInput(IInputHandler& input_handler);
 
 private:
-  MouseButton last_button_bits_ = static_cast<MouseButton>(0);
+  MouseButton last_button_bits_ = MouseButton::None;
 };
 
 }

@@ -171,6 +171,7 @@
     <ClCompile Include="src\cnc\input_handler.cpp">
       <Filter>input</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\multi_tap_detection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -402,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\optional.h">
       <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\multi_tap_detection.h">
+      <Filter>default_platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
