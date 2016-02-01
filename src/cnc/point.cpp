@@ -1,6 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/point.h"
 #include "cnc/size.h"
+#include "cnc/math_utils.h"
 
 namespace cnc {
 
@@ -14,6 +15,14 @@ Point::operator Size() const {
   return{ x, y };
 }
 
+int32_t Point::LengthSquared() const {
+  return x * x + y * y;
+}
+
+int32_t Point::Length() const {
+  return ISqrt(LengthSquared());
+}
+
 Point& Point::operator+=(const Size& sz) {
   x += sz.width;
   y += sz.height;
@@ -24,6 +33,14 @@ Point& Point::operator-=(const Size& sz) {
   x -= sz.width;
   y -= sz.height;
   return *this;
+}
+
+Point operator+(const Point& lhs, const Point& rhs) {
+  return{ lhs.x + rhs.x, lhs.y + rhs.y };
+}
+
+Point operator-(const Point& lhs, const Point& rhs) {
+  return{ lhs.x - rhs.x, lhs.y - rhs.y };
 }
 
 bool operator==(const Point& lhs, const Point& rhs) {

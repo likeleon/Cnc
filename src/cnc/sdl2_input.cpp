@@ -52,6 +52,22 @@ void Sdl2Input::PumpInput(IInputHandler& input_handler) {
         break;
       }
 
+      case SDL_EventType::SDL_MOUSEBUTTONUP: {
+        if (pending_motion) {
+          input_handler.OnMouseInput(pending_motion.value());
+          pending_motion = {};
+        }
+
+        auto button = MakeButton(e.button.button);
+        last_button_bits_ = (MouseButton)((int)last_button_bits_ & ~(int)button);
+
+        Point pos(e.button.x, e.button.y);
+        input_handler.OnMouseInput(MouseInput(
+          MouseInputEvent::Up, button, scroll_delta, pos, mods,
+          MultiTapDetection::InfoFromMouse(e.button.button)));
+        break;
+      }
+
       case SDL_EventType::SDL_MOUSEMOTION: {
         pending_motion = MouseInput(MouseInputEvent::Move, last_button_bits_, scroll_delta, { e.motion.x, e.motion.y }, mods, 0);
         break;
