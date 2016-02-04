@@ -4,7 +4,7 @@
 #include "cnc/widget_args.h"
 #include "cnc/mod_data.h"
 #include "cnc/mini_yaml.h"
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 #include "cnc/field_loader.h"
 #include "cnc/game.h"
 #include "cnc/mod_data.h"
@@ -47,7 +47,7 @@ WidgetPtr WidgetLoader::LoadWidget(const WidgetArgs& a, const WidgetPtr& parent,
   }
 
   if (node.key().find('@') != std::string::npos) {
-    FieldLoader::LoadField(*widget, StringFieldInfo(&Widget::id_), String::Split(node.key(), '@')[1]);
+    FieldLoader::LoadField(*widget, StringFieldInfo(&Widget::id_), StringUtils::Split(node.key(), '@')[1]);
   }
 
   for (const auto& child : node.value().nodes()) {
@@ -84,7 +84,7 @@ WidgetPtr WidgetLoader::LoadWidget(const WidgetArgs& a, const WidgetPtr& parent,
 }
 
 WidgetPtr WidgetLoader::NewWidget(const std::string& widget_type, const WidgetArgs& args) const {
-  auto type_name = String::Split(widget_type, '@')[0];
+  auto type_name = StringUtils::Split(widget_type, '@')[0];
   return Game::mod_data()->object_creator().CreateObject<Widget>(type_name + "Widget", args.args());
 }
 

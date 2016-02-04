@@ -1,6 +1,6 @@
 #include "cnc/stdafx.h"
 #include "cnc/field_loader.h"
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 #include "cnc/size.h"
 #include "cnc/rectangle.h"
 #include "cnc/color.h"
@@ -27,7 +27,7 @@ FieldLoadInfo::FieldLoadInfo(const std::string& yaml_name,
 }
 
 FieldLoader::MissingFieldsException::MissingFieldsException(const Message& msg, std::vector<std::string>&& missing)
-  : Error(MessageBuilder(String::Join(missing, ", "), msg.file_name, msg.line_no, msg.function_name)),
+  : Error(MessageBuilder(StringUtils::Join(missing, ", "), msg.file_name, msg.line_no, msg.function_name)),
   missing_(std::move(missing)) {
 }
 
@@ -38,19 +38,19 @@ bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name, const MiniYa
   }
 
   const auto& yaml = iter->second;
-  value = String::Trim(yaml.value());
+  value = StringUtils::Trim(yaml.value());
   return true;
 }
 
 template <>
 Size CNC_API FieldInfoTraits<Size>::Parse(const std::string& s) {
-  auto parts = String::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
+  auto parts = StringUtils::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
   return{ std::stoi(parts[0]), std::stoi(parts[1]) };
 }
 
 template <>
 Rectangle CNC_API FieldInfoTraits<Rectangle>::Parse(const std::string& s) {
-  auto parts = String::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
+  auto parts = StringUtils::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);
   return{ 
     std::stoi(parts[0]), 
     std::stoi(parts[1]),

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 
 namespace cnc {
 
@@ -34,11 +34,11 @@ std::map<TKey, TElement> ToMapWithConflictLog(
     std::vector<std::string> msgs;
     for (const auto& kvp : dup_keys) {
       std::ostringstream oss;
-      oss << log_key(kvp.first) << ": [" + String::Join(kvp.second, ",") + "]";
+      oss << log_key(kvp.first) << ": [" + StringUtils::Join(kvp.second, ",") + "]";
       msgs.emplace_back(oss.str());
     }
 
-    auto bad_keys_formatted = String::Join(msgs, ", ");
+    auto bad_keys_formatted = StringUtils::Join(msgs, ", ");
     std::ostringstream oss;
     oss << debug_name << ", duplicate values found for the following keys: " << bad_keys_formatted;
     throw Error(MSG(oss.str()));

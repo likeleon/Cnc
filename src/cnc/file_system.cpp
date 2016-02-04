@@ -1,7 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/file_system.h"
 #include "cnc/platform.h"
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 #include "cnc/file.h"
 #include "cnc/path.h"
 #include "cnc/folder.h"
@@ -13,7 +13,7 @@ namespace cnc {
 
 void FileSystem::Mount(const std::string& name, const std::string& annotation) {
   std::string final_name = name;
-  bool optional = String::StartsWith(name, "~");
+  bool optional = StringUtils::StartsWith(name, "~");
   if (optional) {
     final_name = name.substr(1);
   }
@@ -87,9 +87,9 @@ bool FileSystem::TryOpen(const std::string& name, std::vector<char>& s) {
   std::string filename = name;
   std::string foldername = "";
 
-  bool explicit_folder = String::Contains(name, ":") && !File::Exists(Path::GetDirectoryName(name));
+  bool explicit_folder = StringUtils::Contains(name, ":") && !File::Exists(Path::GetDirectoryName(name));
   if (explicit_folder) {
-    auto divide = String::Split(name, ':');
+    auto divide = StringUtils::Split(name, ':');
     foldername = divide.front();
     filename = divide.back();
   }

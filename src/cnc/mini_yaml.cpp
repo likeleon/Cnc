@@ -1,7 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/mini_yaml.h"
 #include "cnc/error.h"
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 #include "cnc/container_utils.h"
 
 namespace cnc {
@@ -44,8 +44,8 @@ static std::pair<std::string, std::string> SplitAtColon(const std::string& t) {
   std::string value;
   size_t colon = t.find(':');
   if (colon != -1) {
-    key = String::Trim(t.substr(0, colon));
-    value = String::Trim(t.substr(colon + 1));
+    key = StringUtils::Trim(t.substr(0, colon));
+    value = StringUtils::Trim(t.substr(colon + 1));
   } else {
     key = t;
   }
@@ -63,7 +63,7 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
     std::string line(l);
     size_t comment_index = line.find('#');
     if (comment_index != std::string::npos) {
-      line = String::TrimEnd(line.substr(0, comment_index), " \t");
+      line = StringUtils::TrimEnd(line.substr(0, comment_index), " \t");
     }
 
     if (line.empty()) {
@@ -215,7 +215,7 @@ MiniYamlNodes MiniYaml::ApplyRemovals(const MiniYamlNodes& a) {
 
   if (!remove_keys.empty()) {
     std::ostringstream oss;
-    oss << "Bogus yaml removals: " << String::Join({ remove_keys.begin(), remove_keys.end() }, ", ");
+    oss << "Bogus yaml removals: " << StringUtils::Join({ remove_keys.begin(), remove_keys.end() }, ", ");
     throw Error(MSG(oss.str()));
   }
 

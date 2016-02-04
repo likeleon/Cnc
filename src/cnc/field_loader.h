@@ -3,7 +3,7 @@
 #include "cnc/mini_yaml.h"
 #include "cnc/enum_info.h"
 #include "cnc/error.h"
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 
 namespace cnc {
 
@@ -36,9 +36,9 @@ template <typename TObject>
 FieldInfo StringVectorFieldInfo(std::vector<std::string> TObject::*field) {
   return FieldInfo([field](void *o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);
-    auto parts = String::Split(v, ',', StringSplitOptions::RemoveEmptyEntries);
+    auto parts = StringUtils::Split(v, ',', StringSplitOptions::RemoveEmptyEntries);
     for (const auto& part : parts) {
-      (obj->*field).emplace_back(String::Trim(part));
+      (obj->*field).emplace_back(StringUtils::Trim(part));
     }
   });
 }
@@ -136,7 +136,7 @@ public:
 
   template <typename T>
   static T GetValue(const MiniYaml& yaml) {
-    auto value = String::Trim(yaml.value());
+    auto value = StringUtils::Trim(yaml.value());
     return FieldInfoTraits<T>::Parse(value);
   }
 

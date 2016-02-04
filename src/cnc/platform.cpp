@@ -2,7 +2,7 @@
 #include <shlobj.h>
 #include "cnc/platform.h"
 #include "cnc/error.h"
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 #include "cnc/path.h"
 
 namespace cnc {
@@ -71,7 +71,7 @@ const std::string& Platform::GameDir() {
 }
 
 std::string Platform::ResolvePath(const std::string& p) {
-  auto path = String::TrimEnd(p);
+  auto path = StringUtils::TrimEnd(p);
   if (path.find("^") == 0) {
     return (fs_path(SupportDir()) / path.substr(1)).string();
   } else if (path.find("./") == 0 || path.find(".\\") == 0) {

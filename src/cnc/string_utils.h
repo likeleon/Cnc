@@ -7,7 +7,7 @@ enum class StringSplitOptions {
   RemoveEmptyEntries
 };
 
-class CNC_API String {
+class CNC_API StringUtils {
 public:
   static bool Equals(const std::string& a, const std::string& b, bool ignore_case);
 

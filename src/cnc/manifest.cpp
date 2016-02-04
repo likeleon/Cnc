@@ -2,7 +2,7 @@
 #include "cnc/manifest.h"
 #include "cnc/platform.h"
 #include "cnc/directory.h"
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 #include "cnc/log.h"
 #include "cnc/mini_yaml.h"
 #include "cnc/file.h"
@@ -65,7 +65,7 @@ std::map<std::string, std::string> YamlMap(const MiniYamlMap& yaml, const std::s
   std::map<std::string, std::string> map;
   for (const auto& node : yaml.at(key).nodes()) {
     if (node.key().find('@') != std::string::npos) {
-      auto split = String::Split(node.key(), '@');
+      auto split = StringUtils::Split(node.key(), '@');
       map.emplace(split[0], split[1]);
     } else {
       map.emplace(node.key(), "");
@@ -104,7 +104,7 @@ Manifest::Manifest(const std::string& mod) {
   load_screen_ = &(iter->second);
 
   if (yaml_.find("SpriteFormats") != yaml_.end()) {
-    sprite_formats_ = String::Split(yaml_.at("SpriteFormats").value(), ',', StringSplitOptions::RemoveEmptyEntries);
+    sprite_formats_ = StringUtils::Split(yaml_.at("SpriteFormats").value(), ',', StringSplitOptions::RemoveEmptyEntries);
   }
 }
 

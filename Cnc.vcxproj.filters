@@ -11,9 +11,6 @@
       <Filter>support</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
-    <ClCompile Include="src\cnc\string.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="src\cnc\field_loader.cpp" />
     <ClCompile Include="src\cnc\folder.cpp">
       <Filter>file_system</Filter>
@@ -172,6 +169,9 @@
       <Filter>input</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\multi_tap_detection.cpp" />
+    <ClCompile Include="src\cnc\string_utils.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -184,9 +184,6 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\mini_yaml.h" />
-    <ClInclude Include="src\cnc\string.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\field_loader.h" />
     <ClInclude Include="src\cnc\folder.h">
       <Filter>file_system</Filter>
@@ -406,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\multi_tap_detection.h">
       <Filter>default_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\string_utils.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

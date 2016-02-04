@@ -72,7 +72,7 @@
     </ClCompile>
     <ClCompile Include="src\cnc\stop_watch.cpp" />
     <ClCompile Include="src\cnc\buffer_utils.cpp" />
-    <ClCompile Include="src\cnc\string.cpp" />
+    <ClCompile Include="src\cnc\string_utils.cpp" />
     <ClCompile Include="src\cnc\texture.cpp" />
     <ClCompile Include="src\cnc\thread_affine.cpp" />
     <ClCompile Include="src\cnc\vertex.cpp" />
@@ -160,7 +160,7 @@
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\stop_watch.h" />
     <ClInclude Include="src\cnc\buffer_utils.h" />
-    <ClInclude Include="src\cnc\string.h" />
+    <ClInclude Include="src\cnc\string_utils.h" />
     <ClInclude Include="src\cnc\surface_ptr.h" />
     <ClInclude Include="src\cnc\texture.h" />
     <ClInclude Include="src\cnc\thread_affine.h" />

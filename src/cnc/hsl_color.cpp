@@ -1,12 +1,12 @@
 #include "cnc/stdafx.h"
 #include "cnc/hsl_color.h"
-#include "cnc/string.h"
+#include "cnc/string_utils.h"
 #include "cnc/color.h"
 
 namespace cnc {
 
 bool HSLColor::TryParseRGB(const std::string& v, Color& color) {
-  auto value = String::Trim(v);
+  auto value = StringUtils::Trim(v);
   if (value.length() != 6 && value.length() != 8) {
     return false;
   }

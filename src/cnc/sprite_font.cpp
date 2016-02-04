@@ -54,7 +54,7 @@ Size SpriteFont::Measure(const std::string& text) {
     return{ 0, size_ };
   }
 
-  auto lines = String::Split(text, '\n');
+  auto lines = StringUtils::Split(text, '\n');
   std::vector<float> widths;
   std::transform(lines.begin(), lines.end(), std::back_inserter(widths), [this](const auto& s) { return LineWidth(s); });
   auto max_width = static_cast<int32_t>(*std::max_element(widths.begin(), widths.end()));
