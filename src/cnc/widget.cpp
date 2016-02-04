@@ -65,6 +65,30 @@ void Widget::PostInit(const WidgetArgs& a) {
   }
 }
 
+bool Widget::HasMouseFocus() const {
+  return Ui::mouse_focus_widget().get() == this;
+}
+
+bool Widget::TakeMouseFocus(const MouseInput& mi) {
+  if (HasMouseFocus()) {
+    return true;
+  }
+
+  if (Ui::mouse_focus_widget() != nullptr && !Ui::mouse_focus_widget()->YieldMouseFocus(mi)) {
+    return false;
+  }
+
+  Ui::set_mouse_focus_widget(shared_from_this());
+  return true;
+}
+
+bool Widget::YieldMouseFocus(const MouseInput& /*mi*/) {
+  if (Ui::mouse_focus_widget().get() == this) {
+    Ui::set_mouse_focus_widget(shared_from_this());
+  }
+  return true;
+}
+
 Rectangle Widget::EventBounds() const {
   return RenderBounds();
 }
@@ -189,7 +213,7 @@ void Widget::DrawOuter() {
   }
 }
 
-WidgetPtr Widget::GetOrNull(const std::string id) {
+WidgetPtr Widget::GetOrNull(const std::string& id) {
   if (id_ == id) {
     return shared_from_this();
   }
@@ -273,6 +297,7 @@ Rectangle Widget::RenderBounds() const {
 
 WidgetPtr Ui::root_(new RootWidget());
 std::stack<WidgetPtr> Ui::window_list_;
+WidgetPtr Ui::mouse_focus_widget_;
 WidgetPtr Ui::mouse_over_widget_;
 
 WidgetPtr Ui::LoadWidget(const std::string& id, const WidgetPtr& parent, const WidgetArgs& args) {
@@ -326,6 +351,9 @@ bool Ui::HandleInput(const MouseInput& mi) {
   }
 
   bool handled = false;
+  if (mouse_focus_widget_ != nullptr && mouse_focus_widget_->HandleMouseInputOuter(mi)) {
+    handled = true;
+  }
 
   if (!handled && root_->HandleMouseInputOuter(mi)) {
     handled = true;
@@ -351,6 +379,14 @@ bool Ui::HandleInput(const MouseInput& mi) {
 
 const WidgetPtr& Ui::root() {
   return root_;
+}
+
+const WidgetPtr& Ui::mouse_focus_widget() {
+  return mouse_focus_widget_;
+}
+
+void Ui::set_mouse_focus_widget(const WidgetPtr& w) {
+  mouse_focus_widget_ = w;
 }
 
 const WidgetPtr& Ui::mouse_over_widget() {

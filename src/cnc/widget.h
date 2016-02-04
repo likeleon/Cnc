@@ -21,6 +21,10 @@ public:
   virtual void Initialize(const WidgetArgs& args);
   virtual void PostInit(const WidgetArgs& args);
 
+  bool HasMouseFocus() const;
+  virtual bool TakeMouseFocus(const MouseInput& mi);
+  virtual bool YieldMouseFocus(const MouseInput& mi);
+
   virtual Rectangle EventBounds() const;
   virtual Rectangle GetEventBounds() const;
 
@@ -45,7 +49,7 @@ public:
   virtual void Draw();
   virtual void DrawOuter();
 
-  WidgetPtr GetOrNull(const std::string id);
+  WidgetPtr GetOrNull(const std::string& id);
 
   template <typename T>
   std::shared_ptr<T> GetOrNull(const std::string& id);
@@ -108,12 +112,15 @@ public:
 
   static const WidgetPtr& root();
 
+  static const WidgetPtr& mouse_focus_widget();
+  static void set_mouse_focus_widget(const WidgetPtr& w);
   static const WidgetPtr& mouse_over_widget();
   static void set_mouse_over_widget(const WidgetPtr& w);
 
 private:
   static WidgetPtr root_;
   static std::stack<WidgetPtr> window_list_;
+  static WidgetPtr mouse_focus_widget_;
   static WidgetPtr mouse_over_widget_;
 };
 

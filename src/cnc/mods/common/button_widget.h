@@ -24,6 +24,11 @@ public:
                              const Rectangle& rect,
                              bool disabled, bool pressed, bool hover, bool highlighted);
 
+  bool YieldMouseFocus(const MouseInput& mi);
+  bool HandleMouseInput(const MouseInput& mi);
+
+  Point ChildOrigin() const override;
+
   void Draw() override;
   virtual int UsableWidth() const;
 
@@ -46,9 +51,10 @@ public:
   Func<Color> get_color_disabled_;
   Func<bool> is_disabled_;
   Func<bool> is_highlighted_;
-  Action<const MouseInput&> on_mouse_down = [](const auto&) {};
-  Action<const MouseInput&> on_mouse_up = [](const auto&) {};
+  Action<const MouseInput&> on_mouse_down_ = [](const auto&) {};
+  Action<const MouseInput&> on_mouse_up_ = [](const auto&) {};
   Action<> on_click_ = [] {};
+  Action<> on_double_click_ = [] {};
 
 private:
   void DrawBackground(const Rectangle& rect, bool disabled, bool pressed, bool hover, bool highlighted);

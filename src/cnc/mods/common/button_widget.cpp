@@ -28,9 +28,58 @@ ButtonWidget::ButtonWidget()
   get_text_ = [this] { return text_; };
   get_color_ = [this] { return text_color_; };
   get_color_disabled_ = [this] { return text_color_disabled_; };
-  on_mouse_up = [this](const auto&) { on_click_(); };
+  on_mouse_up_ = [this](const auto&) { on_click_(); };
   is_disabled_ = [this] { return disabled_; };
   is_highlighted_ = [this] { return highlighted_; };
+}
+
+bool ButtonWidget::YieldMouseFocus(const MouseInput& mi) {
+  depressed_ = false;
+  return Widget::YieldMouseFocus(mi);
+}
+
+bool ButtonWidget::HandleMouseInput(const MouseInput& mi) {
+  if (mi.button != MouseButton::Left) {
+    return false;
+  }
+
+  if (mi.event == MouseInputEvent::Down && !TakeMouseFocus(mi)) {
+    return false;
+  }
+
+  auto disabled = is_disabled_();
+  if (HasMouseFocus() && mi.event == MouseInputEvent::Up && mi.multi_tap_count == 2) {
+    if (!disabled) {
+      on_double_click_();
+      return YieldMouseFocus(mi);
+    }
+  }
+  else if (HasMouseFocus() && mi.event == MouseInputEvent::Up) {
+    if (depressed_ && !disabled) {
+      on_mouse_up_(mi);
+    }
+
+    return YieldMouseFocus(mi);
+  }
+
+  if (mi.event == MouseInputEvent::Down) {
+    if (!disabled) {
+      on_mouse_down_(mi);
+      depressed_ = true;
+    } else {
+      YieldMouseFocus(mi);
+    }
+  }
+  else if (mi.event == MouseInputEvent::Move && HasMouseFocus()) {
+    depressed_ = RenderBounds().Contains(mi.location);
+  }
+
+  return depressed_;
+}
+
+Point ButtonWidget::ChildOrigin() const {
+  return RenderOrigin() +
+    (depressed_ ? Point(visual_height_, visual_height_) : Point::Zero);
 }
 
 void ButtonWidget::Draw() {
