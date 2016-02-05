@@ -172,6 +172,9 @@
     <ClCompile Include="src\cnc\string_utils.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\action_queue.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -406,6 +409,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\string_utils.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\action_queue.h">
+      <Filter>primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

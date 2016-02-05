@@ -3,10 +3,7 @@
 
 namespace cnc {
 
-const Arguments& Arguments::Empty() {
-  static Arguments args;
-  return args;
-}
+const Arguments Arguments::Empty;
 
 Arguments::Arguments() {
 }

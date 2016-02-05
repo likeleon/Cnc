@@ -12,7 +12,8 @@ const std::vector<FieldLoadInfo> PlayerSettings::load_info = {
 };
 
 const std::vector<FieldLoadInfo> GameSettings::load_info = {
-  { "Mod", StringFieldInfo(&GameSettings::mod) }
+  { "Mod", StringFieldInfo(&GameSettings::mod) },
+  { "PreviousMod", StringFieldInfo(&GameSettings::previous_mod) }
 };
 
 const std::vector<FieldLoadInfo> GraphicSettings::load_info = {

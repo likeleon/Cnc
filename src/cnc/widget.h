@@ -29,7 +29,7 @@ public:
   virtual Rectangle GetEventBounds() const;
 
   virtual void AddChild(const WidgetPtr& child);
-  virtual void RemoveChild(const WidgetPtr& child);
+  virtual void RemoveChild(WidgetPtr child);
   virtual void HideChild(const WidgetPtr& child);
   virtual void RemoveChildren();
   

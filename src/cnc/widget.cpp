@@ -108,7 +108,7 @@ void Widget::AddChild(const WidgetPtr& child) {
   children_.emplace_back(child);
 }
 
-void Widget::RemoveChild(const WidgetPtr& child) {
+void Widget::RemoveChild(WidgetPtr child) {
   if (child != nullptr) {
     children_.erase(std::remove(children_.begin(), children_.end(), child), children_.end());
     child->Removed();

@@ -14,6 +14,7 @@
 #include "cnc/widget.h"
 #include "cnc/software_cursor.h"
 #include "cnc/viewport.h"
+#include "cnc/action_queue.h"
 
 namespace cnc {
 
@@ -25,6 +26,7 @@ RunStatus Game::state_ = RunStatus::Running;
 int32_t Game::render_frame_ = 0;
 std::unique_ptr<ModData> Game::mod_data_;
 Modifiers Game::modifiers_ = Modifiers::None;
+std::unique_ptr<ActionQueue> Game::delayed_actions_;
 
 void Game::Initialize(const Arguments& args) {
   std::cout << "Platform is " << Platform::CurrentPlatform() << std::endl;
@@ -76,6 +78,8 @@ bool Game::IsModInstalled(const std::string& mod_id) {
 }
 
 void Game::InitializeMod(const std::string& m, const Arguments& args) {
+  delayed_actions_ = std::make_unique<ActionQueue>();
+
   Ui::ResetAll();
 
   if (mod_data_ != nullptr) {
@@ -150,7 +154,7 @@ void Game::Loop() {
       if (now >= next_logic) {
         next_logic += logic_interval;
 
-        // LogicTick();
+        LogicTick();
       }
 
       bool have_some_time_until_next_logic = now < next_logic;
@@ -167,6 +171,10 @@ void Game::Loop() {
       Platform::Sleep(next_update - now);
     }
   }
+}
+
+void Game::LogicTick() {
+  delayed_actions_->PerformActions(Game::RunTime());
 }
 
 void Game::RenderTick() {
@@ -219,6 +227,10 @@ Modifiers Game::GetModifierKeys() {
 
 void Game::HandleModifierKeys(Modifiers mods) {
   modifiers_ = mods;
+}
+
+void Game::RunAfterTick(const std::function<void()>& a) {
+  delayed_actions_->Add(a, Game::RunTime());
 }
 
 }

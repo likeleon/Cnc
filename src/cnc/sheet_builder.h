@@ -16,7 +16,7 @@ enum class SheetType {
   BGRA = 4
 };
 
-class SheetBuilder {
+class CNC_API SheetBuilder {
 public:
   SheetBuilder(SheetType t);
   SheetBuilder(SheetType t, int32_t sheet_size);

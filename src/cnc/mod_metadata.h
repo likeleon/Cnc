@@ -12,11 +12,9 @@ struct CNC_API ModMetadata {
   std::string description;
   std::string version;
   std::string author;
-  bool hidden;
+  bool hidden = false;
   
   static const std::vector<FieldLoadInfo> load_info;
-  static std::unordered_map<std::string, ModMetadata> all_mods;
-  static bool all_mods_found;
 };
 
 

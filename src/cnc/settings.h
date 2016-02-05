@@ -16,6 +16,7 @@ struct CNC_API PlayerSettings {
 
 struct CNC_API GameSettings {
   std::string mod = "modchooser";
+  std::string previous_mod = "cnc";
   bool lock_mouse_window = false;
   
   static const std::vector<FieldLoadInfo> load_info;

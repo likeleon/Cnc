@@ -10,6 +10,7 @@ class Arguments;
 class ModData;
 class Settings;
 class Renderer;
+class ActionQueue;
 
 enum class RunStatus {
   Error = -1,
@@ -26,6 +27,8 @@ public:
   
   static bool IsModInstalled(std::pair<std::string, std::string> mod);
   static bool IsModInstalled(const std::string& mod_id);
+  
+  static void InitializeMod(const std::string& mod, const Arguments& args);
 
   static ModData* mod_data();
   static Settings& settings();
@@ -35,14 +38,16 @@ public:
   static Modifiers GetModifierKeys();
   static void HandleModifierKeys(Modifiers mods);
 
+  static void RunAfterTick(const std::function<void()>& a);
+
   Game() = delete;
   Game(const Game&) = delete;
   Game& operator=(const Game&) = delete;
 
 private:
   static void InitializeSettings(const Arguments& args);
-  static void InitializeMod(const std::string& mod, const Arguments& args);
   static void Loop();
+  static void LogicTick();
   static void RenderTick();
 
   static const int64_t Timestep = 40;
@@ -57,6 +62,7 @@ private:
   static int32_t render_frame_;
   
   static Modifiers modifiers_;
+  static std::unique_ptr<ActionQueue> delayed_actions_;
 };
 
 }

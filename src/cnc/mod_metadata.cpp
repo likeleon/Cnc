@@ -15,8 +15,8 @@ const std::vector<FieldLoadInfo> ModMetadata::load_info = {
   { "Hidden", TypeFieldInfo(&ModMetadata::hidden) }
 };
 
-std::unordered_map<std::string, ModMetadata> ModMetadata::all_mods;
-bool ModMetadata::all_mods_found = false;
+static std::unordered_map<std::string, ModMetadata> all_mods;
+static bool all_mods_found = false;
 
 static std::unordered_map<std::string, ModMetadata> ValidateMods() {
   auto base_path = Platform::ResolvePaths({ std::string("."), "mods" });
