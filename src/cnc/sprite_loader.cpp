@@ -2,6 +2,7 @@
 #include "cnc/sprite_loader.h"
 #include "cnc/game.h"
 #include "cnc/mod_data.h"
+#include "cnc/sheet_builder.h"
 
 namespace cnc {
 

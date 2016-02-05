@@ -158,6 +158,7 @@
     <ClInclude Include="src\cnc\sprite.h" />
     <ClInclude Include="src\cnc\sprite_font.h" />
     <ClInclude Include="src\cnc\sprite_loader.h" />
+    <ClInclude Include="src\cnc\sprite_loader_ptr.h" />
     <ClInclude Include="src\cnc\sprite_renderer.h" />
     <ClInclude Include="src\cnc\stdafx.h" />
     <ClInclude Include="src\cnc\stop_watch.h" />

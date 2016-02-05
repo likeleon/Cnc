@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cnc/sheet_builder.h"
+#include "cnc/sprite_loader_ptr.h"
 #include "cnc/cache.h"
 
 namespace cnc {
@@ -8,6 +8,7 @@ namespace cnc {
 struct Size;
 struct Float2;
 struct Sprite;
+class SheetBuilder;
 
 class ISpriteFrame {
 public:
@@ -20,15 +21,11 @@ public:
   virtual bool disable_export_padding() const = 0;
 };
 
-using ISpriteFramePtr = std::shared_ptr<ISpriteFrame>;
-
 class ISpriteLoader {
 public:
   virtual ~ISpriteLoader() {}
   virtual bool TryParseSprite(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) = 0;
 };
-
-using SpriteLoaderPtr = std::shared_ptr<ISpriteLoader>;
 
 class SpriteCache {
 public:

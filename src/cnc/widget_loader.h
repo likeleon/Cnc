@@ -11,6 +11,10 @@ class WidgetArgs;
 class WidgetLoader {
 public:
   explicit WidgetLoader(const ModData& mod_data);
+  ~WidgetLoader() = default;
+
+  WidgetLoader(const WidgetLoader&) = delete;
+  WidgetLoader& operator=(const WidgetLoader&) = delete;
 
   WidgetPtr LoadWidget(const WidgetArgs& args, const WidgetPtr& parent, const std::string& w) const;
   WidgetPtr LoadWidget(const WidgetArgs& args, const WidgetPtr& parent, const MiniYamlNode& node) const;

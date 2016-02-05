@@ -2,14 +2,14 @@
 
 #include "cnc/manifest.h"
 #include "cnc/object_creator.h"
-#include "cnc/widget_loader.h"
 #include "cnc/file_system.h"
-#include "cnc/cursor_provider.h"
-#include "cnc/sprite_loader.h"
+#include "cnc/sprite_loader_ptr.h"
 
 namespace cnc {
 
 class Arguments;
+class WidgetLoader;
+class CursorProvider;
 
 class CNC_API ILoadScreen {
 public:
@@ -23,6 +23,7 @@ public:
 class CNC_API ModData {
 public:
   ModData(const std::string& mod, bool use_load_screen = false);
+  ~ModData();
 
   void MountFiles();
   void InitializeLoaders();
@@ -36,20 +37,10 @@ public:
   FileSystem& mod_files();
 
 private:
-  struct LibraryDeleter {
-    typedef HMODULE pointer;
-    void operator() (HMODULE h) {
-      FreeLibrary(h);
-    }
-  };
-
-  using LibraryPtr = std::unique_ptr<HMODULE, LibraryDeleter>;
-
   void PrepareObjectCreator();
 
   Manifest manifest_;
   ObjectCreator object_creator_;
-  std::vector<LibraryPtr> loaded_libraries_;
   std::vector<SpriteLoaderPtr> sprite_loaders_;
   std::unique_ptr<ILoadScreen> load_screen_;
   std::unique_ptr<WidgetLoader> widget_loader_;

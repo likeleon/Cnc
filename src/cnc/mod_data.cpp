@@ -4,9 +4,10 @@
 #include "cnc/error.h"
 #include "cnc/widget.h"
 #include "cnc/widget_loader.h"
-#include "cnc/file_system.h"
 #include "cnc/chrome_metrics.h"
+#include "cnc/cursor_provider.h"
 #include "cnc/chrome_provider.h"
+#include "cnc/sprite_loader.h"
 
 namespace cnc {
 
@@ -44,21 +45,17 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
   sprite_loaders_ = GetLoaders<ISpriteLoader>(object_creator_, manifest_.sprite_formats(), "sprite");
 }
 
+ModData::~ModData() = default;
+
 void ModData::PrepareObjectCreator() {
   object_creator_.Register<ContainerWidget>("ContainerWidget");
  
   for (const auto& assembly : manifest_.assemblies()) {
-    LibraryPtr library(LoadLibraryA(assembly.c_str()));
-    if (!library) {
-      throw Error(MSG("Failed to load library: " + assembly));
-    }
-
-    auto register_type_func = reinterpret_cast<RegisterTypeFunc>(GetProcAddress(library.get(), "RegisterTypes"));
+    auto module = FileSystem::ResolveLibrary(assembly);
+    auto register_type_func = reinterpret_cast<RegisterTypeFunc>(GetProcAddress(module, "RegisterTypes"));
     if (register_type_func != nullptr) {
       register_type_func(object_creator_);
     }
-
-    loaded_libraries_.emplace_back(std::move(library));
   }
 }
 

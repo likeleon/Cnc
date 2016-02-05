@@ -8,8 +8,28 @@
 #include "cnc/error.h"
 #include "cnc/package_entry.h"
 #include "cnc/manifest.h"
+#include "cnc/game.h"
+#include "cnc/mod_data.h"
+#include "cnc/directory.h"
 
 namespace cnc {
+
+std::map<std::string, FileSystem::LibraryPtr> FileSystem::library_cache_;
+
+HMODULE FileSystem::ResolveLibrary(const std::string& filename) {
+  auto iter = library_cache_.find(filename);
+  if (iter != library_cache_.end()) {
+    return iter->second.get();
+  }
+
+  LibraryPtr library(LoadLibraryA(filename.c_str()));
+  if (!library) {
+    throw Error(MSG("Failed to load library: " + filename));
+  }
+
+  iter = library_cache_.emplace(filename, std::move(library)).first;
+  return iter->second.get();
+}
 
 void FileSystem::Mount(const std::string& name, const std::string& annotation) {
   std::string final_name = name;
@@ -72,6 +92,27 @@ void FileSystem::LoadFromManifest(const Manifest& manifest) {
   }
   for (const auto& pkg : manifest.packages()) {
     Mount(pkg.first, pkg.second);
+  }
+}
+
+bool FileSystem::Exists(const std::string& name) {
+  auto explicit_folder = StringUtils::Contains(name, ":") && !File::Exists(Path::GetDirectoryName(name));
+  if (explicit_folder) {
+    auto divide = StringUtils::Split(name, ':');
+    auto foldername = divide.front();
+    auto filename = divide.back();
+    
+    std::vector<IFolderPtr> folders;
+    std::copy_if(
+      mounted_folders_.begin(),
+      mounted_folders_.end(),
+      std::back_inserter(folders),
+      [foldername](const auto& f) { return f->name() == foldername; });
+    return std::any_of(folders.begin(), folders.end(),
+                       [name](const auto& f) { return f->Exists(name); });
+  } else {
+    return std::any_of(mounted_folders_.begin(), mounted_folders_.end(),
+                       [name](const auto& f) { return f->Exists(name); });
   }
 }
 

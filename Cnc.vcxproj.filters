@@ -413,6 +413,9 @@
     <ClInclude Include="src\cnc\action_queue.h">
       <Filter>primitives</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\sprite_loader_ptr.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

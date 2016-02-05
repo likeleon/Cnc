@@ -2,6 +2,8 @@
 #include "cnc/mods/common/shp_td_loader.h"
 #include "cnc/buffer_utils.h"
 #include "cnc/size.h"
+#include "cnc/float2.h"
+#include "cnc/error.h"
 #include "cnc/mods/common/lcw_compression.h"
 
 namespace cnc {
