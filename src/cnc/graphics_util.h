@@ -8,6 +8,7 @@ struct Rectangle;
 struct Color;
 struct Vertex;
 struct Float2;
+class Bitmap;
 
 class GraphicsUtil {
 public:
@@ -33,8 +34,7 @@ public:
   
   static void FastCopyIntoSprite(std::vector<char>& dest_data,
                                  int32_t dest_stride,
-                                 const Rectangle& bounds, 
-                                 SDL_Surface* src);
+                                 Bitmap* src);
   
   static Color PremultiplyAlpha(const Color& c);
 };

@@ -8,6 +8,7 @@
 #include "cnc/sprite.h"
 #include "cnc/sheet.h"
 #include "cnc/vertex.h"
+#include "cnc/bitmap.h"
 
 namespace cnc {
   
@@ -71,41 +72,40 @@ void GraphicsUtil::FastCopyIntoChannel(Sprite& dest, int32_t channel_offset, con
   }
 }
 
-static SDL_Surface_UniquePtr CloneWith32bbpArgbPixelFormat(SDL_Surface& src) {
-  SDL_Surface_UniquePtr cloned(SDL_ConvertSurfaceFormat(&src, SDL_PIXELFORMAT_ARGB8888, 0));
+static BitmapUniquePtr CloneWith32bbpArgbPixelFormat(Bitmap& src) {
+  SDL_Surface_UniquePtr cloned(SDL_ConvertSurfaceFormat(&src.surface(), SDL_PIXELFORMAT_ARGB8888, 0));
   if (cloned == nullptr) {
     throw Error(MSG(std::string("SDL_ConvertSurfaceFormat error: ") + SDL_GetError()));
   }
-  return cloned;
+  return std::make_unique<Bitmap>(std::move(cloned));
 }
 
 void GraphicsUtil::FastCopyIntoSprite(std::vector<char>& dest_data,
                                       int32_t dest_stride,
-                                      const Rectangle& bounds,
-                                      SDL_Surface* src) {
-  SDL_Surface_UniquePtr cloned_src;
-  if (src->format->format != SDL_PIXELFORMAT_ARGB8888) {
+                                      Bitmap* src) {
+  BitmapUniquePtr cloned_src;
+  if (src->surface().format->format != SDL_PIXELFORMAT_ARGB8888) {
     cloned_src = CloneWith32bbpArgbPixelFormat(*src);
     src = cloned_src.get();
   }
 
-  auto width = bounds.width;
-  auto height = bounds.height;
+  auto width = src->Bounds().width;
+  auto height = src->Bounds().height;
 
-  SDL_LockSurface(src);
+  SDL_LockSurface(&src->surface());
 
-  int32_t* c = static_cast<int32_t*>(src->pixels);
+  int32_t* c = static_cast<int32_t*>(src->surface().pixels);
   int32_t* data = reinterpret_cast<int32_t*>(&dest_data[0]);
-  auto x = bounds.x;
-  auto y = bounds.y;
+  auto x = src->Bounds().x;
+  auto y = src->Bounds().y;
   for (auto j = 0; j < height; ++j) {
     for (auto i = 0; i < width; ++i) {
-      Color cc(*(c + (j * src->pitch >> 2) + i));
+      Color cc(*(c + (j * src->surface().pitch >> 2) + i));
       data[(y + j) * dest_stride + x + i] = PremultiplyAlpha(cc).ToArgb();
     }
   }
 
-  SDL_UnlockSurface(src);
+  SDL_UnlockSurface(&src->surface());
 }
 
 Color GraphicsUtil::PremultiplyAlpha(const Color& c) {

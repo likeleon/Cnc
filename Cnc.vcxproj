@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\cnc\action_queue.cpp" />
     <ClCompile Include="src\cnc\arguments.cpp" />
+    <ClCompile Include="src\cnc\bitmap.cpp" />
     <ClCompile Include="src\cnc\chrome_metrics.cpp" />
     <ClCompile Include="src\cnc\chrome_provider.cpp" />
     <ClCompile Include="src\cnc\color.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="src\cnc\action_queue.h" />
     <ClInclude Include="src\cnc\any.h" />
     <ClInclude Include="src\cnc\arguments.h" />
+    <ClInclude Include="src\cnc\bitmap.h" />
     <ClInclude Include="src\cnc\blend_mode.h" />
     <ClInclude Include="src\cnc\cache.h" />
     <ClInclude Include="src\cnc\chrome_logic.h" />

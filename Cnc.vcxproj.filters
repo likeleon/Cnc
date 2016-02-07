@@ -175,6 +175,9 @@
     <ClCompile Include="src\cnc\action_queue.cpp">
       <Filter>primitives</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\bitmap.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -414,6 +417,9 @@
       <Filter>primitives</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\sprite_loader_ptr.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\bitmap.h">
       <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>

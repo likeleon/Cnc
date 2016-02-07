@@ -6,9 +6,9 @@
 #include "cnc/rectangle.h"
 #include "cnc/point.h"
 #include "cnc/sprite.h"
-#include "cnc/surface_ptr.h"
 #include "cnc/game.h"
 #include "cnc/renderer.h"
+#include "cnc/bitmap.h"
 
 namespace cnc {
 
@@ -20,22 +20,11 @@ Sheet::Sheet(SheetType type, ITexturePtr texture)
   : type_(type), texture_(texture), size_(texture->size()) {
 }
 
-static SDL_Surface_UniquePtr SurfaceFromStream(const std::vector<char>& stream) {
-  auto* rw = SDL_RWFromMem(const_cast<char*>(stream.data()), static_cast<int32_t>(stream.size()));
-  SDL_Surface_UniquePtr surface(IMG_Load_RW(rw, 0));
-  SDL_RWclose(rw);
-  if (surface == nullptr) {
-    throw Error(MSG("Cannot load image"));
-  }
-  return surface;
-}
-
 Sheet::Sheet(SheetType type, const std::vector<char>& stream) {
-  auto surface = SurfaceFromStream(stream);
-  size_ = { surface->w, surface->h };
+  Bitmap bitmap(stream);
+  size_ = bitmap.Size();
   data_.resize(4 * size_.width * size_.height);
-  GraphicsUtil::FastCopyIntoSprite(GetData(), size_.width, { Point::Zero, size_ }, surface.get());
-  surface = nullptr;
+  GraphicsUtil::FastCopyIntoSprite(GetData(), size_.width, &bitmap);
 
   type_ = type;
   ReleaseBuffer();

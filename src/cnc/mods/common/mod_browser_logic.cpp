@@ -10,6 +10,7 @@
 #include "cnc/sheet_builder.h"
 #include "cnc/arguments.h"
 #include "cnc/settings.h"
+#include "cnc/mods/common/rgba_sprite_widget.h"
 #include "cnc/mods/common/label_widget.h"
 
 namespace cnc {
@@ -52,6 +53,11 @@ ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget)
   next_mod->on_click_ = [this]() { mod_offset_ -= 1; RebuildModList(); };
   next_mod->is_visible_ = [this]() { return mod_offset_ > 0; };
 
+  mod_chooser_panel_->Get<RGBASpriteWidget>("MOD_PREVIEW")->get_sprite_ = [this]() {
+    auto iter = previews_.find(selected_mod_->id);
+    return iter != previews_.end() ? &iter->second : nullptr;
+  };
+
   sheet_builder_ = std::make_unique<SheetBuilder>(SheetType::BGRA);
   for (const auto& kvp : ModMetadata::AllMods()) {
     if (!kvp.second.hidden) {
@@ -60,6 +66,8 @@ ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget)
   }
   std::sort(all_mods_.begin(), all_mods_.end(),
             [](const auto& a, const auto& b) { return a->title < b->title; });
+
+  // TODO: Preview bitmaps
 
   const ModMetadata* initial_mod = nullptr;
   auto iter = ModMetadata::AllMods().find(Game::settings().game().previous_mod);

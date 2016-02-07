@@ -15,7 +15,7 @@ struct Sprite;
 struct Float2;
 class PaletteReference;
 
-class SpriteRenderer : public IBatchRenderer {
+class CNC_API SpriteRenderer : public IBatchRenderer {
 public:
   SpriteRenderer(Renderer* renderer, IShaderPtr shader);
 
