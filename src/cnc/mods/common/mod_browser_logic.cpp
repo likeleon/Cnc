@@ -1,4 +1,5 @@
 #include "cnc/mods/common/stdafx.h"
+#include "cnc/mods/common/mod_browser_logic.h"
 #include "cnc/widget_args.h"
 #include "cnc/any.h"
 #include "cnc/game.h"
@@ -9,7 +10,7 @@
 #include "cnc/sheet_builder.h"
 #include "cnc/arguments.h"
 #include "cnc/settings.h"
-#include "cnc/mods/common/mod_browser_logic.h"
+#include "cnc/mods/common/label_widget.h"
 
 namespace cnc {
 namespace mods {
@@ -34,6 +35,22 @@ ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget)
   load_button_->is_disabled_ = [this]() { return selected_mod_->id == Game::mod_data()->manifest().mod().id; };
 
   mod_chooser_panel_->Get<ButtonWidget>("QUIT_BUTTON")->on_click_ = Game::Exit;
+
+  mod_list_ = mod_chooser_panel_->Get("MOD_LIST");
+  mod_template_ = mod_list_->Get<ButtonWidget>("MOD_TEMPLATE");
+
+  mod_chooser_panel_->Get<LabelWidget>("MOD_DESC")->get_text_ = [this]() { return selected_description_; };
+  mod_chooser_panel_->Get<LabelWidget>("MOD_TITLE")->get_text_ = [this]() { return selected_mod_->title; };
+  mod_chooser_panel_->Get<LabelWidget>("MOD_AUTHOR")->get_text_ = [this]() { return selected_author_; };
+  mod_chooser_panel_->Get<LabelWidget>("MOD_VERSION")->get_text_ = [this]() { return selected_mod_->version; };
+
+  auto prev_mod = mod_chooser_panel_->Get<ButtonWidget>("PREV_MOD");
+  prev_mod->on_click_ = [this]() { mod_offset_ -= 1; RebuildModList(); };
+  prev_mod->is_visible_ = [this]() { return mod_offset_ > 0; };
+
+  auto next_mod = mod_chooser_panel_->Get<ButtonWidget>("NEXT_MOD");
+  next_mod->on_click_ = [this]() { mod_offset_ -= 1; RebuildModList(); };
+  next_mod->is_visible_ = [this]() { return mod_offset_ > 0; };
 
   sheet_builder_ = std::make_unique<SheetBuilder>(SheetType::BGRA);
   for (const auto& kvp : ModMetadata::AllMods()) {
@@ -72,6 +89,19 @@ void ModBrowserLogic::LoadMod(const ModMetadata& mod) {
 
 void ModBrowserLogic::SelectMod(const ModMetadata& mod) {
   selected_mod_ = &mod;
+  selected_author_ = "By " + !mod.author.empty() ? mod.author : "unknown author";
+  selected_description_ = StringUtils::Replace(mod.description, "\\n", "\n");
+  auto selected_index = std::distance(all_mods_.begin(), std::find(all_mods_.begin(), all_mods_.end(), &mod));
+  if (selected_index - mod_offset_ > 4) {
+    mod_offset_ = selected_index - 4;
+  }
+
+  load_button_->text_ = !mod_prerequisites_fullfilled_[mod.id] ? "Install mod" :
+    mod_install_status_[&mod] ? "Load Mod" : "Install Assets";
+}
+
+void ModBrowserLogic::RebuildModList() {
+  // TODO
 }
 
 }

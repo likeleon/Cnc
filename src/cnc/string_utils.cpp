@@ -33,6 +33,16 @@ bool StringUtils::EndsWith(const std::string& s, const std::string& ending) {
   return (s.compare(s.length() - ending.length(), ending.length(), ending) == 0);
 }
 
+std::string StringUtils::Replace(const std::string& s, const std::string& old_value, const std::string& new_value) {
+  std::string ret = s;
+  size_t start_pos = 0;
+  while ((start_pos = ret.find(old_value, start_pos)) != std::string::npos) {
+    ret.replace(start_pos, old_value.length(), new_value);
+    start_pos += new_value.length();
+  }
+  return ret;
+}
+
 std::string StringUtils::Trim(const std::string& s, const char* trim_chars) {
   return TrimStart(TrimEnd(s, trim_chars), trim_chars);
 }

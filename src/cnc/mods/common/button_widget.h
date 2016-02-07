@@ -10,12 +10,6 @@ struct MouseInput;
 namespace mods {
 namespace common {
 
-template <typename... T>
-using Action = std::function<void(T...)>;
-
-template <typename TResult, typename... T>
-using Func = std::function<TResult(T...)>;
-
 class ButtonWidget : public Widget {
 public:
   ButtonWidget();

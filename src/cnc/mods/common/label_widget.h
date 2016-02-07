@@ -45,6 +45,12 @@ public:
   TextVAlign valign_ = TextVAlign::Middle;
   std::string font_;
   Color text_color_;
+  bool contrast_;
+  Color contrast_color_;
+  bool word_wrap_ = false;
+  Func<std::string> get_text_;
+  Func<Color> get_color_;
+  Func<Color> get_contrast_color_;
 };
 
 }

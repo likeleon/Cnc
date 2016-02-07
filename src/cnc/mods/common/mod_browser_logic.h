@@ -27,6 +27,7 @@ public:
 private:
   void LoadMod(const ModMetadata& mod);
   void SelectMod(const ModMetadata& mod);
+  void RebuildModList();
 
   WidgetPtr mod_list_;
   ButtonWidgetPtr mod_template_;
@@ -39,6 +40,9 @@ private:
   ButtonWidgetPtr load_button_;
   std::unique_ptr<SheetBuilder> sheet_builder_;
   const ModMetadata* selected_mod_ = nullptr;
+  std::string selected_author_;
+  std::string selected_description_;
+  int32_t mod_offset_ = 0;
 };
 
 }

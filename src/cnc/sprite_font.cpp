@@ -49,6 +49,16 @@ void SpriteFont::DrawText(const std::string& text, const Float2& loc, const Colo
   }
 }
 
+void SpriteFont::DrawTextWithContrast(const std::string& text, const Float2& location, const Color& fg, const Color& bg, int32_t offset) {
+  if (offset > 0) {
+    DrawText(text, location + Float2(static_cast<float>(-offset), 0.0f), bg);
+    DrawText(text, location + Float2(static_cast<float>(offset), 0.0f), bg);
+    DrawText(text, location + Float2(0.0f, static_cast<float>(-offset)), bg);
+    DrawText(text, location + Float2(0.0f, static_cast<float>(offset)), bg);
+  }
+  DrawText(text, location, fg);
+}
+
 Size SpriteFont::Measure(const std::string& text) {
   if (text.empty()) {
     return{ 0, size_ };

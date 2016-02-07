@@ -14,6 +14,8 @@ public:
   static bool Contains(const std::string& s, const std::string& value);
   static bool StartsWith(const std::string& s, const std::string& starting);
   static bool EndsWith(const std::string& s, const std::string& ending);
+  
+  static std::string Replace(const std::string& s, const std::string& old_value, const std::string& new_value);
 
   static std::string Trim(const std::string& s, const char* trim_chars = nullptr);
   static std::string TrimStart(const std::string& s, const char* trim_chars = nullptr);

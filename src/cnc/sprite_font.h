@@ -20,6 +20,7 @@ public:
   SpriteFont(const std::string& name, int32_t size, SheetBuilder& builder);
 
   void DrawText(const std::string& text, const Float2& location, const Color& c);
+  void DrawTextWithContrast(const std::string& text, const Float2& location, const Color& fg, const Color& bg, int32_t offset);
   Size Measure(const std::string& text);
 
 private:

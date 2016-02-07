@@ -28,7 +28,12 @@ const EnumNamesType<TextVAlignTraits> TextVAlignTraits::names = {
 
 LabelWidget::LabelWidget()
   : font_(ChromeMetrics::Get<std::string>("TextFont")),
-  text_color_(ChromeMetrics::Get<Color>("TextColor")) {
+  text_color_(ChromeMetrics::Get<Color>("TextColor")),
+  contrast_(ChromeMetrics::Get<bool>("TextContrast")),
+  contrast_color_(ChromeMetrics::Get<Color>("TextContrastColor")),
+  get_text_([this]() { return text_; }),
+  get_color_([this]() { return text_color_; }),
+  get_contrast_color_([this]() { return contrast_color_; }) {
 }
 
 void LabelWidget::Draw() {
@@ -36,13 +41,14 @@ void LabelWidget::Draw() {
   if (iter == Game::renderer()->fonts().end()) {
     throw Error(MSG("Requested font '" + font_ + "' was not found."));
   }
-
   auto font = iter->second.get();
-  if (text_.empty()) {
+
+  auto text = get_text_();
+  if (text.empty()) {
     return;
   }
 
-  auto text_size = font->Measure(text_);
+  auto text_size = font->Measure(text);
   auto position = RenderOrigin();
 
   if (valign_ == TextVAlign::Middle) {
@@ -56,8 +62,18 @@ void LabelWidget::Draw() {
   } else if (align_ == TextAlign::Right) {
     position += { (bounds().width - text_size.width), 0 };
   }
-  
-  font->DrawText(text_, position, text_color_);
+
+  if (word_wrap_) {
+    throw Error(MSG("TODO: LabelWidget::word_wrap"));
+  }
+
+  auto color = get_color_();
+  auto contrast = get_contrast_color_();
+  if (contrast_) {
+    font->DrawTextWithContrast(text, position, color, contrast, 2);
+  } else {
+    font->DrawText(text, position, color);
+  }
 }
 
 std::map<std::string, FieldInfo> LabelWidget::GetFieldInfoMap() const {

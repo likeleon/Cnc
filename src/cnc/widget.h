@@ -11,6 +11,12 @@ namespace cnc {
 class WidgetArgs;
 struct MouseInput;
 
+template <typename... T>
+using Action = std::function<void(T...)>;
+
+template <typename TResult, typename... T>
+using Func = std::function<TResult(T...)>;
+
 class CNC_API Widget : public std::enable_shared_from_this<Widget> {
 public:
   Widget();
@@ -57,6 +63,8 @@ public:
   template <typename T>
   std::shared_ptr<T> Get(const std::string& id);
 
+  WidgetPtr Get(const std::string& id);
+
   const Rectangle& bounds() const;
   virtual Point RenderOrigin() const;
   virtual Point ChildOrigin() const;
@@ -78,7 +86,7 @@ public:
   bool ignore_mouse_over_ = false;
   bool ignore_child_mouse_over_ = false;
 
-  std::function<bool()> IsVisible = [this] { return visible_; };
+  std::function<bool()> is_visible_ = [this] { return visible_; };
 
 protected:
   virtual std::map<std::string, FieldInfo> GetFieldInfoMap() const;

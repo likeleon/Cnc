@@ -96,7 +96,7 @@ Rectangle Widget::EventBounds() const {
 Rectangle Widget::GetEventBounds() const {
   auto bounds = EventBounds();
   for (const auto& child : children_) {
-    if (child->IsVisible()) {
+    if (child->is_visible_()) {
       bounds = Rectangle::Union(bounds, child->GetEventBounds());
     }
   }
@@ -145,7 +145,7 @@ std::string Widget::GetCursor(const Point& /*pos*/) const {
 }
 
 std::string Widget::GetCursorOuter(const Point& pos) const {
-  if (!(IsVisible() && GetEventBounds().Contains(pos))) {
+  if (!(is_visible_() && GetEventBounds().Contains(pos))) {
     return "";
   }
 
@@ -170,7 +170,7 @@ bool Widget::HandleMouseInput(const MouseInput& /*mi*/) {
 }
 
 bool Widget::HandleMouseInputOuter(const MouseInput& mi) {
-  if (!(IsVisible() && GetEventBounds().Contains(mi.location))) {
+  if (!(is_visible_() && GetEventBounds().Contains(mi.location))) {
     return false;
   }
 
@@ -193,7 +193,7 @@ void Widget::PrepareRenderables() {
 }
 
 void Widget::PrepareRenderablesOuter() {
-  if (IsVisible()) {
+  if (is_visible_()) {
     PrepareRenderables();
     for (const auto& child : children_) {
       child->PrepareRenderablesOuter();
@@ -205,7 +205,7 @@ void Widget::Draw() {
 }
 
 void Widget::DrawOuter() {
-  if (IsVisible()) {
+  if (is_visible_()) {
     Draw();
     for (const auto& child : children_) {
       child->DrawOuter();
@@ -275,6 +275,11 @@ void Widget::set_parent(const Widget* parent) {
 
 const Widget* Widget::parent() {
   return parent_;
+}
+
+
+WidgetPtr Widget::Get(const std::string& id) {
+  return Get<Widget>(id);
 }
 
 const Rectangle& Widget::bounds() const {
