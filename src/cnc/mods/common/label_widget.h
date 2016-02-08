@@ -35,7 +35,9 @@ struct TextVAlignTraits {
 class LabelWidget : public Widget {
 public:
   LabelWidget();
+  LabelWidget(const LabelWidget& other);
 
+  WidgetPtr Clone() const override;
   void Draw() override;
 
   std::map<std::string, FieldInfo> GetFieldInfoMap() const override;

@@ -7,8 +7,8 @@ namespace common {
 
 std::map<std::string, FieldInfo> ImageWidget::GetFieldInfoMap() const {
   return{
-    { "ImageCollection", StringFieldInfo(&ImageWidget::image_collection_) },
-    { "ImageName", StringFieldInfo(&ImageWidget::image_name_) }
+    { "ImageCollection", TypeFieldInfo(&ImageWidget::image_collection_) },
+    { "ImageName", TypeFieldInfo(&ImageWidget::image_name_) }
   };
 }
 

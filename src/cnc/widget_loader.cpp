@@ -47,7 +47,7 @@ WidgetPtr WidgetLoader::LoadWidget(const WidgetArgs& a, const WidgetPtr& parent,
   }
 
   if (node.key().find('@') != std::string::npos) {
-    FieldLoader::LoadField(*widget, StringFieldInfo(&Widget::id_), StringUtils::Split(node.key(), '@')[1]);
+    FieldLoader::LoadField(*widget, TypeFieldInfo(&Widget::id_), StringUtils::Split(node.key(), '@')[1]);
   }
 
   for (const auto& child : node.value().nodes()) {

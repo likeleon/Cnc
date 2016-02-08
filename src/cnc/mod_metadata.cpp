@@ -9,10 +9,10 @@
 namespace cnc {
 
 const std::vector<FieldLoadInfo> ModMetadata::load_info = {
-  { "Title", StringFieldInfo(&ModMetadata::title) },
-  { "Description", StringFieldInfo(&ModMetadata::description) },
-  { "Version", StringFieldInfo(&ModMetadata::version) },
-  { "Author", StringFieldInfo(&ModMetadata::author) },
+  { "Title", TypeFieldInfo(&ModMetadata::title) },
+  { "Description", TypeFieldInfo(&ModMetadata::description) },
+  { "Version", TypeFieldInfo(&ModMetadata::version) },
+  { "Author", TypeFieldInfo(&ModMetadata::author) },
   { "Hidden", TypeFieldInfo(&ModMetadata::hidden) }
 };
 

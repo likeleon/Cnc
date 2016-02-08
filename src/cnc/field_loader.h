@@ -25,14 +25,6 @@ struct FieldInfoTraits {
 };
 
 template <typename TObject>
-FieldInfo StringFieldInfo(std::string TObject::*field) {
-  return FieldInfo([field](void *o, const std::string& v) {
-    TObject* obj = static_cast<TObject*>(o);
-    (obj->*field) = v;
-  });
-}
-
-template <typename TObject>
 FieldInfo StringVectorFieldInfo(std::vector<std::string> TObject::*field) {
   return FieldInfo([field](void *o, const std::string& v) {
     TObject* obj = static_cast<TObject*>(o);

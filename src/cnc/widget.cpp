@@ -9,6 +9,7 @@
 #include "cnc/evaluator.h"
 #include "cnc/iinput_handler.h"
 #include "cnc/viewport.h"
+#include "cnc/field_loader.h"
 
 namespace cnc {
 
@@ -18,6 +19,31 @@ public:
 };
 
 Widget::Widget() {
+}
+
+Widget::Widget(const Widget& widget)
+  : id_(widget.id_),
+  x_(widget.x_),
+  y_(widget.y_),
+  width_(widget.width_),
+  height_(widget.height_),
+  logic_(widget.logic_),
+  visible_(widget.visible_),
+  bounds_(widget.bounds_),
+  parent_(widget.parent_),
+  is_visible_(widget.is_visible_),
+  ignore_child_mouse_over_(widget.ignore_child_mouse_over_),
+  ignore_mouse_over_(widget.ignore_mouse_over_) {
+  for (const auto& child : widget.children_) {
+    AddChild(child->Clone());
+  }
+}
+
+Widget::~Widget() {
+}
+
+WidgetPtr Widget::Clone() const {
+  throw Error(MSG("Widget id '" + id_ + "' is not cloneable."));
 }
 
 void Widget::Initialize(const WidgetArgs& args) {
@@ -229,11 +255,11 @@ WidgetPtr Widget::GetOrNull(const std::string& id) {
 }
 
 static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
-  { "Id", StringFieldInfo(&Widget::id_) },
-  { "X", StringFieldInfo(&Widget::x_) },
-  { "Y", StringFieldInfo(&Widget::y_) },
-  { "Width", StringFieldInfo(&Widget::width_) },
-  { "Height", StringFieldInfo(&Widget::height_) },
+  { "Id", TypeFieldInfo(&Widget::id_) },
+  { "X", TypeFieldInfo(&Widget::x_) },
+  { "Y", TypeFieldInfo(&Widget::y_) },
+  { "Width", TypeFieldInfo(&Widget::width_) },
+  { "Height", TypeFieldInfo(&Widget::height_) },
   { "Logic", StringVectorFieldInfo(&Widget::logic_) },
   { "IgnoreMouseOver", TypeFieldInfo(&Widget::ignore_mouse_over_) },
   { "IgnoreChildMouseOver", TypeFieldInfo(&Widget::ignore_child_mouse_over_) }
@@ -282,6 +308,10 @@ WidgetPtr Widget::Get(const std::string& id) {
   return Get<Widget>(id);
 }
 
+void Widget::set_bounds(const Rectangle& bounds) {
+  bounds_ = bounds;
+}
+
 const Rectangle& Widget::bounds() const {
   return bounds_;
 }
@@ -298,6 +328,33 @@ Point Widget::ChildOrigin() const {
 Rectangle Widget::RenderBounds() const {
   auto ro = RenderOrigin();
   return{ ro.x, ro.y, bounds_.width, bounds_.height };
+}
+
+std::map<std::string, FieldInfo> ContainerWidget::GetFieldInfoMap() const {
+  return{
+    { "ClickThrough", TypeFieldInfo(&ContainerWidget::click_through_) },
+  };
+}
+
+ContainerWidget::ContainerWidget() {
+  ignore_mouse_over_ = true;
+}
+
+ContainerWidget::ContainerWidget(const ContainerWidget& other)
+: Widget(other) {
+  ignore_mouse_over_ = other.ignore_mouse_over_;
+}
+
+std::string ContainerWidget::GetCursor(const Point& /*pos*/) const {
+  return "";
+}
+
+WidgetPtr ContainerWidget::Clone() const {
+  return WidgetPtr(new ContainerWidget(*this));
+}
+
+bool ContainerWidget::HandleMouseInput(const MouseInput& mi) {
+  return !click_through_ && EventBounds().Contains(mi.location);
 }
 
 WidgetPtr Ui::root_(new RootWidget());

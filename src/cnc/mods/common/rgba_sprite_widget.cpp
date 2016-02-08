@@ -11,6 +11,15 @@ RGBASpriteWidget::RGBASpriteWidget()
   : get_sprite_([]() { return nullptr; }) {
 }
 
+RGBASpriteWidget::RGBASpriteWidget(const RGBASpriteWidget& other)
+  : Widget(other) {
+  get_sprite_ = other.get_sprite_;
+}
+
+WidgetPtr RGBASpriteWidget::Clone() const {
+  return WidgetPtr(new RGBASpriteWidget(*this));
+}
+
 void RGBASpriteWidget::Draw() {
   const auto* sprite = get_sprite_();
   if (sprite != nullptr) {

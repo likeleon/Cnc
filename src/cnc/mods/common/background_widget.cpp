@@ -8,7 +8,7 @@ namespace common {
 
 std::map<std::string, FieldInfo> BackgroundWidget::GetFieldInfoMap() const {
   return {
-    { "Background", StringFieldInfo(&BackgroundWidget::background_) },
+    { "Background", TypeFieldInfo(&BackgroundWidget::background_) },
   };
 }
 

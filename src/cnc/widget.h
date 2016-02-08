@@ -20,9 +20,12 @@ using Func = std::function<TResult(T...)>;
 class CNC_API Widget : public std::enable_shared_from_this<Widget> {
 public:
   Widget();
+  virtual ~Widget();
 
-  Widget(const Widget&) = delete;
+  Widget(const Widget& widget);
   Widget& operator=(const Widget&) = delete;
+
+  virtual WidgetPtr Clone() const;
 
   virtual void Initialize(const WidgetArgs& args);
   virtual void PostInit(const WidgetArgs& args);
@@ -65,6 +68,7 @@ public:
 
   WidgetPtr Get(const std::string& id);
 
+  void set_bounds(const Rectangle& bounds);
   const Rectangle& bounds() const;
   virtual Point RenderOrigin() const;
   virtual Point ChildOrigin() const;
@@ -100,6 +104,17 @@ private:
 };
 
 class CNC_API ContainerWidget : public Widget {
+public:
+  ContainerWidget();
+  ContainerWidget(const ContainerWidget& other);
+
+  std::string GetCursor(const Point& pos) const override;
+  WidgetPtr Clone() const override;
+  bool HandleMouseInput(const MouseInput& mi) override;
+  
+  std::map<std::string, FieldInfo> GetFieldInfoMap() const override;
+
+  bool click_through_ = true;
 };
 
 class CNC_API Ui {

@@ -36,6 +36,12 @@ LabelWidget::LabelWidget()
   get_contrast_color_([this]() { return contrast_color_; }) {
 }
 
+LabelWidget::LabelWidget(const LabelWidget& /*other*/) = default;
+
+WidgetPtr LabelWidget::Clone() const {
+  return WidgetPtr(new LabelWidget(*this));
+}
+
 void LabelWidget::Draw() {
   auto iter = Game::renderer()->fonts().find(font_);
   if (iter == Game::renderer()->fonts().end()) {
@@ -78,10 +84,10 @@ void LabelWidget::Draw() {
 
 std::map<std::string, FieldInfo> LabelWidget::GetFieldInfoMap() const {
   return{
-    { "Text", StringFieldInfo(&LabelWidget::text_) },
+    { "Text", TypeFieldInfo(&LabelWidget::text_) },
     { "Align", EnumFieldInfo<TextAlignTraits>(&LabelWidget::align_) },
     { "VAlign", EnumFieldInfo<TextVAlignTraits>(&LabelWidget::valign_) },
-    { "Font", StringFieldInfo(&LabelWidget::font_) }
+    { "Font", TypeFieldInfo(&LabelWidget::font_) }
   };
 }
 

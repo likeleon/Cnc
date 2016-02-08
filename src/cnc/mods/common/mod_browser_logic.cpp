@@ -51,8 +51,8 @@ ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget)
   prev_mod->is_visible_ = [this]() { return mod_offset_ > 0; };
 
   auto next_mod = mod_chooser_panel_->Get<ButtonWidget>("NEXT_MOD");
-  next_mod->on_click_ = [this]() { mod_offset_ -= 1; RebuildModList(); };
-  next_mod->is_visible_ = [this]() { return mod_offset_ > 0; };
+  next_mod->on_click_ = [this]() { mod_offset_ += 1; RebuildModList(); };
+  next_mod->is_visible_ = [this]() { return mod_offset_ + 5 < static_cast<int32_t>(all_mods_.size()); };
 
   mod_chooser_panel_->Get<RGBASpriteWidget>("MOD_PREVIEW")->get_sprite_ = [this]() {
     auto iter = previews_.find(selected_mod_->id);
@@ -92,6 +92,8 @@ ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget)
     initial_mod = &iter->second;
   }
   SelectMod(initial_mod != nullptr && initial_mod->id != "modchooser" ? *initial_mod : ModMetadata::AllMods().at("cnc"));
+
+  RebuildModList();
 }
 
 void ModBrowserLogic::LoadMod(const ModMetadata& mod) {
@@ -126,7 +128,35 @@ void ModBrowserLogic::SelectMod(const ModMetadata& mod) {
 }
 
 void ModBrowserLogic::RebuildModList() {
-  // TODO
+  mod_list_->RemoveChildren();
+
+  int32_t width = mod_template_->bounds().width;
+  int32_t height = mod_template_->bounds().height;
+  int32_t inner_margin = mod_template_->bounds().Left();
+  int32_t outer_margin = (mod_list_->bounds().width - std::min<int32_t>(5, all_mods_.size()) * width - 4 * inner_margin) / 2;
+  int32_t stride = width + inner_margin;
+
+  for (int32_t i = 0; i < 5; ++i) {
+    auto j = i + mod_offset_;
+    if (j >= static_cast<int32_t>(all_mods_.size())) {
+      break;
+    }
+
+    const auto* mod = all_mods_[j];
+
+    auto item = std::static_pointer_cast<ButtonWidget>(mod_template_->Clone());
+    item->set_bounds({ outer_margin + i * stride, 0, width, height });
+    item->is_highlighted_ = [this, mod]() { return selected_mod_ == mod; };
+    item->on_click_ = [this, mod]() { SelectMod(*mod); };
+    item->on_double_click_ = [this, mod]() { LoadMod(*mod); };
+    
+    auto iter = logos_.find(mod->id);
+    const Sprite* logo = (iter != logos_.end()) ? &iter->second : nullptr;
+    item->Get<RGBASpriteWidget>("MOD_LOGO")->get_sprite_ = [logo]() { return logo; };
+    item->Get("MOD_NO_LOGO")->is_visible_ = [logo]() { return logo == nullptr; };
+
+    mod_list_->AddChild(item);
+  }
 }
 
 }

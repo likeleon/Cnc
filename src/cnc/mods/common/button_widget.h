@@ -14,6 +14,8 @@ class ButtonWidget : public Widget {
 public:
   ButtonWidget();
 
+  WidgetPtr Clone() const override;
+
   static void DrawBackground(const std::string& base_name,
                              const Rectangle& rect,
                              bool disabled, bool pressed, bool hover, bool highlighted);
@@ -49,6 +51,9 @@ public:
   Action<const MouseInput&> on_mouse_up_ = [](const auto&) {};
   Action<> on_click_ = [] {};
   Action<> on_double_click_ = [] {};
+
+protected:
+  ButtonWidget(const ButtonWidget& other);
 
 private:
   void DrawBackground(const Rectangle& rect, bool disabled, bool pressed, bool hover, bool highlighted);
