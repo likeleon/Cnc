@@ -4,7 +4,7 @@
 
 namespace cnc {
 
-class ChromeProvider {
+class CNC_API ChromeProvider {
 public:
   static void Initialize(const std::vector<std::string>& chrome_files);
   static void Deinitialize();
