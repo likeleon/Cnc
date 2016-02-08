@@ -1,32 +1,24 @@
 #include "cnc/stdafx.h"
 #include "cnc/manifest.h"
 #include "cnc/platform.h"
-#include "cnc/directory.h"
 #include "cnc/string_utils.h"
 #include "cnc/log.h"
-#include "cnc/mini_yaml.h"
 #include "cnc/file.h"
 #include "cnc/path.h"
 
 namespace cnc {
 
 static std::unordered_map<std::string, Manifest> LoadMods() {
-  auto base_path = Platform::ResolvePaths({ ".", "mods" });
-  auto mods = Directory::GetDirectories(base_path);
-  std::transform(mods.begin(), mods.end(), mods.begin(), [base_path](const auto& s) {
-    return s.substr(base_path.length() + 1);
-  });
-
   std::unordered_map<std::string, Manifest> ret;
-  for (const auto& mod : mods) {
-    if (!File::Exists(Platform::ResolvePaths({ ".", "mods", mod, "mod.yaml" }))) {
+  for (const auto& kvp : ModMetadata::CandidateModPaths()) {
+    if (!File::Exists(Path::Combine({ kvp.second, "mod.yaml" }))) {
       continue;
     }
 
     try {
-      ret.emplace(mod, Manifest(mod));
+      ret.emplace(kvp.first, Manifest(kvp.first, kvp.second));
     } catch (const std::exception &e) {
-      Log::Write("debug", "An exception occured while trying to load mod " + mod + ":");
+      Log::Write("debug", "An exception occured while trying to load mod " + kvp.first + ":");
       Log::Write("debug", e.what());
     }
   }
