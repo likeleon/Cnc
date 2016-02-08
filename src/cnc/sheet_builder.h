@@ -9,6 +9,7 @@ namespace cnc {
 struct Float2;
 struct Size;
 class ISpriteFrame;
+class Bitmap;
 
 enum class SheetType {
   Indexed = 1,
@@ -33,6 +34,7 @@ public:
   Sprite Add(ISpriteFrame& frame);
   Sprite Add(const std::vector<char>& src, const Size& size);
   Sprite Add(const std::vector<char>& src, const Size& size, const Float2& sprite_offset);
+  Sprite Add(const Bitmap& src);
 
   Sprite Allocate(const Size& image_size);
   Sprite Allocate(const Size& image_size, const Float2& sprite_offset);

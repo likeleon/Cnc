@@ -7,6 +7,7 @@
 #include "cnc/sheet.h"
 #include "cnc/sprite_loader.h"
 #include "cnc/graphics_util.h"
+#include "cnc/bitmap.h"
 
 namespace cnc {
 
@@ -52,6 +53,13 @@ Sprite SheetBuilder::Add(const std::vector<char>& src, const Size& size, const F
 
   auto sprite = Allocate(size, sprite_offset);
   GraphicsUtil::FastCopyIntoChannel(sprite, src);
+  current_->CommitBufferedData();
+  return sprite;
+}
+
+Sprite SheetBuilder::Add(const Bitmap& src) {
+  auto sprite = Allocate(src.Size());
+  GraphicsUtil::FastCopyIntoSprite(sprite, &src);
   current_->CommitBufferedData();
   return sprite;
 }

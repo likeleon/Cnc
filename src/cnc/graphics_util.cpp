@@ -72,7 +72,7 @@ void GraphicsUtil::FastCopyIntoChannel(Sprite& dest, int32_t channel_offset, con
   }
 }
 
-static BitmapUniquePtr CloneWith32bbpArgbPixelFormat(Bitmap& src) {
+static BitmapUniquePtr CloneWith32bbpArgbPixelFormat(const Bitmap& src) {
   SDL_Surface_UniquePtr cloned(SDL_ConvertSurfaceFormat(&src.surface(), SDL_PIXELFORMAT_ARGB8888, 0));
   if (cloned == nullptr) {
     throw Error(MSG(std::string("SDL_ConvertSurfaceFormat error: ") + SDL_GetError()));
@@ -80,24 +80,29 @@ static BitmapUniquePtr CloneWith32bbpArgbPixelFormat(Bitmap& src) {
   return std::make_unique<Bitmap>(std::move(cloned));
 }
 
+void GraphicsUtil::FastCopyIntoSprite(Sprite& dest, const Bitmap* src) {
+  FastCopyIntoSprite(dest.sheet->GetData(), dest.bounds, dest.sheet->size().width, src);
+}
+
 void GraphicsUtil::FastCopyIntoSprite(std::vector<char>& dest_data,
+                                      const Rectangle& dest_bounds,
                                       int32_t dest_stride,
-                                      Bitmap* src) {
+                                      const Bitmap* src) {
   BitmapUniquePtr cloned_src;
   if (src->surface().format->format != SDL_PIXELFORMAT_ARGB8888) {
     cloned_src = CloneWith32bbpArgbPixelFormat(*src);
     src = cloned_src.get();
   }
 
-  auto width = src->Bounds().width;
-  auto height = src->Bounds().height;
+  auto width = dest_bounds.width;
+  auto height = dest_bounds.height;
 
   SDL_LockSurface(&src->surface());
 
   int32_t* c = static_cast<int32_t*>(src->surface().pixels);
   int32_t* data = reinterpret_cast<int32_t*>(&dest_data[0]);
-  auto x = src->Bounds().x;
-  auto y = src->Bounds().y;
+  auto x = dest_bounds.x;
+  auto y = dest_bounds.y;
   for (auto j = 0; j < height; ++j) {
     for (auto i = 0; i < width; ++i) {
       Color cc(*(c + (j * src->surface().pitch >> 2) + i));

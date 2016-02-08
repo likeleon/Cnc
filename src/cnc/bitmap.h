@@ -7,7 +7,7 @@ namespace cnc {
 struct Size;
 struct Rectangle;
 
-class Bitmap {
+class CNC_API Bitmap {
 public:
   explicit Bitmap(const std::string& filename);
   explicit Bitmap(const std::vector<char>& stream);
@@ -19,7 +19,7 @@ public:
   Size Size() const;
   Rectangle Bounds() const;
 
-  SDL_Surface& surface();
+  SDL_Surface& surface() const;
 
 private:
   SDL_Surface_UniquePtr surface_;

@@ -38,7 +38,7 @@ Rectangle Bitmap::Bounds() const {
   return{ Point::Zero, Size() };
 }
 
-SDL_Surface& Bitmap::surface() {
+SDL_Surface& Bitmap::surface() const {
   return *surface_;
 }
 

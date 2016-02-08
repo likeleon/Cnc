@@ -10,6 +10,7 @@
 #include "cnc/sheet_builder.h"
 #include "cnc/arguments.h"
 #include "cnc/settings.h"
+#include "cnc/bitmap.h"
 #include "cnc/mods/common/rgba_sprite_widget.h"
 #include "cnc/mods/common/label_widget.h"
 
@@ -67,7 +68,23 @@ ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget)
   std::sort(all_mods_.begin(), all_mods_.end(),
             [](const auto& a, const auto& b) { return a->title < b->title; });
 
-  // TODO: Preview bitmaps
+  for (const auto& mod : all_mods_) {
+    try {
+      Bitmap preview(Platform::ResolvePaths({ ModMetadata::CandidateModPaths().at(mod->id), "preview.png" }));
+      if (preview.Size().width == 296 && preview.Size().height == 196) {
+        previews_.emplace(mod->id, sheet_builder_->Add(preview));
+      }
+    } catch (...) {
+    }
+
+    try {
+      Bitmap logo(Platform::ResolvePaths({ ModMetadata::CandidateModPaths().at(mod->id), "logo.png" }));
+      if (logo.Size().width == 96 && logo.Size().height == 96) {
+        logos_.emplace(mod->id, sheet_builder_->Add(logo));
+      }
+    } catch (...) {
+    }
+  }
 
   const ModMetadata* initial_mod = nullptr;
   auto iter = ModMetadata::AllMods().find(Game::settings().game().previous_mod);

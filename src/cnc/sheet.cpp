@@ -24,7 +24,7 @@ Sheet::Sheet(SheetType type, const std::vector<char>& stream) {
   Bitmap bitmap(stream);
   size_ = bitmap.Size();
   data_.resize(4 * size_.width * size_.height);
-  GraphicsUtil::FastCopyIntoSprite(GetData(), size_.width, &bitmap);
+  GraphicsUtil::FastCopyIntoSprite(GetData(), { Point::Zero, size_ }, size_.width, &bitmap);
 
   type_ = type;
   ReleaseBuffer();

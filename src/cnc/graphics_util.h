@@ -32,9 +32,11 @@ public:
   static void FastCopyIntoChannel(Sprite& dest, const std::vector<char>& src);
   static void FastCopyIntoChannel(Sprite& dest, int32_t channel_offset, const std::vector<char>& src);
   
+  static void FastCopyIntoSprite(Sprite& dest, const Bitmap* src);
   static void FastCopyIntoSprite(std::vector<char>& dest_data,
+                                 const Rectangle& dest_bounds,
                                  int32_t dest_stride,
-                                 Bitmap* src);
+                                 const Bitmap* src);
   
   static Color PremultiplyAlpha(const Color& c);
 };
