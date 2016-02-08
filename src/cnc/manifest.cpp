@@ -6,6 +6,7 @@
 #include "cnc/log.h"
 #include "cnc/mini_yaml.h"
 #include "cnc/file.h"
+#include "cnc/path.h"
 
 namespace cnc {
 
@@ -74,12 +75,16 @@ std::map<std::string, std::string> YamlMap(const MiniYamlMap& yaml, const std::s
   return map;
 }
 
-Manifest::Manifest(const std::string& mod) {
-  auto path = Platform::ResolvePaths({ ".", "mods", mod, "mod.yaml" });
+Manifest::Manifest(const std::string& mod_id, const std::string& _mod_path) {
+  std::string mod_path = _mod_path;
+  if (mod_path.empty()) {
+    mod_path = ModMetadata::CandidateModPaths().at(mod_id);
+  }
+  auto path = Path::Combine({ mod_path, "mod.yaml" });
   yaml_ = MiniYaml("", MiniYaml::FromFile(path)).ToMap();
 
   mod_ = FieldLoader::Load<ModMetadata>(yaml_.at("Metadata"));
-  mod_.id = mod;
+  mod_.id = mod_id;
 
   folders_ = YamlList(yaml_, "Folders", true);
   packages_ = YamlMap(yaml_, "Packages");
