@@ -5,6 +5,7 @@
 #include "cnc/chrome_metrics.h"
 #include "cnc/widget_utils.h"
 #include "cnc/point.h"
+#include "cnc/sprite_font.h"
 
 namespace cnc {
 namespace mods {

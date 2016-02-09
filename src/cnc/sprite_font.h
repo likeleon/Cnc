@@ -56,6 +56,4 @@ private:
   Cache<std::pair<char, Color>, GlyphInfo, PairHash> glyphs_;
 };
 
-using SpriteFontUniquePtr = std::unique_ptr<SpriteFont>;
-
 }

@@ -7,6 +7,7 @@
 #include "cnc/platform.h"
 #include "cnc/perf_timer.h"
 #include "cnc/hardware_palette.h"
+#include "cnc/sprite_font.h"
 
 namespace cnc {
 

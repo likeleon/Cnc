@@ -1,5 +1,21 @@
 #pragma once
 
+#include <windows.h>
+#include <map>
+#include <unordered_map>
+#include <sstream>
+#include <iostream>
+#include <fstream>
+#include <chrono>
+#include <memory>
+#include <typeindex>
+#include <array>
+#include <stack>
+#include <functional>
+
+#include <SDL.h>
+#include <SDL_ttf.h>
+
 namespace cnc {
 
 #ifdef CNC_EXPORTS

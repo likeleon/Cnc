@@ -88,8 +88,8 @@ Chrome:
 	./mods/cnc/chrome.yaml
 
 Assemblies:
-	./mods/common/OpenRA.Mods.Common.dll
-	./mods/cnc/OpenRA.Mods.Cnc.dll
+	./mods/common/Cnc.Mods.Common.dll
+	./mods/cnc/Cnc.Mods.Cnc.dll
 
 ChromeLayout:
 	./mods/cnc/chrome/mainmenu.yaml

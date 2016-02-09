@@ -49,6 +49,7 @@ static RunStatus Run(int32_t argc, char** argv) {
   return Game::Run();
 }
 
+#undef main
 int32_t main(int32_t argc, char** argv) {
   try {
     return (int32_t)Run(argc, argv);

@@ -7,7 +7,6 @@
 #include "cnc/size.h"
 #include "cnc/point.h"
 #include "cnc/sheet_builder.h"
-#include "cnc/sprite_font.h"
 
 namespace cnc {
 
@@ -17,6 +16,8 @@ class IBatchRenderer;
 struct Vertex;
 class Manifest;
 class HardwarePalette;
+class SpriteFont;
+using SpriteFontUniquePtr = std::unique_ptr<SpriteFont>;
 
 class CNC_API Renderer {
 public:
