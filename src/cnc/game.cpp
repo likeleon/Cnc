@@ -15,6 +15,7 @@
 #include "cnc/software_cursor.h"
 #include "cnc/viewport.h"
 #include "cnc/action_queue.h"
+#include "cnc/iload_screen.h"
 
 namespace cnc {
 
@@ -198,7 +199,8 @@ void Game::RenderTick() {
     });
 
     PERF_SAMPLE(render_flip, {
-      renderer_->EndFrame(DefaultInputHandler());
+      DefaultInputHandler input_handler;
+      renderer_->EndFrame(input_handler);
     });
   })
 

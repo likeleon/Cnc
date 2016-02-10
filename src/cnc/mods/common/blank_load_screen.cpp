@@ -19,10 +19,10 @@ void BlankLoadScreen::Display() {
   }
 
   Game::renderer()->BeginFrame(Point::Zero, 1.0f);
-  Game::renderer()->EndFrame(NullInputHandler());
+  Game::renderer()->EndFrame(nih_);
 }
 
-void BlankLoadScreen::StartGame(const Arguments& args) {
+void BlankLoadScreen::StartGame(const Arguments& /*args*/) {
   // TODO: LaunchArguments
   Ui::ResetAll();
   // TODO: Game::settings().Save();

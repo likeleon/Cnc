@@ -28,6 +28,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Cnc.Mods.Common.vcxproj">
+      <Project>{db541381-dfed-473c-93d1-d66f068d87b5}</Project>
+    </ProjectReference>
     <ProjectReference Include="Cnc.vcxproj">
       <Project>{e929bb85-0074-47ed-a68a-45c81ababf22}</Project>
     </ProjectReference>

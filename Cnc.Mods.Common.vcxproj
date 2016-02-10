@@ -45,6 +45,7 @@
     <ClInclude Include="src\cnc\mods\common\background_widget.h" />
     <ClInclude Include="src\cnc\mods\common\blank_load_screen.h" />
     <ClInclude Include="src\cnc\mods\common\button_widget.h" />
+    <ClInclude Include="src\cnc\mods\common\cnc_mods_common.h" />
     <ClInclude Include="src\cnc\mods\common\image_widget.h" />
     <ClInclude Include="src\cnc\mods\common\label_widget.h" />
     <ClInclude Include="src\cnc\mods\common\lcw_compression.h" />
@@ -127,7 +128,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CNCMODSCOMMON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CNC_MODS_COMMON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src</AdditionalIncludeDirectories>
@@ -159,7 +160,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CNCMODSCOMMON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CNC_MODS_COMMON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src</AdditionalIncludeDirectories>

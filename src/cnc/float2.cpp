@@ -11,6 +11,11 @@ Float2::Float2(float x, float y)
   : x(x), y(y) {
 }
 
+Float2::Float2(int32_t x, int32_t y)
+  : Float2(static_cast<float>(x), static_cast<float>(y)) {
+}
+
+
 Float2::Float2(const Point& p)
   : Float2(static_cast<float>(p.x), static_cast<float>(p.y)) {
 }

@@ -72,6 +72,7 @@
     <ClInclude Include="src\cnc\mods\common\blank_load_screen.h">
       <Filter>LoadScreens</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\cnc_mods_common.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="LoadScreens">

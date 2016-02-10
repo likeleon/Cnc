@@ -2,7 +2,7 @@
 
 namespace cnc {
 
-struct Color {
+struct CNC_API Color {
   Color(int32_t argb);
   Color(int32_t a, const Color& base_color);
   Color(int32_t r, int32_t g, int32_t b, int32_t a = 255);
@@ -11,6 +11,7 @@ struct Color {
 
   static const Color Transparent;
   static const Color Black;
+  static const Color Gray;
   static const Color White;
   static const Color Red;
   static const Color Green;

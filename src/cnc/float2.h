@@ -7,6 +7,7 @@ struct Size;
 
 struct CNC_API Float2 {
   Float2(float x, float y);
+  Float2(int32_t x, int32_t y);
   Float2(const Point& p);
   Float2(const Size& sz);
 

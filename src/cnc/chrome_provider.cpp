@@ -6,6 +6,7 @@
 #include "cnc/log.h"
 #include "cnc/sheet.h"
 #include "cnc/sprite.h"
+#include "cnc/iload_screen.h"
 
 namespace cnc {
 

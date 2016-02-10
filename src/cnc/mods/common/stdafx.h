@@ -5,4 +5,4 @@
 
 #pragma once
 
-#include "cnc/cnc.h"
+#include "cnc/mods/common/cnc_mods_common.h"
