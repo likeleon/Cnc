@@ -35,14 +35,14 @@ const std::unordered_map<std::string, Manifest>& Manifest::AllMods() {
   return all_mods;
 }
 
-std::vector<std::string> YamlList(const MiniYamlMap& yaml, const std::string& key, bool parse_paths = false) {
+static std::vector<std::string> YamlList(const MiniYamlMap& yaml, const std::string& key, bool parse_paths = false) {
   if (yaml.find(key) == yaml.end()) {
     return{};
   }
 
   std::vector<std::string> vec;
-  for (const auto& kv : yaml.at(key).ToMap()) {
-    vec.emplace_back(kv.first);
+  for (const auto& n : yaml.at(key).nodes()) {
+    vec.emplace_back(n.key());
   }
   if (parse_paths) {
     std::transform(vec.begin(), vec.end(), vec.begin(), Platform::ResolvePath);
@@ -101,7 +101,7 @@ Manifest::Manifest(const std::string& mod_id, const std::string& _mod_path) {
   load_screen_ = &(iter->second);
 
   if (yaml_.find("SpriteFormats") != yaml_.end()) {
-    sprite_formats_ = StringUtils::Split(yaml_.at("SpriteFormats").value(), ',', StringSplitOptions::RemoveEmptyEntries);
+    sprite_formats_ = FieldLoader::GetValueStringVector(yaml_.at("SpriteFormats"));
   }
 }
 

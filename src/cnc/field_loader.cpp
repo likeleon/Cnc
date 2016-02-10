@@ -42,6 +42,15 @@ bool FieldLoader::TryGetValueFromYaml(const std::string& yaml_name, const MiniYa
   return true;
 }
 
+std::vector<std::string> FieldLoader::GetValueStringVector(const MiniYaml& yaml) {
+  std::vector<std::string> ret;
+  auto parts = StringUtils::Split(yaml.value(), ',', StringSplitOptions::RemoveEmptyEntries);
+  for (const auto& p : parts) {
+    ret.emplace_back(StringUtils::Trim(p));
+  }
+  return ret;
+}
+
 template <>
 Size CNC_API FieldInfoTraits<Size>::Parse(const std::string& s) {
   auto parts = StringUtils::Split(s, ',', StringSplitOptions::RemoveEmptyEntries);

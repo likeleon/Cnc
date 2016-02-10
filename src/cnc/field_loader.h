@@ -132,6 +132,8 @@ public:
     return FieldInfoTraits<T>::Parse(value);
   }
 
+  static std::vector<std::string> GetValueStringVector(const MiniYaml& yaml);
+
 private:
   static bool TryGetValueFromYaml(const std::string& yaml_name, const MiniYamlMap& mm, std::string& value);
 
