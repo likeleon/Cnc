@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cnc\mods\common\background_widget.cpp" />
+    <ClCompile Include="src\cnc\mods\common\blank_load_screen.cpp" />
     <ClCompile Include="src\cnc\mods\common\button_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\dllmain.cpp" />
     <ClCompile Include="src\cnc\mods\common\image_widget.cpp" />
@@ -42,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\background_widget.h" />
+    <ClInclude Include="src\cnc\mods\common\blank_load_screen.h" />
     <ClInclude Include="src\cnc\mods\common\button_widget.h" />
     <ClInclude Include="src\cnc\mods\common\image_widget.h" />
     <ClInclude Include="src\cnc\mods\common\label_widget.h" />

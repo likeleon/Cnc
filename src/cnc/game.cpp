@@ -198,8 +198,7 @@ void Game::RenderTick() {
     });
 
     PERF_SAMPLE(render_flip, {
-      DefaultInputHandler input_handler;
-      renderer_->EndFrame(input_handler);
+      renderer_->EndFrame(DefaultInputHandler());
     });
   })
 

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\cnc\mods\cnc\cnc_load_screen.cpp" />
     <ClCompile Include="src\cnc\mods\cnc\dllmain.cpp" />
     <ClCompile Include="src\cnc\mods\cnc\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -32,6 +33,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\cnc\mods\cnc\cnc_load_screen.h" />
     <ClInclude Include="src\cnc\mods\cnc\stdafx.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -422,6 +422,7 @@
     <ClInclude Include="src\cnc\bitmap.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\iload_screen.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

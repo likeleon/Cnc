@@ -118,6 +118,7 @@
     <ClInclude Include="src\cnc\icursor.h" />
     <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\iinput_handler.h" />
+    <ClInclude Include="src\cnc\iload_screen.h" />
     <ClInclude Include="src\cnc\input_handler.h" />
     <ClInclude Include="src\cnc\ipalette.h" />
     <ClInclude Include="src\cnc\ishader.h" />

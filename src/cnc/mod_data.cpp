@@ -8,6 +8,7 @@
 #include "cnc/cursor_provider.h"
 #include "cnc/chrome_provider.h"
 #include "cnc/sprite_loader.h"
+#include "cnc/iload_screen.h"
 
 namespace cnc {
 

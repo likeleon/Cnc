@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cnc/mod_data.h"
+#include "cnc/iload_screen.h"
 #include "cnc/rectangle.h"
 #include "cnc/sprite.h"
 
