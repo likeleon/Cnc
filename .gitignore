@@ -194,3 +194,15 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+/Cnc.VC.opendb
+/mods/common/glew32sd.lib
+/mods/common/glew32s.lib
+/mods/common/Cnc.Mods.Common.lib
+/mods/common/Cnc.Mods.Common.ipdb
+/mods/common/Cnc.Mods.Common.iobj
+/mods/common/Cnc.Mods.Common.exp
+/mods/common/Cnc.Mods.Common.dll
+/mods/cnc/Cnc.Mods.Cnc.lib
+/mods/cnc/Cnc.Mods.Cnc.exp
+/mods/cnc/Cnc.Mods.Cnc.dll
