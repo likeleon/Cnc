@@ -36,7 +36,9 @@
     <ClCompile Include="src\cnc\mods\common\blank_load_screen.cpp">
       <Filter>LoadScreens</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\mods\common\tmp_td_loader.cpp" />
+    <ClCompile Include="src\cnc\mods\common\tmp_td_loader.cpp">
+      <Filter>SpriteLoaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
