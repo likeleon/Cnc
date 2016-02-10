@@ -43,7 +43,7 @@ std::vector<Sprite> SpriteLoader::GetSprites(const std::string& filename,
 }
 
 std::vector<ISpriteFramePtr> SpriteLoader::GetFrames(const std::string& filename,
-                                                           const std::vector<SpriteLoaderPtr>& loaders) {
+                                                     const std::vector<SpriteLoaderPtr>& loaders) {
   auto stream = Game::mod_data()->mod_files().Open(filename);
   for (const auto& loader : loaders) {
     std::vector<ISpriteFramePtr> frames;

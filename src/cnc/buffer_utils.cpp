@@ -27,6 +27,10 @@ uint32_t BufferUtils::ReadUInt32(const std::vector<char>& s, size_t& offset) {
   return Read<uint32_t>(s, offset);
 }
 
+int32_t BufferUtils::ReadInt32(const std::vector<char>& s, size_t& offset) {
+  return Read<int32_t>(s, offset);
+}
+
 std::vector<char> BufferUtils::ReadBytes(const std::vector<char>& s, size_t offset, size_t length) {
   if (s.size() < offset || length > s.size() - offset) {
     throw Error(MSG("End of stream"));
