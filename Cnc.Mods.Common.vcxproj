@@ -23,13 +23,16 @@
     <ClCompile Include="src\cnc\mods\common\blank_load_screen.cpp" />
     <ClCompile Include="src\cnc\mods\common\button_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\dllmain.cpp" />
+    <ClCompile Include="src\cnc\mods\common\fast_byte_reader.cpp" />
     <ClCompile Include="src\cnc\mods\common\image_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\label_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\lcw_compression.cpp" />
     <ClCompile Include="src\cnc\mods\common\mod_browser_logic.cpp" />
     <ClCompile Include="src\cnc\mods\common\mod_chooser_load_screen.cpp" />
     <ClCompile Include="src\cnc\mods\common\rgba_sprite_widget.cpp" />
+    <ClCompile Include="src\cnc\mods\common\rle_zeros_compression.cpp" />
     <ClCompile Include="src\cnc\mods\common\shp_td_loader.cpp" />
+    <ClCompile Include="src\cnc\mods\common\shp_ts_loader.cpp" />
     <ClCompile Include="src\cnc\mods\common\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -47,13 +50,16 @@
     <ClInclude Include="src\cnc\mods\common\blank_load_screen.h" />
     <ClInclude Include="src\cnc\mods\common\button_widget.h" />
     <ClInclude Include="src\cnc\mods\common\cnc_mods_common.h" />
+    <ClInclude Include="src\cnc\mods\common\fast_byte_reader.h" />
     <ClInclude Include="src\cnc\mods\common\image_widget.h" />
     <ClInclude Include="src\cnc\mods\common\label_widget.h" />
     <ClInclude Include="src\cnc\mods\common\lcw_compression.h" />
     <ClInclude Include="src\cnc\mods\common\mod_browser_logic.h" />
     <ClInclude Include="src\cnc\mods\common\mod_chooser_load_screen.h" />
     <ClInclude Include="src\cnc\mods\common\rgba_sprite_widget.h" />
+    <ClInclude Include="src\cnc\mods\common\rle_zeros_compression.h" />
     <ClInclude Include="src\cnc\mods\common\shp_td_loader.h" />
+    <ClInclude Include="src\cnc\mods\common\shp_ts_loader.h" />
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
     <ClInclude Include="src\cnc\mods\common\tmp_td_loader.h" />
     <ClInclude Include="src\cnc\mods\common\tooltip_container_widget.h" />

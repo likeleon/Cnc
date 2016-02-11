@@ -10,6 +10,7 @@ public:
   static int32_t ReadInt32(const std::vector<char>& s, size_t& start_index);
   
   static std::vector<char> ReadBytes(const std::vector<char>& s, size_t offset, size_t length);
+  static void ReadBytes(const std::vector<char>& s, std::vector<char>& dest, size_t dest_offset, size_t src_offset, size_t length);
 };
 
 }

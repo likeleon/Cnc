@@ -37,9 +37,7 @@ private:
   Size frame_size_;
 };
 
-using TmpTDFramePtr = std::shared_ptr<TmpTDFrame>;
-
-void ParseFrames(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
+static void ParseFrames(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
   size_t offset = 0;
   auto width = BufferUtils::ReadUInt16(s, offset);
   auto height = BufferUtils::ReadUInt16(s, offset);

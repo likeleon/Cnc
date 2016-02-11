@@ -38,4 +38,12 @@ std::vector<char> BufferUtils::ReadBytes(const std::vector<char>& s, size_t offs
   return{ s.begin() + offset, s.begin() + offset + length };
 }
 
+void BufferUtils::ReadBytes(const std::vector<char>& s, std::vector<char>& dest, size_t dest_offset, size_t src_offset, size_t length) {
+  if (length < 0) {
+    throw Error(MSG("Non-negative number required"));
+  }
+
+  std::copy(s.begin() + src_offset, s.begin() + src_offset + length, dest.begin() + dest_offset);
+}
+
 }

@@ -1,43 +1,11 @@
 #include "cnc/mods/common/stdafx.h"
 #include "cnc/mods/common/lcw_compression.h"
 #include "cnc/error.h"
+#include "cnc/mods/common/fast_byte_reader.h"
 
 namespace cnc {
 namespace mods {
 namespace common {
-
-class FastByteReader {
-public:
-  FastByteReader(const std::vector<char>& src, int32_t offset = 0)
-    : src_(src), offset_(offset) {
-  }
-
-  bool Done() {
-    return static_cast<size_t>(offset_) >= src_.size();
-  }
-
-  char ReadByte() {
-    return src_[offset_++];
-  }
-
-  int32_t ReadWord() {
-    int32_t x = ReadByte();
-    return x | (ReadByte() << 8);
-  }
-
-  void CopyTo(std::vector<char>& dest, int32_t offset, int32_t count) {
-    std::copy(src_.begin() + offset_, src_.begin() + offset_ + count, dest.begin() + offset);
-    offset_ += count;
-  }
-
-  int32_t Remaining() const {
-    return src_.size() - offset_;
-  }
-
-private:
-  const std::vector<char>& src_;
-  int32_t offset_;
-};
 
 static void ReplicatePrevious(std::vector<char>& dest, int32_t dest_index, int32_t src_index, int32_t count) {
   if (src_index > dest_index) {

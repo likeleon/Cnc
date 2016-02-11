@@ -11,6 +11,7 @@
 #include "cnc/mods/common/mod_browser_logic.h"
 #include "cnc/mods/common/shp_td_loader.h"
 #include "cnc/mods/common/tmp_td_loader.h"
+#include "cnc/mods/common/shp_ts_loader.h"
 
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
@@ -25,6 +26,7 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register<ModBrowserLogic, const cnc::WidgetPtr&>("ModBrowserLogic");
   object_creator.Register<ShpTDLoader>("ShpTDLoader");
   object_creator.Register<TmpTDLoader>("TmpTDLoader");
+  object_creator.Register<ShpTSLoader>("ShpTSLoader");
 }
 
 BOOL APIENTRY DllMain(HMODULE /*hModule*/,
