@@ -54,9 +54,7 @@ void FileSystem::Mount(const std::string& name, const std::string& annotation) {
   }
 }
 
-IFolderPtr FileSystem::OpenPackage(const std::string& filename,
-                                         const std::string& /*annotation*/,
-                                         int32_t order) {
+IFolderPtr FileSystem::OpenPackage(const std::string& filename, const std::string& annotation, int32_t order) {
   return std::make_unique<Folder>(filename, order);
 }
 
@@ -119,7 +117,7 @@ bool FileSystem::Exists(const std::string& name) {
 std::vector<char> FileSystem::Open(const std::string& filename) {
   std::vector<char> s;
   if (!TryOpen(filename, s)) {
-    throw Error(MSG("File not found" + filename));
+    throw Error(MSG("File not found: " + filename));
   }
   return s;
 }

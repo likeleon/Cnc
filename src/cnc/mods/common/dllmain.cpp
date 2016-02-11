@@ -12,6 +12,7 @@
 #include "cnc/mods/common/shp_td_loader.h"
 #include "cnc/mods/common/tmp_td_loader.h"
 #include "cnc/mods/common/shp_ts_loader.h"
+#include "cnc/mods/common/tmp_ra_loader.h"
 
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
@@ -27,6 +28,7 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register<ShpTDLoader>("ShpTDLoader");
   object_creator.Register<TmpTDLoader>("TmpTDLoader");
   object_creator.Register<ShpTSLoader>("ShpTSLoader");
+  object_creator.Register<TmpRALoader>("TmpRALoader");
 }
 
 BOOL APIENTRY DllMain(HMODULE /*hModule*/,

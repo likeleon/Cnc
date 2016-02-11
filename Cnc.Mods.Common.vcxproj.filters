@@ -44,6 +44,9 @@
     <ClCompile Include="src\cnc\mods\common\fast_byte_reader.cpp">
       <Filter>FileFormats</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\tmp_ra_loader.cpp">
+      <Filter>SpriteLoaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -92,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\mods\common\fast_byte_reader.h">
       <Filter>FileFormats</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\tmp_ra_loader.h">
+      <Filter>SpriteLoaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
