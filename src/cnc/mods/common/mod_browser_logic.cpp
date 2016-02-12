@@ -22,9 +22,11 @@ const std::vector<std::string> ModBrowserLogic::CtorArgNames = {
   "widget"
 };
 
-static bool IsModInstalled(const ModMetadata* /*mod*/) {
-  // TODO
-  return true;
+static bool IsModInstalled(const ModMetadata* mod) {
+  auto file_exists = [](const std::string& file) {
+    return File::Exists(Platform::ResolvePath(file));
+  };
+  return std::all_of(mod->content.test_files.begin(), mod->content.test_files.end(), file_exists);
 }
 
 ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget)
