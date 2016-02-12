@@ -132,6 +132,17 @@ public:
     return FieldInfoTraits<T>::Parse(value);
   }
 
+  template <typename TEnumTraits>
+  static typename TEnumTraits::E GetEnumValue(const std::string& value) {
+    return GetEnumValue<TEnumTraits>(MiniYaml(value));
+  }
+
+  template <typename TEnumTraits>
+  static typename TEnumTraits::E GetEnumValue(const MiniYaml& yaml) {
+    auto value = StringUtils::Trim(yaml.value());
+    return NameToEnum<TEnumTraits>(value, true);
+  }
+
   static std::vector<std::string> GetValueStringVector(const MiniYaml& yaml);
 
 private:

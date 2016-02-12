@@ -178,6 +178,9 @@
     <ClCompile Include="src\cnc\bitmap.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mix_file.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -423,6 +426,9 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\iload_screen.h" />
+    <ClInclude Include="src\cnc\mix_file.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

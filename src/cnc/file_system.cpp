@@ -11,6 +11,7 @@
 #include "cnc/game.h"
 #include "cnc/mod_data.h"
 #include "cnc/directory.h"
+#include "cnc/mix_file.h"
 
 namespace cnc {
 
@@ -55,6 +56,10 @@ void FileSystem::Mount(const std::string& name, const std::string& annotation) {
 }
 
 IFolderPtr FileSystem::OpenPackage(const std::string& filename, const std::string& annotation, int32_t order) {
+  if (StringUtils::EndsWith(filename, ".mix")) {
+    auto type = annotation.empty() ? PackageHashType::Classic : FieldLoader::GetEnumValue<PackageHashTypeTraits>(annotation);
+    return std::make_unique<MixFile>(*this, filename, type, order);
+  }
   return std::make_unique<Folder>(filename, order);
 }
 

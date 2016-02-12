@@ -1,9 +1,23 @@
 #include "cnc/stdafx.h"
 #include "cnc/package_entry.h"
 #include "cnc/string_utils.h"
+#include "cnc/buffer_utils.h"
 #include "cnc/error.h"
 
 namespace cnc {
+
+const std::string PackageHashTypeTraits::pretty_name = "PackageHashType";
+
+const EnumNamesType<PackageHashTypeTraits> PackageHashTypeTraits::names = {
+  { PackageHashType::Classic, "Classic" },
+  { PackageHashType::CRC32, "CRC32" },
+};
+
+PackageEntry::PackageEntry(const std::vector<char>& s, size_t& offset) {
+  hash_ = BufferUtils::ReadUInt32(s, offset);
+  offset_ = BufferUtils::ReadUInt32(s, offset);
+  length_ = BufferUtils::ReadUInt32(s, offset);
+}
 
 uint32_t PackageEntry::HashFilename(const std::string& name, PackageHashType type) {
   if (type == PackageHashType::Classic) {
@@ -24,6 +38,18 @@ uint32_t PackageEntry::HashFilename(const std::string& name, PackageHashType typ
   } else {
     throw Error(MSG("Unknown hash type"));
   }
+}
+
+uint32_t PackageEntry::hash() const {
+  return hash_;
+}
+
+uint32_t PackageEntry::offset() const {
+  return offset_;
+}
+
+uint32_t PackageEntry::length() const {
+  return length_;
 }
 
 }

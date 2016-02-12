@@ -41,6 +41,7 @@
     <ClCompile Include="src\cnc\math_utils.cpp" />
     <ClCompile Include="src\cnc\message.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
+    <ClCompile Include="src\cnc\mix_file.cpp" />
     <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
     <ClCompile Include="src\cnc\multi_tap_detection.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="src\cnc\math_utils.h" />
     <ClInclude Include="src\cnc\message.h" />
     <ClInclude Include="src\cnc\mini_yaml.h" />
+    <ClInclude Include="src\cnc\mix_file.h" />
     <ClInclude Include="src\cnc\mod_data.h" />
     <ClInclude Include="src\cnc\mod_metadata.h" />
     <ClInclude Include="src\cnc\multi_tap_detection.h" />
