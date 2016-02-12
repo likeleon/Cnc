@@ -9,7 +9,6 @@
 #include "cnc/evaluator.h"
 #include "cnc/iinput_handler.h"
 #include "cnc/viewport.h"
-#include "cnc/field_loader.h"
 
 namespace cnc {
 

@@ -12,6 +12,7 @@
 #include "cnc/mod_data.h"
 #include "cnc/directory.h"
 #include "cnc/mix_file.h"
+#include "cnc/field_loader.h"
 
 namespace cnc {
 

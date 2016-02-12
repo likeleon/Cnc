@@ -3,7 +3,7 @@
 #include "cnc/any.h"
 #include "cnc/widget_ptr.h"
 #include "cnc/rectangle.h"
-#include "cnc/field_loader.h"
+#include "cnc/field_load_info.h"
 #include "cnc/chrome_logic.h"
 
 namespace cnc {

@@ -1,6 +1,6 @@
 #include "cnc/mods/common/stdafx.h"
-#include "cnc/widget_utils.h"
 #include "cnc/mods/common/background_widget.h"
+#include "cnc/widget_utils.h"
 
 namespace cnc {
 namespace mods {

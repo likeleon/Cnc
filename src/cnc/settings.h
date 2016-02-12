@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cnc/field_loader.h"
+#include "cnc/field_load_info.h"
 #include "cnc/igraphics_device.h"
 #include "cnc/size.h"
 

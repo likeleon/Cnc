@@ -1,5 +1,4 @@
 #include "cnc/mods/common/stdafx.h"
-#include "cnc/field_loader.h"
 #include "cnc/chrome_metrics.h"
 #include "cnc/game.h"
 #include "cnc/renderer.h"

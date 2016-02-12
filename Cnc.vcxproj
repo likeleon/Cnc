@@ -17,6 +17,7 @@
     <ClCompile Include="src\cnc\chrome_metrics.cpp" />
     <ClCompile Include="src\cnc\chrome_provider.cpp" />
     <ClCompile Include="src\cnc\color.cpp" />
+    <ClCompile Include="src\cnc\content_installer.cpp" />
     <ClCompile Include="src\cnc\cursor_provider.cpp" />
     <ClCompile Include="src\cnc\cursor_sequence.cpp" />
     <ClCompile Include="src\cnc\device_factory.cpp" />
@@ -25,6 +26,7 @@
     <ClCompile Include="src\cnc\error_handler.cpp" />
     <ClCompile Include="src\cnc\evaluator.cpp" />
     <ClCompile Include="src\cnc\field_loader.cpp" />
+    <ClCompile Include="src\cnc\field_load_info.cpp" />
     <ClCompile Include="src\cnc\file.cpp" />
     <ClCompile Include="src\cnc\float2.cpp" />
     <ClCompile Include="src\cnc\folder.cpp" />
@@ -98,6 +100,7 @@
     <ClInclude Include="src\cnc\cnc.h" />
     <ClInclude Include="src\cnc\color.h" />
     <ClInclude Include="src\cnc\container_utils.h" />
+    <ClInclude Include="src\cnc\content_installer.h" />
     <ClInclude Include="src\cnc\cursor_provider.h" />
     <ClInclude Include="src\cnc\cursor_sequence.h" />
     <ClInclude Include="src\cnc\device_factory.h" />
@@ -107,6 +110,7 @@
     <ClInclude Include="src\cnc\error_handler.h" />
     <ClInclude Include="src\cnc\evaluator.h" />
     <ClInclude Include="src\cnc\field_loader.h" />
+    <ClInclude Include="src\cnc\field_load_info.h" />
     <ClInclude Include="src\cnc\file.h" />
     <ClInclude Include="src\cnc\float2.h" />
     <ClInclude Include="src\cnc\folder.h" />

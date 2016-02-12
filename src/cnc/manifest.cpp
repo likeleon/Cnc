@@ -5,6 +5,7 @@
 #include "cnc/log.h"
 #include "cnc/file.h"
 #include "cnc/path.h"
+#include "cnc/field_loader.h"
 
 namespace cnc {
 

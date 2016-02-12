@@ -5,6 +5,7 @@
 #include "cnc/file.h"
 #include "cnc/path.h"
 #include "cnc/mini_yaml.h"
+#include "cnc/field_loader.h"
 
 namespace cnc {
 
@@ -64,6 +65,10 @@ static std::map<std::string, ModMetadata> ValidateMods() {
 
       auto metadata = FieldLoader::Load<ModMetadata>(nd.at("Metadata"));
       metadata.id = kvp.first;
+
+      if (nd.find("ContentInstaller") != nd.end()) {
+        metadata.content = FieldLoader::Load<ContentInstaller>(nd.at("ContentInstaller"));
+      }
 
       ret.emplace(kvp.first, metadata);
     } catch (const std::exception& ex) {

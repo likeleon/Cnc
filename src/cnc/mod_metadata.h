@@ -1,6 +1,7 @@
 #pragma once
 
-#include "cnc/field_loader.h"
+#include "cnc/field_load_info.h"
+#include "cnc/content_installer.h"
 
 namespace cnc {
 
@@ -14,6 +15,7 @@ struct CNC_API ModMetadata {
   std::string version;
   std::string author;
   bool hidden = false;
+  ContentInstaller content;
   
   static const std::vector<FieldLoadInfo> load_info;
 };
