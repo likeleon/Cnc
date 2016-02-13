@@ -5,11 +5,15 @@
 
 namespace cnc {
 
+class ObjectCreator;
+
 class CNC_API Manifest {
 public:
   Manifest(const std::string& mod_id, const std::string& mod_path = "");
   
   static const std::unordered_map<std::string, Manifest>& AllMods();
+
+  void LoadCustomData(ObjectCreator& oc);
 
   const ModMetadata& mod() const;
   const std::vector<std::string>& folders() const;

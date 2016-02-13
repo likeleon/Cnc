@@ -9,6 +9,7 @@
 #include "cnc/chrome_provider.h"
 #include "cnc/sprite_loader.h"
 #include "cnc/iload_screen.h"
+#include "cnc/content_installer.h"
 
 namespace cnc {
 
@@ -33,6 +34,7 @@ std::vector<std::shared_ptr<T>> GetLoaders(ObjectCreator& object_creator,
 ModData::ModData(const std::string& mod, bool use_load_screen)
   : manifest_(mod) {
   PrepareObjectCreator();
+  manifest_.LoadCustomData(object_creator_);
 
   if (use_load_screen) {
     load_screen_ = object_creator_.CreateObject<ILoadScreen>(manifest_.load_screen().value(), {});
@@ -50,6 +52,7 @@ ModData::~ModData() = default;
 
 void ModData::PrepareObjectCreator() {
   object_creator_.Register<ContainerWidget>("ContainerWidget");
+  object_creator_.Register<ContentInstaller, const MiniYaml&>("ContentInstaller");
  
   for (const auto& assembly : manifest_.assemblies()) {
     auto module = FileSystem::ResolveLibrary(assembly);

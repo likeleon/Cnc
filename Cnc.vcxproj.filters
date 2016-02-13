@@ -433,6 +433,7 @@
     </ClInclude>
     <ClInclude Include="src\cnc\content_installer.h" />
     <ClInclude Include="src\cnc\field_load_info.h" />
+    <ClInclude Include="src\cnc\iglobal_mod_data.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

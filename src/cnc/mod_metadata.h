@@ -8,6 +8,8 @@ namespace cnc {
 struct CNC_API ModMetadata {
   static const std::map<std::string, std::string>& CandidateModPaths();
   static const std::map<std::string, ModMetadata>& AllMods();
+ 
+  static const std::vector<FieldLoadInfo> load_info;
 
   std::string id;
   std::string title;
@@ -16,8 +18,6 @@ struct CNC_API ModMetadata {
   std::string author;
   bool hidden = false;
   ContentInstaller content;
-  
-  static const std::vector<FieldLoadInfo> load_info;
 };
 
 

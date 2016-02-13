@@ -6,6 +6,7 @@
 #include "cnc/file.h"
 #include "cnc/path.h"
 #include "cnc/field_loader.h"
+#include "cnc/object_creator.h"
 
 namespace cnc {
 
@@ -103,6 +104,33 @@ Manifest::Manifest(const std::string& mod_id, const std::string& _mod_path) {
 
   if (yaml_.find("SpriteFormats") != yaml_.end()) {
     sprite_formats_ = FieldLoader::GetValueStringVector(yaml_.at("SpriteFormats"));
+  }
+}
+
+void Manifest::LoadCustomData(ObjectCreator& oc) {
+  static const std::set<std::string> ReservedModuleNames = { "Metadata", "Folders", "MapFolders", "Packages", "Rules",
+    "Sequences", "VoxelSequences", "Cursors", "Chrome", "Assemblies", "ChromeLayout", "Weapons",
+    "Voices", "Notifications", "Music", "Translations", "TileSets", "ChromeMetrics", "Missions",
+    "ServerTraits", "LoadScreen", "LobbyDefaults", "Fonts", "SupportsMapsFrom", "SoundFormats", "SpriteFormats",
+    "RequiresMods" };
+
+  for (const auto& kvp : yaml_) {
+    if (ReservedModuleNames.find(kvp.first) != ReservedModuleNames.end()) {
+      continue;
+    }
+
+    // TODO: SpriteSequenceFormat 구현되면 이 예외 제거
+    if (kvp.first == "SpriteSequenceFormat") {
+      continue;
+    }
+
+    if (!oc.TypeRegistered(kvp.first)) {
+      throw Error(MSG("'" + kvp.first + "' is not a valid mod manifest entry."));
+    }
+
+    // TODO: TypeDictionary 구현하고 아래 동작 확인
+    /*auto module = oc.CreateObject<IGlobalModData>(kvp.first, { {"yaml", static_cast<const MiniYaml&>(kvp.second)} });
+    modules_.Add(module);*/
   }
 }
 

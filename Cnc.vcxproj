@@ -121,6 +121,7 @@
     <ClInclude Include="src\cnc\hsl_color.h" />
     <ClInclude Include="src\cnc\ibatch_renderer.h" />
     <ClInclude Include="src\cnc\icursor.h" />
+    <ClInclude Include="src\cnc\iglobal_mod_data.h" />
     <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\iinput_handler.h" />
     <ClInclude Include="src\cnc\iload_screen.h" />
