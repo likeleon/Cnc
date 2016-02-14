@@ -99,7 +99,7 @@ private:
   static const std::vector<FieldLoadInfo>& RetrieveLoadInfo() {
     auto it = type_load_info_.find(typeid(T));
     if (it == type_load_info_.end()) {
-      it = type_load_info_.emplace(typeid(T), T::load_info).first;
+      it = type_load_info_.emplace(typeid(T), T::LoadInfo).first;
     }
     return it->second;
   }

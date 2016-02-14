@@ -11,7 +11,7 @@ class Arguments;
 struct CNC_API PlayerSettings {
   std::string name = "Newbie";
 
-  static const std::vector<FieldLoadInfo> load_info;
+  static const std::vector<FieldLoadInfo> LoadInfo;
 };
 
 struct CNC_API GameSettings {
@@ -19,7 +19,7 @@ struct CNC_API GameSettings {
   std::string previous_mod = "cnc";
   bool lock_mouse_window = false;
   
-  static const std::vector<FieldLoadInfo> load_info;
+  static const std::vector<FieldLoadInfo> LoadInfo;
 };
 
 struct CNC_API GraphicSettings {
@@ -32,7 +32,7 @@ struct CNC_API GraphicSettings {
   int32_t batch_size = 8192;
   int32_t sheet_size = 2048;
 
-  static const std::vector<FieldLoadInfo> load_info;
+  static const std::vector<FieldLoadInfo> LoadInfo;
 };
 
 class CNC_API Settings {

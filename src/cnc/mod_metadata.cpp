@@ -9,7 +9,7 @@
 
 namespace cnc {
 
-const std::vector<FieldLoadInfo> ModMetadata::load_info = {
+const std::vector<FieldLoadInfo> ModMetadata::LoadInfo = {
   { "Title", TypeFieldInfo(&ModMetadata::title) },
   { "Description", TypeFieldInfo(&ModMetadata::description) },
   { "Version", TypeFieldInfo(&ModMetadata::version) },

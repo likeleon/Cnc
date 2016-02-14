@@ -12,7 +12,7 @@ struct ContentInstaller : public IGlobalModData {
   ContentInstaller(const MiniYaml& yaml);
 
   static const std::vector<std::string> CtorArgNames;
-  static const std::vector<FieldLoadInfo> load_info;
+  static const std::vector<FieldLoadInfo> LoadInfo;
 
   std::vector<std::string> test_files;
   std::string package_mirror_list;

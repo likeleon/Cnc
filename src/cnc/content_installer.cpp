@@ -8,7 +8,7 @@ const std::vector<std::string> ContentInstaller::CtorArgNames = {
   "yaml"
 };
 
-const std::vector<FieldLoadInfo> ContentInstaller::load_info = {
+const std::vector<FieldLoadInfo> ContentInstaller::LoadInfo = {
   { "TestFiles", StringVectorFieldInfo(&ContentInstaller::test_files) },
   { "PackageMirrorList", TypeFieldInfo(&ContentInstaller::package_mirror_list) },
   { "MusicPackageMirrorList", TypeFieldInfo(&ContentInstaller::music_package_mirror_list) },

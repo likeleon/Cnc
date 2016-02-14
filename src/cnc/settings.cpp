@@ -7,16 +7,16 @@
 
 namespace cnc {
 
-const std::vector<FieldLoadInfo> PlayerSettings::load_info = {
+const std::vector<FieldLoadInfo> PlayerSettings::LoadInfo = {
   { "Name", TypeFieldInfo(&PlayerSettings::name) }
 };
 
-const std::vector<FieldLoadInfo> GameSettings::load_info = {
+const std::vector<FieldLoadInfo> GameSettings::LoadInfo = {
   { "Mod", TypeFieldInfo(&GameSettings::mod) },
   { "PreviousMod", TypeFieldInfo(&GameSettings::previous_mod) }
 };
 
-const std::vector<FieldLoadInfo> GraphicSettings::load_info = {
+const std::vector<FieldLoadInfo> GraphicSettings::LoadInfo = {
   { "Renderer", TypeFieldInfo(&GraphicSettings::renderer) },
   { "Mode", EnumFieldInfo<WindowModeTraits>(&GraphicSettings::mode) },
   { "FullscreenSize", TypeFieldInfo(&GraphicSettings::fullscreen_size) },
