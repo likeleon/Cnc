@@ -3,8 +3,6 @@
 #include "cnc/mini_yaml.h"
 #include "cnc/mod_metadata.h"
 #include "cnc/type_dictionary.h"
-#include "cnc/game.h"
-#include "cnc/object_creator.h"
 
 namespace cnc {
 
@@ -19,15 +17,16 @@ public:
   void LoadCustomData(ObjectCreator& oc);
 
   template <typename T>
-  T& Get(const std::string& name) {
+  T& Get() {
     static_assert(std::is_base_of<GlobalModData, T>(), "T must inherit from GlobalModData");
     
     T* module = modules_.GetOrNull<T>();
     if (module == nullptr) {
-      module = Game::mod_data()->object_creator().CreateObject<T>(name, {}).release();
-      modules_.Add(std::shared_ptr<T>(module));
+      auto ptr = std::make_shared<T>();
+      modules_.Add(ptr);
+      module = ptr.get();
     }
-    
+
     return *module;
   }
 
