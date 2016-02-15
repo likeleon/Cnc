@@ -119,8 +119,9 @@ void Manifest::LoadCustomData(ObjectCreator& oc) {
       continue;
     }
 
-    // TODO: SpriteSequenceFormat 구현되면 이 예외 제거
-    if (kvp.first == "SpriteSequenceFormat") {
+    // TODO: 구현되면 이 예외 제거
+    const auto NotImplementedModules = { "SpriteSequenceFormat" , "GameSpeeds", "MapGrid" };
+    if (std::find(std::begin(NotImplementedModules), std::end(NotImplementedModules), kvp.first) != std::end(NotImplementedModules)) {
       continue;
     }
 
@@ -128,9 +129,8 @@ void Manifest::LoadCustomData(ObjectCreator& oc) {
       throw Error(MSG("'" + kvp.first + "' is not a valid mod manifest entry."));
     }
 
-    // TODO: TypeDictionary 구현하고 아래 동작 확인
-    /*auto module = oc.CreateObject<IGlobalModData>(kvp.first, { {"yaml", static_cast<const MiniYaml&>(kvp.second)} });
-    modules_.Add(module);*/
+    auto module = oc.CreateObject<GlobalModData>(kvp.first, { {"yaml", static_cast<const MiniYaml&>(kvp.second)} });
+    modules_.Add(std::move(module));
   }
 }
 

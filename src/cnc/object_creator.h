@@ -14,6 +14,8 @@ public:
       throw Error(MSG("type '" + type_name + "' not found"));
     }
 
+    // TODO: Compare args.keys between T::CtorArgNames, throw with missing args.
+
     T* obj = static_cast<T*>(it->second(args));
     return std::unique_ptr<T>(obj);
   }

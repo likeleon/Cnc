@@ -74,6 +74,10 @@ void ModData::InitializeLoaders() {
   cursor_provider_ = std::make_unique<CursorProvider>(*this);
 }
 
+Manifest& ModData::manifest() {
+  return manifest_;
+}
+
 const Manifest& ModData::manifest() const {
   return manifest_;
 }

@@ -15,6 +15,14 @@ const std::vector<FieldLoadInfo> ContentInstaller::LoadInfo = {
   { "ShippedSoundtracks", TypeFieldInfo(&ContentInstaller::shipped_soundtracks) },
 };
 
+std::vector<std::type_index> ContentInstaller::Interfaces() const {
+  return{ typeid(GlobalModData) };
+}
+
+std::vector<std::type_index> ContentInstaller::BaseTypes() const {
+  return{ typeid(ContentInstaller) };
+}
+
 ContentInstaller::ContentInstaller() {
 }
 

@@ -16,6 +16,10 @@
 #include "cnc/viewport.h"
 #include "cnc/action_queue.h"
 #include "cnc/iload_screen.h"
+#include "cnc/manifest.h"
+#include "cnc/content_installer.h"
+#include "cnc/file.h"
+#include "cnc/arguments.h"
 
 namespace cnc {
 
@@ -99,6 +103,18 @@ void Game::InitializeMod(const std::string& m, const Arguments& args) {
 
   mod_data_ = std::make_unique<ModData>(mod, true);
 
+  auto& install_data = mod_data_->manifest().Get<ContentInstaller>("ContentInstaller");
+  auto is_mod_content_installed = std::all_of(
+    install_data.test_files.begin(), 
+    install_data.test_files.end(),
+    [](const std::string& file) { return File::Exists(Platform::ResolvePath(file));
+  });
+
+  if (!is_mod_content_installed) {
+    InitializeMod("modchooser", Arguments::Empty);
+    return;
+  }
+  
   mod_data_->MountFiles();
   mod_data_->InitializeLoaders();
   renderer_->InitializeFonts(mod_data_->manifest());

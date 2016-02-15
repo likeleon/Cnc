@@ -19,6 +19,7 @@ public:
   void MountFiles();
   void InitializeLoaders();
 
+  Manifest& manifest();
   const Manifest& manifest() const;
   ObjectCreator& object_creator();
   const std::vector<SpriteLoaderPtr>& sprite_loaders();

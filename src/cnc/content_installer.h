@@ -1,15 +1,18 @@
 #pragma once
 
-#include "cnc/iglobal_mod_data.h"
+#include "cnc/global_mod_data.h"
 #include "cnc/field_load_info.h"
 
 namespace cnc {
 
 class MiniYaml;
 
-struct ContentInstaller : public IGlobalModData {
+struct ContentInstaller final : public GlobalModData {
   ContentInstaller();
   ContentInstaller(const MiniYaml& yaml);
+
+  std::vector<std::type_index> Interfaces() const override;
+  std::vector<std::type_index> BaseTypes() const override;
 
   static const std::vector<std::string> CtorArgNames;
   static const std::vector<FieldLoadInfo> LoadInfo;

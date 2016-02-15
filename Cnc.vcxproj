@@ -80,6 +80,7 @@
     <ClCompile Include="src\cnc\string_utils.cpp" />
     <ClCompile Include="src\cnc\texture.cpp" />
     <ClCompile Include="src\cnc\thread_affine.cpp" />
+    <ClCompile Include="src\cnc\type_dictionary.cpp" />
     <ClCompile Include="src\cnc\vertex.cpp" />
     <ClCompile Include="src\cnc\viewport.cpp" />
     <ClCompile Include="src\cnc\widget.cpp" />
@@ -121,7 +122,7 @@
     <ClInclude Include="src\cnc\hsl_color.h" />
     <ClInclude Include="src\cnc\ibatch_renderer.h" />
     <ClInclude Include="src\cnc\icursor.h" />
-    <ClInclude Include="src\cnc\iglobal_mod_data.h" />
+    <ClInclude Include="src\cnc\global_mod_data.h" />
     <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\iinput_handler.h" />
     <ClInclude Include="src\cnc\iload_screen.h" />
@@ -129,6 +130,7 @@
     <ClInclude Include="src\cnc\ipalette.h" />
     <ClInclude Include="src\cnc\ishader.h" />
     <ClInclude Include="src\cnc\itexture.h" />
+    <ClInclude Include="src\cnc\type_exposable.h" />
     <ClInclude Include="src\cnc\ivertex_buffer.h" />
     <ClInclude Include="src\cnc\log.h" />
     <ClInclude Include="src\cnc\manifest.h" />
@@ -177,6 +179,7 @@
     <ClInclude Include="src\cnc\surface_ptr.h" />
     <ClInclude Include="src\cnc\texture.h" />
     <ClInclude Include="src\cnc\thread_affine.h" />
+    <ClInclude Include="src\cnc\type_dictionary.h" />
     <ClInclude Include="src\cnc\vertex.h" />
     <ClInclude Include="src\cnc\vertex_buffer.h" />
     <ClInclude Include="src\cnc\viewport.h" />
