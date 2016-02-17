@@ -16,7 +16,8 @@ std::map<std::string, FieldInfo> ButtonWidget::GetFieldInfoMap() const {
     { "TooltipContainer", TypeFieldInfo(&ButtonWidget::tooltip_container_) },
     { "Key", TypeFieldInfo(&ButtonWidget::key_) },
     { "Text", TypeFieldInfo(&ButtonWidget::text_) },
-    { "Background", TypeFieldInfo(&ButtonWidget::background_) }
+    { "Background", TypeFieldInfo(&ButtonWidget::background_) },
+    { "Font", TypeFieldInfo(&ButtonWidget::font_) }
   };
 }
 

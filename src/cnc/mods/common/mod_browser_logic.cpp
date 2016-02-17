@@ -106,7 +106,13 @@ void ModBrowserLogic::LoadMod(const ModMetadata& mod) {
   }
 
   if (!mod_install_status_[&mod]) {
-    throw Error(MSG("TODO: Implement install panel"));
+    WidgetArgs widget_args({
+      { "mirror_list_url", mod.content.package_mirror_list },
+      { "mod_id", mod.id }
+    });
+    
+    Ui::OpenWindow("INSTALL_PANEL", widget_args);
+    return;
   }
 
   Game::RunAfterTick([this, &mod]() {
@@ -151,7 +157,7 @@ void ModBrowserLogic::RebuildModList() {
     item->is_highlighted_ = [this, mod]() { return selected_mod_ == mod; };
     item->on_click_ = [this, mod]() { SelectMod(*mod); };
     item->on_double_click_ = [this, mod]() { LoadMod(*mod); };
-    
+
     auto iter = logos_.find(mod->id);
     const Sprite* logo = (iter != logos_.end()) ? &iter->second : nullptr;
     item->Get<RGBASpriteWidget>("MOD_LOGO")->get_sprite_ = [logo]() { return logo; };

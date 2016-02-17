@@ -47,6 +47,7 @@
     <ClCompile Include="src\cnc\mods\common\tmp_ra_loader.cpp">
       <Filter>SpriteLoaders</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\install_logic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -98,6 +99,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\mods\common\tmp_ra_loader.h">
       <Filter>SpriteLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\install_logic.h">
+      <Filter>Widgets\Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
