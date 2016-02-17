@@ -7,6 +7,6 @@ public:
   virtual void Tick() {}
 };
 
-using ChromeLogicUniquePtr = std::unique_ptr<ChromeLogic>;
+using ChromeLogicPtr = std::shared_ptr<ChromeLogic>;
 
 }

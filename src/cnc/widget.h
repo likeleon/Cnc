@@ -85,7 +85,7 @@ public:
   std::string width_ = "0";
   std::string height_ = "0";
   std::vector<std::string> logic_;
-  std::vector<ChromeLogicUniquePtr> logic_objects_;
+  std::vector<ChromeLogicPtr> logic_objects_;
   bool visible_ = true;
   bool ignore_mouse_over_ = false;
   bool ignore_child_mouse_over_ = false;

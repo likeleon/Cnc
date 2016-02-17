@@ -17,10 +17,11 @@ namespace common {
 
 class ModBrowserLogic : public ChromeLogic {
 public:
+  ModBrowserLogic(const WidgetPtr& widget);
+  ~ModBrowserLogic();
+
   ModBrowserLogic(const ModBrowserLogic&) = delete;
   ModBrowserLogic& operator=(const ModBrowserLogic&) = delete;
-
-  ModBrowserLogic(const WidgetPtr& widget);
 
   static const std::vector<std::string> CtorArgNames;
 

@@ -8,7 +8,7 @@ namespace cnc {
 class CNC_API ObjectCreator {
 public:
   template <typename T>
-  std::unique_ptr<T> CreateObject(const std::string& type_name, const std::map<std::string, Any>& args) {
+  std::shared_ptr<T> CreateObject(const std::string& type_name, const std::map<std::string, Any>& args) {
     auto it = create_funcs_.find(type_name);
     if (it == create_funcs_.end()) {
       throw Error(MSG("type '" + type_name + "' not found"));
@@ -16,8 +16,7 @@ public:
 
     // TODO: Compare args.keys between T::CtorArgNames, throw with missing args.
 
-    T* obj = static_cast<T*>(it->second(args));
-    return std::unique_ptr<T>(obj);
+    return std::static_pointer_cast<T>(it->second(args));
   }
 
   template <typename T, typename... CtorArgs>
@@ -34,14 +33,14 @@ public:
   }
 
 private:
-  using CreateFunc = std::function<void* (const std::map<std::string, Any>&)>;
+  using CreateFunc = std::function<std::shared_ptr<void> (const std::map<std::string, Any>&)>;
   
   template <typename T, typename... CtorArgs>
   class Ctor {
   public:
     using RuntimeArgs = std::map<std::string, Any>;
 
-    static T* Create(const RuntimeArgs& a) {
+    static std::shared_ptr<T> Create(const RuntimeArgs& a) {
       return CreateInternal(a, BuildIndices<sizeof...(CtorArgs)>{});
     }
 
@@ -56,9 +55,9 @@ private:
     struct BuildIndices<0, Is...> : Indices<Is...> {};
 
     template <std::size_t... Is>
-    static T* CreateInternal(const RuntimeArgs& a, Indices<Is...>) {
+    static std::shared_ptr<T> CreateInternal(const RuntimeArgs& a, Indices<Is...>) {
       (a);
-      return new T(AnyCast<CtorArgs>(a.at(T::CtorArgNames[Is]))...);
+      return std::make_shared<T>(AnyCast<CtorArgs>(a.at(T::CtorArgNames[Is]))...);
     }
   };
 

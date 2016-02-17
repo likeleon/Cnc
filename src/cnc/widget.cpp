@@ -85,8 +85,8 @@ void Widget::PostInit(const WidgetArgs& a) {
   args.AddOrAssign("widget", shared_from_this());
 
   for (const auto& l : logic_) {
-    auto logic_object = Game::mod_data()->object_creator().CreateObject<ChromeLogic>(l, args.args());
-    logic_objects_.emplace_back(std::move(logic_object));
+    auto logic = Game::mod_data()->object_creator().CreateObject<ChromeLogic>(l, args.args());
+    logic_objects_.emplace_back(logic);
   }
 }
 

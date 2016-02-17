@@ -18,9 +18,7 @@ namespace cnc {
 namespace mods {
 namespace common {
 
-const std::vector<std::string> ModBrowserLogic::CtorArgNames = {
-  "widget"
-};
+const std::vector<std::string> ModBrowserLogic::CtorArgNames = { "widget" };
 
 static bool IsModInstalled(const ModMetadata* mod) {
   auto file_exists = [](const std::string& file) {
@@ -97,6 +95,8 @@ ModBrowserLogic::ModBrowserLogic(const WidgetPtr& widget)
 
   RebuildModList();
 }
+
+ModBrowserLogic::~ModBrowserLogic() = default;
 
 void ModBrowserLogic::LoadMod(const ModMetadata& mod) {
   if (!mod_prerequisites_fullfilled_[mod.id]) {

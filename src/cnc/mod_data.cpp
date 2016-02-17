@@ -25,8 +25,7 @@ std::vector<std::shared_ptr<T>> GetLoaders(ObjectCreator& object_creator,
     if (!object_creator.TypeRegistered(loader_name)) {
       throw Error(MSG("Unable to find a " + name + " loader for type '" + format + "'."));
     }
-    auto unique_obj = object_creator.CreateObject<T>(loader_name, {});
-    loaders.emplace_back(unique_obj.release());
+    loaders.emplace_back(object_creator.CreateObject<T>(loader_name, {}));
   }
   return loaders;
 }

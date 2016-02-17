@@ -34,7 +34,7 @@ private:
   Manifest manifest_;
   ObjectCreator object_creator_;
   std::vector<SpriteLoaderPtr> sprite_loaders_;
-  std::unique_ptr<ILoadScreen> load_screen_;
+  std::shared_ptr<ILoadScreen> load_screen_;
   std::unique_ptr<WidgetLoader> widget_loader_;
   std::unique_ptr<CursorProvider> cursor_provider_;
   FileSystem mod_files_;
