@@ -152,7 +152,7 @@ void ModBrowserLogic::RebuildModList() {
 
     const auto* mod = all_mods_[j];
 
-    auto item = std::static_pointer_cast<ButtonWidget>(mod_template_->Clone());
+    auto item = std::static_pointer_cast<ButtonWidget>(Widget::Clone(mod_template_));
     item->set_bounds({ outer_margin + i * stride, 0, width, height });
     item->is_highlighted_ = [this, mod]() { return selected_mod_ == mod; };
     item->on_click_ = [this, mod]() { SelectMod(*mod); };

@@ -33,12 +33,17 @@ Widget::Widget(const Widget& widget)
   is_visible_(widget.is_visible_),
   ignore_child_mouse_over_(widget.ignore_child_mouse_over_),
   ignore_mouse_over_(widget.ignore_mouse_over_) {
-  for (const auto& child : widget.children_) {
-    AddChild(child->Clone());
-  }
 }
 
 Widget::~Widget() {
+}
+
+WidgetPtr Widget::Clone(const WidgetPtr& base) {
+  auto widget = base->Clone();
+  for (const auto& base_child : base->children_) {
+    widget->AddChild(base_child->Clone());
+  }
+  return widget;
 }
 
 WidgetPtr Widget::Clone() const {
@@ -129,7 +134,7 @@ Rectangle Widget::GetEventBounds() const {
 }
 
 void Widget::AddChild(const WidgetPtr& child) {
-  child->set_parent(this);
+  child->set_parent(shared_from_this());
   children_.emplace_back(child);
 }
 
@@ -294,12 +299,12 @@ std::map<std::string, FieldInfo> Widget::GetFieldInfoMap() const {
   return{};
 }
 
-void Widget::set_parent(const Widget* parent) {
+void Widget::set_parent(const WidgetPtr& parent) {
   parent_ = parent;
 }
 
 const Widget* Widget::parent() {
-  return parent_;
+  return parent_.get();
 }
 
 

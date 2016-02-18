@@ -25,6 +25,7 @@ public:
   Widget(const Widget& widget);
   Widget& operator=(const Widget&) = delete;
 
+  static WidgetPtr Clone(const WidgetPtr& base);
   virtual WidgetPtr Clone() const;
 
   virtual void Initialize(const WidgetArgs& args);
@@ -74,7 +75,7 @@ public:
   virtual Point ChildOrigin() const;
   virtual Rectangle RenderBounds() const;
 
-  void set_parent(const Widget* parent);
+  void set_parent(const WidgetPtr& parent);
   const Widget* parent();
 
   const FieldInfo* GetFieldInfo(const std::string& name) const;
@@ -98,7 +99,7 @@ protected:
 private:
   static const std::map<std::string, FieldInfo>& GetFieldInfoMapCache(const Widget& widget);
     
-  const Widget* parent_;
+  WidgetPtr parent_;
   Rectangle bounds_;
   std::vector<WidgetPtr> children_;
 };
