@@ -184,6 +184,7 @@
     <ClCompile Include="src\cnc\content_installer.cpp" />
     <ClCompile Include="src\cnc\field_load_info.cpp" />
     <ClCompile Include="src\cnc\type_dictionary.cpp" />
+    <ClCompile Include="src\cnc\download.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -441,6 +442,10 @@
       <Filter>primitives</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\global_mod_data.h" />
+    <ClInclude Include="src\cnc\download.h" />
+    <ClInclude Include="src\cnc\action.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -470,5 +475,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\cnc\enum_info.inl" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -5,17 +5,13 @@
 #include "cnc/rectangle.h"
 #include "cnc/field_load_info.h"
 #include "cnc/chrome_logic.h"
+#include "cnc/action.h"
 
 namespace cnc {
 
 class WidgetArgs;
 struct MouseInput;
 
-template <typename... T>
-using Action = std::function<void(T...)>;
-
-template <typename TResult, typename... T>
-using Func = std::function<TResult(T...)>;
 
 class CNC_API Widget : public std::enable_shared_from_this<Widget> {
 public:
