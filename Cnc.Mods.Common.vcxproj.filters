@@ -39,15 +39,22 @@
     <ClCompile Include="src\cnc\mods\common\tmp_td_loader.cpp">
       <Filter>SpriteLoaders</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\mods\common\shp_ts_loader.cpp" />
-    <ClCompile Include="src\cnc\mods\common\rle_zeros_compression.cpp" />
     <ClCompile Include="src\cnc\mods\common\fast_byte_reader.cpp">
       <Filter>FileFormats</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\mods\common\tmp_ra_loader.cpp">
       <Filter>SpriteLoaders</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\mods\common\install_logic.cpp" />
+    <ClCompile Include="src\cnc\mods\common\install_logic.cpp">
+      <Filter>Widgets\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\rle_zeros_compression.cpp">
+      <Filter>FileFormats</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\shp_ts_loader.cpp">
+      <Filter>SpriteLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\progress_bar_widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -102,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\mods\common\install_logic.h">
       <Filter>Widgets\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\progress_bar_widget.h">
+      <Filter>Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -44,8 +44,8 @@ void WebClient::DownloadFileAsync(const std::string& url, const std::string& pat
 
       AsyncCompleted c;
       StoreError(c, t);
+      // FIX: 호출 쓰레드 문맥에서 호출되어야 함
       if (download_file_completed_ != nullptr) {
-      // FIX: 호출 쓰레드 문맵에서 호출되어야 함
         download_file_completed_(c);
       }
     });

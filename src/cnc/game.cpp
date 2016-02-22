@@ -34,8 +34,6 @@ Modifiers Game::modifiers_ = Modifiers::None;
 std::unique_ptr<ActionQueue> Game::delayed_actions_;
 
 void Game::Initialize(const Arguments& args) {
-  Download::ToFile("http://www.google.com", "E:\\google.html", nullptr, nullptr);
-
   std::cout << "Platform is " << Platform::CurrentPlatform() << std::endl;
 
   InitializeSettings(args);

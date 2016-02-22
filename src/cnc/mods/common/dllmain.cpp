@@ -8,6 +8,7 @@
 #include "cnc/mods/common/rgba_sprite_widget.h"
 #include "cnc/mods/common/image_widget.h"
 #include "cnc/mods/common/tooltip_container_widget.h"
+#include "cnc/mods/common/progress_bar_widget.h"
 #include "cnc/mods/common/mod_browser_logic.h"
 #include "cnc/mods/common/install_logic.h"
 #include "cnc/mods/common/shp_td_loader.h"
@@ -25,6 +26,7 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register<RGBASpriteWidget>("RGBASpriteWidget");
   object_creator.Register<ImageWidget>("ImageWidget");
   object_creator.Register<TooltipContainerWidget>("TooltipContainerWidget");
+  object_creator.Register<ProgressBarWidget>("ProgressBarWidget");
   object_creator.Register<ModBrowserLogic, const cnc::WidgetPtr&>("ModBrowserLogic");
   object_creator.Register<InstallLogic, const cnc::WidgetPtr&, const std::string&, const std::string&>("InstallLogic");
   object_creator.Register<ShpTDLoader>("ShpTDLoader");

@@ -265,6 +265,7 @@ static const std::map<std::string, FieldInfo> WidgetFieldInfo = {
   { "Width", TypeFieldInfo(&Widget::width_) },
   { "Height", TypeFieldInfo(&Widget::height_) },
   { "Logic", StringVectorFieldInfo(&Widget::logic_) },
+  { "Visible", TypeFieldInfo(&Widget::visible_) },
   { "IgnoreMouseOver", TypeFieldInfo(&Widget::ignore_mouse_over_) },
   { "IgnoreChildMouseOver", TypeFieldInfo(&Widget::ignore_child_mouse_over_) }
 };
