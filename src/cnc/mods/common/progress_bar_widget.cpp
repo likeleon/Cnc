@@ -3,6 +3,7 @@
 #include "cnc/widget_utils.h"
 #include "cnc/chrome_provider.h"
 #include "cnc/sprite.h"
+#include "cnc/mods/common/widget_ptrs.h"
 
 namespace cnc {
 namespace mods {
@@ -29,7 +30,7 @@ ProgressBarWidget::ProgressBarWidget(const ProgressBarWidget& other)
 }
 
 WidgetPtr ProgressBarWidget::Clone() const {
-  return std::shared_ptr<ProgressBarWidget>(new ProgressBarWidget(*this));
+  return ProgressBarWidgetPtr(new ProgressBarWidget(*this));
 }
 
 void ProgressBarWidget::Draw() {

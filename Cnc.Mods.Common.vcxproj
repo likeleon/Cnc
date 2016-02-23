@@ -23,6 +23,7 @@
     <ClCompile Include="src\cnc\mods\common\blank_load_screen.cpp" />
     <ClCompile Include="src\cnc\mods\common\button_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\dllmain.cpp" />
+    <ClCompile Include="src\cnc\mods\common\download_packages_logic.cpp" />
     <ClCompile Include="src\cnc\mods\common\fast_byte_reader.cpp" />
     <ClCompile Include="src\cnc\mods\common\image_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\install_logic.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="src\cnc\mods\common\blank_load_screen.h" />
     <ClInclude Include="src\cnc\mods\common\button_widget.h" />
     <ClInclude Include="src\cnc\mods\common\cnc_mods_common.h" />
+    <ClInclude Include="src\cnc\mods\common\download_packages_logic.h" />
     <ClInclude Include="src\cnc\mods\common\fast_byte_reader.h" />
     <ClInclude Include="src\cnc\mods\common\image_widget.h" />
     <ClInclude Include="src\cnc\mods\common\install_logic.h" />
@@ -69,6 +71,7 @@
     <ClInclude Include="src\cnc\mods\common\tmp_ra_loader.h" />
     <ClInclude Include="src\cnc\mods\common\tmp_td_loader.h" />
     <ClInclude Include="src\cnc\mods\common\tooltip_container_widget.h" />
+    <ClInclude Include="src\cnc\mods\common\widget_ptrs.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DB541381-DFED-473C-93D1-D66F068D87B5}</ProjectGuid>

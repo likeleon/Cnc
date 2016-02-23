@@ -74,11 +74,8 @@ WidgetPtr WidgetLoader::LoadWidget(const WidgetArgs& a, const WidgetPtr& parent,
   if (logic_node != node.value().nodes().end()) {
     logic = logic_node->value().ToMap();
   }
-  args.Add("logicArgs", std::move(logic));
 
   widget->PostInit(args);
-
-  args.Remove("logicArgs");
 
   return widget;
 }

@@ -11,6 +11,7 @@
 #include "cnc/mods/common/progress_bar_widget.h"
 #include "cnc/mods/common/mod_browser_logic.h"
 #include "cnc/mods/common/install_logic.h"
+#include "cnc/mods/common/download_packages_logic.h"
 #include "cnc/mods/common/shp_td_loader.h"
 #include "cnc/mods/common/tmp_td_loader.h"
 #include "cnc/mods/common/shp_ts_loader.h"
@@ -18,7 +19,9 @@
 
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
+  using namespace cnc;
   using namespace cnc::mods::common;
+
   object_creator.Register<ModChooserLoadScreen>("ModChooserLoadScreen");
   object_creator.Register<BackgroundWidget>("BackgroundWidget");
   object_creator.Register<LabelWidget>("LabelWidget");
@@ -29,6 +32,7 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register<ProgressBarWidget>("ProgressBarWidget");
   object_creator.Register<ModBrowserLogic, const cnc::WidgetPtr&>("ModBrowserLogic");
   object_creator.Register<InstallLogic, const cnc::WidgetPtr&, const std::string&, const std::string&>("InstallLogic");
+  object_creator.Register<DownloadPackagesLogic, const cnc::WidgetPtr&, Action<>, const std::string&, const std::string&>("DownloadPackagesLogic");
   object_creator.Register<ShpTDLoader>("ShpTDLoader");
   object_creator.Register<TmpTDLoader>("TmpTDLoader");
   object_creator.Register<ShpTSLoader>("ShpTSLoader");

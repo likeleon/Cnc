@@ -18,7 +18,7 @@ const std::vector<std::string> InstallLogic::CtorArgNames = { "widget", "mirror_
 InstallLogic::InstallLogic(const WidgetPtr& widget, const std::string& mirror_list_url, const std::string& mod_id) {
   auto panel = widget->Get("INSTALL_PANEL");
   WidgetArgs widget_args({
-    { "after_install", [mod_id]() { Game::InitializeMod(mod_id, Arguments::Empty); } },
+    { "after_install",  static_cast<Action<>>([mod_id]() { Game::InitializeMod(mod_id, Arguments::Empty); }) },
     { "mirror_list_url", mirror_list_url },
     { "mod_id", mod_id }
   });
