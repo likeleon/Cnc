@@ -19,6 +19,8 @@ public:
   static const std::vector<std::string> CtorArgNames;
 
 private:
+  void ShowDownloadDialog();
+
   WidgetPtr panel_;
   std::string mod_id_;
   std::string mirror_list_url_;
