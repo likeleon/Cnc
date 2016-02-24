@@ -4,6 +4,7 @@
 #include "cnc/mod_metadata.h"
 #include "cnc/platform.h"
 #include "cnc/path.h"
+#include "cnc/download.h"
 #include "cnc/mods/common/progress_bar_widget.h"
 #include "cnc/mods/common/label_widget.h"
 #include "cnc/mods/common/button_widget.h"
@@ -36,8 +37,8 @@ void DownloadPackagesLogic::ShowDownloadDialog() {
   auto cancel_button = panel_->Get<ButtonWidget>("CANCEL_BUTTON");
   (cancel_button);
   
-  //auto file = Path::Combine(Path::GetTempPath(), Path::GetRandomFileName());
-  //auto dest = Platform::ResolvePaths({ "^", "Content", mod_id_ });
+  auto file = Path::Combine({ Path::GetTempPath(), Path::GetRandomFileName() });
+  auto dest = Platform::ResolvePaths({ "^", "Content", mod_id_ });
 }
 
 }
