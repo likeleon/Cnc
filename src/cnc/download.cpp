@@ -24,6 +24,7 @@ public:
 
 private:
   pplx::task<size_t> DownloadToStream(const std::string& url, streambuf<char> buffer);
+  pplx::task<size_t> Repeat(streambuf<char> buffer,istream stream, size_t chunk_size, size_t read_length, size_t total_length);
 
   pplx::cancellation_token_source cancel_source_;
 };
@@ -41,11 +42,10 @@ void WebClient::DownloadFileAsync(const std::string& url, const std::string& pat
   file_stream<uint8_t>::open_ostream(conversions::to_string_t(path)).then([=](ostream stream) {
     DownloadToStream(url, stream.streambuf()).then([=](pplx::task<size_t> t) {
       stream.flush().then([=]() { return stream.close(); });
-
-      AsyncCompleted c;
-      StoreError(c, t);
       // FIX: 호출 쓰레드 문맥에서 호출되어야 함
       if (download_file_completed_ != nullptr) {
+        AsyncCompleted c;
+        StoreError(c, t);
         download_file_completed_(c);
       }
     });
@@ -54,19 +54,43 @@ void WebClient::DownloadFileAsync(const std::string& url, const std::string& pat
 
 pplx::task<size_t> WebClient::DownloadToStream(const std::string& url, streambuf<char> buffer) {
   http_client client(conversions::to_string_t(url));
-  return client.request(methods::GET, cancel_source_.get_token()).then([buffer](http_response response) -> pplx::task<size_t> {
-    return response.body().read_to_end(buffer);
+  return client.request(methods::GET, cancel_source_.get_token()).then([=](http_response response) -> pplx::task<size_t> {
+    auto total_length = static_cast<size_t>(response.headers().content_length());
+    return Repeat(buffer, response.body(), 8192, 0, total_length);
+  });
+}
+
+pplx::task<size_t> WebClient::Repeat(streambuf<char> buffer, istream stream, size_t chunk_size, size_t read_length, size_t total_length) {
+  return concurrency::create_task([=] { 
+    return stream.read(buffer, chunk_size).get();
+  }).then([=](int32_t bytes_read) {
+    if (bytes_read > 0) {
+      if (download_progress_changed_ != nullptr) {
+        DownloadProgressChanged c;
+        c.bytes_received = read_length + bytes_read;
+        c.total_bytes_to_receive = total_length;
+        if (c.total_bytes_to_receive > 0) {
+          c.percentage_ = static_cast<int32_t>(c.bytes_received * 100 / c.total_bytes_to_receive);
+        }
+        download_progress_changed_(c);
+      }
+      return Repeat(buffer, stream, chunk_size, read_length + bytes_read, total_length);
+    }
+    return concurrency::create_task([=] {
+      return read_length;
+    });
   });
 }
 
 void WebClient::DownloadDataAsync(const std::string& url) {
   container_buffer<std::string> buffer;
   DownloadToStream(url, buffer).then([=](pplx::task<size_t> t) {
-    DownloadDataCompleted c;
-    StoreError(c, t);
-    // FIX: 호출 쓰레드 문맵에서 호출되어야 함
-    if (download_file_completed_ != nullptr) {
-      download_file_completed_(c);
+    // FIX: 호출 쓰레드 문맥에서 호출되어야 함
+    if (download_data_completed_ != nullptr) {
+      DownloadDataCompleted c;
+      StoreError(c, t);
+      c.result = buffer.collection();
+      download_data_completed_(c);
     }
   });
 }

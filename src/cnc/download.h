@@ -7,6 +7,7 @@ namespace cnc {
 class WebClient;
 
 struct DownloadProgressChanged {
+  int32_t percentage_ = 0;
   int64_t bytes_received = 0;
   int64_t total_bytes_to_receive = 0;
 };
@@ -17,11 +18,11 @@ struct AsyncCompleted {
 };
 
 struct DownloadDataCompleted : public AsyncCompleted {
-  std::vector<char> result;
+  std::string result;
 };
 
 
-class Download : public std::enable_shared_from_this<Download> {
+class CNC_API Download : public std::enable_shared_from_this<Download> {
 public:
   using Ptr = std::shared_ptr<Download>;
 

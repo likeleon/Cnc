@@ -8,7 +8,7 @@ namespace mods {
 namespace common {
 
 RGBASpriteWidget::RGBASpriteWidget()
-  : get_sprite_([]() { return nullptr; }) {
+  : get_sprite_([] { return nullptr; }) {
 }
 
 RGBASpriteWidget::RGBASpriteWidget(const RGBASpriteWidget& other)
