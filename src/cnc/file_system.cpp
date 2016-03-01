@@ -139,7 +139,7 @@ bool FileSystem::TryOpen(const std::string& name, std::vector<char>& s) {
     filename = divide.back();
   }
 
-  if (filename.find_first_of("/\\") != std::string::npos && !explicit_folder) {
+  if (filename.find_first_of("/\\") == std::string::npos && !explicit_folder) {
     if (GetFromCache(PackageHashType::Classic, filename, s)) {
       return true;
     }

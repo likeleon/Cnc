@@ -185,6 +185,7 @@
     <ClCompile Include="src\cnc\field_load_info.cpp" />
     <ClCompile Include="src\cnc\type_dictionary.cpp" />
     <ClCompile Include="src\cnc\download.cpp" />
+    <ClCompile Include="src\cnc\stream_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -445,6 +446,9 @@
     <ClInclude Include="src\cnc\download.h" />
     <ClInclude Include="src\cnc\action.h">
       <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\stream_utils.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

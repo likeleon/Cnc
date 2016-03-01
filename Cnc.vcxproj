@@ -78,6 +78,7 @@
     </ClCompile>
     <ClCompile Include="src\cnc\stop_watch.cpp" />
     <ClCompile Include="src\cnc\buffer_utils.cpp" />
+    <ClCompile Include="src\cnc\stream_utils.cpp" />
     <ClCompile Include="src\cnc\string_utils.cpp" />
     <ClCompile Include="src\cnc\texture.cpp" />
     <ClCompile Include="src\cnc\thread_affine.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="src\cnc\ipalette.h" />
     <ClInclude Include="src\cnc\ishader.h" />
     <ClInclude Include="src\cnc\itexture.h" />
+    <ClInclude Include="src\cnc\stream_utils.h" />
     <ClInclude Include="src\cnc\type_exposable.h" />
     <ClInclude Include="src\cnc\ivertex_buffer.h" />
     <ClInclude Include="src\cnc\log.h" />

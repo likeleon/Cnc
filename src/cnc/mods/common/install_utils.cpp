@@ -3,6 +3,8 @@
 #include "cnc/file.h"
 #include "cnc/directory.h"
 #include "cnc/path.h"
+#include "cnc/error.h"
+#include "cnc/stream_utils.h"
 #include <ZipFile.h>
 
 namespace cnc {
@@ -23,7 +25,20 @@ static void ExtractZipArchive(ZipArchive::Ptr z, const std::string& dest_path, s
     auto path = Path::Combine({ dest_path, entry->GetFullName() });
     extracted.emplace_back(path);
 
-    // TODO: extract stream
+    std::ofstream f(path, std::ios::binary | std::ios::trunc);
+    if (!f.is_open()) {
+      throw Error(MSG("Cannot create destination file: " + path));
+    }
+
+    auto* stream = entry->GetDecompressionStream();
+    if (stream == nullptr) {
+      throw Error(MSG("Failed to get decompressed stream: " + entry->GetFullName()));
+    }
+
+    StreamUtils::Copy(*stream, f);
+    
+    f.flush();
+    f.close();
   }
 }
 
