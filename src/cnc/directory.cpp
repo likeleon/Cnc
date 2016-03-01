@@ -4,7 +4,7 @@
 namespace cnc {
 
 bool Directory::CreateDir(const std::string& path) {
-  return std::tr2::sys::create_directory(path);
+  return std::tr2::sys::create_directories(path);
 }
 
 std::vector<std::string> Directory::GetFiles(const std::string& path) {

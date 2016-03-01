@@ -10,6 +10,7 @@
 #include "cnc/mods/common/progress_bar_widget.h"
 #include "cnc/mods/common/label_widget.h"
 #include "cnc/mods/common/button_widget.h"
+#include "cnc/mods/common/install_utils.h"
 #include <cmath>
 #include <iomanip>
 #include <random>
@@ -79,6 +80,10 @@ void DownloadPackagesLogic::ShowDownloadDialog() {
     };
   };
 
+  Action<std::string> on_extract_progress = [=](const std::string& s) {
+    Game::RunAfterTick([=] { status_label_->get_text_ = [=] { return s; }; });
+  };
+
   Action<std::string> on_error = [=](const std::string& s) {
     Game::RunAfterTick([=] {
       status_label_->get_text_ = [s] { return "error: " + s; };
@@ -99,7 +104,12 @@ void DownloadPackagesLogic::ShowDownloadDialog() {
 
     status_label_->get_text_ = [] { return "Extracting..."; };
     progress_bar_->indeterminate_ = true;
-    // TODO: ExtractZip
+    if (InstallUtils::ExtractZip(file, dest, on_extract_progress, on_error)) {
+      Game::RunAfterTick([=] {
+        Ui::CloseWindow();
+        after_install_();
+      });
+    }
   };
 
   Action<DownloadDataCompleted, bool> on_fetch_mirrors_complete = [=](DownloadDataCompleted i, bool cancelled) {

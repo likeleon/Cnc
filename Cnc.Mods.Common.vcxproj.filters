@@ -60,6 +60,7 @@
     <ClCompile Include="src\cnc\mods\common\download_packages_logic.cpp">
       <Filter>Widgets\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\install_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -124,6 +125,7 @@
     <ClInclude Include="src\cnc\mods\common\widget_ptrs.h">
       <Filter>Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\install_utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="LoadScreens">

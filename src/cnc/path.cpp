@@ -30,7 +30,7 @@ std::string Path::Combine(const std::vector<std::string>& paths) {
 
 std::string Path::GetRandomFileName() {
   char s[MAX_PATH];
-  auto ret = GetTempFileNameA("", "CNC", 0, s);
+  auto ret = GetTempFileNameA("", "CNC", 1, s);
   if (ret == 0) {
     throw Error(MSG("GetTempFileNameA failed"));
   }

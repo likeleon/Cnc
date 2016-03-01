@@ -27,6 +27,7 @@
     <ClCompile Include="src\cnc\mods\common\fast_byte_reader.cpp" />
     <ClCompile Include="src\cnc\mods\common\image_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\install_logic.cpp" />
+    <ClCompile Include="src\cnc\mods\common\install_utils.cpp" />
     <ClCompile Include="src\cnc\mods\common\label_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\lcw_compression.cpp" />
     <ClCompile Include="src\cnc\mods\common\mod_browser_logic.cpp" />
@@ -48,6 +49,9 @@
     <ProjectReference Include="Cnc.vcxproj">
       <Project>{e929bb85-0074-47ed-a68a-45c81ababf22}</Project>
     </ProjectReference>
+    <ProjectReference Include="src\third_party\ziplib\Source\ZipLib\ZipLib.vcxproj">
+      <Project>{5c9fd859-ddf9-4510-8397-b329b0ae8c48}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\background_widget.h" />
@@ -58,6 +62,7 @@
     <ClInclude Include="src\cnc\mods\common\fast_byte_reader.h" />
     <ClInclude Include="src\cnc\mods\common\image_widget.h" />
     <ClInclude Include="src\cnc\mods\common\install_logic.h" />
+    <ClInclude Include="src\cnc\mods\common\install_utils.h" />
     <ClInclude Include="src\cnc\mods\common\label_widget.h" />
     <ClInclude Include="src\cnc\mods\common\lcw_compression.h" />
     <ClInclude Include="src\cnc\mods\common\mod_browser_logic.h" />
@@ -148,7 +153,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;CNC_MODS_COMMON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\third_party\ziplib\Source\ZipLib;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>cnc/mods/common/stdafx.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4592</DisableSpecificWarnings>
     </ClCompile>
@@ -180,7 +185,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CNC_MODS_COMMON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\third_party\ziplib\Source\ZipLib;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>cnc/mods/common/stdafx.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4592</DisableSpecificWarnings>
     </ClCompile>
