@@ -42,8 +42,8 @@ void FileSystem::Mount(const std::string& name, const std::string& annotation) {
 
   final_name = Platform::ResolvePath(final_name);
 
-  auto action = [this, name, annotation]() {
-    MountInner(OpenPackage(name, annotation, order_++));
+  auto action = [this, final_name, annotation]() {
+    MountInner(OpenPackage(final_name, annotation, order_++));
   };
 
   if (optional) {
