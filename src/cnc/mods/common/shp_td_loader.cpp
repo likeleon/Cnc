@@ -1,38 +1,41 @@
 #include "cnc/mods/common/stdafx.h"
 #include "cnc/mods/common/shp_td_loader.h"
-#include "cnc/buffer_utils.h"
 #include "cnc/size.h"
 #include "cnc/float2.h"
 #include "cnc/error.h"
+#include "cnc/stream.h"
 #include "cnc/mods/common/lcw_compression.h"
 
 namespace cnc {
 namespace mods {
 namespace common {
 
-static bool IsShpTD(const std::vector<char>& s) {
-  auto length = s.size();
-  size_t offset = 0;
+static bool IsShpTD(StreamPtr s) {
+  auto start = s->position();
 
-  auto image_count = BufferUtils::ReadUInt16(s, offset);
+  auto image_count = s->ReadUInt16();
   if (image_count == 0) {
+    s->SetPosition(start);
     return false;
   }
 
   size_t final_offset = 14 + 8 * image_count;
-  if (final_offset > length) {
+  if (final_offset > s->length()) {
+    s->SetPosition(start);
     return false;
   }
 
-  offset = final_offset;
-  auto eof = BufferUtils::ReadUInt32(s, offset);
-  if (eof != length) {
+  s->SetPosition(final_offset);
+  auto eof = s->ReadUInt32();
+  if (eof != s->length()) {
+    s->SetPosition(start);
     return false;
   }
 
-  offset = 17;
-  auto b = BufferUtils::ReadUInt8(s, offset);
+  s->SetPosition(start + 17);
+  auto b = s->ReadUInt8();
 
+  s->SetPosition(start);
   return b == 0x20 || b == 0x40 || b == 0x80;
 }
 
@@ -46,11 +49,11 @@ public:
 
   using Ptr = std::shared_ptr<ShpTDSprite>;
 
-  static Ptr LoadFrom(const std::vector<char>& stream);
+  static Ptr LoadFrom(StreamPtr stream);
 
   class ImageHeader : public ISpriteFrame {
   public:
-    ImageHeader(const std::vector<char>& stream, size_t& offset, ShpTDSprite::Ptr reader);
+    ImageHeader(StreamPtr stream, ShpTDSprite::Ptr reader);
 
     const Size& size() const override { return reader_->size(); }
     const Size& frame_size() const override { return reader_->size(); }
@@ -75,12 +78,11 @@ public:
     std::shared_ptr<ImageHeader> ref_image_;
   };
 
-
   const Size& size() const { return size_; }
   std::vector<ISpriteFramePtr>& frames() { return frames_; }
 
 private:
-  void LoadFrames(const std::vector<char>& stream);
+  void LoadFrames(StreamPtr stream);
   void Decompress(const std::shared_ptr<ImageHeader>& h);
 
   int32_t recurse_depth_ = 0;
@@ -91,38 +93,37 @@ private:
   std::vector<char> shp_bytes_;
 };
 
-ShpTDSprite::ImageHeader::ImageHeader(const std::vector<char>& stream, size_t& offset, ShpTDSprite::Ptr reader)
+ShpTDSprite::ImageHeader::ImageHeader(StreamPtr stream, ShpTDSprite::Ptr reader)
   : reader_(reader) {
-  auto data = BufferUtils::ReadUInt32(stream, offset);
+  auto data = stream->ReadUInt32();
   file_offset_ = data & 0xffffff;
   format_ = static_cast<Format>(data >> 24);
 
-  ref_offset_ = BufferUtils::ReadUInt16(stream, offset);
-  ref_format_ = static_cast<Format>(BufferUtils::ReadUInt16(stream, offset));
+  ref_offset_ = stream->ReadUInt16();
+  ref_format_ = static_cast<Format>(stream->ReadUInt16());
 }
 
-ShpTDSprite::Ptr ShpTDSprite::LoadFrom(const std::vector<char>& stream) {
+ShpTDSprite::Ptr ShpTDSprite::LoadFrom(StreamPtr stream) {
   auto sprite = std::make_shared<ShpTDSprite>();
   sprite->LoadFrames(stream);
   return sprite;
 }
 
-void ShpTDSprite::LoadFrames(const std::vector<char>& stream) {
-  size_t offset = 0;
-  image_count_ = BufferUtils::ReadUInt16(stream, offset);
-  offset += 4;
-  auto width = BufferUtils::ReadUInt16(stream, offset);
-  auto height = BufferUtils::ReadUInt16(stream, offset);
+void ShpTDSprite::LoadFrames(StreamPtr stream) {
+  image_count_ = stream->ReadUInt16();
+  stream->Seek(4, SeekOrigin::Current);
+  auto width = stream->ReadUInt16();
+  auto height = stream->ReadUInt16();
   size_ = { width, height };
 
-  offset += 4;
+  stream->Seek(4, SeekOrigin::Current);
   std::vector<std::shared_ptr<ImageHeader>> headers(image_count_);
   for (size_t i = 0; i < headers.size(); ++i) {
-    headers[i] = std::make_shared<ImageHeader>(stream, offset, shared_from_this());
+    headers[i] = std::make_shared<ImageHeader>(stream, shared_from_this());
     frames_.emplace_back(headers[i]);
   }
 
-  offset += 16;
+  stream->Seek(16, SeekOrigin::Current);
 
   std::map<uint32_t, std::shared_ptr<ImageHeader>> offsets;
   for (const auto& header : headers) {
@@ -139,8 +140,8 @@ void ShpTDSprite::LoadFrames(const std::vector<char>& stream) {
     }
   }
 
-  shp_bytes_file_offset_ = offset;
-  shp_bytes_ = BufferUtils::ReadBytes(stream, offset, stream.size() - offset);
+  shp_bytes_file_offset_ = stream->position();
+  shp_bytes_ = stream->ReadBytes(stream->length() - stream->position());
 
   for (auto& h : headers) {
     Decompress(h);
@@ -180,7 +181,7 @@ void ShpTDSprite::Decompress(const std::shared_ptr<ShpTDSprite::ImageHeader>& h)
   }
 }
 
-bool ShpTDLoader::TryParseSprite(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
+bool ShpTDLoader::TryParseSprite(StreamPtr s, std::vector<ISpriteFramePtr>& frames) {
   if (!IsShpTD(s)) {
     return false;
   }

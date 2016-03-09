@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cnc/package_entry.h"
+#include "cnc/stream_ptr.h"
 
 namespace cnc {
 
@@ -9,7 +10,7 @@ class Manifest;
 class CNC_API IFolder {
 public:
   virtual ~IFolder() {}
-  virtual std::vector<char> GetContent(const std::string& filename) const = 0;
+  virtual StreamPtr GetContent(const std::string& filename) const = 0;
   virtual bool Exists(const std::string& filename) const = 0;
   virtual std::vector<uint32_t> ClassicHashes() const = 0;
   virtual std::vector<uint32_t> CrcHashes() const = 0;
@@ -29,8 +30,8 @@ public:
 
   bool Exists(const std::string& filename);
 
-  std::vector<char> Open(const std::string& filename);
-  bool TryOpen(const std::string& filename, std::vector<char>& s);
+  StreamPtr Open(const std::string& filename);
+  bool TryOpen(const std::string& filename, StreamPtr& s);
 
 private:
   using HashIndex = std::unordered_map<uint32_t, std::vector<const IFolder*>>;
@@ -45,7 +46,7 @@ private:
 
   IFolderPtr OpenPackage(const std::string& filename, const std::string& annotation, int32_t order);
   void MountInner(IFolderPtr folder);
-  bool GetFromCache(PackageHashType type, const std::string& filename, std::vector<char>& s);
+  bool GetFromCache(PackageHashType type, const std::string& filename, StreamPtr& s);
 
   static std::map<std::string, LibraryPtr> library_cache_;
   std::vector<IFolderPtr> mounted_folders_;

@@ -14,8 +14,8 @@ Folder::Folder(const std::string& path, int32_t priority)
   }
 }
 
-std::vector<char> Folder::GetContent(const std::string& filename) const {
-  return File::ReadAllBytes(Path::Combine({ path_, filename }));
+StreamPtr Folder::GetContent(const std::string& filename) const {
+  return File::OpenRead(Path::Combine({ path_, filename }));
 }
 
 bool Folder::Exists(const std::string& filename) const {

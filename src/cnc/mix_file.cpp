@@ -1,18 +1,19 @@
 #include "cnc/stdafx.h"
 #include "cnc/mix_file.h"
-#include "cnc/buffer_utils.h"
 #include "cnc/error.h"
 #include "cnc/container_utils.h"
+#include "cnc/stream.h"
 
 namespace cnc {
 
-static std::vector<PackageEntry> ParseHeader(const std::vector<char>& s, size_t offset, size_t& header_end) {
-  auto num_files = BufferUtils::ReadUInt16(s, offset);
-  /*auto data_size = */BufferUtils::ReadUInt32(s, offset);
+static std::vector<PackageEntry> ParseHeader(StreamPtr s, size_t offset, size_t& header_end) {
+  s->Seek(offset, SeekOrigin::Begin);
+  auto num_files = s->ReadUInt16();
+  /*auto data_size = */s->ReadUInt32();
 
   std::vector<PackageEntry> items;
   for (auto i = 0; i < num_files; ++i) {
-    items.emplace_back(s, offset);
+    items.emplace_back(s);
   }
   header_end = offset + 6 + num_files * PackageEntry::Size;
   return items;
@@ -21,13 +22,12 @@ static std::vector<PackageEntry> ParseHeader(const std::vector<char>& s, size_t 
 MixFile::MixFile(FileSystem& context, const std::string& filename, PackageHashType type, int32_t priority)
   : context_(context), filename_(filename), type_(type), priority_(priority) {
   s_ = context_.Open(filename);
-  size_t offset = 0;
   
-  auto is_cnc_mix = BufferUtils::ReadUInt16(s_, offset) != 0;
+  auto is_cnc_mix = s_->ReadUInt16() != 0;
 
   auto is_encrypted = false;
   if (!is_cnc_mix) {
-    is_encrypted = (BufferUtils::ReadUInt16(s_, offset) & 0x2) != 0;
+    is_encrypted = (s_->ReadUInt16() & 0x2) != 0;
   }
 
   std::vector<PackageEntry> entries;
@@ -49,9 +49,9 @@ MixFile::MixFile(FileSystem& context, const std::string& filename, PackageHashTy
   index_ = ToMapWithConflictLog<PackageEntry, uint32_t>(entries, key_selector, debug_name, nullptr, log_value);
 }
 
-std::vector<char> MixFile::GetContent(const std::string& filename) const {
+StreamPtr MixFile::GetContent(const std::string& filename) const {
   auto hash = FindMatchingHash(filename);
-  return hash ? GetContent(hash.value()) : std::vector<char>();
+  return hash ? GetContent(hash.value()) : nullptr;
 }
 
 optional<uint32_t> MixFile::FindMatchingHash(const std::string& filename) const {
@@ -65,7 +65,7 @@ optional<uint32_t> MixFile::FindMatchingHash(const std::string& filename) const 
   return {};
 }
 
-std::vector<char> MixFile::GetContent(uint32_t hash) const {
+StreamPtr MixFile::GetContent(uint32_t hash) const {
   auto iter = index_.find(hash);
   if (iter == index_.end()) {
     return{};
@@ -74,7 +74,7 @@ std::vector<char> MixFile::GetContent(uint32_t hash) const {
   //const auto& e = iter->second;
   
   // TODO: SegmentStreaam
-  return{};
+  return nullptr;
 }
 
 bool MixFile::Exists(const std::string& filename) const {

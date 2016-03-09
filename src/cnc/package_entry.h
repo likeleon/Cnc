@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cnc/enum_info.h"
+#include "cnc/stream_ptr.h"
 
 namespace cnc {
 
@@ -18,7 +19,7 @@ struct CNC_API PackageHashTypeTraits {
 
 class CNC_API PackageEntry {
 public:
-  PackageEntry(const std::vector<char>& s, size_t& offset);
+  explicit PackageEntry(StreamPtr s);
 
   static uint32_t HashFilename(const std::string& name, PackageHashType type);
 

@@ -1,6 +1,6 @@
 #include "cnc/mods/common/stdafx.h"
 #include "cnc/mods/common/tmp_ra_loader.h"
-#include "cnc/buffer_utils.h"
+#include "cnc/stream.h"
 #include "cnc/size.h"
 #include "cnc/float2.h"
 
@@ -8,14 +8,15 @@ namespace cnc {
 namespace mods {
 namespace common {
 
-static bool IsTmpRA(const std::vector<char>& s) {
-  size_t offset = 0;
+static bool IsTmpRA(StreamPtr s) {
+  auto start = s->position();
 
-  offset += 20;
-  auto a = BufferUtils::ReadUInt32(s, offset);
-  offset += 2;
-  auto b = BufferUtils::ReadUInt16(s, offset);
-
+  s->Seek(20, SeekOrigin::Current);
+  auto a = s->ReadUInt32();
+  s->Seek(2, SeekOrigin::Current);
+  auto b = s->ReadUInt16();
+  
+  s->SetPosition(start);
   return a == 0 && b == 0x2c73;
 }
 class TmpRAFrame : public ISpriteFrame {
@@ -39,38 +40,43 @@ private:
   Size frame_size_;
 };
 
-static void ParseFrames(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
-  size_t offset = 0;
-  auto width = BufferUtils::ReadUInt16(s, offset);
-  auto height = BufferUtils::ReadUInt16(s, offset);
+static std::vector<ISpriteFramePtr> ParseFrames(StreamPtr s) {
+  auto start = s->position();
+  auto width = s->ReadUInt16();
+  auto height = s->ReadUInt16();
   Size size = { width, height };
 
-  offset += 12;
-  auto img_start = BufferUtils::ReadUInt32(s, offset);
-  offset += 8;
-  auto index_end = BufferUtils::ReadInt32(s, offset);
-  offset += 4;
-  auto index_start = BufferUtils::ReadInt32(s, offset);
+  s->Seek(12, SeekOrigin::Current);
+  auto img_start = s->ReadUInt32();
+  s->Seek(8, SeekOrigin::Current);
+  auto index_end = s->ReadInt32();
+  s->Seek(4, SeekOrigin::Current);
+  auto index_start = s->ReadInt32();
 
-  offset = index_start;
+  s->SetPosition(index_start);
   auto count = index_end - index_start;
-  frames.reserve(count);
-  for (const auto& b : BufferUtils::ReadBytes(s, offset, count)) {
+  std::vector<ISpriteFramePtr> tiles(count);
+  
+  auto tiles_index = 0;
+  for (const auto& b : s->ReadBytes(count)) {
     if (b != 255) {
-      offset = img_start + b * width * height;
-      frames.emplace_back(std::make_shared<TmpRAFrame>(BufferUtils::ReadBytes(s, offset, width * height), size));
+      s->SetPosition(img_start + b * width * height);
+      tiles[tiles_index++] = std::make_shared<TmpRAFrame>(s->ReadBytes(width * height), size);
     } else {
-      frames.emplace_back(std::make_shared<TmpRAFrame>(std::vector<char>(), size));
+      tiles[tiles_index++] = std::make_shared<TmpRAFrame>(std::vector<char>(), size);
     }
   }
+
+  s->SetPosition(start);
+  return tiles;
 }
 
-bool TmpRALoader::TryParseSprite(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
+bool TmpRALoader::TryParseSprite(StreamPtr s, std::vector<ISpriteFramePtr>& frames) {
   if (!IsTmpRA(s)) {
     return false;
   }
 
-  ParseFrames(s, frames);
+  frames = ParseFrames(s);
   return true;
 }
 

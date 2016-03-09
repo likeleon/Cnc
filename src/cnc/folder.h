@@ -8,7 +8,7 @@ class CNC_API Folder : public IFolder {
 public:
   Folder(const std::string& path, int32_t priority);
   
-  std::vector<char> GetContent(const std::string& filename) const override;
+  StreamPtr GetContent(const std::string& filename) const override;
   bool Exists(const std::string& filename) const override;
   std::vector<uint32_t> ClassicHashes() const override;
   std::vector<uint32_t> CrcHashes() const override;

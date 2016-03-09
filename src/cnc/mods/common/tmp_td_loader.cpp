@@ -1,6 +1,6 @@
 #include "cnc/mods/common/stdafx.h"
 #include "cnc/mods/common/tmp_td_loader.h"
-#include "cnc/buffer_utils.h"
+#include "cnc/stream.h"
 #include "cnc/float2.h"
 #include "cnc/size.h"
 
@@ -8,11 +8,14 @@ namespace cnc {
 namespace mods {
 namespace common {
 
-static bool IsTmpTD(const std::vector<char>& s) {
-  size_t offset = 0;
-  offset += 16;
-  auto a = BufferUtils::ReadUInt16(s, offset);
-  auto b = BufferUtils::ReadUInt16(s, offset);
+static bool IsTmpTD(StreamPtr s) {
+  auto start = s->position();
+
+  s->Seek(16, SeekOrigin::Current);
+  auto a = s->ReadUInt16();
+  auto b = s->ReadUInt16();
+
+  s->SetPosition(start);
   return a == 0 && b == 0x0D1AFFFF;
 }
 
@@ -37,37 +40,42 @@ private:
   Size frame_size_;
 };
 
-static void ParseFrames(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
-  size_t offset = 0;
-  auto width = BufferUtils::ReadUInt16(s, offset);
-  auto height = BufferUtils::ReadUInt16(s, offset);
+static std::vector<ISpriteFramePtr> ParseFrames(StreamPtr s) {
+  auto start = s->position();
+  auto width = s->ReadUInt16();
+  auto height = s->ReadUInt16();
   Size size = { width, height };
 
-  offset += 8;
-  auto img_start = BufferUtils::ReadUInt32(s, offset);
-  offset += 8;
-  auto index_end = BufferUtils::ReadInt32(s, offset);
-  auto index_start = BufferUtils::ReadInt32(s, offset);
+  s->Seek(8, SeekOrigin::Current);
+  auto img_start = s->ReadUInt32();
+  s->Seek(8, SeekOrigin::Current);
+  auto index_end = s->ReadInt32();
+  auto index_start = s->ReadInt32();
 
-  offset = index_start;
+  s->SetPosition(index_start);
   auto count = index_end - index_start;
-  frames.reserve(count);
-  for (const auto& b : BufferUtils::ReadBytes(s, offset, count)) {
+  std::vector<ISpriteFramePtr> tiles(count);
+  auto tiles_index = 0;
+  for (const auto& b : s->ReadBytes(count)) {
     if (b != 255) {
-      offset = img_start + b * width * height;
-      frames.emplace_back(std::make_shared<TmpTDFrame>(BufferUtils::ReadBytes(s, offset, width * height), size));
+      s->SetPosition(img_start + b * width * height);
+      tiles[tiles_index++] = std::make_shared<TmpTDFrame>(s->ReadBytes(width * height), size);
     } else {
-      frames.emplace_back(std::make_shared<TmpTDFrame>(std::vector<char>(), size));
+      tiles[tiles_index++] = std::make_shared<TmpTDFrame>(std::vector<char>(), size);
     }
   }
+
+  s->SetPosition(start);
+  return tiles;
 }
 
-bool TmpTDLoader::TryParseSprite(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
+bool TmpTDLoader::TryParseSprite(StreamPtr s, std::vector<ISpriteFramePtr>& frames) {
   if (!IsTmpTD(s)) {
     return false;
   }
 
-  ParseFrames(s, frames);
+  
+  frames = ParseFrames(s);
   return true;
 }
 

@@ -11,6 +11,7 @@
 #include "cnc/game.h"
 #include "cnc/renderer.h"
 #include "cnc/sprite_renderer.h"
+#include "cnc/stream.h"
 
 namespace cnc {
 
@@ -21,8 +22,8 @@ SpriteFont::SpriteFont(const std::string& name, int32_t size, SheetBuilder& buil
     throw Error(MSG("The sheet builder must create BGRA sheets"));
   }
 
-  font_buffer_ = File::ReadAllBytes(name);
-  sdl_rw_ = SDL_RWops_UniquePtr(SDL_RWFromMem(&font_buffer_[0], static_cast<int32_t>(font_buffer_.size())));
+  font_stream_ = File::OpenRead(name);
+  sdl_rw_ = SDL_RWops_UniquePtr(SDL_RWFromMem(&font_stream_->buffer()[0], static_cast<int32_t>(font_stream_->length())));
   ttf_font_ = TTF_Font_UniquePtr(TTF_OpenFontRW(sdl_rw_.get(), 0, size_));
   if (ttf_font_ == nullptr) {
     throw Error(MSG("Cannot load font from file '" + name + "': " + TTF_GetError()));

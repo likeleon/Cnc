@@ -8,7 +8,7 @@ namespace common {
 
 class ShpTSLoader : public ISpriteLoader {
 public:
-  bool TryParseSprite(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) override;
+  bool TryParseSprite(StreamPtr s, std::vector<ISpriteFramePtr>& frames) override;
 };
 
 }

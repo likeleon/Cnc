@@ -2,6 +2,7 @@
 
 #include "cnc/sprite_loader_ptr.h"
 #include "cnc/cache.h"
+#include "cnc/stream_ptr.h"
 
 namespace cnc {
 
@@ -24,7 +25,7 @@ public:
 class ISpriteLoader {
 public:
   virtual ~ISpriteLoader() {}
-  virtual bool TryParseSprite(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) = 0;
+  virtual bool TryParseSprite(StreamPtr s, std::vector<ISpriteFramePtr>& frames) = 0;
 };
 
 class SpriteCache {

@@ -20,7 +20,7 @@ Sheet::Sheet(SheetType type, ITexturePtr texture)
   : type_(type), texture_(texture), size_(texture->size()) {
 }
 
-Sheet::Sheet(SheetType type, const std::vector<char>& stream) {
+Sheet::Sheet(SheetType type, StreamPtr stream) {
   Bitmap bitmap(stream);
   size_ = bitmap.Size();
   data_.resize(4 * size_.width * size_.height);

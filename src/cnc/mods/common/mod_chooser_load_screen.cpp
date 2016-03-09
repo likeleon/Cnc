@@ -21,7 +21,7 @@ void ModChooserLoadScreen::Init(const Manifest& /*m*/, const std::map<std::strin
   auto res = Game::renderer()->Resolution();
   bounds_ = { 0, 0, res.width, res.height };
 
-  auto stream = File::ReadAllBytes(info.at("Image"));
+  auto stream = File::OpenRead(info.at("Image"));
   auto sheet = std::make_shared<Sheet>(SheetType::BGRA, stream);
   sprite_ = std::make_unique<Sprite>(sheet, Rectangle(0, 0, 1024, 480), TextureChannel::Alpha);
 }

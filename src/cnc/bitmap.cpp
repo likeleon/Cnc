@@ -5,11 +5,12 @@
 #include "cnc/rectangle.h"
 #include "cnc/point.h"
 #include "cnc/file.h"
+#include "cnc/stream.h"
 
 namespace cnc {
 
-static SDL_Surface_UniquePtr SurfaceFromStream(const std::vector<char>& stream) {
-  auto* rw = SDL_RWFromMem(const_cast<char*>(stream.data()), static_cast<int32_t>(stream.size()));
+static SDL_Surface_UniquePtr SurfaceFromStream(StreamPtr stream) {
+  auto* rw = SDL_RWFromMem(const_cast<char*>(&stream->buffer()[0]), static_cast<int32_t>(stream->length()));
   auto surface = IMG_Load_RW(rw, 0);
   SDL_RWclose(rw);
   if (surface == nullptr) {
@@ -19,10 +20,10 @@ static SDL_Surface_UniquePtr SurfaceFromStream(const std::vector<char>& stream) 
 }
 
 Bitmap::Bitmap(const std::string& filename) {
-  surface_ = SurfaceFromStream(File::ReadAllBytes(filename));
+  surface_ = SurfaceFromStream(File::OpenRead(filename));
 }
 
-Bitmap::Bitmap(const std::vector<char>& stream) {
+Bitmap::Bitmap(StreamPtr stream) {
   surface_ = SurfaceFromStream(stream);
 }
 

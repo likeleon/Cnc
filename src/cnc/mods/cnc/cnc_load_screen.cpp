@@ -27,7 +27,7 @@ void CncLoadScreen::Init(const Manifest& m, const std::map<std::string, std::str
     return;
   }
 
-  auto stream = File::ReadAllBytes(Platform::ResolvePath(load_info_["Image"]));
+  auto stream = File::OpenRead(Platform::ResolvePath(load_info_["Image"]));
   sheet_ = std::make_shared<Sheet>(SheetType::BGRA, stream);
 
   auto res = r_->Resolution();

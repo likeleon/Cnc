@@ -120,15 +120,15 @@ bool FileSystem::Exists(const std::string& name) {
   }
 }
 
-std::vector<char> FileSystem::Open(const std::string& filename) {
-  std::vector<char> s;
+StreamPtr FileSystem::Open(const std::string& filename) {
+  StreamPtr s;
   if (!TryOpen(filename, s)) {
     throw Error(MSG("File not found: " + filename));
   }
   return s;
 }
 
-bool FileSystem::TryOpen(const std::string& name, std::vector<char>& s) {
+bool FileSystem::TryOpen(const std::string& name, StreamPtr& s) {
   std::string filename = name;
   std::string foldername = "";
 
@@ -175,7 +175,7 @@ bool FileSystem::TryOpen(const std::string& name, std::vector<char>& s) {
   return true;
 }
 
-bool FileSystem::GetFromCache(PackageHashType type, const std::string& filename, std::vector<char>& s) {
+bool FileSystem::GetFromCache(PackageHashType type, const std::string& filename, StreamPtr& s) {
   auto* index = (type == PackageHashType::CRC32) ? &crc_hash_index_ : &classic_hash_index_;
   auto iter = index->find(PackageEntry::HashFilename(filename, type));
   if (iter == index->end()) {

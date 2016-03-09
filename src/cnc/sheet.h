@@ -3,6 +3,7 @@
 #include "cnc/size.h"
 #include "cnc/itexture.h"
 #include "cnc/sheet_builder.h"
+#include "cnc/stream_ptr.h"
 
 namespace cnc {
 
@@ -10,7 +11,7 @@ class CNC_API Sheet {
 public:
   Sheet(SheetType type, const Size& size);
   Sheet(SheetType type, ITexturePtr texture);
-  Sheet(SheetType type, const std::vector<char>& stream);
+  Sheet(SheetType type, StreamPtr stream);
 
   ITexturePtr GetTexture();
   void CreateBuffer();

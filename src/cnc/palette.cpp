@@ -2,7 +2,7 @@
 #include "cnc/palette.h"
 #include "cnc/color.h"
 #include "cnc/file.h"
-#include "cnc/buffer_utils.h"
+#include "cnc/stream.h"
 
 namespace cnc {
 
@@ -11,10 +11,10 @@ Color Palette::GetColor(const IPalette& palette, int32_t index) {
 }
 
 ImmutablePalette::ImmutablePalette(const std::string& filename, const std::vector<int32_t>& remap_shadow) {
-  LoadFromStream(File::ReadAllBytes(filename), remap_shadow);
+  LoadFromStream(File::OpenRead(filename), remap_shadow);
 }
 
-ImmutablePalette::ImmutablePalette(const std::vector<char>& s, const std::vector<int32_t>& remap_shadow) {
+ImmutablePalette::ImmutablePalette(StreamPtr s, const std::vector<int32_t>& remap_shadow) {
   LoadFromStream(s, remap_shadow);
 }
 
@@ -24,12 +24,11 @@ ImmutablePalette::ImmutablePalette(const IPalette& p) {
   }
 }
 
-void ImmutablePalette::LoadFromStream(const std::vector<char>& s, const std::vector<int32_t>& remap_shadow) {
-  uint32_t offset = 0;
+void ImmutablePalette::LoadFromStream(StreamPtr s, const std::vector<int32_t>& remap_shadow) {
   for (auto i = 0; i < Palette::Size; ++i) {
-    auto r = static_cast<uint8_t>(BufferUtils::ReadUInt8(s, offset) << 2);
-    auto g = static_cast<uint8_t>(BufferUtils::ReadUInt8(s, offset) << 2);
-    auto b = static_cast<uint8_t>(BufferUtils::ReadUInt8(s, offset) << 2);
+    auto r = static_cast<uint8_t>(s->ReadUInt8() << 2);
+    auto g = static_cast<uint8_t>(s->ReadUInt8() << 2);
+    auto b = static_cast<uint8_t>(s->ReadUInt8() << 2);
     colors_[i] = static_cast<uint32_t>((255 << 24) | (r << 16) | (g << 8) | b);
   }
   colors_[0] = 0; // convert black background -> transparency

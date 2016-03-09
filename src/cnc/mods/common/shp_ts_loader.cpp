@@ -1,46 +1,49 @@
 #include "cnc/mods/common/stdafx.h"
 #include "cnc/mods/common/shp_ts_loader.h"
-#include "cnc/buffer_utils.h"
 #include "cnc/size.h"
 #include "cnc/float2.h"
+#include "cnc/stream.h"
 #include "cnc/mods/common/rle_zeros_compression.h"
 
 namespace cnc {
 namespace mods {
 namespace common {
 
-static bool IsShpTS(const std::vector<char>& s) {
-  size_t offset = 0;
+static bool IsShpTS(StreamPtr s) {
+  auto start = s->position();
   
-  if (BufferUtils::ReadUInt16(s, offset) != 0) {
+  if (s->ReadUInt16() != 0) {
+    s->SetPosition(start);
     return false;
   }
 
-  offset += 4;
-  auto image_count = BufferUtils::ReadUInt16(s, offset);
-  if (offset + 24 * image_count > s.size()) {
+  s->Seek(4, SeekOrigin::Current);
+  auto image_count = s->ReadUInt16();
+  if (s->position() + 24 * image_count > s->length()) {
+    s->SetPosition(start);
     return false;
   }
 
-  offset += 4;
+  s->Seek(4, SeekOrigin::Current);
   uint16_t w = 0, h = 0, f = 0;
   uint8_t type = 0;
   do {
-    w = BufferUtils::ReadUInt16(s, offset);
-    h = BufferUtils::ReadUInt16(s, offset);
-    type = BufferUtils::ReadUInt8(s, offset);
+    w = s->ReadUInt16();
+    h = s->ReadUInt16();
+    type = s->ReadUInt8();
   } while (w == 0 && h == 0 && f++ < image_count);
 
+  s->SetPosition(start);
   return type < 4;
 }
 
 class ShpTSFrame : public ISpriteFrame {
 public:
-  ShpTSFrame(const std::vector<char>& s, size_t& offset, const Size& frame_size) {
-    auto x = BufferUtils::ReadUInt16(s, offset);
-    auto y = BufferUtils::ReadUInt16(s, offset);
-    auto width = BufferUtils::ReadUInt16(s, offset);
-    auto height = BufferUtils::ReadUInt16(s, offset);
+  ShpTSFrame(StreamPtr s, const Size& frame_size) {
+    auto x = s->ReadUInt16();
+    auto y = s->ReadUInt16();
+    auto width = s->ReadUInt16();
+    auto height = s->ReadUInt16();
 
     auto data_width = width;
     auto data_height = height;
@@ -56,32 +59,32 @@ public:
     size_ = { data_width, data_height };
     frame_size_ = frame_size;
 
-    format_ = BufferUtils::ReadUInt8(s, offset);
-    offset += 11;
-    file_offset_ = BufferUtils::ReadUInt32(s, offset);
+    format_ = s->ReadUInt8();
+    s->Seek(11, SeekOrigin::Current);
+    file_offset_ = s->ReadUInt32();
 
     if (file_offset_ == 0) {
       return;
     }
 
-    auto start = offset;
-    offset = file_offset_;
+    auto start = s->position();
+    s->SetPosition(file_offset_);
 
     data_.resize(data_width * data_height);
 
     if (format_ == 3) {
       for (auto j = 0; j < height; ++j) {
-        auto length = BufferUtils::ReadUInt16(s, offset) - 2;
-        RLEZerosCompression::DecodeInto(BufferUtils::ReadBytes(s, offset, length), data_, data_width * j);
+        auto length = s->ReadUInt16() - 2;
+        RLEZerosCompression::DecodeInto(s->ReadBytes(length), data_, data_width * j);
       }
     } else {
-      auto length = format_ == 2 ? BufferUtils::ReadUInt16(s, offset) - 2 : width;
+      auto length = format_ == 2 ? s->ReadUInt16() - 2 : width;
       for (auto j = 0; j < height; ++j) {
-        BufferUtils::ReadBytes(s, data_, data_width * j, offset, length);
+        s->ReadBytes(data_, data_width * j, length);
       }
     }
 
-    offset = start;
+    s->SetPosition(start);
   }
 
   const Size& size() const override { return size_; }
@@ -99,27 +102,30 @@ private:
   uint32_t file_offset_ = 0;
 };
 
-static void ParseFrames(const std::vector<char>& s, std::vector<ISpriteFramePtr>& frames) {
-  size_t offset = 0;
+static std::vector<ISpriteFramePtr> ParseFrames(StreamPtr s) {
+  auto start = s->position();
 
-  BufferUtils::ReadUInt16(s, offset);
-  auto width = BufferUtils::ReadUInt16(s, offset);
-  auto height = BufferUtils::ReadUInt16(s, offset);
+  s->ReadUInt16();
+  auto width = s->ReadUInt16();
+  auto height = s->ReadUInt16();
   Size size = { width, height };
-  auto frame_count = BufferUtils::ReadUInt16(s, offset);
+  auto frame_count = s->ReadUInt16();
 
-  frames.reserve(frame_count);
+  std::vector<ISpriteFramePtr> frames(frame_count);
   for (auto i = 0; i < frame_count; ++i) {
-    frames.emplace_back(std::make_shared<ShpTSFrame>(s, offset, size));
+    frames[i] = std::make_shared<ShpTSFrame>(s, size);
   }
+  
+  s->SetPosition(start);
+  return frames;
 }
 
-bool ShpTSLoader::TryParseSprite(const std::vector<char>&s, std::vector<ISpriteFramePtr>& frames) {
+bool ShpTSLoader::TryParseSprite(StreamPtr s, std::vector<ISpriteFramePtr>& frames) {
   if (!IsShpTS(s)) {
     return false;
   }
 
-  ParseFrames(s, frames);
+  frames = ParseFrames(s);
   return true;
 }
 

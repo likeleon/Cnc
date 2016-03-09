@@ -10,7 +10,7 @@ class MixFile : public IFolder {
 public:
   MixFile(FileSystem& context, const std::string& filename, PackageHashType type, int32_t priority);
 
-  std::vector<char> GetContent(const std::string& filename) const override;
+  StreamPtr GetContent(const std::string& filename) const override;
   bool Exists(const std::string& filename) const override;
   std::vector<uint32_t> ClassicHashes() const override;
   std::vector<uint32_t> CrcHashes() const override;
@@ -19,7 +19,7 @@ public:
 
 private:
   optional<uint32_t> FindMatchingHash(const std::string& filename) const;
-  std::vector<char> GetContent(uint32_t hash) const;
+  StreamPtr GetContent(uint32_t hash) const;
   
   std::map<uint32_t, PackageEntry> index_;
   size_t data_start_ = 0U;
@@ -27,7 +27,7 @@ private:
   std::string filename_;
   PackageHashType type_;
   int32_t priority_;
-  std::vector<char> s_;
+  StreamPtr s_;
 };
 
 }

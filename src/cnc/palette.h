@@ -2,6 +2,7 @@
 
 #include "cnc/ipalette.h"
 #include "cnc/palette_ptr.h"
+#include "cnc/stream_ptr.h"
 
 namespace cnc {
 
@@ -19,14 +20,14 @@ public:
 class ImmutablePalette : public IPalette {
 public:
   ImmutablePalette(const std::string& filename, const std::vector<int32_t>& remap_shadow);
-  ImmutablePalette(const std::vector<char>& s, const std::vector<int32_t>& remap_shadow);
+  ImmutablePalette(StreamPtr s, const std::vector<int32_t>& remap_shadow);
   ImmutablePalette(const IPalette& p);
 
   uint32_t operator[](int32_t index) const override;
   void CopyToArray(std::vector<char>& destination, int32_t destination_offset) const override;
 
 private:
-  void LoadFromStream(const std::vector<char>& s, const std::vector<int32_t>& remap_shadow);
+  void LoadFromStream(StreamPtr s, const std::vector<int32_t>& remap_shadow);
 
   std::array<uint32_t, Palette::Size> colors_;
 };

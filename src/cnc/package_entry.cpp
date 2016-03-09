@@ -1,8 +1,8 @@
 #include "cnc/stdafx.h"
 #include "cnc/package_entry.h"
 #include "cnc/string_utils.h"
-#include "cnc/buffer_utils.h"
 #include "cnc/error.h"
+#include "cnc/stream.h"
 
 namespace cnc {
 
@@ -13,10 +13,10 @@ const EnumNamesType<PackageHashTypeTraits> PackageHashTypeTraits::names = {
   { PackageHashType::CRC32, "CRC32" },
 };
 
-PackageEntry::PackageEntry(const std::vector<char>& s, size_t& offset) {
-  hash_ = BufferUtils::ReadUInt32(s, offset);
-  offset_ = BufferUtils::ReadUInt32(s, offset);
-  length_ = BufferUtils::ReadUInt32(s, offset);
+PackageEntry::PackageEntry(StreamPtr s) {
+  hash_ = s->ReadUInt32();
+  offset_ = s->ReadUInt32();
+  length_ = s->ReadUInt32();
 }
 
 uint32_t PackageEntry::HashFilename(const std::string& name, PackageHashType type) {

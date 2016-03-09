@@ -143,7 +143,6 @@
     <ClCompile Include="src\cnc\sprite_loader.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\buffer_utils.cpp" />
     <ClCompile Include="src\cnc\cursor_sequence.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
@@ -185,7 +184,15 @@
     <ClCompile Include="src\cnc\field_load_info.cpp" />
     <ClCompile Include="src\cnc\type_dictionary.cpp" />
     <ClCompile Include="src\cnc\download.cpp" />
-    <ClCompile Include="src\cnc\stream_utils.cpp" />
+    <ClCompile Include="src\cnc\stream.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\file_stream.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\stream_utils.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -384,7 +391,6 @@
     <ClInclude Include="src\cnc\cursor_sequence.h">
       <Filter>graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\buffer_utils.h" />
     <ClInclude Include="src\cnc\software_cursor.h">
       <Filter>graphics</Filter>
     </ClInclude>
@@ -445,6 +451,15 @@
     <ClInclude Include="src\cnc\global_mod_data.h" />
     <ClInclude Include="src\cnc\download.h" />
     <ClInclude Include="src\cnc\action.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\stream.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\stream_ptr.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\file_stream.h">
       <Filter>primitives</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\stream_utils.h">
