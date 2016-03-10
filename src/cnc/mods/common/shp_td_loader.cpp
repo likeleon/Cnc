@@ -11,7 +11,7 @@ namespace mods {
 namespace common {
 
 static bool IsShpTD(StreamPtr s) {
-  auto start = s->position();
+  auto start = s->Position();
 
   auto image_count = s->ReadUInt16();
   if (image_count == 0) {
@@ -20,14 +20,14 @@ static bool IsShpTD(StreamPtr s) {
   }
 
   size_t final_offset = 14 + 8 * image_count;
-  if (final_offset > s->length()) {
+  if (final_offset > s->Length()) {
     s->SetPosition(start);
     return false;
   }
 
   s->SetPosition(final_offset);
   auto eof = s->ReadUInt32();
-  if (eof != s->length()) {
+  if (eof != s->Length()) {
     s->SetPosition(start);
     return false;
   }
@@ -140,8 +140,8 @@ void ShpTDSprite::LoadFrames(StreamPtr stream) {
     }
   }
 
-  shp_bytes_file_offset_ = stream->position();
-  shp_bytes_ = stream->ReadBytes(stream->length() - stream->position());
+  shp_bytes_file_offset_ = stream->Position();
+  shp_bytes_ = stream->ReadBytes(stream->Length() - stream->Position());
 
   for (auto& h : headers) {
     Decompress(h);

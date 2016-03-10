@@ -43,6 +43,7 @@
     <ClCompile Include="src\cnc\manifest.cpp" />
     <ClCompile Include="src\cnc\mapped_image.cpp" />
     <ClCompile Include="src\cnc\math_utils.cpp" />
+    <ClCompile Include="src\cnc\memory_stream.cpp" />
     <ClCompile Include="src\cnc\message.cpp" />
     <ClCompile Include="src\cnc\mini_yaml.cpp" />
     <ClCompile Include="src\cnc\mix_file.cpp" />
@@ -63,6 +64,7 @@
     <ClCompile Include="src\cnc\renderer.cpp" />
     <ClCompile Include="src\cnc\sdl2_graphics_device.cpp" />
     <ClCompile Include="src\cnc\sdl2_input.cpp" />
+    <ClCompile Include="src\cnc\segment_stream.cpp" />
     <ClCompile Include="src\cnc\settings.cpp" />
     <ClCompile Include="src\cnc\shader.cpp" />
     <ClCompile Include="src\cnc\sheet.cpp" />
@@ -78,7 +80,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\cnc\stop_watch.cpp" />
-    <ClCompile Include="src\cnc\stream.cpp" />
     <ClCompile Include="src\cnc\stream_utils.cpp" />
     <ClCompile Include="src\cnc\string_utils.cpp" />
     <ClCompile Include="src\cnc\texture.cpp" />
@@ -136,6 +137,8 @@
     <ClInclude Include="src\cnc\ipalette.h" />
     <ClInclude Include="src\cnc\ishader.h" />
     <ClInclude Include="src\cnc\itexture.h" />
+    <ClInclude Include="src\cnc\memory_stream.h" />
+    <ClInclude Include="src\cnc\segment_stream.h" />
     <ClInclude Include="src\cnc\stream.h" />
     <ClInclude Include="src\cnc\stream_ptr.h" />
     <ClInclude Include="src\cnc\stream_utils.h" />

@@ -51,7 +51,7 @@ private:
 
   int32_t size_;
   SheetBuilder& builder_;
-  StreamPtr font_stream_;
+  std::vector<char> font_buffer_;
   SDL_RWops_UniquePtr sdl_rw_;
   TTF_Font_UniquePtr ttf_font_;
   Cache<std::pair<char, Color>, GlyphInfo, PairHash> glyphs_;

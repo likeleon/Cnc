@@ -9,7 +9,7 @@ namespace mods {
 namespace common {
 
 static bool IsTmpRA(StreamPtr s) {
-  auto start = s->position();
+  auto start = s->Position();
 
   s->Seek(20, SeekOrigin::Current);
   auto a = s->ReadUInt32();
@@ -41,7 +41,7 @@ private:
 };
 
 static std::vector<ISpriteFramePtr> ParseFrames(StreamPtr s) {
-  auto start = s->position();
+  auto start = s->Position();
   auto width = s->ReadUInt16();
   auto height = s->ReadUInt16();
   Size size = { width, height };

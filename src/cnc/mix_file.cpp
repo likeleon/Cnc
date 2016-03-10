@@ -2,7 +2,9 @@
 #include "cnc/mix_file.h"
 #include "cnc/error.h"
 #include "cnc/container_utils.h"
-#include "cnc/stream.h"
+#include "cnc/segment_stream.h"
+#include "cnc/file_stream.h"
+#include "cnc/file.h"
 
 namespace cnc {
 
@@ -70,11 +72,12 @@ StreamPtr MixFile::GetContent(uint32_t hash) const {
   if (iter == index_.end()) {
     return{};
   }
+  const PackageEntry& e = iter->second;
 
-  //const auto& e = iter->second;
-  
-  // TODO: SegmentStreaam
-  return nullptr;
+  StreamPtr parent_stream;
+  auto offset = data_start_ + e.offset() + SegmentStream::GetOverallNestedOffset(s_, parent_stream);
+  auto path = std::static_pointer_cast<FileStream>(parent_stream)->path();
+  return std::make_shared<SegmentStream>(File::OpenRead(path), offset, e.length());
 }
 
 bool MixFile::Exists(const std::string& filename) const {

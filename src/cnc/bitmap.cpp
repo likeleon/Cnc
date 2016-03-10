@@ -10,7 +10,8 @@
 namespace cnc {
 
 static SDL_Surface_UniquePtr SurfaceFromStream(StreamPtr stream) {
-  auto* rw = SDL_RWFromMem(const_cast<char*>(&stream->buffer()[0]), static_cast<int32_t>(stream->length()));
+  auto buffer = stream->ReadBytes(stream->Length());
+  auto* rw = SDL_RWFromMem(const_cast<char*>(&buffer[0]), static_cast<int32_t>(buffer.size()));
   auto surface = IMG_Load_RW(rw, 0);
   SDL_RWclose(rw);
   if (surface == nullptr) {

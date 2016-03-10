@@ -10,7 +10,7 @@ namespace mods {
 namespace common {
 
 static bool IsShpTS(StreamPtr s) {
-  auto start = s->position();
+  auto start = s->Position();
   
   if (s->ReadUInt16() != 0) {
     s->SetPosition(start);
@@ -19,7 +19,7 @@ static bool IsShpTS(StreamPtr s) {
 
   s->Seek(4, SeekOrigin::Current);
   auto image_count = s->ReadUInt16();
-  if (s->position() + 24 * image_count > s->length()) {
+  if (s->Position() + 24 * image_count > s->Length()) {
     s->SetPosition(start);
     return false;
   }
@@ -67,7 +67,7 @@ public:
       return;
     }
 
-    auto start = s->position();
+    auto start = s->Position();
     s->SetPosition(file_offset_);
 
     data_.resize(data_width * data_height);
@@ -103,7 +103,7 @@ private:
 };
 
 static std::vector<ISpriteFramePtr> ParseFrames(StreamPtr s) {
-  auto start = s->position();
+  auto start = s->Position();
 
   s->ReadUInt16();
   auto width = s->ReadUInt16();

@@ -16,11 +16,18 @@ std::shared_ptr<FileStream> FileStream::CreateFrom(const std::string& path) {
 
   std::vector<char> bytes(size);
   ifs.read(&bytes[0], size);
-  return std::shared_ptr<FileStream>(new FileStream(std::move(bytes)));
+  
+  auto fs = std::shared_ptr<FileStream>(new FileStream(std::move(bytes)));
+  fs->path_ = path;
+  return fs;
 }
 
 FileStream::FileStream(std::vector<char>&& bytes)
-  : Stream(std::move(bytes)) {
+  : MemoryStream(std::move(bytes)) {
+}
+
+std::string FileStream::path() const {
+  return path_;
 }
 
 }
