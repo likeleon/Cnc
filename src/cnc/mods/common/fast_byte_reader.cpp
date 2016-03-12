@@ -13,12 +13,12 @@ bool FastByteReader::Done() {
   return static_cast<size_t>(offset_) >= src_.size();
 }
 
-char FastByteReader::ReadByte() {
+uint8_t FastByteReader::ReadByte() {
   return src_[offset_++];
 }
 
 int32_t FastByteReader::ReadWord() {
-  int32_t x = ReadByte();
+  auto x = ReadByte();
   return x | (ReadByte() << 8);
 }
 
