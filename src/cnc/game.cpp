@@ -20,6 +20,12 @@
 #include "cnc/file.h"
 #include "cnc/arguments.h"
 #include "cnc/download.h"
+#include "cnc/perf_timer.h"
+#include "cnc/world.h"
+#include "cnc/map_cache.h"
+#include "cnc/map_preview.h"
+#include "cnc/map.h"
+#include <random>
 
 namespace cnc {
 
@@ -103,6 +109,10 @@ void Game::InitializeMod(const std::string& m, const Arguments& args) {
 
   mod_data_ = std::make_unique<ModData>(mod, true);
 
+  PERF_TIMER("LoadMaps", {
+    mod_data_->map_cache().LoadMaps();
+  });
+
   auto& install_data = mod_data_->manifest().Get<ContentInstaller>();
   auto is_mod_content_installed = std::all_of(
     install_data.test_files.begin(), 
@@ -130,6 +140,32 @@ void Game::InitializeMod(const std::string& m, const Arguments& args) {
   PerfHistory::Items("render_flip").set_has_normal_tick(false);
 
   mod_data_->load_screen()->StartGame(args);
+}
+
+void Game::LoadShellMap() {
+  auto shellmap = ChooseShellmap();
+
+  PERF_TIMER("StartGame", {
+    StartGame(shellmap, WorldType::Shellmap);
+  });
+}
+
+std::string Game::ChooseShellmap() {
+  std::vector<std::string> shellmaps;
+  for (const auto& m : mod_data_->map_cache().Previews()) {
+    if (m->status() == MapStatus::Available && 
+        (m->map()->visibility() & MapVisibility::Shellmap) != 0) {
+      shellmaps.emplace_back(m->uid());
+    }
+  }
+
+  std::default_random_engine gen(static_cast<uint32_t>(time(0)));
+  std::uniform_int_distribution<> dis(0, shellmaps.size() - 1);
+  return shellmaps[dis(gen)];
+}
+
+void Game::StartGame(const std::string& /*map_uid*/, WorldType /*type*/) {
+  // TODO
 }
 
 RunStatus Game::Run() {

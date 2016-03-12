@@ -6,7 +6,7 @@
 namespace cnc {
 
 bool File::Exists(const std::string& path) {
-  return std::tr2::sys::exists(path);
+  return std::tr2::sys::exists(path) && std::tr2::sys::is_regular_file(path);
 }
 
 StreamPtr File::OpenRead(const std::string& path) {

@@ -24,6 +24,8 @@ class CNC_API FileSystem {
 public:
   static HMODULE ResolveLibrary(const std::string& filename);
   
+  IFolderPtr OpenPackage(const std::string& filename, const std::string& annotation, int32_t order);
+  
   void Mount(const std::string& name, const std::string& annotation = "");
   void UnmountAll();
   void LoadFromManifest(const Manifest& manifest);
@@ -44,7 +46,6 @@ private:
   };
   using LibraryPtr = std::unique_ptr<HMODULE, LibraryDeleter>;
 
-  IFolderPtr OpenPackage(const std::string& filename, const std::string& annotation, int32_t order);
   void MountInner(IFolderPtr folder);
   bool GetFromCache(PackageHashType type, const std::string& filename, StreamPtr& s);
 

@@ -10,6 +10,7 @@
 #include "cnc/sprite_loader.h"
 #include "cnc/iload_screen.h"
 #include "cnc/content_installer.h"
+#include "cnc/map_cache.h"
 
 namespace cnc {
 
@@ -44,6 +45,7 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
   }
 
   widget_loader_ = std::make_unique<WidgetLoader>(*this);
+  map_cache_ = std::make_unique<MapCache>(*this);
   sprite_loaders_ = GetLoaders<ISpriteLoader>(object_creator_, manifest_.sprite_formats(), "sprite");
 }
 
@@ -95,6 +97,10 @@ ILoadScreen* ModData::load_screen() {
 
 WidgetLoader& ModData::widget_loader() {
   return *widget_loader_;
+}
+
+MapCache& ModData::map_cache() {
+  return *map_cache_;
 }
 
 CursorProvider* ModData::cursor_provider() {

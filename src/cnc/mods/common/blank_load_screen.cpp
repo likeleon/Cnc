@@ -27,7 +27,7 @@ void BlankLoadScreen::StartGame(const Arguments& /*args*/) {
   Ui::ResetAll();
   // TODO: Game::settings().Save();
 
-  // TODO: Game::LoadShellMap();
+  Game::LoadShellMap();
   // TODO: Game::settings().Save();
 }
 

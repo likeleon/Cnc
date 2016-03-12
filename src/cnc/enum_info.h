@@ -11,7 +11,7 @@ template <typename ETraits>
 const std::string& EnumToName(typename ETraits::E value);
 
 template <typename ETraits>
-typename ETraits::E NameToEnum(const std::string& name);
+typename ETraits::E NameToEnum(const std::string& name, bool ignore_case = false);
 
 template <typename ETraits>
 typename ETraits::E NameToEnumOrDefault(const std::string& name, typename ETraits::E default_value);

@@ -3,6 +3,10 @@
 
 namespace cnc {
 
+bool Directory::Exists(const std::string& path) {
+  return std::tr2::sys::exists(path) && std::tr2::sys::is_directory(path);
+}
+
 bool Directory::CreateDir(const std::string& path) {
   return std::tr2::sys::create_directories(path);
 }

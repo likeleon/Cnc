@@ -3,6 +3,7 @@
 #include "cnc/error.h"
 #include "cnc/string_utils.h"
 #include "cnc/container_utils.h"
+#include "cnc/stream.h"
 
 namespace cnc {
 
@@ -25,13 +26,13 @@ MiniYamlMap MiniYaml::MapFromFile(const std::string& path) {
   return map;
 }
 
-static std::list<std::string> ReadAllLines(const std::string& path) {
+static std::vector<std::string> ReadAllLines(const std::string& path) {
   std::ifstream file(path);
   if (!file) {
     throw Error(MSG("Cannot open file: " + path));
   }
 
-  std::list<std::string> lines;
+  std::vector<std::string> lines;
   std::string line;
   while (std::getline(file, line)) {
     lines.emplace_back(line);
@@ -52,7 +53,7 @@ static std::pair<std::string, std::string> SplitAtColon(const std::string& t) {
   return std::make_pair(key, value);
 }
 
-static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std::string& filename) {
+static MiniYamlNodesPtr FromLines(const std::vector<std::string>& lines, const std::string& filename) {
   std::vector<MiniYamlNodesPtr> levels;
   levels.push_back(std::make_shared<MiniYamlNodes>());
 
@@ -123,6 +124,15 @@ static MiniYamlNodesPtr FromLines(const std::list<std::string>& lines, const std
 
 MiniYamlNodesPtr MiniYaml::FromFile(const std::string& path) {
   return FromLines(ReadAllLines(path), path);
+}
+
+MiniYamlNodesPtr MiniYaml::FromStream(StreamPtr s, const std::string& file_name) {
+  auto bytes = s->ReadBytes(s->Length());
+  return FromString(std::string(bytes.begin(), bytes.end()), file_name);
+}
+
+MiniYamlNodesPtr MiniYaml::FromString(const std::string& text, const std::string& file_name) {
+  return FromLines(StringUtils::Split(text, '\n', StringSplitOptions::RemoveEmptyEntries), file_name);
 }
 
 std::vector<MiniYamlNodes> MiniYaml::FromFiles(const std::vector<std::string>& paths) {

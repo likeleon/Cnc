@@ -15,6 +15,8 @@ std::map<std::string, SheetPtr> ChromeProvider::cached_sheets_;
 std::map<std::string, std::map<std::string, Sprite>> ChromeProvider::cached_sprites_;
 
 void ChromeProvider::Initialize(const std::vector<std::string>& chrome_files) {
+  Deinitialize();
+
   auto yy = MiniYaml::FromFiles(chrome_files);
   auto accumulator = [](const auto& a, const auto& b) { return MiniYaml::MergePartial(a, b); };
   auto partial = std::accumulate(yy.begin(), yy.end(), MiniYamlNodes(), accumulator);

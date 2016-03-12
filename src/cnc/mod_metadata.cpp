@@ -29,7 +29,7 @@ static std::map<std::string, std::string> GetCandidateMods() {
   }
 
   auto support_path = Platform::ResolvePath(Path::Combine({ "^", "mods" }));
-  if (!File::Exists(support_path)) {
+  if (!Directory::Exists(support_path)) {
     return mods;
   }
   for (const auto& d : Directory::GetDirectories(support_path)) {

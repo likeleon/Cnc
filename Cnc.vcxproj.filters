@@ -192,6 +192,15 @@
     </ClCompile>
     <ClCompile Include="src\cnc\memory_stream.cpp" />
     <ClCompile Include="src\cnc\segment_stream.cpp" />
+    <ClCompile Include="src\cnc\map_cache.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\map_preview.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\map.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -470,6 +479,19 @@
     <ClInclude Include="src\cnc\memory_stream.h">
       <Filter>primitives</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\world.h" />
+    <ClInclude Include="src\cnc\map_cache.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\map_preview.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\map.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\map_ptr.h">
+      <Filter>map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -495,6 +517,9 @@
     </Filter>
     <Filter Include="widgets">
       <UniqueIdentifier>{fc419075-6da8-43bd-9298-8ecd130cc40c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="map">
+      <UniqueIdentifier>{c6be756d-4bb9-4663-804e-f14781e6232b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

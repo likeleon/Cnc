@@ -3,6 +3,7 @@
 #include <functional>
 #include <string>
 #include "cnc/message.h"
+#include "cnc/stream_ptr.h"
 
 namespace cnc {
 
@@ -20,6 +21,8 @@ public:
 
   static MiniYamlMap MapFromFile(const std::string& path);
   static MiniYamlNodesPtr FromFile(const std::string& path);
+  static MiniYamlNodesPtr FromStream(StreamPtr s, const std::string& file_name = "<no filename available>");
+  static MiniYamlNodesPtr FromString(const std::string& text, const std::string& file_name = "<no filename available>");
   static std::vector<MiniYamlNodes> FromFiles(const std::vector<std::string>& paths);
 
   static MiniYamlNodes MergePartial(const MiniYamlNodes& a, const MiniYamlNodes& b);

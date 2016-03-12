@@ -10,6 +10,7 @@ namespace cnc {
 class WidgetLoader;
 class CursorProvider;
 class ILoadScreen;
+class MapCache;
 
 class CNC_API ModData {
 public:
@@ -25,6 +26,7 @@ public:
   const std::vector<SpriteLoaderPtr>& sprite_loaders();
   ILoadScreen* load_screen();
   WidgetLoader& widget_loader();
+  MapCache& map_cache();
   CursorProvider* cursor_provider();
   FileSystem& mod_files();
 
@@ -36,6 +38,7 @@ private:
   std::vector<SpriteLoaderPtr> sprite_loaders_;
   std::shared_ptr<ILoadScreen> load_screen_;
   std::unique_ptr<WidgetLoader> widget_loader_;
+  std::unique_ptr<MapCache> map_cache_;
   std::unique_ptr<CursorProvider> cursor_provider_;
   FileSystem mod_files_;
 };

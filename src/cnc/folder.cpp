@@ -9,7 +9,7 @@ namespace cnc {
 
 Folder::Folder(const std::string& path, int32_t priority)
   : path_(path), priority_(priority) {
-  if (!File::Exists(path_)) {
+  if (!Directory::Exists(path_)) {
     Directory::CreateDir(path_);
   }
 }

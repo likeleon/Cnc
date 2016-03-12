@@ -41,7 +41,10 @@
     <ClCompile Include="src\cnc\input_handler.cpp" />
     <ClCompile Include="src\cnc\log.cpp" />
     <ClCompile Include="src\cnc\manifest.cpp" />
+    <ClCompile Include="src\cnc\map.cpp" />
     <ClCompile Include="src\cnc\mapped_image.cpp" />
+    <ClCompile Include="src\cnc\map_cache.cpp" />
+    <ClCompile Include="src\cnc\map_preview.cpp" />
     <ClCompile Include="src\cnc\math_utils.cpp" />
     <ClCompile Include="src\cnc\memory_stream.cpp" />
     <ClCompile Include="src\cnc\message.cpp" />
@@ -137,6 +140,10 @@
     <ClInclude Include="src\cnc\ipalette.h" />
     <ClInclude Include="src\cnc\ishader.h" />
     <ClInclude Include="src\cnc\itexture.h" />
+    <ClInclude Include="src\cnc\map.h" />
+    <ClInclude Include="src\cnc\map_cache.h" />
+    <ClInclude Include="src\cnc\map_preview.h" />
+    <ClInclude Include="src\cnc\map_ptr.h" />
     <ClInclude Include="src\cnc\memory_stream.h" />
     <ClInclude Include="src\cnc\segment_stream.h" />
     <ClInclude Include="src\cnc\stream.h" />
@@ -199,6 +206,7 @@
     <ClInclude Include="src\cnc\widget_loader.h" />
     <ClInclude Include="src\cnc\widget_ptr.h" />
     <ClInclude Include="src\cnc\widget_utils.h" />
+    <ClInclude Include="src\cnc\world.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="src\third_party\glew-1.13.0\build\vc12\glew_static.vcxproj">

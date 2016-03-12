@@ -11,6 +11,7 @@ class ModData;
 class Settings;
 class Renderer;
 class ActionQueue;
+enum class WorldType;
 
 enum class RunStatus {
   Error = -1,
@@ -30,6 +31,8 @@ public:
   
   static void InitializeMod(const std::string& mod, const Arguments& args);
 
+  static void LoadShellMap();
+
   static ModData* mod_data();
   static Settings& settings();
   static int64_t RunTime();
@@ -45,12 +48,15 @@ public:
   Game& operator=(const Game&) = delete;
 
 private:
+  static const int64_t Timestep = 40;
+  
   static void InitializeSettings(const Arguments& args);
   static void Loop();
   static void LogicTick();
   static void RenderTick();
-
-  static const int64_t Timestep = 40;
+  
+  static std::string ChooseShellmap();
+  static void StartGame(const std::string& map_uid, WorldType type);
 
   static std::unique_ptr<ModData> mod_data_;
   static std::unique_ptr<Settings> settings_;

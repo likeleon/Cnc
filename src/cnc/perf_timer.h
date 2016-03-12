@@ -10,7 +10,7 @@
 
 namespace cnc {
 
-class PerfTimer {
+class CNC_API PerfTimer {
 public:
   PerfTimer(const std::string& name, float threshold_ms = 0);
   ~PerfTimer();

@@ -1,8 +1,29 @@
 #pragma once
 
 #include "cnc/string_utils.h"
+#include "cnc/error.h"
 
 namespace cnc {
+
+template <typename TSource, typename TKey, typename TElement>
+std::map<TKey, TElement> ToMap(
+  const std::vector<TSource>& source,
+  const std::function<TKey(const TSource&)>& key_selector,
+  const std::function<TElement(const TSource&)>& element_selector) {
+  std::map<TKey, TElement> map;
+  for (const auto& item : source) {
+    auto key = key_selector(item);
+    auto element = element_selector(item);
+
+    if (map.find(key) != map.end()) {
+      throw Error(MSG("key_selector produces duplicated keys: " + key));
+    }
+
+    map.emplace(key, element);
+  }
+
+  return map;
+}
 
 template <typename TSource, typename TKey, typename TElement>
 std::map<TKey, TElement> ToMapWithConflictLog(

@@ -12,7 +12,7 @@ const std::string& EnumToName(typename ETraits::E value) {
 }
 
 template <typename ETraits>
-typename ETraits::E NameToEnum(const std::string& name, bool ignore_case = false) {
+typename ETraits::E NameToEnum(const std::string& name, bool ignore_case) {
   for (const auto& kvp : ETraits::names) {
     if (StringUtils::Equals(kvp.second, name, ignore_case)) {
       return kvp.first;

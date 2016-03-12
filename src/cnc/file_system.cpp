@@ -100,7 +100,7 @@ void FileSystem::LoadFromManifest(const Manifest& manifest) {
 }
 
 bool FileSystem::Exists(const std::string& name) {
-  auto explicit_folder = StringUtils::Contains(name, ":") && !File::Exists(Path::GetDirectoryName(name));
+  auto explicit_folder = StringUtils::Contains(name, ":") && !Directory::Exists(Path::GetDirectoryName(name));
   if (explicit_folder) {
     auto divide = StringUtils::Split(name, ':');
     auto foldername = divide.front();
@@ -132,7 +132,7 @@ bool FileSystem::TryOpen(const std::string& name, StreamPtr& s) {
   std::string filename = name;
   std::string foldername = "";
 
-  bool explicit_folder = StringUtils::Contains(name, ":") && !File::Exists(Path::GetDirectoryName(name));
+  bool explicit_folder = StringUtils::Contains(name, ":") && !Directory::Exists(Path::GetDirectoryName(name));
   if (explicit_folder) {
     auto divide = StringUtils::Split(name, ':');
     foldername = divide.front();
