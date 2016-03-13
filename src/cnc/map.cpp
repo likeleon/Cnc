@@ -3,6 +3,7 @@
 #include "cnc/game.h"
 #include "cnc/mod_data.h"
 #include "cnc/field_loader.h"
+#include "cnc/stream_ptr.h"
 #include <climits>
 
 namespace cnc {

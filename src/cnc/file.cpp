@@ -13,8 +13,8 @@ StreamPtr File::OpenRead(const std::string& path) {
   return FileStream::CreateFrom(path);
 }
 
-std::string File::ReadAllText(const std::string& path) {
-  std::ifstream ifs(path, std::ios::in | std::ios::ate);
+std::vector<char> File::ReadAllBytes(const std::string& path) {
+  std::ifstream ifs(path, std::ios::in | std::ios::ate | std::ios::binary);
   if (!ifs.is_open()) {
     throw Error(MSG("File not found: " + path));
   }
@@ -22,10 +22,14 @@ std::string File::ReadAllText(const std::string& path) {
   size_t size = static_cast<size_t>(ifs.tellg());
   ifs.seekg(0, std::ios::beg);
 
-  std::string str;
-  str.resize(size);
-  ifs.read(&str[0], size);
-  return str;
+  std::vector<char> result(size);
+  ifs.read(&result[0], size);
+  return result;
+}
+
+std::string File::ReadAllText(const std::string& path) {
+  auto bytes = ReadAllBytes(path);
+  return{ &bytes[0], bytes.size() };
 }
 
 }

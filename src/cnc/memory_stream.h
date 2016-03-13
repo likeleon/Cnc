@@ -6,6 +6,8 @@ namespace cnc {
 
 class MemoryStream : public Stream {
 public:
+  MemoryStream(std::vector<char>&& buffer);
+  
   size_t Length() const override;
   size_t Position() const override;
   void SetPosition(size_t position) override;
@@ -20,9 +22,6 @@ public:
   
   SegmentStream* AsSegmentStream() { return nullptr; }
   std::vector<char>& buffer();
-
-protected:
-  MemoryStream(std::vector<char>&& buffer);
 
 private:
   template <typename T>

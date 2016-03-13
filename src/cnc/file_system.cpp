@@ -12,6 +12,7 @@
 #include "cnc/mod_data.h"
 #include "cnc/directory.h"
 #include "cnc/mix_file.h"
+#include "cnc/zip_file.h"
 #include "cnc/field_loader.h"
 
 namespace cnc {
@@ -60,6 +61,10 @@ IFolderPtr FileSystem::OpenPackage(const std::string& filename, const std::strin
   if (StringUtils::EndsWith(filename, ".mix")) {
     auto type = annotation.empty() ? PackageHashType::Classic : FieldLoader::GetEnumValue<PackageHashTypeTraits>(annotation);
     return std::make_unique<MixFile>(*this, filename, type, order);
+  } else if (StringUtils::EndsWith(filename, ".zip")) {
+    return std::make_unique<ZipFile>(*this, filename, order);
+  } else if (StringUtils::EndsWith(filename, ".oramap")) {
+    return std::make_unique<ZipFile>(*this, filename, order);
   }
   return std::make_unique<Folder>(filename, order);
 }

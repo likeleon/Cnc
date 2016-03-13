@@ -14,6 +14,7 @@
     <ClCompile Include="src\cnc\action_queue.cpp" />
     <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\bitmap.cpp" />
+    <ClCompile Include="src\cnc\byte_stream_buffer.cpp" />
     <ClCompile Include="src\cnc\chrome_metrics.cpp" />
     <ClCompile Include="src\cnc\chrome_provider.cpp" />
     <ClCompile Include="src\cnc\color.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="src\cnc\widget_args.cpp" />
     <ClCompile Include="src\cnc\widget_loader.cpp" />
     <ClCompile Include="src\cnc\widget_utils.cpp" />
+    <ClCompile Include="src\cnc\zip_file.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\action.h" />
@@ -102,6 +104,7 @@
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\bitmap.h" />
     <ClInclude Include="src\cnc\blend_mode.h" />
+    <ClInclude Include="src\cnc\byte_stream_buffer.h" />
     <ClInclude Include="src\cnc\cache.h" />
     <ClInclude Include="src\cnc\chrome_logic.h" />
     <ClInclude Include="src\cnc\chrome_metrics.h" />
@@ -133,6 +136,7 @@
     <ClInclude Include="src\cnc\ibatch_renderer.h" />
     <ClInclude Include="src\cnc\icursor.h" />
     <ClInclude Include="src\cnc\global_mod_data.h" />
+    <ClInclude Include="src\cnc\ifolder.h" />
     <ClInclude Include="src\cnc\igraphics_device.h" />
     <ClInclude Include="src\cnc\iinput_handler.h" />
     <ClInclude Include="src\cnc\iload_screen.h" />
@@ -207,6 +211,7 @@
     <ClInclude Include="src\cnc\widget_ptr.h" />
     <ClInclude Include="src\cnc\widget_utils.h" />
     <ClInclude Include="src\cnc\world.h" />
+    <ClInclude Include="src\cnc\zip_file.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="src\third_party\glew-1.13.0\build\vc12\glew_static.vcxproj">
@@ -220,6 +225,9 @@
     </ProjectReference>
     <ProjectReference Include="src\third_party\SDL2_ttf-2.0.13\VisualC\SDL_ttf_VS2015.vcxproj">
       <Project>{dddbd07d-dc76-4af6-8d02-3e2deb6ee255}</Project>
+    </ProjectReference>
+    <ProjectReference Include="src\third_party\ziplib\Source\ZipLib\ZipLib.vcxproj">
+      <Project>{5c9fd859-ddf9-4510-8397-b329b0ae8c48}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -275,7 +283,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;CNC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_image-2.0.0;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src\third_party\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\third_party\ziplib\Source\ZipLib;$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_image-2.0.0;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src\third_party\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>cnc/stdafx.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4592</DisableSpecificWarnings>
@@ -299,7 +307,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;CNC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_image-2.0.0;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src\third_party\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\third_party\ziplib\Source\ZipLib;$(ProjectDir)src;$(ProjectDir)src\third_party\SDL2-2.0.3\include;$(ProjectDir)src\third_party\SDL2_image-2.0.0;$(ProjectDir)src\third_party\SDL2_ttf-2.0.13;$(ProjectDir)src\third_party\glew-1.13.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PrecompiledHeaderFile>cnc/stdafx.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4592</DisableSpecificWarnings>

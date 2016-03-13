@@ -128,7 +128,7 @@ MiniYamlNodesPtr MiniYaml::FromFile(const std::string& path) {
 
 MiniYamlNodesPtr MiniYaml::FromStream(StreamPtr s, const std::string& file_name) {
   auto bytes = s->ReadBytes(s->Length());
-  return FromString(std::string(bytes.begin(), bytes.end()), file_name);
+  return FromString(std::string(bytes.data(), bytes.size()), file_name);
 }
 
 MiniYamlNodesPtr MiniYaml::FromString(const std::string& text, const std::string& file_name) {

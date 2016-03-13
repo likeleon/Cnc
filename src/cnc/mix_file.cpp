@@ -4,6 +4,7 @@
 #include "cnc/container_utils.h"
 #include "cnc/segment_stream.h"
 #include "cnc/file_stream.h"
+#include "cnc/file_system.h"
 #include "cnc/file.h"
 
 namespace cnc {

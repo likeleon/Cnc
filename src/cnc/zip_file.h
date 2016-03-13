@@ -1,15 +1,17 @@
 #pragma once
 
+#include <ZipArchive.h>
 #include "cnc/ifolder.h"
-#include "cnc/package_entry.h"
 
 namespace cnc {
 
 class FileSystem;
+class ByteStreamBuffer;
 
-class MixFile : public IFolder {
+class ZipFile : public IFolder {
 public:
-  MixFile(FileSystem& context, const std::string& filename, PackageHashType type, int32_t priority);
+  ZipFile(FileSystem& context, const std::string& filename, int32_t priority);
+  ~ZipFile();
 
   StreamPtr GetContent(const std::string& filename) const override;
   bool Exists(const std::string& filename) const override;
@@ -19,16 +21,12 @@ public:
   const std::string& name() const override;
 
 private:
-  optional<uint32_t> FindMatchingHash(const std::string& filename) const;
-  StreamPtr GetContent(uint32_t hash) const;
-  
-  std::map<uint32_t, PackageEntry> index_;
-  size_t data_start_ = 0U;
   FileSystem& context_;
   std::string filename_;
-  PackageHashType type_;
   int32_t priority_;
-  StreamPtr s_;
+  std::unique_ptr<ByteStreamBuffer> stream_buf_;
+  ZipArchive::Ptr archive_;
+
 };
 
 }

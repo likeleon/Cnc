@@ -201,6 +201,12 @@
     <ClCompile Include="src\cnc\map.cpp">
       <Filter>map</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\zip_file.cpp">
+      <Filter>file_system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\byte_stream_buffer.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -491,6 +497,15 @@
     </ClInclude>
     <ClInclude Include="src\cnc\map_ptr.h">
       <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\zip_file.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\ifolder.h">
+      <Filter>file_system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\byte_stream_buffer.h">
+      <Filter>primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

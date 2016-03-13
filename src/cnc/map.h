@@ -1,7 +1,8 @@
 #pragma once
 
-#include "cnc/file_system.h"
 #include "cnc/field_load_info.h"
+#include "cnc/ifolder.h"
+#include "cnc/enum_info.h"
 
 namespace cnc {
 
