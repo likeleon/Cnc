@@ -47,10 +47,14 @@ std::string StringUtils::Trim(const std::string& s, const char* trim_chars) {
   return TrimStart(TrimEnd(s, trim_chars), trim_chars);
 }
 
+static int32_t IsSpace(char c) {
+  return std::isspace(static_cast<unsigned char>(c));
+}
+
 std::string StringUtils::TrimStart(const std::string& s, const char* trim_chars) {
   std::string str(s);
   if (trim_chars == nullptr) {
-    auto end_iter = std::find_if(str.begin(), str.end(), std::not1(std::ptr_fun<int32_t, int32_t>(std::isspace)));
+    auto end_iter = std::find_if(str.begin(), str.end(), std::not1(std::ptr_fun(IsSpace)));
     str.erase(str.begin(), end_iter);
   } else {
     auto start_trail_index = str.find_first_not_of(trim_chars);
@@ -64,7 +68,7 @@ std::string StringUtils::TrimStart(const std::string& s, const char* trim_chars)
 std::string StringUtils::TrimEnd(const std::string& s, const char* trim_chars) {
   std::string str(s);
   if (trim_chars == nullptr) {
-    auto end_riter = std::find_if(str.rbegin(), str.rend(), std::not1(std::ptr_fun<int32_t, int32_t>(std::isspace)));
+    auto end_riter = std::find_if(str.rbegin(), str.rend(), std::not1(std::ptr_fun(IsSpace)));
     str.erase(end_riter.base(), str.end());
   } else {
     auto end_trail_index = str.find_last_not_of(trim_chars);

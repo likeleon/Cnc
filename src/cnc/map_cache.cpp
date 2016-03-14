@@ -63,10 +63,9 @@ void MapCache::LoadMaps() {
 
   for (const auto& path : map_paths) {
     try {
-      PERF_TIMER(path.first, {
-        auto map = std::make_shared<Map>(path.first);
-        previews_[map->uid()]->UpdateFromMap(map, path.second);
-      });
+      PerfTimer perf_timer(path.first);
+      auto map = std::make_shared<Map>(path.first);
+      previews_[map->uid()]->UpdateFromMap(map, path.second);
     } catch (const std::exception& e) {
       std::cout << "Failed to load map: " << path.first << std::endl;
       std::cout << "Details: " << e.what() << std::endl;
