@@ -4,6 +4,9 @@
 #include "cnc/mod_data.h"
 #include "cnc/field_loader.h"
 #include "cnc/stream_ptr.h"
+#include "cnc/mini_yaml.h"
+#include "cnc/memory_stream.h"
+#include "cnc/sha1.h"
 #include <climits>
 
 namespace cnc {
@@ -17,6 +20,7 @@ const EnumNamesType<MapVisibilityTraits> MapVisibilityTraits::names = {
 };
 
 const std::vector<FieldLoadInfo> Map::LoadInfo = {
+  { "MapFormat", TypeFieldInfo(&Map::map_format_) },
   { "Title", TypeFieldInfo(&Map::title_) },
   { "Type", TypeFieldInfo(&Map::type_) },
   { "Description", TypeFieldInfo(&Map::description_) },
@@ -33,6 +37,16 @@ Map::Map(const std::string& path)
 
   MiniYaml yaml("", MiniYaml::FromStream(container_->GetContent("map.yaml"), path));
   FieldLoader::Load(*this, yaml);
+
+  if (map_format_ < MinimumSupportedMapFormat) {
+    std::ostringstream oss;
+    oss << "Map format " << map_format_ << " is not supported.\n File:" << path;
+    throw Error(MSG(oss.str()));
+  }
+
+  //auto nd = yaml.ToMap();
+
+  uid_ = ComputeHash();
 }
 
 void Map::AssertExists(const std::string& filename) {
@@ -40,6 +54,19 @@ void Map::AssertExists(const std::string& filename) {
   if (s == nullptr) {
     throw Error(MSG("Required file " + filename + " not present in this map"));
   }
+}
+
+std::string Map::ComputeHash() const {
+  auto s1 = container_->GetContent("map.yaml");
+  auto buffer = s1->ReadBytes(s1->Length());
+  
+  auto s2 = container_->GetContent("map.bin");
+  buffer.resize(buffer.size() + s2->Length());
+  s2->ReadBytes(buffer, s1->Length(), s2->Length());
+
+  SHA1 sha1;
+  sha1.Update(std::string(buffer.data(), buffer.size()));
+  return sha1.Final();
 }
 
 }

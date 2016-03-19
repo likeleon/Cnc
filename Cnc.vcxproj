@@ -96,6 +96,7 @@
     <ClCompile Include="src\cnc\widget_loader.cpp" />
     <ClCompile Include="src\cnc\widget_utils.cpp" />
     <ClCompile Include="src\cnc\zip_file.cpp" />
+    <ClCompile Include="src\cnc\sha1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\action.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="src\cnc\map_ptr.h" />
     <ClInclude Include="src\cnc\memory_stream.h" />
     <ClInclude Include="src\cnc\segment_stream.h" />
+    <ClInclude Include="src\cnc\sha1.h" />
     <ClInclude Include="src\cnc\stream.h" />
     <ClInclude Include="src\cnc\stream_ptr.h" />
     <ClInclude Include="src\cnc\stream_utils.h" />

@@ -207,6 +207,9 @@
     <ClCompile Include="src\cnc\byte_stream_buffer.cpp">
       <Filter>primitives</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\sha1.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -505,6 +508,9 @@
       <Filter>file_system</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\byte_stream_buffer.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\sha1.h">
       <Filter>primitives</Filter>
     </ClInclude>
   </ItemGroup>

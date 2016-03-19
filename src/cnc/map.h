@@ -35,11 +35,15 @@ public:
 
 private:
   void AssertExists(const std::string& filename);
+  std::string ComputeHash() const;
+
+  static const int MinimumSupportedMapFormat = 6;
 
   IFolderPtr container_;
   std::string path_;
   
   std::string uid_;
+  int32_t map_format_;
   MapVisibility visibility_ = MapVisibility::Lobby;
   std::string title_;
   std::string type_ = "Conquest";
