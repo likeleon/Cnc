@@ -21,6 +21,7 @@ const EnumNamesType<MapVisibilityTraits> MapVisibilityTraits::names = {
 
 const std::vector<FieldLoadInfo> Map::LoadInfo = {
   { "MapFormat", TypeFieldInfo(&Map::map_format_) },
+  { "Visibility", EnumFieldInfo<MapVisibilityTraits>(&Map::visibility_) },
   { "Title", TypeFieldInfo(&Map::title_) },
   { "Type", TypeFieldInfo(&Map::type_) },
   { "Description", TypeFieldInfo(&Map::description_) },

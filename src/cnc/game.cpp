@@ -158,6 +158,10 @@ std::string Game::ChooseShellmap() {
     }
   }
 
+  if (shellmaps.empty()) {
+    throw Error(MSG("No valid shellmaps available"));
+  }
+
   std::default_random_engine gen(static_cast<uint32_t>(time(0)));
   std::uniform_int_distribution<> dis(0, shellmaps.size() - 1);
   return shellmaps[dis(gen)];

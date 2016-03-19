@@ -11,6 +11,7 @@
 #include "cnc/perf_timer.h"
 #include "cnc/log.h"
 #include "cnc/map.h"
+#include "cnc/path.h"
 
 namespace cnc {
 
@@ -39,6 +40,7 @@ static std::vector<std::string> FindMapsIn(std::string dir) {
   std::vector<std::string> dirs_with_maps;
   for (const auto& d : Directory::GetDirectories(dir)) {
     auto files = Directory::GetFiles(d);
+    std::transform(files.begin(), files.end(), files.begin(), [](const auto& f) { return Path::GetFileName(f); });
     if (std::find(files.begin(), files.end(), "map.yaml") != files.end() &&
         std::find(files.begin(), files.end(), "map.bin") != files.end()) {
       dirs_with_maps.emplace_back(d);
