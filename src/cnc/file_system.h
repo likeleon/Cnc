@@ -14,6 +14,7 @@ public:
   
   IFolderPtr OpenPackage(const std::string& filename, const std::string& annotation, int32_t order);
   
+  void Mount(IFolderPtr mount);
   void Mount(const std::string& name, const std::string& annotation = "");
   void UnmountAll();
   void LoadFromManifest(const Manifest& manifest);

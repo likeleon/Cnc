@@ -11,6 +11,8 @@
 #include "cnc/iload_screen.h"
 #include "cnc/content_installer.h"
 #include "cnc/map_cache.h"
+#include "cnc/map_preview.h"
+#include "cnc/map.h"
 
 namespace cnc {
 
@@ -72,7 +74,26 @@ void ModData::InitializeLoaders() {
   ChromeMetrics::Initialize(manifest_.chrome_metrics());
   ChromeProvider::Initialize(manifest_.chrome());
 
-  cursor_provider_ = std::make_unique<CursorProvider>(*this);
+  cursor_provider_ = std::make_shared<CursorProvider>(*this);
+}
+
+MapUniquePtr ModData::PrepareMap(const std::string& uid) {
+  if (load_screen_ != nullptr) {
+    load_screen_->Display();
+  }
+
+  if (map_cache_->GetPreview(uid).status() != MapStatus::Available) {
+    throw Error(MSG("Invalid map uid: " + uid));
+  }
+
+  auto map = std::make_unique<Map>(map_cache_->GetPreview(uid).map().path());
+
+  InitializeLoaders();
+  mod_files_.LoadFromManifest(manifest_);
+
+  mod_files_.Mount(mod_files_.OpenPackage(map->path(), "", std::numeric_limits<int32_t>::max()));
+
+  return map;
 }
 
 Manifest& ModData::manifest() {
@@ -103,8 +124,8 @@ MapCache& ModData::map_cache() {
   return *map_cache_;
 }
 
-CursorProvider* ModData::cursor_provider() {
-  return cursor_provider_.get();
+std::shared_ptr<CursorProvider> ModData::cursor_provider() {
+  return cursor_provider_;
 }
 
 FileSystem& ModData::mod_files() {

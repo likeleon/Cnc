@@ -3,6 +3,6 @@
 namespace cnc {
 
 class Map;
-using MapPtr = std::shared_ptr<Map>;
+using MapUniquePtr = std::unique_ptr<Map>;
 
 }

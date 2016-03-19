@@ -131,7 +131,7 @@ void Game::InitializeMod(const std::string& m, const Arguments& args) {
   cursor_ = nullptr;
 
   // TODO: hardware cursor
-  cursor_ = std::make_unique<SoftwareCursor>(*mod_data_->cursor_provider());
+  cursor_ = std::make_unique<SoftwareCursor>(mod_data_->cursor_provider());
 
   PerfHistory::Items("render").set_has_normal_tick(false);
   PerfHistory::Items("batches").set_has_normal_tick(false);
@@ -153,7 +153,7 @@ std::string Game::ChooseShellmap() {
   std::vector<std::string> shellmaps;
   for (const auto& m : mod_data_->map_cache().Previews()) {
     if (m->status() == MapStatus::Available && 
-        (m->map()->visibility() & MapVisibility::Shellmap) != 0) {
+        (m->map().visibility() & MapVisibility::Shellmap) != 0) {
       shellmaps.emplace_back(m->uid());
     }
   }
@@ -167,8 +167,13 @@ std::string Game::ChooseShellmap() {
   return shellmaps[dis(gen)];
 }
 
-void Game::StartGame(const std::string& /*map_uid*/, WorldType /*type*/) {
-  // TODO
+void Game::StartGame(const std::string& map_uid, WorldType /*type*/) {
+  cursor_->SetCursor("");
+
+  {
+    PerfTimer p("PrepareMap");
+    mod_data_->PrepareMap(map_uid);
+  }
 }
 
 RunStatus Game::Run() {

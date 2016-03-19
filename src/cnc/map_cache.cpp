@@ -66,8 +66,9 @@ void MapCache::LoadMaps() {
   for (const auto& path : map_paths) {
     try {
       PerfTimer perf_timer(path.first);
-      auto map = std::make_shared<Map>(path.first);
-      previews_[map->uid()]->UpdateFromMap(map, path.second);
+      auto map = std::make_unique<Map>(path.first);
+      auto map_uid = map->uid();
+      previews_[map_uid]->UpdateFromMap(std::move(map), path.second);
     } catch (const std::exception& e) {
       std::cout << "Failed to load map: " << path.first << std::endl;
       std::cout << "Details: " << e.what() << std::endl;
@@ -83,6 +84,10 @@ std::vector<const MapPreview*> MapCache::Previews() const {
     ret.emplace_back(p.second.get());
   }
   return ret;
+}
+
+const MapPreview& MapCache::GetPreview(const std::string& uid) {
+  return *previews_[uid];
 }
 
 }

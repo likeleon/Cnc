@@ -10,16 +10,16 @@
 
 namespace cnc {
 
-SoftwareCursor::SoftwareCursor(CursorProvider& cursor_provider)
+SoftwareCursor::SoftwareCursor(std::shared_ptr<CursorProvider> cursor_provider)
   : cursor_provider_(cursor_provider), sheet_builder_(SheetType::Indexed), 
   palette_references_([this](auto n) { return CreatePaletteReference(n); }) {
 
-  for (const auto& kv : cursor_provider_.palettes()) {
+  for (const auto& kv : cursor_provider_->palettes()) {
     palette_.AddPalette(kv.first, kv.second, false);
   }
   palette_.Initialize();
 
-  for (const auto& kv : cursor_provider_.cursors()) {
+  for (const auto& kv : cursor_provider_->cursors()) {
     std::vector<Sprite> s;
     for (const auto& f : kv.second.frames()) {
       s.emplace_back(sheet_builder_.Add(*f));
@@ -41,7 +41,7 @@ void SoftwareCursor::Render(Renderer& renderer) {
     return;
   }
 
-  auto& cursor_sequence = cursor_provider_.GetCursorSequence(cursor_name_);
+  auto& cursor_sequence = cursor_provider_->GetCursorSequence(cursor_name_);
   auto& cursor_sprite = sprites_[cursor_name_][static_cast<int32_t>(cursor_frame_) % cursor_sequence.length()];
   auto cursor_size = CursorProvider::CursorViewportZoomed() ? 2.0f * cursor_sprite.size : cursor_sprite.size;
 

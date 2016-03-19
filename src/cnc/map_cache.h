@@ -15,6 +15,7 @@ public:
   void LoadMaps();
 
   std::vector<const MapPreview*> Previews() const;
+  const MapPreview& GetPreview(const std::string& uid);
 
 private:
   std::unique_ptr<MapPreview> LoadMapPreview(const std::string& uid);

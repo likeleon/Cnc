@@ -34,14 +34,14 @@ class MapPreview {
 public:
   MapPreview(const std::string& uid, MapCache& cache);
 
-  void UpdateFromMap(MapPtr map, MapClassification classification);
+  void UpdateFromMap(MapUniquePtr map, MapClassification classification);
 
   const std::string& uid() const { return uid_; }
   const std::string& title() const { return title_; }
   const std::string& type() const { return type_; }
   const std::string& author() const { return author_; }
   int32_t player_count() const { return player_count_; }
-  MapPtr map() const { return map_; }
+  const Map& map() const { return *map_; }
   MapStatus status() const { return status_; }
   MapClassification classfication () const { return class_; }
 
@@ -52,7 +52,7 @@ private:
   std::string type_ = "Unknown";
   std::string author_ = "Unknown Author";
   int32_t player_count_ = 0;
-  MapPtr map_;
+  MapUniquePtr map_;
   MapStatus status_ = MapStatus::Unavailable;
   MapClassification class_ = MapClassification::Unknown;
 };

@@ -34,6 +34,12 @@ HMODULE FileSystem::ResolveLibrary(const std::string& filename) {
   return iter->second.get();
 }
 
+void FileSystem::Mount(IFolderPtr mount) {
+  if (std::find(mounted_folders_.begin(), mounted_folders_.end(), mount) == mounted_folders_.end()) {
+    mounted_folders_.emplace_back(mount);
+  }
+}
+
 void FileSystem::Mount(const std::string& name, const std::string& annotation) {
   std::string final_name = name;
   bool optional = StringUtils::StartsWith(name, "~");

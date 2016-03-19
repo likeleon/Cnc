@@ -17,11 +17,11 @@ MapPreview::MapPreview(const std::string& uid, MapCache& cache)
   : cache_(cache), uid_(uid) {
 }
 
-void MapPreview::UpdateFromMap(MapPtr map, MapClassification classification) {
-  map_ = map;
-  title_ = map->title();
-  type_ = map->type();
-  author_ = map->author();
+void MapPreview::UpdateFromMap(MapUniquePtr map, MapClassification classification) {
+  map_ = std::move(map);
+  title_ = map_->title();
+  type_ = map_->type();
+  author_ = map_->author();
   status_ = MapStatus::Available;
   class_ = classification;
 }

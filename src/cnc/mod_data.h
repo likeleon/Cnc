@@ -4,6 +4,7 @@
 #include "cnc/object_creator.h"
 #include "cnc/file_system.h"
 #include "cnc/sprite_loader_ptr.h"
+#include "cnc/map_ptr.h"
 
 namespace cnc {
 
@@ -11,6 +12,7 @@ class WidgetLoader;
 class CursorProvider;
 class ILoadScreen;
 class MapCache;
+class Map;
 
 class CNC_API ModData {
 public:
@@ -19,6 +21,7 @@ public:
 
   void MountFiles();
   void InitializeLoaders();
+  MapUniquePtr PrepareMap(const std::string& uid);
 
   Manifest& manifest();
   const Manifest& manifest() const;
@@ -27,7 +30,7 @@ public:
   ILoadScreen* load_screen();
   WidgetLoader& widget_loader();
   MapCache& map_cache();
-  CursorProvider* cursor_provider();
+  std::shared_ptr<CursorProvider> cursor_provider();
   FileSystem& mod_files();
 
 private:
@@ -39,7 +42,7 @@ private:
   std::shared_ptr<ILoadScreen> load_screen_;
   std::unique_ptr<WidgetLoader> widget_loader_;
   std::unique_ptr<MapCache> map_cache_;
-  std::unique_ptr<CursorProvider> cursor_provider_;
+  std::shared_ptr<CursorProvider> cursor_provider_;
   FileSystem mod_files_;
 };
 
