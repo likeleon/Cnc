@@ -11,6 +11,7 @@ class ModData;
 class Settings;
 class Renderer;
 class ActionQueue;
+class OrderManager;
 enum class WorldType;
 
 enum class RunStatus {
@@ -50,6 +51,9 @@ public:
 private:
   static const int64_t Timestep = 40;
   
+  static void JoinLocal();
+  static void JoinInner(std::unique_ptr<OrderManager> om);
+
   static void InitializeSettings(const Arguments& args);
   static void Loop();
   static void LogicTick();
@@ -61,6 +65,7 @@ private:
   static std::unique_ptr<ModData> mod_data_;
   static std::unique_ptr<Settings> settings_;
   static std::unique_ptr<ICursor> cursor_;
+  static std::unique_ptr<OrderManager> order_manager_;
   static std::unique_ptr<Renderer> renderer_;
 
   static StopWatch stop_watch_;

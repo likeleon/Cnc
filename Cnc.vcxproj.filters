@@ -210,6 +210,10 @@
     <ClCompile Include="src\cnc\sha1.cpp">
       <Filter>primitives</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\order_manager.cpp">
+      <Filter>network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -513,6 +517,9 @@
     <ClInclude Include="src\cnc\sha1.h">
       <Filter>primitives</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\order_manager.h">
+      <Filter>network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -541,6 +548,9 @@
     </Filter>
     <Filter Include="map">
       <UniqueIdentifier>{c6be756d-4bb9-4663-804e-f14781e6232b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network">
+      <UniqueIdentifier>{d8668e9b-fe4c-4569-b84c-aa77316450a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

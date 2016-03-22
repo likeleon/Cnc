@@ -24,12 +24,15 @@
 #include "cnc/map_cache.h"
 #include "cnc/map_preview.h"
 #include "cnc/map.h"
+#include "cnc/order_manager.h"
+#include "cnc/world.h"
 #include <random>
 
 namespace cnc {
 
 std::unique_ptr<Settings> Game::settings_;
 std::unique_ptr<ICursor> Game::cursor_;
+std::unique_ptr<OrderManager> Game::order_manager_;
 std::unique_ptr<Renderer> Game::renderer_;
 StopWatch Game::stop_watch_;
 RunStatus Game::state_ = RunStatus::Running;
@@ -138,15 +141,18 @@ void Game::InitializeMod(const std::string& m, const Arguments& args) {
   PerfHistory::Items("render_widgets").set_has_normal_tick(false);
   PerfHistory::Items("render_flip").set_has_normal_tick(false);
 
+  JoinLocal();
+
   mod_data_->load_screen()->StartGame(args);
 }
 
 void Game::LoadShellMap() {
   auto shellmap = ChooseShellmap();
 
-  PERF_TIMER("StartGame", {
+  {
+    PerfTimer p("StartGame");
     StartGame(shellmap, WorldType::Shellmap);
-  });
+  };
 }
 
 std::string Game::ChooseShellmap() {
@@ -167,12 +173,18 @@ std::string Game::ChooseShellmap() {
   return shellmaps[dis(gen)];
 }
 
-void Game::StartGame(const std::string& map_uid, WorldType /*type*/) {
+void Game::StartGame(const std::string& map_uid, WorldType type) {
   cursor_->SetCursor("");
 
+  MapUniquePtr map;
+  
   {
     PerfTimer p("PrepareMap");
-    mod_data_->PrepareMap(map_uid);
+    map = mod_data_->PrepareMap(map_uid);
+  }
+  {
+    PerfTimer p("NewWorld");
+    order_manager_->set_world(std::make_unique<World>(std::move(map), *order_manager_, type));
   }
 }
 
@@ -292,6 +304,14 @@ void Game::HandleModifierKeys(Modifiers mods) {
 
 void Game::RunAfterTick(const std::function<void()>& a) {
   delayed_actions_->Add(a, Game::RunTime());
+}
+
+void Game::JoinLocal() {
+  JoinInner(std::make_unique<OrderManager>("<no server>", -1, ""));
+}
+
+void Game::JoinInner(std::unique_ptr<OrderManager> om) {
+  order_manager_ = std::move(om);
 }
 
 }

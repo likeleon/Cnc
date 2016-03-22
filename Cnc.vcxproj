@@ -54,6 +54,7 @@
     <ClCompile Include="src\cnc\mod_data.cpp" />
     <ClCompile Include="src\cnc\mod_metadata.cpp" />
     <ClCompile Include="src\cnc\multi_tap_detection.cpp" />
+    <ClCompile Include="src\cnc\order_manager.cpp" />
     <ClCompile Include="src\cnc\package_entry.cpp" />
     <ClCompile Include="src\cnc\palette.cpp" />
     <ClCompile Include="src\cnc\palette_reference.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="src\cnc\widget_args.cpp" />
     <ClCompile Include="src\cnc\widget_loader.cpp" />
     <ClCompile Include="src\cnc\widget_utils.cpp" />
+    <ClCompile Include="src\cnc\world.cpp" />
     <ClCompile Include="src\cnc\zip_file.cpp" />
     <ClCompile Include="src\cnc\sha1.cpp" />
   </ItemGroup>
@@ -150,6 +152,7 @@
     <ClInclude Include="src\cnc\map_preview.h" />
     <ClInclude Include="src\cnc\map_ptr.h" />
     <ClInclude Include="src\cnc\memory_stream.h" />
+    <ClInclude Include="src\cnc\order_manager.h" />
     <ClInclude Include="src\cnc\segment_stream.h" />
     <ClInclude Include="src\cnc\sha1.h" />
     <ClInclude Include="src\cnc\stream.h" />
