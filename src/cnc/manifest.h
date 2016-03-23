@@ -32,6 +32,7 @@ public:
 
   const ModMetadata& mod() const;
   const std::vector<std::string>& folders() const;
+  const std::vector<std::string>& rules() const;
   const std::vector<std::string>& cursors() const;
   const std::vector<std::string>& chrome() const;
   const std::vector<std::string>& assemblies() const;
@@ -47,6 +48,7 @@ public:
 private:
   ModMetadata mod_;
   std::vector<std::string> folders_;
+  std::vector<std::string> rules_;
   std::vector<std::string> cursors_;
   std::vector<std::string> chrome_;
   std::vector<std::string> assemblies_;

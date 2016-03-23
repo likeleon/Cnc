@@ -19,11 +19,16 @@ public:
   explicit MiniYaml(const std::string& value);
   MiniYaml(const std::string& value, MiniYamlNodesPtr nodes);
 
+  static MiniYamlNodes NodesOrEmpty(const MiniYaml& y, const std::string& s);
   static MiniYamlMap MapFromFile(const std::string& path);
   static MiniYamlNodesPtr FromFile(const std::string& path);
   static MiniYamlNodesPtr FromStream(StreamPtr s, const std::string& file_name = "<no filename available>");
   static MiniYamlNodesPtr FromString(const std::string& text, const std::string& file_name = "<no filename available>");
   static std::vector<MiniYamlNodes> FromFiles(const std::vector<std::string>& paths);
+
+  static void WriteToFile(const MiniYamlNodes& y, const std::string& filename);
+  static std::string WriteToString(const MiniYamlNodes& y);
+  static std::vector<std::string> ToLines(const MiniYamlNodes& y, bool lowest);
 
   static MiniYamlNodes MergePartial(const MiniYamlNodes& a, const MiniYamlNodes& b);
   static MiniYaml MergePartial(const MiniYaml& a, const MiniYaml& b);
@@ -31,6 +36,7 @@ public:
   static MiniYamlNodes ApplyRemovals(const MiniYamlNodes& a);
 
   MiniYamlMap ToMap() const;
+  std::vector<std::string> ToLines(const std::string& name) const;
   
   template <typename T>
   using ElementSelector = std::function<T (const MiniYaml& y)>;

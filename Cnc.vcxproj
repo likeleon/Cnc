@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cnc\action_queue.cpp" />
+    <ClCompile Include="src\cnc\actor_info.cpp" />
     <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\bitmap.cpp" />
     <ClCompile Include="src\cnc\byte_stream_buffer.cpp" />
@@ -67,6 +68,7 @@
     <ClCompile Include="src\cnc\point.cpp" />
     <ClCompile Include="src\cnc\rectangle.cpp" />
     <ClCompile Include="src\cnc\renderer.cpp" />
+    <ClCompile Include="src\cnc\ruleset.cpp" />
     <ClCompile Include="src\cnc\ruleset_cache.cpp" />
     <ClCompile Include="src\cnc\sdl2_graphics_device.cpp" />
     <ClCompile Include="src\cnc\sdl2_input.cpp" />
@@ -105,6 +107,7 @@
     <ClInclude Include="src\cnc\action.h" />
     <ClInclude Include="src\cnc\action_queue.h" />
     <ClInclude Include="src\cnc\actor_info.h" />
+    <ClInclude Include="src\cnc\actor_info_ptr.h" />
     <ClInclude Include="src\cnc\any.h" />
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\bitmap.h" />

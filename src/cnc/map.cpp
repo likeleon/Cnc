@@ -46,6 +46,7 @@ Map::Map(const std::string& path)
   }
 
   //auto nd = yaml.ToMap();
+  rule_definitions_ = MiniYaml::NodesOrEmpty(yaml, "Rules");
 
   uid_ = ComputeHash();
 }

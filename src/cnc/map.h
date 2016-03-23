@@ -3,6 +3,7 @@
 #include "cnc/field_load_info.h"
 #include "cnc/ifolder.h"
 #include "cnc/enum_info.h"
+#include "cnc/mini_yaml.h"
 
 namespace cnc {
 
@@ -33,6 +34,9 @@ public:
   const std::string& author() const { return author_; }
   const std::string& tileset() const { return tileset_; }
 
+  // Yaml map data
+  const MiniYamlNodes& rule_definitions() const { return rule_definitions_; }
+
 private:
   void AssertExists(const std::string& filename);
   std::string ComputeHash() const;
@@ -50,6 +54,8 @@ private:
   std::string description_;
   std::string author_;
   std::string tileset_;
+
+  MiniYamlNodes rule_definitions_;
 };
 
 }

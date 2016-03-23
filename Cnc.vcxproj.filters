@@ -217,6 +217,12 @@
     <ClCompile Include="src\cnc\ruleset_cache.cpp">
       <Filter>game_rules</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\ruleset.cpp">
+      <Filter>game_rules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\actor_info.cpp">
+      <Filter>game_rules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -530,6 +536,9 @@
       <Filter>game_rules</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\actor_info.h">
+      <Filter>game_rules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\actor_info_ptr.h">
       <Filter>game_rules</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,6 +4,7 @@
 #include "cnc/string_utils.h"
 #include "cnc/container_utils.h"
 #include "cnc/stream.h"
+#include "cnc/file.h"
 
 namespace cnc {
 
@@ -16,6 +17,11 @@ MiniYaml::MiniYaml(const std::string& value, MiniYamlNodesPtr nodes)
   if (nodes_ == nullptr) {
     nodes_ = std::make_shared<MiniYamlNodes>();
   }
+}
+
+MiniYamlNodes MiniYaml::NodesOrEmpty(const MiniYaml& y, const std::string& s) {
+  auto nd = y.ToMap();
+  return (nd.find(s) != nd.end()) ? *nd.at(s).nodes_ : MiniYamlNodes();
 }
 
 MiniYamlMap MiniYaml::MapFromFile(const std::string& path) {
@@ -143,6 +149,36 @@ std::vector<MiniYamlNodes> MiniYaml::FromFiles(const std::vector<std::string>& p
   return yy;
 }
 
+static std::string TrimEndWithNullTrimChars(const std::string& s) {
+  return StringUtils::TrimEnd(s);
+}
+
+void MiniYaml::WriteToFile(const MiniYamlNodes& y, const std::string& filename) {
+  auto lines = ToLines(y, true);
+  std::transform(lines.begin(), lines.end(), lines.begin(), TrimEndWithNullTrimChars);
+  File::WriteAllLines(filename, lines);
+}
+
+std::string MiniYaml::WriteToString(const MiniYamlNodes& y) {
+  auto lines = ToLines(y, true);
+  std::transform(lines.begin(), lines.end(), lines.begin(), TrimEndWithNullTrimChars);
+  return StringUtils::Join(lines, "\n");
+}
+
+std::vector<std::string> MiniYaml::ToLines(const MiniYamlNodes& y, bool lowest) {
+  std::vector<std::string> ret;
+  for (const auto& kv : y) {
+    for (const auto& line : kv.value().ToLines(kv.key())) {
+      ret.emplace_back(line);
+    }
+    if (lowest) {
+      ret.emplace_back("");
+    }
+  }
+  return ret;
+}
+
+
 MiniYamlNodes MiniYaml::MergePartial(const MiniYamlNodes& a, const MiniYamlNodes& b) {
   if (a.empty()) {
     return b;
@@ -238,6 +274,17 @@ static MiniYaml MiniYamlIdentity(const MiniYaml& y) {
 
 MiniYamlMap MiniYaml::ToMap() const {
   return ToMap<MiniYaml>(MiniYamlIdentity);
+}
+
+std::vector<std::string> MiniYaml::ToLines(const std::string& name) const {
+  std::vector<std::string> ret;
+  ret.emplace_back(name + ": " + value_);
+  if (nodes_ != nullptr) {
+    for (const auto& line : ToLines(*nodes_, false)) {
+      ret.emplace_back("\t" + line);
+    }
+  }
+  return ret;
 }
 
 MiniYamlNode::SourceLocation::SourceLocation() {

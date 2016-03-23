@@ -85,9 +85,15 @@ std::string StringUtils::PadRight(const std::string& s, int32_t total_width, cha
   return str;
 }
 
+std::string StringUtils::ToLower(const std::string& s) {
+  std::string str(s);
+  std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+  return str;
+}
+
 std::string StringUtils::ToUpper(const std::string& s) {
   std::string str(s);
-  std::transform(str.begin(), str.end(), str.begin(), toupper);
+  std::transform(str.begin(), str.end(), str.begin(), ::toupper);
   return str;
 }
 

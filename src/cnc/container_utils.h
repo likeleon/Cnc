@@ -32,7 +32,7 @@ std::map<TKey, TElement> ToMapWithConflictLog(
   const std::function<TElement (const TSource&)>& element_selector,
   const std::string& debug_name,
   const std::function<std::string(const TKey&)>& log_key,
-  const std::function<std::string(const TSource&)>& log_value) {
+  const std::function<std::string(const TElement&)>& log_value) {
   std::map<TKey, std::vector<std::string>> dup_keys;
   std::map<TKey, TElement> map;
   for (const auto& item : source) {

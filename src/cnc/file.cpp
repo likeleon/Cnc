@@ -32,4 +32,15 @@ std::string File::ReadAllText(const std::string& path) {
   return{ &bytes[0], bytes.size() };
 }
 
+void File::WriteAllLines(const std::string& path, const std::vector<std::string>& lines) {
+  std::ofstream ofs(path, std::ios::out);
+  if (!ofs.is_open()) {
+    throw Error(MSG("Failed to open file to write: " + path));
+  }
+
+  for (const auto& line : lines) {
+    ofs << line << "\n";
+  }
+}
+
 }

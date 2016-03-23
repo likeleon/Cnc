@@ -2,9 +2,13 @@
 
 namespace cnc {
 
-class ActorInfo {
-};
+class ObjectCreator;
+class MiniYaml;
 
-using ActorInfoUniquePtr = std::unique_ptr<ActorInfo>;
+class ActorInfo {
+public:
+  ActorInfo(ObjectCreator& creator, const std::string& name, const MiniYaml& node,
+            const std::map<std::string, MiniYaml>& all_units);
+};
 
 }

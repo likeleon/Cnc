@@ -66,8 +66,7 @@ static bool ParseYesNo(const std::string& s) {
     throw Error(MSG("Invalid value for bool: " + s));
   }
 
-  std::string str = s;
-  std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+  std::string str = StringUtils::ToLower(s);
   if (str == "yes" || str == "true") {
     return true;
   }
