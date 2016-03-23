@@ -67,6 +67,7 @@
     <ClCompile Include="src\cnc\point.cpp" />
     <ClCompile Include="src\cnc\rectangle.cpp" />
     <ClCompile Include="src\cnc\renderer.cpp" />
+    <ClCompile Include="src\cnc\ruleset_cache.cpp" />
     <ClCompile Include="src\cnc\sdl2_graphics_device.cpp" />
     <ClCompile Include="src\cnc\sdl2_input.cpp" />
     <ClCompile Include="src\cnc\segment_stream.cpp" />
@@ -103,6 +104,7 @@
   <ItemGroup>
     <ClInclude Include="src\cnc\action.h" />
     <ClInclude Include="src\cnc\action_queue.h" />
+    <ClInclude Include="src\cnc\actor_info.h" />
     <ClInclude Include="src\cnc\any.h" />
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\bitmap.h" />
@@ -153,6 +155,8 @@
     <ClInclude Include="src\cnc\map_ptr.h" />
     <ClInclude Include="src\cnc\memory_stream.h" />
     <ClInclude Include="src\cnc\order_manager.h" />
+    <ClInclude Include="src\cnc\ruleset.h" />
+    <ClInclude Include="src\cnc\ruleset_cache.h" />
     <ClInclude Include="src\cnc\segment_stream.h" />
     <ClInclude Include="src\cnc\sha1.h" />
     <ClInclude Include="src\cnc\stream.h" />

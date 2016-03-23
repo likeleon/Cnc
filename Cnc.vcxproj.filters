@@ -214,6 +214,9 @@
       <Filter>network</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\world.cpp" />
+    <ClCompile Include="src\cnc\ruleset_cache.cpp">
+      <Filter>game_rules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -520,6 +523,15 @@
     <ClInclude Include="src\cnc\order_manager.h">
       <Filter>network</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\ruleset.h">
+      <Filter>game_rules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\ruleset_cache.h">
+      <Filter>game_rules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\actor_info.h">
+      <Filter>game_rules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -551,6 +563,9 @@
     </Filter>
     <Filter Include="network">
       <UniqueIdentifier>{d8668e9b-fe4c-4569-b84c-aa77316450a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game_rules">
+      <UniqueIdentifier>{bb1c32fc-4115-4f60-a3f9-a180cf7344d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
