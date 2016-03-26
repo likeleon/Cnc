@@ -19,14 +19,16 @@ const EnumNamesType<MapVisibilityTraits> MapVisibilityTraits::names = {
   { MapVisibility::MissionSelector, "MissionSelector" }
 };
 
-const std::vector<FieldLoadInfo> Map::LoadInfo = {
-  { "MapFormat", TypeFieldInfo(&Map::map_format_) },
-  { "Visibility", EnumFieldInfo<MapVisibilityTraits>(&Map::visibility_) },
-  { "Title", TypeFieldInfo(&Map::title_) },
-  { "Type", TypeFieldInfo(&Map::type_) },
-  { "Description", TypeFieldInfo(&Map::description_) },
-  { "Author", TypeFieldInfo(&Map::author_) },
-  { "Tileset", TypeFieldInfo(&Map::tileset_) },
+std::vector<FieldLoadInfo> Map::GetLoadInfo() const {
+  return{
+    { "MapFormat", TypeFieldInfo(&Map::map_format_) },
+    { "Visibility", EnumFieldInfo<MapVisibilityTraits>(&Map::visibility_) },
+    { "Title", TypeFieldInfo(&Map::title_) },
+    { "Type", TypeFieldInfo(&Map::type_) },
+    { "Description", TypeFieldInfo(&Map::description_) },
+    { "Author", TypeFieldInfo(&Map::author_) },
+    { "Tileset", TypeFieldInfo(&Map::tileset_) },
+  };
 };
 
 Map::Map(const std::string& path)

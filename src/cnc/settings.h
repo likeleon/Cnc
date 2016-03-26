@@ -9,20 +9,22 @@ namespace cnc {
 class Arguments;
 
 struct CNC_API PlayerSettings {
-  std::string name = "Newbie";
+  std::vector<FieldLoadInfo> GetLoadInfo() const;
 
-  static const std::vector<FieldLoadInfo> LoadInfo;
+  std::string name = "Newbie";
 };
 
 struct CNC_API GameSettings {
+  std::vector<FieldLoadInfo> GetLoadInfo() const;
+  
   std::string mod = "modchooser";
   std::string previous_mod = "cnc";
   bool lock_mouse_window = false;
-  
-  static const std::vector<FieldLoadInfo> LoadInfo;
 };
 
 struct CNC_API GraphicSettings {
+  std::vector<FieldLoadInfo> GetLoadInfo() const;
+
   std::string renderer = "Default";
   WindowMode mode = WindowMode::PseudoFullscreen;
   Size fullscreen_size = Size(0, 0);
@@ -31,8 +33,6 @@ struct CNC_API GraphicSettings {
   bool cursor_double = false;
   int32_t batch_size = 8192;
   int32_t sheet_size = 2048;
-
-  static const std::vector<FieldLoadInfo> LoadInfo;
 };
 
 class CNC_API Settings {

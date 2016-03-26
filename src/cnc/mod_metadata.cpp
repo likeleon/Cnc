@@ -9,12 +9,14 @@
 
 namespace cnc {
 
-const std::vector<FieldLoadInfo> ModMetadata::LoadInfo = {
-  { "Title", TypeFieldInfo(&ModMetadata::title) },
-  { "Description", TypeFieldInfo(&ModMetadata::description) },
-  { "Version", TypeFieldInfo(&ModMetadata::version) },
-  { "Author", TypeFieldInfo(&ModMetadata::author) },
-  { "Hidden", TypeFieldInfo(&ModMetadata::hidden) }
+std::vector<FieldLoadInfo> ModMetadata::GetLoadInfo() const {
+  return{
+    { "Title", TypeFieldInfo(&ModMetadata::title) },
+    { "Description", TypeFieldInfo(&ModMetadata::description) },
+    { "Version", TypeFieldInfo(&ModMetadata::version) },
+    { "Author", TypeFieldInfo(&ModMetadata::author) },
+    { "Hidden", TypeFieldInfo(&ModMetadata::hidden) }
+  };
 };
 
 static std::map<std::string, std::string> candidate_mod_paths_;

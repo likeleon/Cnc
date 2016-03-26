@@ -541,6 +541,9 @@
     <ClInclude Include="src\cnc\actor_info_ptr.h">
       <Filter>game_rules</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\traits_interfaces.h">
+      <Filter>traits</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
@@ -575,6 +578,9 @@
     </Filter>
     <Filter Include="game_rules">
       <UniqueIdentifier>{bb1c32fc-4115-4f60-a3f9-a180cf7344d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="traits">
+      <UniqueIdentifier>{131a7a7b-1718-415e-a3a6-f437594152c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

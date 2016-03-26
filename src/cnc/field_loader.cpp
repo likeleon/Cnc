@@ -6,7 +6,7 @@ namespace cnc {
 std::unordered_map<std::type_index, std::vector<FieldLoadInfo>> FieldLoader::type_load_info_;
 
 FieldLoader::MissingFieldsException::MissingFieldsException(const Message& msg, std::vector<std::string>&& missing)
-  : Error(MessageBuilder(StringUtils::Join(missing, ", "), msg.file_name, msg.line_no, msg.function_name)),
+  : YamlException(MessageBuilder(StringUtils::Join(missing, ", "), msg.file_name, msg.line_no, msg.function_name)),
   missing_(std::move(missing)) {
 }
 

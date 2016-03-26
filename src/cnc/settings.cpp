@@ -7,24 +7,30 @@
 
 namespace cnc {
 
-const std::vector<FieldLoadInfo> PlayerSettings::LoadInfo = {
-  { "Name", TypeFieldInfo(&PlayerSettings::name) }
+std::vector<FieldLoadInfo> PlayerSettings::GetLoadInfo() const {
+  return{
+    { "Name", TypeFieldInfo(&PlayerSettings::name) }
+  };
 };
 
-const std::vector<FieldLoadInfo> GameSettings::LoadInfo = {
-  { "Mod", TypeFieldInfo(&GameSettings::mod) },
-  { "PreviousMod", TypeFieldInfo(&GameSettings::previous_mod) }
+std::vector<FieldLoadInfo> GameSettings::GetLoadInfo() const {
+  return{
+    { "Mod", TypeFieldInfo(&GameSettings::mod) },
+    { "PreviousMod", TypeFieldInfo(&GameSettings::previous_mod) }
+  };
 };
 
-const std::vector<FieldLoadInfo> GraphicSettings::LoadInfo = {
-  { "Renderer", TypeFieldInfo(&GraphicSettings::renderer) },
-  { "Mode", EnumFieldInfo<WindowModeTraits>(&GraphicSettings::mode) },
-  { "FullscreenSize", TypeFieldInfo(&GraphicSettings::fullscreen_size) },
-  { "WindowedSize", TypeFieldInfo(&GraphicSettings::windowed_size) },
-  { "PixelDouble", TypeFieldInfo(&GraphicSettings::pixel_double) },
-  { "CursorDouble", TypeFieldInfo(&GraphicSettings::cursor_double) },
-  { "BatchSize", TypeFieldInfo(&GraphicSettings::batch_size) },
-  { "SheetSize", TypeFieldInfo(&GraphicSettings::sheet_size) }
+std::vector<FieldLoadInfo> GraphicSettings::GetLoadInfo() const {
+  return{
+    { "Renderer", TypeFieldInfo(&GraphicSettings::renderer) },
+    { "Mode", EnumFieldInfo<WindowModeTraits>(&GraphicSettings::mode) },
+    { "FullscreenSize", TypeFieldInfo(&GraphicSettings::fullscreen_size) },
+    { "WindowedSize", TypeFieldInfo(&GraphicSettings::windowed_size) },
+    { "PixelDouble", TypeFieldInfo(&GraphicSettings::pixel_double) },
+    { "CursorDouble", TypeFieldInfo(&GraphicSettings::cursor_double) },
+    { "BatchSize", TypeFieldInfo(&GraphicSettings::batch_size) },
+    { "SheetSize", TypeFieldInfo(&GraphicSettings::sheet_size) }
+  };
 };
 
 template <typename T>

@@ -9,7 +9,7 @@ struct CNC_API ModMetadata {
   static const std::map<std::string, std::string>& CandidateModPaths();
   static const std::map<std::string, ModMetadata>& AllMods();
  
-  static const std::vector<FieldLoadInfo> LoadInfo;
+  std::vector<FieldLoadInfo> GetLoadInfo() const;
 
   std::string id;
   std::string title;

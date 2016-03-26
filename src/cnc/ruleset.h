@@ -9,7 +9,7 @@ public:
   Ruleset(std::map<std::string, ActorInfoPtr>&& actors);
   
 private:
-  std::map<std::string, ActorInfoPtr>&& actors_;
+  std::map<std::string, ActorInfoPtr> actors_;
 };
 
 }

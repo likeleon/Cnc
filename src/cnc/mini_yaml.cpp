@@ -1,6 +1,5 @@
 #include "cnc/stdafx.h"
 #include "cnc/mini_yaml.h"
-#include "cnc/error.h"
 #include "cnc/string_utils.h"
 #include "cnc/container_utils.h"
 #include "cnc/stream.h"
@@ -112,7 +111,7 @@ static MiniYamlNodesPtr FromLines(const std::vector<std::string>& lines, const s
     MiniYamlNode::SourceLocation location(filename, line_no);
 
     if (levels.size() <= level) {
-      throw Error(MSG("Bad indent in miniyaml at " + location.ToString()));
+      throw YamlException(MSG("Bad indent in miniyaml at " + location.ToString()));
     }
     while (levels.size() > level + 1) {
       levels.erase(levels.begin() + static_cast<int32_t>(levels.size()) - 1);
@@ -189,16 +188,16 @@ MiniYamlNodes MiniYaml::MergePartial(const MiniYamlNodes& a, const MiniYamlNodes
   }
 
   MiniYamlNodes nodes;
-  
+
   auto key_selector = [](const MiniYamlNode& n) { return n.key(); };
-  auto log_value = [](const MiniYamlNode& n) { 
+  auto log_value = [](const MiniYamlNode& n) {
     std::ostringstream oss;
     oss << n.key() << "( at " << n.location().ToString() << ")";
     return oss.str();
   };
   auto map_a = ToMapWithConflictLog<MiniYamlNode, std::string>(a, key_selector, "MiniYaml::Merge", nullptr, log_value);
   auto map_b = ToMapWithConflictLog<MiniYamlNode, std::string>(b, key_selector, "MiniYaml::Merge", nullptr, log_value);
-  
+
   std::set<std::string> all_keys;
   for (const auto& kvp : map_a) {
     all_keys.insert(kvp.first);
@@ -210,7 +209,7 @@ MiniYamlNodes MiniYaml::MergePartial(const MiniYamlNodes& a, const MiniYamlNodes
   for (const auto& key : all_keys) {
     auto aa = map_a.find(key);
     auto bb = map_b.find(key);
-    
+
     if (aa == map_a.end()) {
       nodes.emplace_back(bb->second);
     } else if (bb == map_b.end()) {
@@ -220,7 +219,7 @@ MiniYamlNodes MiniYaml::MergePartial(const MiniYamlNodes& a, const MiniYamlNodes
       nodes.emplace_back(key, MergePartial(aa->second.value(), bb->second.value()), loc);
     }
   }
-  
+
   return nodes;
 }
 
@@ -325,6 +324,10 @@ std::string MiniYamlNode::ToString() const {
   std::ostringstream oss;
   oss << "{{YamlNode: {" << key_ << "} @ {" + location_.ToString() << "}}}";
   return oss.str();
+}
+
+YamlException::YamlException(const Message& s)
+  : Error(s) {
 }
 
 }

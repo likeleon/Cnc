@@ -21,7 +21,7 @@ struct MapVisibilityTraits {
 
 class Map {
 public:
-  static const std::vector<FieldLoadInfo> LoadInfo;
+  std::vector<FieldLoadInfo> GetLoadInfo() const;
   
   explicit Map(const std::string& path);
 

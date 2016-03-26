@@ -53,6 +53,7 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
   map_cache_ = std::make_unique<MapCache>(*this);
   sprite_loaders_ = GetLoaders<ISpriteLoader>(object_creator_, manifest_.sprite_formats(), "sprite");
 
+  // TODO: defer load
   default_rules_ = ruleset_cache_->Load();
 }
 

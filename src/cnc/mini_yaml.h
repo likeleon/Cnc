@@ -4,6 +4,7 @@
 #include <string>
 #include "cnc/message.h"
 #include "cnc/stream_ptr.h"
+#include "cnc/error.h"
 
 namespace cnc {
 
@@ -94,6 +95,11 @@ private:
   std::string key_;
   MiniYaml value_;
   SourceLocation location_;
+};
+
+class YamlException : public Error {
+public:
+  explicit YamlException(const Message& msg);
 };
 
 }

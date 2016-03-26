@@ -10,9 +10,9 @@ namespace cnc {
 
 class CNC_API FieldLoader {
 public:
-  class MissingFieldsException : public Error {
+  class MissingFieldsException : public YamlException {
   public:
-    explicit MissingFieldsException(const Message& msg, std::vector<std::string>&& missing);
+    MissingFieldsException(const Message& msg, std::vector<std::string>&& missing);
 
     const std::vector<std::string>& missing() const { return missing_; }
 
@@ -29,7 +29,7 @@ public:
 
   template <typename T>
   static void Load(T& obj, const MiniYaml& my) {
-    auto load_info = RetrieveLoadInfo<T>();
+    auto load_info = RetrieveLoadInfo<T>(obj);
     if (load_info.empty()) {
       return;
     }
@@ -96,10 +96,10 @@ private:
   static bool TryGetValueFromYaml(const std::string& yaml_name, const MiniYamlMap& mm, std::string& value);
 
   template <typename T>
-  static const std::vector<FieldLoadInfo>& RetrieveLoadInfo() {
+  static const std::vector<FieldLoadInfo>& RetrieveLoadInfo(const T& obj) {
     auto it = type_load_info_.find(typeid(T));
     if (it == type_load_info_.end()) {
-      it = type_load_info_.emplace(typeid(T), T::LoadInfo).first;
+      it = type_load_info_.emplace(typeid(T), obj.GetLoadInfo()).first;
     }
     return it->second;
   }

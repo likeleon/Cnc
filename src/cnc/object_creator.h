@@ -8,6 +8,11 @@ namespace cnc {
 class CNC_API ObjectCreator {
 public:
   template <typename T>
+  std::shared_ptr<T> CreateObject(const std::string& type_name) {
+    return CreateObject<T>(type_name, {});
+  }
+
+  template <typename T>
   std::shared_ptr<T> CreateObject(const std::string& type_name, const std::map<std::string, Any>& args) {
     auto it = create_funcs_.find(type_name);
     if (it == create_funcs_.end()) {
