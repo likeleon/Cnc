@@ -13,6 +13,8 @@ class CursorProvider;
 class ILoadScreen;
 class MapCache;
 class Map;
+class RulesetCache;
+class Ruleset;
 
 class CNC_API ModData {
 public:
@@ -39,11 +41,13 @@ private:
   Manifest manifest_;
   ObjectCreator object_creator_;
   std::vector<SpriteLoaderPtr> sprite_loaders_;
+  std::unique_ptr<RulesetCache> ruleset_cache_;
   std::shared_ptr<ILoadScreen> load_screen_;
   std::unique_ptr<WidgetLoader> widget_loader_;
   std::unique_ptr<MapCache> map_cache_;
   std::shared_ptr<CursorProvider> cursor_provider_;
   FileSystem mod_files_;
+  std::unique_ptr<Ruleset> default_rules_;
 };
 
 }

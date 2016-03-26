@@ -13,6 +13,8 @@
 #include "cnc/map_cache.h"
 #include "cnc/map_preview.h"
 #include "cnc/map.h"
+#include "cnc/ruleset_cache.h"
+#include "cnc/ruleset.h"
 
 namespace cnc {
 
@@ -47,8 +49,11 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
   }
 
   widget_loader_ = std::make_unique<WidgetLoader>(*this);
+  ruleset_cache_ = std::make_unique<RulesetCache>(*this);
   map_cache_ = std::make_unique<MapCache>(*this);
   sprite_loaders_ = GetLoaders<ISpriteLoader>(object_creator_, manifest_.sprite_formats(), "sprite");
+
+  default_rules_ = ruleset_cache_->Load();
 }
 
 ModData::~ModData() = default;
