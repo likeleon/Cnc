@@ -167,7 +167,6 @@
     <ClCompile Include="src\cnc\input_handler.cpp">
       <Filter>input</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\multi_tap_detection.cpp" />
     <ClCompile Include="src\cnc\string_utils.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -182,7 +181,6 @@
     </ClCompile>
     <ClCompile Include="src\cnc\content_installer.cpp" />
     <ClCompile Include="src\cnc\field_load_info.cpp" />
-    <ClCompile Include="src\cnc\type_dictionary.cpp" />
     <ClCompile Include="src\cnc\download.cpp" />
     <ClCompile Include="src\cnc\file_stream.cpp">
       <Filter>primitives</Filter>
@@ -190,8 +188,6 @@
     <ClCompile Include="src\cnc\stream_utils.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="src\cnc\memory_stream.cpp" />
-    <ClCompile Include="src\cnc\segment_stream.cpp" />
     <ClCompile Include="src\cnc\map_cache.cpp">
       <Filter>map</Filter>
     </ClCompile>
@@ -222,6 +218,18 @@
     </ClCompile>
     <ClCompile Include="src\cnc\actor_info.cpp">
       <Filter>game_rules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\type_dictionary.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\segment_stream.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\memory_stream.cpp">
+      <Filter>primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\multi_tap_detection.cpp">
+      <Filter>default_platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

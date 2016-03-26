@@ -16,7 +16,7 @@ class RulesetCache {
 public:
   explicit RulesetCache(ModData& mod_data);
 
-  std::unique_ptr<Ruleset> Load(Map* map = nullptr);
+  std::shared_ptr<Ruleset> Load(Map* map = nullptr);
 
   RulesetCache(const RulesetCache& other) = delete;
   RulesetCache& operator=(const RulesetCache& other) = delete;

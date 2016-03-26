@@ -15,7 +15,7 @@ RulesetCache::RulesetCache(ModData& mod_data)
   : mod_data_(mod_data) {
 }
 
-std::unique_ptr<Ruleset> RulesetCache::Load(Map* map) {
+std::shared_ptr<Ruleset> RulesetCache::Load(Map* map) {
   auto& m = mod_data_.manifest();
 
   std::map<std::string, ActorInfoPtr> actors;
@@ -29,7 +29,7 @@ std::unique_ptr<Ruleset> RulesetCache::Load(Map* map) {
     });
   }
 
-  return std::make_unique<Ruleset>(std::move(actors));
+  return std::make_shared<Ruleset>(std::move(actors));
 }
 
 }

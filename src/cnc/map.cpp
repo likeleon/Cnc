@@ -7,6 +7,9 @@
 #include "cnc/mini_yaml.h"
 #include "cnc/memory_stream.h"
 #include "cnc/sha1.h"
+#include "cnc/log.h"
+#include "cnc/ruleset_cache.h"
+#include "cnc/ruleset.h"
 #include <climits>
 
 namespace cnc {
@@ -32,7 +35,7 @@ std::vector<FieldLoadInfo> Map::GetLoadInfo() const {
 };
 
 Map::Map(const std::string& path)
-  : path_(path) {
+  : path_(path), rules_([this] { return LoadRuleset(); }) {
   container_ = Game::mod_data()->mod_files().OpenPackage(path, "", std::numeric_limits<int32_t>::max());
   
   AssertExists("map.yaml");
@@ -50,7 +53,12 @@ Map::Map(const std::string& path)
   //auto nd = yaml.ToMap();
   rule_definitions_ = MiniYaml::NodesOrEmpty(yaml, "Rules");
 
+  PostInit();
+
   uid_ = ComputeHash();
+}
+
+Map::~Map() {
 }
 
 void Map::AssertExists(const std::string& filename) {
@@ -71,6 +79,19 @@ std::string Map::ComputeHash() const {
   SHA1 sha1;
   sha1.Update(std::string(buffer.data(), buffer.size()));
   return sha1.Final();
+}
+
+void Map::PostInit() {
+  rules();
+}
+
+std::shared_ptr<Ruleset> Map::LoadRuleset() {
+  try {
+    return Game::mod_data()->ruleset_cache().Load(this);
+  } catch (const std::exception& /*e*/) {
+    invalid_custom_rules_ = true;
+    return Game::mod_data()->DefaultRules();
+  }
 }
 
 }

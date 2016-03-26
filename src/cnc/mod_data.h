@@ -27,16 +27,17 @@ public:
   void InitializeLoaders();
   MapUniquePtr PrepareMap(const std::string& uid);
 
-  Manifest& manifest();
-  const Manifest& manifest() const;
-  ObjectCreator& object_creator();
-  const std::vector<SpriteLoaderPtr>& sprite_loaders();
-  ILoadScreen* load_screen();
-  WidgetLoader& widget_loader();
-  MapCache& map_cache();
-  std::shared_ptr<CursorProvider> cursor_provider();
-  FileSystem& mod_files();
-  Ruleset& DefaultRules();
+  Manifest& manifest() { return manifest_; }
+  const Manifest& manifest() const { return manifest_; }
+  ObjectCreator& object_creator() { return object_creator_; }
+  const std::vector<SpriteLoaderPtr>& sprite_loaders() { return sprite_loaders_; }
+  RulesetCache& ruleset_cache() { return *ruleset_cache_; }
+  ILoadScreen* load_screen() { return load_screen_.get(); }
+  WidgetLoader& widget_loader() { return *widget_loader_; }
+  MapCache& map_cache() { return *map_cache_; }
+  std::shared_ptr<CursorProvider> cursor_provider() { return cursor_provider_; }
+  FileSystem& mod_files() { return mod_files_; }
+  std::shared_ptr<Ruleset> DefaultRules() { return default_rules_(); }
 
 private:
   void PrepareObjectCreator();
@@ -50,7 +51,7 @@ private:
   std::unique_ptr<MapCache> map_cache_;
   std::shared_ptr<CursorProvider> cursor_provider_;
   FileSystem mod_files_;
-  Lazy<Func<std::unique_ptr<Ruleset>>> default_rules_;
+  Lazy<Func<std::shared_ptr<Ruleset>>> default_rules_;
 };
 
 }

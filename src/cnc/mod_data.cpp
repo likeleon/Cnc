@@ -99,44 +99,4 @@ MapUniquePtr ModData::PrepareMap(const std::string& uid) {
   return map;
 }
 
-Manifest& ModData::manifest() {
-  return manifest_;
-}
-
-const Manifest& ModData::manifest() const {
-  return manifest_;
-}
-
-ObjectCreator& ModData::object_creator() {
-  return object_creator_;
-}
-
-const std::vector<SpriteLoaderPtr>& ModData::sprite_loaders() {
-  return sprite_loaders_;
-}
-
-ILoadScreen* ModData::load_screen() {
-  return load_screen_.get();
-}
-
-WidgetLoader& ModData::widget_loader() {
-  return *widget_loader_;
-}
-
-MapCache& ModData::map_cache() {
-  return *map_cache_;
-}
-
-std::shared_ptr<CursorProvider> ModData::cursor_provider() {
-  return cursor_provider_;
-}
-
-FileSystem& ModData::mod_files() {
-  return mod_files_;
-}
-
-Ruleset& ModData::DefaultRules() {
-  return *default_rules_();
-}
-
 }
