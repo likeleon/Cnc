@@ -152,6 +152,7 @@
     <ClInclude Include="src\cnc\ipalette.h" />
     <ClInclude Include="src\cnc\ishader.h" />
     <ClInclude Include="src\cnc\itexture.h" />
+    <ClInclude Include="src\cnc\lazy.h" />
     <ClInclude Include="src\cnc\map.h" />
     <ClInclude Include="src\cnc\map_cache.h" />
     <ClInclude Include="src\cnc\map_preview.h" />

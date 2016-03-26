@@ -17,6 +17,7 @@
 #include <functional>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <limits>
 #include <numeric>
 #include <regex>
@@ -33,7 +34,7 @@
 #include <ctime>
 #include <sstream>
 #include <stack>
-#include <iomanip>
+#include <type_traits>
 
 #define GLEW_STATIC
 #include "GL/glew.h"
@@ -43,13 +44,6 @@
 #include "SDL_opengl.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
-
-#pragma warning(disable:4702)
-#include "cnc/optional.h"
-#pragma warning(default:4702)
-
-template <typename T>
-using optional = std::experimental::optional<T>;
 
 #include "cnc/cnc.h"
 

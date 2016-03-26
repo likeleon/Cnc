@@ -12,7 +12,6 @@
 #include "cnc/mods/common/button_widget.h"
 #include "cnc/mods/common/install_utils.h"
 #include <cmath>
-#include <iomanip>
 #include <random>
 
 namespace cnc {

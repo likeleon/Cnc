@@ -36,7 +36,7 @@ std::vector<std::shared_ptr<T>> GetLoaders(ObjectCreator& object_creator,
 }
 
 ModData::ModData(const std::string& mod, bool use_load_screen)
-  : manifest_(mod) {
+  : manifest_(mod), default_rules_([this](){ return ruleset_cache_->Load(); }) {
   PrepareObjectCreator();
   manifest_.LoadCustomData(object_creator_);
 
@@ -52,9 +52,6 @@ ModData::ModData(const std::string& mod, bool use_load_screen)
   ruleset_cache_ = std::make_unique<RulesetCache>(*this);
   map_cache_ = std::make_unique<MapCache>(*this);
   sprite_loaders_ = GetLoaders<ISpriteLoader>(object_creator_, manifest_.sprite_formats(), "sprite");
-
-  // TODO: defer load
-  default_rules_ = ruleset_cache_->Load();
 }
 
 ModData::~ModData() = default;
@@ -136,6 +133,10 @@ std::shared_ptr<CursorProvider> ModData::cursor_provider() {
 
 FileSystem& ModData::mod_files() {
   return mod_files_;
+}
+
+Ruleset& ModData::DefaultRules() {
+  return *default_rules_();
 }
 
 }

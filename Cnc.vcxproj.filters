@@ -544,6 +544,9 @@
     <ClInclude Include="src\cnc\traits_interfaces.h">
       <Filter>traits</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\lazy.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

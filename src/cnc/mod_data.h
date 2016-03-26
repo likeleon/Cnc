@@ -5,6 +5,8 @@
 #include "cnc/file_system.h"
 #include "cnc/sprite_loader_ptr.h"
 #include "cnc/map_ptr.h"
+#include "cnc/lazy.h"
+#include "cnc/action.h"
 
 namespace cnc {
 
@@ -34,6 +36,7 @@ public:
   MapCache& map_cache();
   std::shared_ptr<CursorProvider> cursor_provider();
   FileSystem& mod_files();
+  Ruleset& DefaultRules();
 
 private:
   void PrepareObjectCreator();
@@ -47,7 +50,7 @@ private:
   std::unique_ptr<MapCache> map_cache_;
   std::shared_ptr<CursorProvider> cursor_provider_;
   FileSystem mod_files_;
-  std::unique_ptr<Ruleset> default_rules_;
+  Lazy<Func<std::unique_ptr<Ruleset>>> default_rules_;
 };
 
 }

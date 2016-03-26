@@ -17,6 +17,10 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#pragma warning(disable:4702)
+#include "cnc/optional.h"
+#pragma warning(default:4702)
+
 namespace cnc {
 
 #ifdef CNC_EXPORTS
@@ -24,6 +28,9 @@ namespace cnc {
 #else
 #define CNC_API __declspec(dllimport)
 #endif
+
+template <typename T>
+using optional = std::experimental::optional<T>;
 
 #  pragma warning(disable : 4251 4275)
 // 4251 needs to have dll-interface to be used by clients of class
