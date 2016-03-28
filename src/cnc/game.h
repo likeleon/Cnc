@@ -12,6 +12,7 @@ class Settings;
 class Renderer;
 class ActionQueue;
 class OrderManager;
+class WorldRenderer;
 enum class WorldType;
 
 enum class RunStatus {
@@ -65,6 +66,7 @@ private:
   static std::unique_ptr<ModData> mod_data_;
   static std::unique_ptr<Settings> settings_;
   static std::unique_ptr<ICursor> cursor_;
+  static std::unique_ptr<WorldRenderer> world_renderer_;
   static std::unique_ptr<OrderManager> order_manager_;
   static std::unique_ptr<Renderer> renderer_;
 

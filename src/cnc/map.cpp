@@ -82,7 +82,6 @@ std::string Map::ComputeHash() const {
 }
 
 void Map::PostInit() {
-  rules();
 }
 
 std::shared_ptr<Ruleset> Map::LoadRuleset() {

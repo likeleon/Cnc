@@ -100,6 +100,7 @@
     <ClCompile Include="src\cnc\widget_loader.cpp" />
     <ClCompile Include="src\cnc\widget_utils.cpp" />
     <ClCompile Include="src\cnc\world.cpp" />
+    <ClCompile Include="src\cnc\world_renderer.cpp" />
     <ClCompile Include="src\cnc\zip_file.cpp" />
     <ClCompile Include="src\cnc\sha1.cpp" />
   </ItemGroup>
@@ -225,6 +226,7 @@
     <ClInclude Include="src\cnc\widget_ptr.h" />
     <ClInclude Include="src\cnc\widget_utils.h" />
     <ClInclude Include="src\cnc\world.h" />
+    <ClInclude Include="src\cnc\world_renderer.h" />
     <ClInclude Include="src\cnc\zip_file.h" />
   </ItemGroup>
   <ItemGroup>

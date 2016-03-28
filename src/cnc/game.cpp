@@ -26,12 +26,15 @@
 #include "cnc/map.h"
 #include "cnc/order_manager.h"
 #include "cnc/world.h"
+#include "cnc/world_renderer.h"
+#include "cnc/chrome_provider.h"
 #include <random>
 
 namespace cnc {
 
 std::unique_ptr<Settings> Game::settings_;
 std::unique_ptr<ICursor> Game::cursor_;
+std::unique_ptr<WorldRenderer> Game::world_renderer_;
 std::unique_ptr<OrderManager> Game::order_manager_;
 std::unique_ptr<Renderer> Game::renderer_;
 StopWatch Game::stop_watch_;
@@ -94,6 +97,8 @@ void Game::InitializeMod(const std::string& m, const Arguments& args) {
   delayed_actions_ = std::make_unique<ActionQueue>();
 
   Ui::ResetAll();
+
+  world_renderer_ = nullptr;
 
   if (mod_data_ != nullptr) {
     mod_data_->mod_files().UnmountAll();
@@ -174,6 +179,8 @@ std::string Game::ChooseShellmap() {
 }
 
 void Game::StartGame(const std::string& map_uid, WorldType type) {
+  world_renderer_ = nullptr;
+
   cursor_->SetCursor("");
 
   MapUniquePtr map;
@@ -186,11 +193,20 @@ void Game::StartGame(const std::string& map_uid, WorldType type) {
     PerfTimer p("NewWorld");
     order_manager_->set_world(std::make_unique<World>(std::move(map), *order_manager_, type));
   }
+
+  world_renderer_ = std::make_unique<WorldRenderer>(order_manager_->world());
 }
 
 RunStatus Game::Run() {
   Loop();
+
+  order_manager_ = nullptr;
+  world_renderer_ = nullptr;
+  mod_data_ = nullptr;
+  ChromeProvider::Deinitialize();
+
   renderer_ = nullptr;
+
   return state_;
 }
 
@@ -251,12 +267,19 @@ void Game::LogicTick() {
 }
 
 void Game::RenderTick() {
-  PERF_SAMPLE(render, {
+  {
+    PerfTimer perf_render("render");
     ++render_frame_;
 
-    renderer_->BeginFrame(Point::Zero, 1.0f);
+    if (world_renderer_ != nullptr) {
+      renderer_->BeginFrame(world_renderer_->viewport().TopLeft(), world_renderer_->viewport().zoom());
+      world_renderer_->Draw();
+    } else {
+      renderer_->BeginFrame(Point::Zero, 1.0f);
+    }
 
-    PERF_SAMPLE(render_widgets, {
+    {
+      PerfTimer perf_render_widgets("render_widgets");
       Ui::PrepareRenderables();
       Ui::Draw();
 
@@ -268,13 +291,14 @@ void Game::RenderTick() {
         cursor_->SetCursor(cursor_name);
         cursor_->Render(*renderer_);
       }
-    });
+    }
 
-    PERF_SAMPLE(render_flip, {
+    {
+      PerfTimer perf_render_flip("render_flip");
       DefaultInputHandler input_handler;
       renderer_->EndFrame(input_handler);
-    });
-  })
+    }
+  }
 
   PerfHistory::Items("render").Tick();
   PerfHistory::Items("batches").Tick();

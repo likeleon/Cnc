@@ -72,10 +72,10 @@ ActorInfo::ActorInfo(ObjectCreator& creator, const std::string& name, const Mini
         try {
           traits_.Add(LoadTraitInfo(creator, StringUtils::Split(t.key(), '@')[0], t.value()));
         } catch (const FieldLoader::MissingFieldsException& e) {
-            if (!abstract_actor_type) {
-              throw YamlException(MSG(e.message().text));
-            }
+          if (!abstract_actor_type) {
+            throw YamlException(MSG(e.message().text));
           }
+        }
       }
     }
   } catch (const YamlException& e) {

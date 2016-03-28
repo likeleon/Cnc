@@ -16,6 +16,8 @@ public:
   World(MapUniquePtr map, OrderManager& order_manager, WorldType type);
   ~World();
 
+  Map& map() { return *map_; }
+
   World(const World& other) = delete;
   World& operator=(const World& other) = delete;
 

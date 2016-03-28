@@ -10,6 +10,7 @@ public:
   ~OrderManager();
 
   void set_world(std::unique_ptr<World> world);
+  World& world() { return *world_; }
 
 private:
   std::unique_ptr<World> world_;

@@ -28,6 +28,10 @@ Point Float2::ToPoint() const {
   return{ static_cast<int32_t>(x), static_cast<int32_t>(y) };
 }
 
+Size Float2::ToSize() const {
+  return{ static_cast<int32_t>(x), static_cast<int32_t>(y) };
+}
+
 Float2& Float2::operator+=(const Float2& other) {
   x += other.x;
   y += other.y;

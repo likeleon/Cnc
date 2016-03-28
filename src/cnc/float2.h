@@ -17,6 +17,7 @@ struct CNC_API Float2 {
   Float2& operator/=(float divisor);
 
   Point ToPoint() const;
+  Size ToSize() const;
 
   static const Float2 Zero;
 
