@@ -8,4 +8,8 @@ WorldRenderer::WorldRenderer(World& world)
   : world_(world), viewport_(*this, world.map()) {
 }
 
+void WorldRenderer::Draw() {
+
+}
+
 }

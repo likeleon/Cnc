@@ -12,7 +12,7 @@ public:
 
   const Viewport& viewport() const { return viewport_; }
 
-  void Draw() {}
+  void Draw();
 
 private:
   World& world_;

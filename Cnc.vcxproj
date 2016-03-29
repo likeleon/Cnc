@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cnc\action_queue.cpp" />
+    <ClCompile Include="src\cnc\actor.cpp" />
     <ClCompile Include="src\cnc\actor_info.cpp" />
     <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\bitmap.cpp" />
@@ -107,6 +108,7 @@
   <ItemGroup>
     <ClInclude Include="src\cnc\action.h" />
     <ClInclude Include="src\cnc\action_queue.h" />
+    <ClInclude Include="src\cnc\actor.h" />
     <ClInclude Include="src\cnc\actor_info.h" />
     <ClInclude Include="src\cnc\actor_info_ptr.h" />
     <ClInclude Include="src\cnc\any.h" />

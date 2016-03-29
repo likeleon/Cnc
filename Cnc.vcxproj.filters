@@ -236,6 +236,7 @@
     <ClCompile Include="src\cnc\world_renderer.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\actor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -565,6 +566,7 @@
     <ClInclude Include="src\cnc\world_renderer.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\actor.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">
