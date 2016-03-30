@@ -26,6 +26,8 @@ public:
   void Add(ActorPtr a);
   void Remove(ActorPtr a);
 
+  uint32_t NextAID() { return next_aid_++; }
+
   World(const World& other) = delete;
   World& operator=(const World& other) = delete;
 
@@ -35,6 +37,7 @@ private:
   MapUniquePtr map_;
   OrderManager& order_manager_;
   WorldType type_;
+  uint32_t next_aid_ = 0;
 };
 
 };

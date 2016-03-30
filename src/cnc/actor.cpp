@@ -4,15 +4,20 @@
 #include "cnc/string_utils.h"
 #include "cnc/map.h"
 #include "cnc/ruleset.h"
+#include "cnc/container_utils.h"
 
 namespace cnc {
 
-Actor::Actor(World& world, std::string name, const TypeDictionary& init_dict)
+Actor::Actor(World& world, std::string name, const TypeDictionary& /*init_dict*/)
   : world_(world), actor_id_(world.NextAID()) {
   if (!name.empty()) {
     name = StringUtils::ToLower(name);
 
-    auto iter = world.map().rules().actors().find(name);
+    if (!ContainsKey(world.map().rules().actors(), name)) {
+      throw Error(MSG("No rules definition for unit " + name));
+    }
+
+    info_ = world.map().rules().actors().at(name);
   }
 }
 

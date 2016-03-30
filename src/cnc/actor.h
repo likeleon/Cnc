@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cnc/actor_info_ptr.h"
+
 namespace cnc {
 
 class World;
@@ -21,6 +23,7 @@ private:
   World& world_;
   uint32_t actor_id_ = 0;
   bool is_in_world_ = false;
+  ActorInfoPtr info_ = nullptr;
 };
 
 }

@@ -79,4 +79,19 @@ std::map<TKey, TSource> ToMapWithConflictLog(
   return ToMapWithConflictLog<TSource, TKey, TSource>(source, key_selector, source_identity, debug_name, log_key, log_value);
 }
 
+template <typename C, typename TKey, typename TValue>
+bool TryGetValue(C& c, const TKey& k, TValue& v) {
+  auto iter = c.find(k);
+  if (iter == c.end()) {
+    return false;
+  }
+  v = iter->second;
+  return true;
+}
+
+template <typename C, typename TKey>
+bool ContainsKey(C& c, const TKey& k) {
+  return c.find(k) != c.end();
+}
+
 }

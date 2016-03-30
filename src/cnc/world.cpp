@@ -19,7 +19,7 @@ ActorPtr World::CreateActor(const std::string& name, const TypeDictionary& init_
 }
 
 ActorPtr World::CreateActor(bool add_to_world, const std::string& name, const TypeDictionary& init_dict) {
-  auto a = std::make_shared<Actor>(this, name, init_dict);
+  auto a = std::make_shared<Actor>(*this, name, init_dict);
   if (add_to_world) {
     Add(a);
   }
