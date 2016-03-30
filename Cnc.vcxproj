@@ -111,6 +111,7 @@
     <ClInclude Include="src\cnc\actor.h" />
     <ClInclude Include="src\cnc\actor_info.h" />
     <ClInclude Include="src\cnc\actor_info_ptr.h" />
+    <ClInclude Include="src\cnc\actor_ptr.h" />
     <ClInclude Include="src\cnc\any.h" />
     <ClInclude Include="src\cnc\arguments.h" />
     <ClInclude Include="src\cnc\bitmap.h" />
