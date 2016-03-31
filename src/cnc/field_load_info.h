@@ -16,10 +16,8 @@ private:
   Setter setter_;
 };
 
-struct FieldLoadInfo {
-  FieldLoadInfo(const std::string& yaml_name,
-                const FieldInfo& field_info,
-                bool required = false);
+struct CNC_API FieldLoadInfo {
+  FieldLoadInfo(const std::string& yaml_name, const FieldInfo& field_info, bool required = false);
 
   FieldInfo field_info;
   bool required;
