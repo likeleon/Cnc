@@ -195,7 +195,7 @@ const std::vector<ITraitInfoPtr>& ActorInfo::TraitsInConstructionOrder() {
     throw Error(MSG(oss.str()));
   }
 
-  construct_order_cache_ = {};
+  construct_order_cache_ = std::vector<ITraitInfoPtr>{};
   std::transform(resolved.begin(), resolved.end(), std::back_inserter(construct_order_cache_.value()),
                  [](const auto& i) { return i.trait; });
   return construct_order_cache_.value();
