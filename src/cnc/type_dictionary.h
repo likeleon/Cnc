@@ -25,13 +25,15 @@ public:
   }
 
   template <typename T>
-  std::vector<T*> WithInterface() {
-    std::vector<T*> objs;
-    auto iter = data_.find(t);
-    if (iter != data_.end()) {
-      objs = iter->second;
+  std::vector<std::shared_ptr<T>> WithInterface() {
+    std::vector<std::shared_ptr<T>> ret;
+    auto iter = data_.find(typeid(T));
+    if (iter == data_.end()) {
+      return ret;
     }
-    return objs;
+    std::transform(iter->second.begin(), iter->second.end(), std::back_inserter(ret),
+                   [](const auto& p) { return std::static_pointer_cast<T>(p); });
+    return ret;
   }
 
 private:

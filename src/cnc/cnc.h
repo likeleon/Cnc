@@ -36,4 +36,7 @@ using optional = std::experimental::optional<T>;
 // 4251 needs to have dll-interface to be used by clients of class
 // 4275 non dll-interface class 'Foo::Bar' used as base for dll-interface class 'Foo::Bar'
 
+class ITraitInfo;
+using ITraitInfoPtr = std::shared_ptr<ITraitInfo>;
+
 }

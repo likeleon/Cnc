@@ -83,4 +83,113 @@ ActorInfo::ActorInfo(ObjectCreator& creator, const std::string& name, const Mini
   }
 }
 
+struct TraitTypeInfo {
+  ITraitInfoPtr trait;
+  std::vector<ITraitInfoPtr> dependencies;
+};
+
+static std::vector<ITraitInfoPtr> PrerequisitesOf(const ITraitInfo& info) {
+  auto interfaces = info.Interfaces();
+  if (std::find(interfaces.begin(), interfaces.end(), typeid(Requires)) == interfaces.end()) {
+    return{};
+  }
+  return reinterpret_cast<const Requires&>(info).RequiredTypes();
+}
+
+static bool IsAssignable(const TypeExposable& t, const TypeExposable& from) {
+  const auto& this_type = typeid(t);
+  if (this_type == typeid(from)) {
+    return true;
+  }
+  
+  const auto& base_types = from.BaseTypes();
+  if (std::find(base_types.begin(), base_types.end(), this_type) != base_types.end()) {
+    return true;
+  }
+
+  const auto& iterface_types = from.Interfaces();
+  if (std::find(iterface_types.begin(), iterface_types.end(), this_type) != iterface_types.end()) {
+    return true;
+  }
+  
+  return false;
+}
+
+const std::vector<ITraitInfoPtr>& ActorInfo::TraitsInConstructionOrder() {
+  if (construct_order_cache_) {
+    return construct_order_cache_.value();
+  }
+
+  std::vector<TraitTypeInfo> source, resolved, unresolved;
+  for (const auto& t : traits_.WithInterface<ITraitInfo>()) {
+    TraitTypeInfo type_info{ t, PrerequisitesOf(*t) };
+    source.emplace_back(type_info);
+    if (type_info.dependencies.empty()) {
+      resolved.emplace_back(type_info);
+    } else {
+      unresolved.emplace_back(type_info);
+    }
+  }
+
+  auto test_resolve = [](const ITraitInfo& a, const ITraitInfo& b) { return IsAssignable(a, b); };
+  for (;;) {
+    std::vector<TraitTypeInfo> more;
+    auto test_resolve_any = [&](const ITraitInfoPtr& t) {
+      return std::any_of(resolved.begin(), resolved.end(), [&](const auto& r) { return test_resolve(*t, *r.trait); });
+    };
+    auto test_resolve_type = [&](const TraitTypeInfo& t) {
+      return std::all_of(t.dependencies.begin(), t.dependencies.end(), [&](const auto& i) { return test_resolve_any(i); });
+    };
+    for (auto iter = unresolved.begin(); iter != unresolved.end();) {
+      if (!test_resolve_type(*iter)) {
+        ++iter;
+        continue;
+      }
+      more.emplace_back(*iter);
+      iter = unresolved.erase(iter);
+    }
+
+    if (more.empty()) {
+      break;
+    }
+  }
+
+  if (!unresolved.empty()) {
+    std::ostringstream oss;
+    oss << "ActorInfo(" << name_ << ") failed to initialize because of the following:\r\n";
+    std::set<ITraitInfoPtr> missing;
+    for (const auto& u : unresolved) {
+      for (const auto& d : u.dependencies) {
+        if (std::any_of(source.begin(), source.end(), [&](const auto& i) { return test_resolve(*d, *i.trait); })) {
+          continue;
+        }
+        missing.emplace(d);
+      }
+    }
+
+    oss << "Missing:\r\n";
+    for (const auto& m : missing) {
+      oss << typeid(*m).name() << "\r\n";
+    }
+
+    oss << "Unresolved:\r\n";
+    for (const auto& u : unresolved) {
+      std::vector<ITraitInfoPtr> deps;
+      std::copy_if(u.dependencies.begin(), u.dependencies.end(), std::back_inserter(deps), [&](const auto& d) {
+        return !std::any_of(resolved.begin(), resolved.end(), [&](const auto& r) { return r.trait == d; });
+      });
+      std::vector<std::string> deps_names;
+      std::transform(deps.begin(), deps.end(), std::back_inserter(deps_names), [](const auto& i) { return typeid(*i).name(); });
+      oss << typeid(*u.trait).name() << ": {" << StringUtils::Join(deps_names, ", ") << " }\r\n";
+    }
+
+    throw Error(MSG(oss.str()));
+  }
+
+  construct_order_cache_ = {};
+  std::transform(resolved.begin(), resolved.end(), std::back_inserter(construct_order_cache_.value()),
+                 [](const auto& i) { return i.trait; });
+  return construct_order_cache_.value();
+}
+
 }

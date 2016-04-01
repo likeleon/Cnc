@@ -5,6 +5,8 @@
 #include "cnc/map.h"
 #include "cnc/ruleset.h"
 #include "cnc/container_utils.h"
+#include "cnc/actor_info.h"
+#include "cnc/traits_interfaces.h"
 
 namespace cnc {
 
@@ -18,6 +20,10 @@ Actor::Actor(World& world, std::string name, const TypeDictionary& /*init_dict*/
     }
 
     info_ = world.map().rules().actors().at(name);
+    for (const auto& trait : info_->TraitsInConstructionOrder()) {
+      auto trait_obj = trait->Create();
+      (trait_obj);
+    }
   }
 }
 

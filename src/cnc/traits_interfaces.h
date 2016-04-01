@@ -28,7 +28,10 @@ protected:
   }
 };
 
-using ITraitInfoPtr = std::shared_ptr<ITraitInfo>;
+class Requires : public ITraitInfoInterface {
+public:
+  virtual std::vector<ITraitInfoPtr> RequiredTypes() const = 0;
+};
 
 class AttackInfo {
 };
