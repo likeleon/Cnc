@@ -6,6 +6,7 @@
 namespace cnc {
 
 class Actor;
+class Player;
 
 class ITraitInfoInterface {
 public:
@@ -38,8 +39,14 @@ class AttackInfo {
 
 class INotifyKilled {
 public:
-  virtual ~INotifyKilled() {}
   virtual void Killed(Actor& self, const AttackInfo& e) = 0;
+};
+
+class IDefaultVisibilityInfo : public ITraitInfoInterface {};
+
+class IDefaultVisibility { 
+public:
+  virtual bool IsVisible(Actor& self, Player& by_player) = 0;
 };
 
 }

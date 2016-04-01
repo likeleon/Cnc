@@ -93,6 +93,7 @@
     <ClCompile Include="src\cnc\string_utils.cpp" />
     <ClCompile Include="src\cnc\texture.cpp" />
     <ClCompile Include="src\cnc\thread_affine.cpp" />
+    <ClCompile Include="src\cnc\trait_dictionary.cpp" />
     <ClCompile Include="src\cnc\type_dictionary.cpp" />
     <ClCompile Include="src\cnc\vertex.cpp" />
     <ClCompile Include="src\cnc\viewport.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="src\cnc\stream_ptr.h" />
     <ClInclude Include="src\cnc\stream_utils.h" />
     <ClInclude Include="src\cnc\traits_interfaces.h" />
+    <ClInclude Include="src\cnc\trait_dictionary.h" />
     <ClInclude Include="src\cnc\type_exposable.h" />
     <ClInclude Include="src\cnc\ivertex_buffer.h" />
     <ClInclude Include="src\cnc\log.h" />

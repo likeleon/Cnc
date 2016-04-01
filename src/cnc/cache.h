@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cnc/container_utils.h"
+
 namespace cnc {
 
 template <typename Key, typename T, typename Hasher = std::hash<Key>>
@@ -13,11 +15,7 @@ public:
   }
 
   T& operator[](const Key& key) {
-    auto iter = cache_.find(key);
-    if (iter == cache_.end()) {
-      iter = cache_.emplace(key, loader_(key)).first;
-    }
-    return iter->second;
+    return GetOrAdd(cache_, key, loader_);
   }
 
   void Clear() {

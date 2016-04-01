@@ -2,6 +2,7 @@
 
 #include "cnc/map_ptr.h"
 #include "cnc/actor_ptr.h"
+#include "cnc/trait_dictionary.h"
 
 namespace cnc {
 
@@ -18,6 +19,7 @@ public:
   World(MapUniquePtr map, OrderManager& order_manager, WorldType type);
   ~World();
 
+  TraitDictionary& trait_dict() { return trait_dict_; }
   Map& map() { return *map_; }
 
   ActorPtr CreateActor(const std::string& name, const TypeDictionary& init_dict);
@@ -32,6 +34,7 @@ public:
   World& operator=(const World& other) = delete;
 
 private:
+  TraitDictionary trait_dict_;
   std::map<uint32_t, ActorPtr> actors_;
   ActorPtr world_actor_;
   MapUniquePtr map_;

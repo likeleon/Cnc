@@ -5,6 +5,15 @@
 
 namespace cnc {
 
+template <typename K, typename F, typename C>
+typename C::mapped_type& GetOrAdd(C& c, const K& k, F f) {
+  auto iter = c.find(k);
+  if (iter == c.end()) {
+    iter = c.emplace(k, f(k)).first;
+  }
+  return iter->second;
+}
+
 template <typename TSource, typename TKey, typename TElement>
 std::map<TKey, TElement> ToMap(
   const std::vector<TSource>& source,

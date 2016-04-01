@@ -24,7 +24,12 @@ Actor::Actor(World& world, std::string name, const TypeDictionary& /*init_dict*/
       auto trait_obj = trait->Create();
       (trait_obj);
     }
+
+    default_visibility_ = Trait<IDefaultVisibility>();
   }
+}
+
+Actor::~Actor() {
 }
 
 }

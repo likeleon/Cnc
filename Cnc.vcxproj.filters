@@ -237,6 +237,7 @@
       <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\cnc\actor.cpp" />
+    <ClCompile Include="src\cnc\trait_dictionary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -568,6 +569,7 @@
     </ClInclude>
     <ClInclude Include="src\cnc\actor.h" />
     <ClInclude Include="src\cnc\actor_ptr.h" />
+    <ClInclude Include="src\cnc\trait_dictionary.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

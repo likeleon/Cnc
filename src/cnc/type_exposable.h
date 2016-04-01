@@ -10,6 +10,4 @@ public:
   virtual std::vector<std::type_index> BaseTypes() const = 0;
 };
 
-using TypeExposablePtr = std::shared_ptr<TypeExposable>;
-
 }

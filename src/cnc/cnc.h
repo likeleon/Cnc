@@ -39,4 +39,7 @@ using optional = std::experimental::optional<T>;
 class ITraitInfo;
 using ITraitInfoPtr = std::shared_ptr<ITraitInfo>;
 
+class TypeExposable;
+using TypeExposablePtr = std::shared_ptr<TypeExposable>;
+
 }
