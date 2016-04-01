@@ -15,6 +15,11 @@ static ITraitInfoPtr LoadTraitInfo(ObjectCreator& creator, const std::string& tr
     throw YamlException(MSG(oss.str()));
   }
 
+  // TODO: Remove null check
+  if (!creator.TypeRegistered(trait_name + "Info")) {
+    return nullptr;
+  }
+
   auto info = creator.CreateObject<ITraitInfo>(trait_name + "Info");
   try {
     FieldLoader::Load(*info, my);
@@ -70,7 +75,11 @@ ActorInfo::ActorInfo(ObjectCreator& creator, const std::string& name, const Mini
     for (const auto& t : MiniYaml::ApplyRemovals(partial.nodes())) {
       if (t.key() != "Inherits" && !StringUtils::StartsWith(t.key(), "Inherits@")) {
         try {
-          traits_.Add(LoadTraitInfo(creator, StringUtils::Split(t.key(), '@')[0], t.value()));
+          // TODO: Remove null check
+          auto trait = LoadTraitInfo(creator, StringUtils::Split(t.key(), '@')[0], t.value());
+          if (trait != nullptr) {
+            traits_.Add(trait);
+          }
         } catch (const FieldLoader::MissingFieldsException& e) {
           if (!abstract_actor_type) {
             throw YamlException(MSG(e.message().text));
