@@ -17,6 +17,7 @@
 #include "cnc/mods/common/shp_ts_loader.h"
 #include "cnc/mods/common/tmp_ra_loader.h"
 #include "cnc/mods/common/actor_lost_notification.h"
+#include "cnc/mods/common/always_visible.h"
 
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
@@ -39,6 +40,7 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register<ShpTSLoader>("ShpTSLoader");
   object_creator.Register<TmpRALoader>("TmpRALoader");
   object_creator.Register<ActorLostNotificationInfo>("ActorLostNotificationInfo");
+  object_creator.Register<AlwaysVisibleInfo>("AlwaysVisibleInfo");
 }
 
 BOOL APIENTRY DllMain(HMODULE /*hModule*/,

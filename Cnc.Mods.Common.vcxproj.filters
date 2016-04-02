@@ -64,6 +64,9 @@
     <ClCompile Include="src\cnc\mods\common\actor_lost_notification.cpp">
       <Filter>Traits</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\mods\common\always_visible.cpp">
+      <Filter>Traits</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\stdafx.h" />
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\mods\common\install_utils.h" />
     <ClInclude Include="src\cnc\mods\common\actor_lost_notification.h">
+      <Filter>Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\mods\common\always_visible.h">
       <Filter>Traits</Filter>
     </ClInclude>
   </ItemGroup>

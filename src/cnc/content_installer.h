@@ -14,7 +14,7 @@ struct ContentInstaller final : public GlobalModData {
   ContentInstaller();
   ContentInstaller(const MiniYaml& yaml);
 
-  std::vector<std::type_index> Types() const override;
+  std::deque<std::type_index> Types() const override;
 
   std::vector<std::string> test_files;
   std::string package_mirror_list;

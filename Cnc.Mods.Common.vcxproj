@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cnc\mods\common\actor_lost_notification.cpp" />
+    <ClCompile Include="src\cnc\mods\common\always_visible.cpp" />
     <ClCompile Include="src\cnc\mods\common\background_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\blank_load_screen.cpp" />
     <ClCompile Include="src\cnc\mods\common\button_widget.cpp" />
@@ -56,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\mods\common\actor_lost_notification.h" />
+    <ClInclude Include="src\cnc\mods\common\always_visible.h" />
     <ClInclude Include="src\cnc\mods\common\background_widget.h" />
     <ClInclude Include="src\cnc\mods\common\blank_load_screen.h" />
     <ClInclude Include="src\cnc\mods\common\button_widget.h" />

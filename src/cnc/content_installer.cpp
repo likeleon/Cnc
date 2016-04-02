@@ -17,7 +17,7 @@ std::vector<FieldLoadInfo> ContentInstaller::GetLoadInfo() const {
   };
 };
 
-std::vector<std::type_index> ContentInstaller::Types() const {
+std::deque<std::type_index> ContentInstaller::Types() const {
   return{ typeid(ContentInstaller), typeid(GlobalModData) };
 }
 

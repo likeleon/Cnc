@@ -15,7 +15,7 @@ public:
 
 class CNC_API ITraitInfo : public ITypeExposable, public ITraitInfoInterface {
 public:
-  std::vector<std::type_index> Types() const override;
+  std::deque<std::type_index> Types() const override;
 
   virtual std::vector<FieldLoadInfo> GetLoadInfo() const = 0;
   virtual TypeExposablePtr Create() = 0;
@@ -24,6 +24,20 @@ protected:
   template <typename T>
   std::shared_ptr<T> SharedFromBase() {
     return std::static_pointer_cast<T>(shared_from_this());
+  }
+};
+
+template <typename T>
+class TraitInfo : public ITraitInfo {
+public:
+  std::deque<std::type_index> Types() const override {
+    auto types = ITraitInfo::Types();
+    types.push_front(typeid(TraitInfo<T>));
+    return types;
+  }
+
+  TypeExposablePtr Create() override {
+    return std::make_shared<T>();
   }
 };
 
@@ -42,11 +56,11 @@ public:
 
 class IDefaultVisibilityInfo : public ITraitInfoInterface {};
 
-class IDefaultVisibility : public ITypeExposable {
+class CNC_API IDefaultVisibility : public ITypeExposable {
 public:
   virtual bool IsVisible(Actor& self, Player& by_player) = 0;
 
-  std::vector<std::type_index> Types() const override;
+  std::deque<std::type_index> Types() const override;
 };
 
 }
