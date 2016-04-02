@@ -6,10 +6,7 @@
 namespace cnc {
 
 void TypeDictionary::Add(const TypeExposablePtr& val) {
-  for (const auto& i : val->Interfaces()) {
-    InnerAdd(i, val);
-  }
-  for (const auto& tt : val->BaseTypes()) {
+  for (const auto& tt : val->Types()) {
     InnerAdd(tt, val);
   }
 }
@@ -19,10 +16,7 @@ void TypeDictionary::InnerAdd(std::type_index t, const TypeExposablePtr& val) {
 }
 
 void TypeDictionary::Remove(ITypeExposable& val) {
-  for (const auto& i : val.Interfaces()) {
-    InnerRemove(i, val);
-  }
-  for (const auto& tt : val.BaseTypes()) {
+  for (const auto& tt : val.Types()) {
     InnerRemove(tt, val);
   }
 }

@@ -17,12 +17,8 @@ std::vector<FieldLoadInfo> ContentInstaller::GetLoadInfo() const {
   };
 };
 
-std::vector<std::type_index> ContentInstaller::Interfaces() const {
-  return{ typeid(GlobalModData) };
-}
-
-std::vector<std::type_index> ContentInstaller::BaseTypes() const {
-  return{ typeid(ContentInstaller) };
+std::vector<std::type_index> ContentInstaller::Types() const {
+  return{ typeid(ContentInstaller), typeid(GlobalModData) };
 }
 
 ContentInstaller::ContentInstaller() {

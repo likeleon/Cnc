@@ -3,12 +3,12 @@
 
 namespace cnc {
 
-std::vector<std::type_index> IDefaultVisibility::Interfaces() const {
-  return{ typeid(ITypeExposable) };
+std::vector<std::type_index> ITraitInfo::Types() const {
+  return{ typeid(ITraitInfo), typeid(ITraitInfoInterface) };
 }
 
-std::vector<std::type_index> IDefaultVisibility::BaseTypes() const {
-  return{};
+std::vector<std::type_index> IDefaultVisibility::Types() const {
+  return{ typeid(IDefaultVisibility) };
 }
 
 }

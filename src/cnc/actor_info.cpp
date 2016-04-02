@@ -98,8 +98,8 @@ struct TraitTypeInfo {
 };
 
 static std::vector<ITraitInfoPtr> PrerequisitesOf(const ITraitInfo& info) {
-  auto interfaces = info.Interfaces();
-  if (std::find(interfaces.begin(), interfaces.end(), typeid(Requires)) == interfaces.end()) {
+  auto types = info.Types();
+  if (std::find(types.begin(), types.end(), typeid(Requires)) == types.end()) {
     return{};
   }
   return reinterpret_cast<const Requires&>(info).RequiredTypes();
@@ -111,16 +111,11 @@ static bool IsAssignable(const ITypeExposable& t, const ITypeExposable& from) {
     return true;
   }
   
-  const auto& base_types = from.BaseTypes();
+  const auto& base_types = from.Types();
   if (std::find(base_types.begin(), base_types.end(), this_type) != base_types.end()) {
     return true;
   }
 
-  const auto& iterface_types = from.Interfaces();
-  if (std::find(iterface_types.begin(), iterface_types.end(), this_type) != iterface_types.end()) {
-    return true;
-  }
-  
   return false;
 }
 

@@ -13,11 +13,9 @@ public:
   virtual ~ITraitInfoInterface() {}
 };
 
-class ITraitInfo : public ITypeExposable, public ITraitInfoInterface {
+class CNC_API ITraitInfo : public ITypeExposable, public ITraitInfoInterface {
 public:
-  std::vector<std::type_index> Interfaces() const override {
-    return{ typeid(ITraitInfo), typeid(ITraitInfoInterface) };
-  }
+  std::vector<std::type_index> Types() const override;
 
   virtual std::vector<FieldLoadInfo> GetLoadInfo() const = 0;
   virtual TypeExposablePtr Create() = 0;
@@ -48,8 +46,7 @@ class IDefaultVisibility : public ITypeExposable {
 public:
   virtual bool IsVisible(Actor& self, Player& by_player) = 0;
 
-  std::vector<std::type_index> Interfaces() const override;
-  std::vector<std::type_index> BaseTypes() const override;
+  std::vector<std::type_index> Types() const override;
 };
 
 }

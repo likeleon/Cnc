@@ -8,7 +8,7 @@ namespace common {
 
 class ActorLostNotificationInfo : public ITraitInfo {
 public:
-  std::vector<std::type_index> BaseTypes() const override;
+  std::vector<std::type_index> Types() const override;
   std::vector<FieldLoadInfo> GetLoadInfo() const override;
   TypeExposablePtr Create() override;
 
@@ -22,8 +22,7 @@ public:
   
   void Killed(Actor& self, const AttackInfo& e) override;
 
-  std::vector<std::type_index> Interfaces() const override;
-  std::vector<std::type_index> BaseTypes() const override;
+  std::vector<std::type_index> Types() const override;
 
   std::shared_ptr<ActorLostNotificationInfo> info_;
 };

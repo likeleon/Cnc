@@ -8,10 +8,7 @@ namespace cnc {
 
 // TraitDictionary
 void TraitDictionary::AddTrait(ActorPtr actor, TypeExposablePtr val) {
-  for (const auto& i : val->Interfaces()) {
-    InnerAdd(actor, i, val);
-  }
-  for (const auto& tt : val->BaseTypes()) {
+  for (const auto& tt : val->Types()) {
     InnerAdd(actor, tt, val);
   }
 }

@@ -7,7 +7,7 @@ namespace cnc {
 namespace mods {
 namespace common {
 
-std::vector<std::type_index> ActorLostNotificationInfo::BaseTypes() const {
+std::vector<std::type_index> ActorLostNotificationInfo::Types() const {
   return{ typeid(ActorLostNotificationInfo) };
 }
 
@@ -26,12 +26,8 @@ ActorLostNotification::ActorLostNotification(std::shared_ptr<ActorLostNotificati
   : info_(info) {
 }
 
-std::vector<std::type_index> ActorLostNotification::Interfaces() const {
-  return{ typeid(INotifyKilled) };
-}
-
-std::vector<std::type_index> ActorLostNotification::BaseTypes() const {
-  return{ typeid(ITypeExposable) };
+std::vector<std::type_index> ActorLostNotification::Types() const {
+  return{ typeid(ActorLostNotification), typeid(INotifyKilled) };
 }
 
 void ActorLostNotification::Killed(Actor& /*self*/, const AttackInfo& /*e*/) {
