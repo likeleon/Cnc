@@ -14,6 +14,8 @@ public:
 
   const std::vector<ITraitInfoPtr>& TraitsInConstructionOrder();
 
+  const std::string& name() const { return name_; }
+
 private:
   std::string name_;
   TypeDictionary traits_;

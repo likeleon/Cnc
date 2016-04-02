@@ -32,4 +32,8 @@ Actor::Actor(World& world, std::string name, const TypeDictionary& /*init_dict*/
 Actor::~Actor() {
 }
 
+void Actor::AddTrait(TypeExposablePtr trait) {
+  world_.trait_dict().AddTrait(shared_from_this(), trait);
+}
+
 }

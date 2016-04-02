@@ -20,7 +20,7 @@ public:
   }
 
   virtual std::vector<FieldLoadInfo> GetLoadInfo() const = 0;
-  virtual std::shared_ptr<void> Create() = 0;
+  virtual TypeExposablePtr Create() = 0;
 
 protected:
   template <typename T>

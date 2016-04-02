@@ -9,7 +9,7 @@ class World;
 class TypeDictionary;
 class IDefaultVisibility;
 
-class Actor {
+class Actor : std::enable_shared_from_this<Actor> {
 public:
   Actor(World& world, std::string name, const TypeDictionary& init_dict);
   ~Actor();
@@ -17,7 +17,10 @@ public:
   uint32_t actor_id() const { return actor_id_; }
   void set_is_in_world(bool value) { is_in_world_ = value; }
   bool is_in_world() const { return is_in_world_; }
+  const ActorInfo& info() const { return *info_; }
 
+  void AddTrait(TypeExposablePtr trait);
+  
   template <typename T>
   std::shared_ptr<T> Trait();
 
