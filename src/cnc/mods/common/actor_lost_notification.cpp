@@ -18,12 +18,20 @@ std::vector<FieldLoadInfo> ActorLostNotificationInfo::GetLoadInfo() const {
   };
 };
 
-std::shared_ptr<void> ActorLostNotificationInfo::Create() {
+TypeExposablePtr ActorLostNotificationInfo::Create() {
   return std::make_shared<ActorLostNotification>(SharedFromBase<ActorLostNotificationInfo>());
 }
 
 ActorLostNotification::ActorLostNotification(std::shared_ptr<ActorLostNotificationInfo> info)
   : info_(info) {
+}
+
+std::vector<std::type_index> ActorLostNotification::Interfaces() const {
+  return{ typeid(INotifyKilled) };
+}
+
+std::vector<std::type_index> ActorLostNotification::BaseTypes() const {
+  return{ typeid(ITypeExposable) };
 }
 
 void ActorLostNotification::Killed(Actor& /*self*/, const AttackInfo& /*e*/) {

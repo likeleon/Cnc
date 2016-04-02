@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cnc/type_exposable.h"
+#include "cnc/itype_exposable.h"
 #include "cnc/field_load_info.h"
 
 namespace cnc {
@@ -13,7 +13,7 @@ public:
   virtual ~ITraitInfoInterface() {}
 };
 
-class ITraitInfo : public TypeExposable, public ITraitInfoInterface {
+class ITraitInfo : public ITypeExposable, public ITraitInfoInterface {
 public:
   std::vector<std::type_index> Interfaces() const override {
     return{ typeid(ITraitInfo), typeid(ITraitInfoInterface) };
@@ -44,9 +44,12 @@ public:
 
 class IDefaultVisibilityInfo : public ITraitInfoInterface {};
 
-class IDefaultVisibility { 
+class IDefaultVisibility : public ITypeExposable {
 public:
   virtual bool IsVisible(Actor& self, Player& by_player) = 0;
+
+  std::vector<std::type_index> Interfaces() const override;
+  std::vector<std::type_index> BaseTypes() const override;
 };
 
 }

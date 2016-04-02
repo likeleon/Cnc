@@ -1,7 +1,7 @@
 #include "cnc/stdafx.h"
 #include "cnc/type_dictionary.h"
 #include "cnc/error.h"
-#include "cnc/type_exposable.h"
+#include "cnc/itype_exposable.h"
 
 namespace cnc {
 
@@ -18,7 +18,7 @@ void TypeDictionary::InnerAdd(std::type_index t, const TypeExposablePtr& val) {
   data_.try_emplace(t).first->second.emplace_back(val);
 }
 
-void TypeDictionary::Remove(TypeExposable& val) {
+void TypeDictionary::Remove(ITypeExposable& val) {
   for (const auto& i : val.Interfaces()) {
     InnerRemove(i, val);
   }
@@ -27,7 +27,7 @@ void TypeDictionary::Remove(TypeExposable& val) {
   }
 }
 
-void TypeDictionary::InnerRemove(std::type_index t, TypeExposable& val) {
+void TypeDictionary::InnerRemove(std::type_index t, ITypeExposable& val) {
   auto iter = data_.find(t);
   if (iter == data_.end()) {
     return;
@@ -40,7 +40,7 @@ void TypeDictionary::InnerRemove(std::type_index t, TypeExposable& val) {
   }
 }
 
-TypeExposable* TypeDictionary::Get(std::type_index t, bool throws_if_missing) {
+ITypeExposable* TypeDictionary::Get(std::type_index t, bool throws_if_missing) {
   auto iter = data_.find(t);
   if (iter == data_.end()) {
     if (throws_if_missing) {

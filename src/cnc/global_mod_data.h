@@ -1,10 +1,10 @@
 #pragma once
 
-#include "cnc/type_exposable.h"
+#include "cnc/itype_exposable.h"
 
 namespace cnc {
 
-class GlobalModData : public TypeExposable {
+class GlobalModData : public ITypeExposable {
 public:
   virtual ~GlobalModData() {}
 };

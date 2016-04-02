@@ -21,8 +21,7 @@ Actor::Actor(World& world, std::string name, const TypeDictionary& /*init_dict*/
 
     info_ = world.map().rules().actors().at(name);
     for (const auto& trait : info_->TraitsInConstructionOrder()) {
-      auto trait_obj = trait->Create();
-      (trait_obj);
+      AddTrait(trait->Create());
     }
 
     default_visibility_ = Trait<IDefaultVisibility>();
@@ -34,6 +33,14 @@ Actor::~Actor() {
 
 void Actor::AddTrait(TypeExposablePtr trait) {
   world_.trait_dict().AddTrait(shared_from_this(), trait);
+}
+
+std::string Actor::ToString() const {
+  auto name = info_->name() + " " + std::to_string(actor_id_);
+  if (!is_in_world()) {
+    name += " (not in world)";
+  }
+  return name;
 }
 
 }

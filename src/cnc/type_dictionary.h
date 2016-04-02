@@ -1,13 +1,13 @@
 #pragma once
 
-#include "cnc/type_exposable.h"
+#include "cnc/itype_exposable.h"
 
 namespace cnc {
 
 class TypeDictionary {
 public:
   void Add(const TypeExposablePtr& val);
-  void Remove(TypeExposable& val);
+  void Remove(ITypeExposable& val);
 
   template <typename T>
   bool Contains() {
@@ -38,8 +38,8 @@ public:
 
 private:
   void InnerAdd(std::type_index t, const TypeExposablePtr& val);
-  void InnerRemove(std::type_index t, TypeExposable& val);
-  TypeExposable* Get(std::type_index t, bool throws_if_missing);
+  void InnerRemove(std::type_index t, ITypeExposable& val);
+  ITypeExposable* Get(std::type_index t, bool throws_if_missing);
 
   std::map<std::type_index, std::vector<TypeExposablePtr>> data_;
 };

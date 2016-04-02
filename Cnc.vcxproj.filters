@@ -238,6 +238,7 @@
     </ClCompile>
     <ClCompile Include="src\cnc\actor.cpp" />
     <ClCompile Include="src\cnc\trait_dictionary.cpp" />
+    <ClCompile Include="src\cnc\traits_interfaces.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -490,9 +491,6 @@
     <ClInclude Include="src\cnc\type_dictionary.h">
       <Filter>primitives</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\type_exposable.h">
-      <Filter>primitives</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\global_mod_data.h" />
     <ClInclude Include="src\cnc\action.h">
       <Filter>primitives</Filter>
@@ -570,6 +568,9 @@
     <ClInclude Include="src\cnc\actor.h" />
     <ClInclude Include="src\cnc\actor_ptr.h" />
     <ClInclude Include="src\cnc\trait_dictionary.h" />
+    <ClInclude Include="src\cnc\itype_exposable.h">
+      <Filter>primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

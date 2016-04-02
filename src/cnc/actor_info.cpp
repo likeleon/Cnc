@@ -105,7 +105,7 @@ static std::vector<ITraitInfoPtr> PrerequisitesOf(const ITraitInfo& info) {
   return reinterpret_cast<const Requires&>(info).RequiredTypes();
 }
 
-static bool IsAssignable(const TypeExposable& t, const TypeExposable& from) {
+static bool IsAssignable(const ITypeExposable& t, const ITypeExposable& from) {
   const auto& this_type = typeid(t);
   if (this_type == typeid(from)) {
     return true;
