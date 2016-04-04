@@ -11,8 +11,10 @@ class IDefaultVisibility;
 
 class Actor : public std::enable_shared_from_this<Actor> {
 public:
-  Actor(World& world, std::string name, const TypeDictionary& init_dict);
+  explicit Actor(World& world);
   ~Actor();
+
+  void Init(std::string name, const TypeDictionary& init_dict);
 
   uint32_t actor_id() const { return actor_id_; }
   void set_is_in_world(bool value) { is_in_world_ = value; }

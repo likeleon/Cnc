@@ -10,25 +10,28 @@
 
 namespace cnc {
 
-Actor::Actor(World& world, std::string name, const TypeDictionary& /*init_dict*/)
+Actor::Actor(World& world)
   : world_(world), actor_id_(world.NextAID()) {
+}
+
+Actor::~Actor() {
+}
+
+void Actor::Init(std::string name, const TypeDictionary& /*init_dict*/) {
   if (!name.empty()) {
     name = StringUtils::ToLower(name);
 
-    if (!ContainsKey(world.map().rules().actors(), name)) {
+    if (!ContainsKey(world_.map().rules().actors(), name)) {
       throw Error(MSG("No rules definition for unit " + name));
     }
 
-    info_ = world.map().rules().actors().at(name);
+    info_ = world_.map().rules().actors().at(name);
     for (const auto& trait : info_->TraitsInConstructionOrder()) {
       AddTrait(trait->Create());
     }
 
     default_visibility_ = Trait<IDefaultVisibility>();
   }
-}
-
-Actor::~Actor() {
 }
 
 void Actor::AddTrait(TypeExposablePtr trait) {
