@@ -239,6 +239,12 @@
     <ClCompile Include="src\cnc\actor.cpp" />
     <ClCompile Include="src\cnc\trait_dictionary.cpp" />
     <ClCompile Include="src\cnc\traits_interfaces.cpp" />
+    <ClCompile Include="src\cnc\terrain_renderer.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnc\terrain_sprite_layer.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -570,6 +576,12 @@
     <ClInclude Include="src\cnc\trait_dictionary.h" />
     <ClInclude Include="src\cnc\itype_exposable.h">
       <Filter>primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\terrain_renderer.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\terrain_sprite_layer.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

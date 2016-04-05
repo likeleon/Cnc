@@ -20,6 +20,7 @@ public:
   ~World();
 
   TraitDictionary& trait_dict() { return trait_dict_; }
+  Actor& world_actor() { return *world_actor_; }
   Map& map() { return *map_; }
 
   ActorPtr CreateActor(const std::string& name, const TypeDictionary& init_dict);
