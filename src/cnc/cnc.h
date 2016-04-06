@@ -42,4 +42,7 @@ using ITraitInfoPtr = std::shared_ptr<ITraitInfo>;
 class ITypeExposable;
 using TypeExposablePtr = std::shared_ptr<ITypeExposable>;
 
+class TileSet;
+using TileSetPtr = std::shared_ptr<TileSet>;
+
 }

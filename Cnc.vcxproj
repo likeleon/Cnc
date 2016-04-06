@@ -95,6 +95,7 @@
     <ClCompile Include="src\cnc\terrain_sprite_layer.cpp" />
     <ClCompile Include="src\cnc\texture.cpp" />
     <ClCompile Include="src\cnc\thread_affine.cpp" />
+    <ClCompile Include="src\cnc\tile_set.cpp" />
     <ClCompile Include="src\cnc\traits_interfaces.cpp" />
     <ClCompile Include="src\cnc\trait_dictionary.cpp" />
     <ClCompile Include="src\cnc\type_dictionary.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="src\cnc\stream_utils.h" />
     <ClInclude Include="src\cnc\terrain_renderer.h" />
     <ClInclude Include="src\cnc\terrain_sprite_layer.h" />
+    <ClInclude Include="src\cnc\tile_set.h" />
     <ClInclude Include="src\cnc\traits_interfaces.h" />
     <ClInclude Include="src\cnc\trait_dictionary.h" />
     <ClInclude Include="src\cnc\itype_exposable.h" />

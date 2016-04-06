@@ -245,6 +245,9 @@
     <ClCompile Include="src\cnc\terrain_sprite_layer.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\tile_set.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -582,6 +585,9 @@
     </ClInclude>
     <ClInclude Include="src\cnc\terrain_sprite_layer.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\tile_set.h">
+      <Filter>map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

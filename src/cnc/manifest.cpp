@@ -88,6 +88,7 @@ Manifest::Manifest(const std::string& mod_id, const std::string& _mod_path) {
   chrome_ = YamlList(yaml_, "Chrome", true);
   assemblies_ = YamlList(yaml_, "Assemblies", true);
   chrome_layout_ = YamlList(yaml_, "ChromeLayout", true);
+  tile_sets_ = YamlList(yaml_, "TileSets", true);
   chrome_metrics_ = YamlList(yaml_, "ChromeMetrics", true);
 
   auto iter = yaml_.find("LoadScreen");
@@ -134,62 +135,6 @@ void Manifest::LoadCustomData(ObjectCreator& oc) {
     auto module = oc.CreateObject<GlobalModData>(kvp.first, { {"yaml", static_cast<const MiniYaml&>(kvp.second)} });
     modules_.Add(std::move(module));
   }
-}
-
-const ModMetadata& Manifest::mod() const {
-  return mod_;
-}
-
-const std::vector<std::string>& Manifest::folders() const {
-  return folders_;
-}
-
-const std::vector<std::string>& Manifest::rules() const {
-  return rules_;
-}
-
-const std::vector<std::string>& Manifest::cursors() const {
-  return cursors_;
-}
-
-const std::map<std::string, std::string>& Manifest::packages() const {
-  return packages_;
-}
-
-const std::map<std::string, std::string>& Manifest::map_folders() const {
-  return map_folders_;
-}
-
-const std::vector<std::string>& Manifest::chrome() const {
-  return chrome_;
-}
-
-const std::vector<std::string>& Manifest::assemblies() const {
-  return assemblies_;
-}
-
-const std::vector<std::string>& Manifest::chrome_layout() const {
-  return chrome_layout_;
-}
-
-const std::vector<std::string>& Manifest::chrome_metrics() const {
-  return chrome_metrics_;
-}
-
-const MiniYaml& Manifest::load_screen() const {
-  return *load_screen_;
-}
-
-const std::map<std::string, std::string>& Manifest::requires_mods() const {
-  return requires_mods_;
-}
-
-const std::map<std::string, std::pair<std::string, int32_t>>& Manifest::fonts() const {
-  return fonts_;
-}
-
-const std::vector<std::string>& Manifest::sprite_formats() const {
-  return sprite_formats_;
 }
 
 }

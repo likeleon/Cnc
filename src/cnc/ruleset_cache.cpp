@@ -6,6 +6,7 @@
 #include "cnc/game.h"
 #include "cnc/map.h"
 #include "cnc/actor_info.h"
+#include "cnc/tile_set.h"
 
 namespace cnc {
 
@@ -19,6 +20,7 @@ std::shared_ptr<Ruleset> RulesetCache::Load(Map* map) {
   auto& m = mod_data_.manifest();
 
   std::map<std::string, ActorInfoPtr> actors;
+  std::map<std::string, TileSetPtr> tile_sets;
   {
     PerfTimer p("Actors");
     actors = LoadYamlRules<ActorInfo>(actor_cache_, m.rules(),
@@ -28,8 +30,27 @@ std::shared_ptr<Ruleset> RulesetCache::Load(Map* map) {
                                          StringUtils::ToLower(k.key()), k.value(), y);
     });
   }
+  {
+    PerfTimer p("TileSets");
+    tile_sets = LoadTileSets(tile_set_cache_, m.tile_sets());
+  }
 
-  return std::make_shared<Ruleset>(std::move(actors));
+  return std::make_shared<Ruleset>(std::move(actors), std::move(tile_sets));
+}
+
+std::map<std::string, TileSetPtr> RulesetCache::LoadTileSets(std::map<std::string, TileSetPtr>& item_cache, 
+                                                             const std::vector<std::string>& files) {
+  std::map<std::string, TileSetPtr> items;
+
+  for (const auto& file : files) {
+    TileSetPtr t;
+    if (!TryGetValue(item_cache, file, t)) {
+      t = std::make_shared<TileSet>(file);
+      item_cache.emplace(file, t);
+    }
+    items.emplace(t->id(), t);
+  }
+  return items;
 }
 
 }

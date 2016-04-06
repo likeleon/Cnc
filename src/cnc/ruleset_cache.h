@@ -62,8 +62,12 @@ private:
     return item_set;
   }
 
+  std::map<std::string, TileSetPtr> LoadTileSets(std::map<std::string, TileSetPtr>& item_cache, 
+                                                 const std::vector<std::string>& files);
+
   ModData& mod_data_;
   std::map<std::string, ActorInfoPtr> actor_cache_;
+  std::map<std::string, TileSetPtr> tile_set_cache_;
 };
 
 }
