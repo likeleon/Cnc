@@ -17,7 +17,7 @@ public:
   static const int32_t Size = 256;
 };
 
-class ImmutablePalette : public IPalette {
+class CNC_API ImmutablePalette : public IPalette {
 public:
   ImmutablePalette(const std::string& filename, const std::vector<int32_t>& remap_shadow);
   ImmutablePalette(StreamPtr s, const std::vector<int32_t>& remap_shadow);
@@ -32,7 +32,7 @@ private:
   std::array<uint32_t, Palette::Size> colors_;
 };
 
-class MutablePalette : public IPalette {
+class CNC_API MutablePalette : public IPalette {
 public:
   MutablePalette(const IPalette& p);
 

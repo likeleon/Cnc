@@ -14,6 +14,7 @@
     <ClCompile Include="src\cnc\action_queue.cpp" />
     <ClCompile Include="src\cnc\actor.cpp" />
     <ClCompile Include="src\cnc\actor_info.cpp" />
+    <ClCompile Include="src\cnc\actor_initializer.cpp" />
     <ClCompile Include="src\cnc\arguments.cpp" />
     <ClCompile Include="src\cnc\bitmap.cpp" />
     <ClCompile Include="src\cnc\byte_stream_buffer.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="src\cnc\actor.h" />
     <ClInclude Include="src\cnc\actor_info.h" />
     <ClInclude Include="src\cnc\actor_info_ptr.h" />
+    <ClInclude Include="src\cnc\actor_initializer.h" />
     <ClInclude Include="src\cnc\actor_ptr.h" />
     <ClInclude Include="src\cnc\any.h" />
     <ClInclude Include="src\cnc\arguments.h" />
@@ -228,6 +230,7 @@
     <ClInclude Include="src\cnc\surface_ptr.h" />
     <ClInclude Include="src\cnc\texture.h" />
     <ClInclude Include="src\cnc\thread_affine.h" />
+    <ClInclude Include="src\cnc\trait_pair.h" />
     <ClInclude Include="src\cnc\type_dictionary.h" />
     <ClInclude Include="src\cnc\vertex.h" />
     <ClInclude Include="src\cnc\vertex_buffer.h" />

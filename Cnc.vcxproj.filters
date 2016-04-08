@@ -248,6 +248,9 @@
     <ClCompile Include="src\cnc\tile_set.cpp">
       <Filter>map</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnc\actor_initializer.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cnc\game.h" />
@@ -589,6 +592,10 @@
     <ClInclude Include="src\cnc\tile_set.h">
       <Filter>map</Filter>
     </ClInclude>
+    <ClInclude Include="src\cnc\actor_initializer.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnc\trait_pair.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="support">

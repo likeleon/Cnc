@@ -7,6 +7,7 @@
 #include "cnc/container_utils.h"
 #include "cnc/actor_info.h"
 #include "cnc/traits_interfaces.h"
+#include "cnc/actor_initializer.h"
 
 namespace cnc {
 
@@ -17,7 +18,9 @@ Actor::Actor(World& world)
 Actor::~Actor() {
 }
 
-void Actor::Init(std::string name, const TypeDictionary& /*init_dict*/) {
+void Actor::Init(std::string name, const TypeDictionary& init_dict) {
+  ActorInitializer init(*this, init_dict);
+
   if (!name.empty()) {
     name = StringUtils::ToLower(name);
 
@@ -27,7 +30,7 @@ void Actor::Init(std::string name, const TypeDictionary& /*init_dict*/) {
 
     info_ = world_.map().rules().actors().at(name);
     for (const auto& trait : info_->TraitsInConstructionOrder()) {
-      AddTrait(trait->Create());
+      AddTrait(trait->Create(init));
     }
 
     default_visibility_ = Trait<IDefaultVisibility>();

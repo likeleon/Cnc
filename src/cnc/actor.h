@@ -17,6 +17,7 @@ public:
   void Init(std::string name, const TypeDictionary& init_dict);
 
   uint32_t actor_id() const { return actor_id_; }
+  World& world() { return world_; }
   void set_is_in_world(bool value) { is_in_world_ = value; }
   bool is_in_world() const { return is_in_world_; }
   bool disposed() const { return disposed_; }

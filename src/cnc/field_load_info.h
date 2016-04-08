@@ -40,6 +40,17 @@ FieldInfo StringVectorFieldInfo(std::vector<std::string> TObject::*field) {
   });
 }
 
+template <typename TObject>
+FieldInfo Int32VectorFieldInfo(std::vector<std::int32_t> TObject::*field) {
+  return FieldInfo([field](void *o, const std::string& v) {
+    TObject* obj = static_cast<TObject*>(o);
+    auto parts = StringUtils::Split(v, ',', StringSplitOptions::RemoveEmptyEntries);
+    for (const auto& part : parts) {
+      (obj->*field).emplace_back(std::stoi(StringUtils::Trim(part)));
+    }
+  });
+}
+
 template <typename TEnumTraits, typename TObject>
 FieldInfo EnumFieldInfo(typename TEnumTraits::E TObject::*field) {
   return FieldInfo([field](void* o, const std::string& v) {

@@ -8,10 +8,6 @@ PaletteReference::PaletteReference(const std::string& name, int32_t index, const
   : name_(name), palette_(palette), index_(static_cast<float>(index)), hardware_palette_(hardware_palette) {
 }
 
-const IPalettePtr& PaletteReference::palette() const {
-  return palette_;
-}
-
 float PaletteReference::TextureIndex() const {
   return index_ / hardware_palette_.height();
 }

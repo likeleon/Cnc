@@ -7,6 +7,8 @@ namespace cnc {
 
 class Actor;
 class Player;
+class ActorInitializer;
+class WorldRenderer;
 
 class ITraitInfoInterface {
 public:
@@ -18,7 +20,7 @@ public:
   std::deque<std::type_index> Types() const override;
 
   virtual std::vector<FieldLoadInfo> GetLoadInfo() const = 0;
-  virtual TypeExposablePtr Create() = 0;
+  virtual TypeExposablePtr Create(const ActorInitializer& init) = 0;
 
 protected:
   template <typename T>
@@ -36,7 +38,7 @@ public:
     return types;
   }
 
-  TypeExposablePtr Create() override {
+  TypeExposablePtr Create(const ActorInitializer& /*init*/) override {
     return std::make_shared<T>();
   }
 };
@@ -56,11 +58,14 @@ public:
 
 class IDefaultVisibilityInfo : public ITraitInfoInterface {};
 
-class CNC_API IDefaultVisibility : public ITypeExposable {
+class IDefaultVisibility {
 public:
   virtual bool IsVisible(Actor& self, Player& by_player) = 0;
+};
 
-  std::deque<std::type_index> Types() const override;
+class ILoadsPalettes {
+public:
+  virtual void LoadPalettes(WorldRenderer& wr) = 0;
 };
 
 }

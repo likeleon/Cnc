@@ -18,7 +18,7 @@ std::vector<FieldLoadInfo> ActorLostNotificationInfo::GetLoadInfo() const {
   };
 };
 
-TypeExposablePtr ActorLostNotificationInfo::Create() {
+TypeExposablePtr ActorLostNotificationInfo::Create(const ActorInitializer& /*init*/) {
   return std::make_shared<ActorLostNotification>(SharedFromBase<ActorLostNotificationInfo>());
 }
 

@@ -3,11 +3,13 @@
 #include "cnc/map.h"
 #include "cnc/actor.h"
 #include "cnc/type_dictionary.h"
+#include "cnc/ruleset.h"
 
 namespace cnc {
 
 World::World(MapUniquePtr map, OrderManager& order_manager, WorldType type)
   : map_(std::move(map)), order_manager_(order_manager), type_(type) {
+  tile_set_ = map_->rules().tile_sets().at(map_->tileset());
   world_actor_ = CreateActor("World", TypeDictionary());
 }
 

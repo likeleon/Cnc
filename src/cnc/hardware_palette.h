@@ -11,6 +11,7 @@ public:
   HardwarePalette();
 
   void AddPalette(const std::string& name, const ImmutablePalettePtr& p, bool allow_modifiers);
+  void ReplacePalette(const std::string& name, IPalettePtr pal);
   void Initialize();
   
   bool Contais(const std::string& name) const;

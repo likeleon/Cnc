@@ -34,6 +34,7 @@
     <ClCompile Include="src\cnc\mods\common\lcw_compression.cpp" />
     <ClCompile Include="src\cnc\mods\common\mod_browser_logic.cpp" />
     <ClCompile Include="src\cnc\mods\common\mod_chooser_load_screen.cpp" />
+    <ClCompile Include="src\cnc\mods\common\palette_from_current_tileset.cpp" />
     <ClCompile Include="src\cnc\mods\common\progress_bar_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\rgba_sprite_widget.cpp" />
     <ClCompile Include="src\cnc\mods\common\rle_zeros_compression.cpp" />
@@ -71,6 +72,7 @@
     <ClInclude Include="src\cnc\mods\common\lcw_compression.h" />
     <ClInclude Include="src\cnc\mods\common\mod_browser_logic.h" />
     <ClInclude Include="src\cnc\mods\common\mod_chooser_load_screen.h" />
+    <ClInclude Include="src\cnc\mods\common\palette_from_current_tileset.h" />
     <ClInclude Include="src\cnc\mods\common\progress_bar_widget.h" />
     <ClInclude Include="src\cnc\mods\common\rgba_sprite_widget.h" />
     <ClInclude Include="src\cnc\mods\common\rle_zeros_compression.h" />

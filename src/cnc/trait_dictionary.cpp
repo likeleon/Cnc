@@ -55,28 +55,6 @@ void TraitDictionary::TraitContainer::RemoveActor(uint32_t actor) {
   traits_.erase(traits_.begin() + start_index, traits_.begin() + end_index);
 }
 
-TypeExposablePtr TraitDictionary::TraitContainer::Get(uint32_t actor) {
-  auto result = GetOrDefault(actor);
-  if (result == nullptr) {
-    throw Error(MSG("Actor does not have trait of type '" + std::string(type_index_.name()) + "'"));
-  }
-  return result;
-}
-
-TypeExposablePtr TraitDictionary::TraitContainer::GetOrDefault(uint32_t actor) {
-  ++queries_;
-  auto index = ActorsBinarySearchMany(actor);
-  if (index >= actors_.size() || actors_[index]->actor_id() != actor) {
-    return nullptr;
-  } else if (index + 1 < actors_.size() && actors_[index + 1]->actor_id() == actor) {
-    std::ostringstream oss;
-    oss << "Actor " << actors_[index]->info().name() << " has multiple traits of type '" << type_index_.name() << "'"; 
-    throw Error(MSG(oss.str()));
-  } else {
-    return traits_[index];
-  }
-}
-
 size_t TraitDictionary::TraitContainer::ActorsBinarySearchMany(uint32_t search_for) const {
   auto low = std::lower_bound(actors_.begin(), actors_.end(), search_for,
                               [&](const auto& a, uint32_t b) { return a->actor_id() < b; });

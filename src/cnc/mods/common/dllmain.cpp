@@ -16,8 +16,10 @@
 #include "cnc/mods/common/tmp_td_loader.h"
 #include "cnc/mods/common/shp_ts_loader.h"
 #include "cnc/mods/common/tmp_ra_loader.h"
+
 #include "cnc/mods/common/actor_lost_notification.h"
 #include "cnc/mods/common/always_visible.h"
+#include "cnc/mods/common/palette_from_current_tileset.h"
 
 extern "C"
 void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
@@ -39,8 +41,10 @@ void __declspec(dllexport) RegisterTypes(cnc::ObjectCreator& object_creator) {
   object_creator.Register<TmpTDLoader>("TmpTDLoader");
   object_creator.Register<ShpTSLoader>("ShpTSLoader");
   object_creator.Register<TmpRALoader>("TmpRALoader");
+
   object_creator.Register<ActorLostNotificationInfo>("ActorLostNotificationInfo");
   object_creator.Register<AlwaysVisibleInfo>("AlwaysVisibleInfo");
+  object_creator.Register<PaletteFromCurrentTilesetInfo>("PaletteFromCurrentTilesetInfo");
 }
 
 BOOL APIENTRY DllMain(HMODULE /*hModule*/,

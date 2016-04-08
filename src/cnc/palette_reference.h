@@ -10,7 +10,8 @@ class PaletteReference {
 public:
   PaletteReference(const std::string& name, int32_t index, const IPalettePtr& palette, const HardwarePalette& hardware_palette);
 
-  const IPalettePtr& palette() const;
+  void set_palette(IPalettePtr palette) { palette_ = palette; }
+  const IPalette& palette() const { return *palette_; }
   float TextureIndex() const;
   float TextureMidIndex() const;
 

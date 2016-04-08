@@ -13,9 +13,7 @@ std::deque<std::type_index> AlwaysVisibleInfo::Types() const {
 }
 
 std::deque<std::type_index> AlwaysVisible::Types() const {
-  auto types = IDefaultVisibility::Types();
-  types.emplace_front(typeid(AlwaysVisible));
-  return types;
+  return{ typeid(AlwaysVisible), typeid(IDefaultVisibility) };
 }
 
 bool AlwaysVisible::IsVisible(Actor& /*self*/, Player& /*by_player*/) {

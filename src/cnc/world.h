@@ -22,6 +22,7 @@ public:
   TraitDictionary& trait_dict() { return trait_dict_; }
   Actor& world_actor() { return *world_actor_; }
   Map& map() { return *map_; }
+  TileSet& tile_set() { return *tile_set_; }
 
   ActorPtr CreateActor(const std::string& name, const TypeDictionary& init_dict);
   ActorPtr CreateActor(bool add_to_world, const std::string& name, const TypeDictionary& init_dict);
@@ -39,6 +40,7 @@ private:
   std::map<uint32_t, ActorPtr> actors_;
   ActorPtr world_actor_;
   MapUniquePtr map_;
+  TileSetPtr tile_set_;
   OrderManager& order_manager_;
   WorldType type_;
   uint32_t next_aid_ = 0;

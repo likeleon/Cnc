@@ -10,7 +10,7 @@ class ActorLostNotificationInfo : public ITraitInfo {
 public:
   std::deque<std::type_index> Types() const override;
   std::vector<FieldLoadInfo> GetLoadInfo() const override;
-  TypeExposablePtr Create() override;
+  TypeExposablePtr Create(const ActorInitializer& init) override;
 
   std::string notification_ = "UnitLost";
   bool notify_all_ = false;

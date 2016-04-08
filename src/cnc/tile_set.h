@@ -10,6 +10,8 @@ public:
 
   const std::string& name() const { return name_; }
   const std::string& id() const { return id_; }
+  const std::string& palette() const { return palette_; }
+  const std::string& player_palette() const { return player_palette_; }
 
   std::vector<FieldLoadInfo> GetLoadInfo() const;
 

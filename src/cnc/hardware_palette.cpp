@@ -58,6 +58,19 @@ void HardwarePalette::AddPalette(const std::string& name, const ImmutablePalette
   }
 }
 
+void HardwarePalette::ReplacePalette(const std::string& name, IPalettePtr p) {
+  if (modifiable_palettes_.find(name) != modifiable_palettes_.end()) {
+    modifiable_palettes_[name] = std::make_shared<MutablePalette>(*p);
+    CopyPaletteToBuffer(indices_[name], *modifiable_palettes_[name]);
+  } else if (palettes_.find(name) != palettes_.end()) {
+    palettes_[name] = std::make_shared<ImmutablePalette>(*p);
+    CopyPaletteToBuffer(indices_[name], *palettes_[name]);
+  } else {
+    throw Error(MSG("Palette '" + name + "' does not exist"));
+  }
+  CopyBufferToTexture();
+}
+
 void HardwarePalette::Initialize() {
   CopyModifiablePalettsToBuffer();
   CopyBufferToTexture();
