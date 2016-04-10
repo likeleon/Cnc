@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cnc/actor_ptr.h"
 #include "cnc/actor_info.h"
 #include "cnc/trait_pair.h"
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/chrome_logic.h"
-#include "cnc/widget_ptr.h"
 
 namespace cnc {
 namespace mods {

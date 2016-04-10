@@ -1,8 +1,6 @@
 #pragma once
 
-#include "cnc/sprite_loader_ptr.h"
 #include "cnc/cache.h"
-#include "cnc/stream_ptr.h"
 
 namespace cnc {
 

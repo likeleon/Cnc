@@ -1,6 +1,5 @@
 #include "cnc/stdafx.h"
 #include "cnc/graphics_util.h"
-#include "cnc/surface_ptr.h"
 #include "cnc/rectangle.h"
 #include "cnc/error.h"
 #include "cnc/color.h"

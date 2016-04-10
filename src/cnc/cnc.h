@@ -48,4 +48,41 @@ using TileSetPtr = std::shared_ptr<TileSet>;
 class ITrait;
 using ITraitPtr = std::shared_ptr<ITrait>;
 
+class Actor;
+using ActorPtr = std::shared_ptr<Actor>;
+
+class ActorInfo;
+using ActorInfoPtr = std::shared_ptr<ActorInfo>;
+
+class Map;
+using MapUniquePtr = std::unique_ptr<Map>;
+
+class ImmutablePalette;
+using ImmutablePalettePtr = std::shared_ptr<ImmutablePalette>;
+
+class MutablePalette;
+using MutablePalettePtr = std::shared_ptr<MutablePalette>;
+
+class Sheet;
+using SheetPtr = std::shared_ptr<Sheet>;
+
+class ISpriteFrame;
+using ISpriteFramePtr = std::shared_ptr<ISpriteFrame>;
+
+class ISpriteLoader;
+using SpriteLoaderPtr = std::shared_ptr<ISpriteLoader>;
+
+class Stream;
+using StreamPtr = std::shared_ptr<Stream>;
+
+struct SDL_Surface_Deleter {
+  void operator()(SDL_Surface* sdl_surface) {
+    SDL_FreeSurface(sdl_surface);
+  }
+};
+using SDL_Surface_UniquePtr = std::unique_ptr<SDL_Surface, SDL_Surface_Deleter>;
+
+class Widget;
+using WidgetPtr = std::shared_ptr<Widget>;
+
 }

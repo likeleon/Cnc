@@ -330,9 +330,6 @@
     <ClInclude Include="src\cnc\sprite.h">
       <Filter>graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\sheet_ptr.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\file_system.h">
       <Filter>file_system</Filter>
     </ClInclude>
@@ -347,9 +344,6 @@
       <Filter>file_system</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\graphics_util.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cnc\surface_ptr.h">
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\color.h">
@@ -409,9 +403,6 @@
     <ClInclude Include="src\cnc\widget.h">
       <Filter>widgets</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\widget_ptr.h">
-      <Filter>widgets</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\evaluator.h">
       <Filter>support</Filter>
     </ClInclude>
@@ -461,9 +452,6 @@
     <ClInclude Include="src\cnc\palette.h">
       <Filter>graphics</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\palette_ptr.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\ipalette.h">
       <Filter>graphics</Filter>
     </ClInclude>
@@ -488,9 +476,6 @@
     <ClInclude Include="src\cnc\action_queue.h">
       <Filter>primitives</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\sprite_loader_ptr.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\bitmap.h">
       <Filter>graphics</Filter>
     </ClInclude>
@@ -508,9 +493,6 @@
       <Filter>primitives</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\stream.h">
-      <Filter>primitives</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cnc\stream_ptr.h">
       <Filter>primitives</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\file_stream.h">
@@ -533,9 +515,6 @@
       <Filter>map</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\map.h">
-      <Filter>map</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cnc\map_ptr.h">
       <Filter>map</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\zip_file.h">
@@ -562,9 +541,6 @@
     <ClInclude Include="src\cnc\actor_info.h">
       <Filter>game_rules</Filter>
     </ClInclude>
-    <ClInclude Include="src\cnc\actor_info_ptr.h">
-      <Filter>game_rules</Filter>
-    </ClInclude>
     <ClInclude Include="src\cnc\traits_interfaces.h">
       <Filter>traits</Filter>
     </ClInclude>
@@ -578,7 +554,6 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\cnc\actor.h" />
-    <ClInclude Include="src\cnc\actor_ptr.h" />
     <ClInclude Include="src\cnc\trait_dictionary.h" />
     <ClInclude Include="src\cnc\itype_exposable.h">
       <Filter>primitives</Filter>

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/mods/common/blank_load_screen.h"
-#include "cnc/sheet_ptr.h"
 #include "cnc/stop_watch.h"
 #include "cnc/float2.h"
 #include "cnc/input_handler.h"

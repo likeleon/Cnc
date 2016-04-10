@@ -3,7 +3,6 @@
 #include "cnc/size.h"
 #include "cnc/itexture.h"
 #include "cnc/sheet_builder.h"
-#include "cnc/stream_ptr.h"
 
 namespace cnc {
 

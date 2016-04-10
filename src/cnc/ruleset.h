@@ -1,7 +1,5 @@
 #pragma once
 
-#include "cnc/actor_info_ptr.h"
-
 namespace cnc {
 
 class Ruleset {

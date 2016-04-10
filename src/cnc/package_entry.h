@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/enum_info.h"
-#include "cnc/stream_ptr.h"
 
 namespace cnc {
 

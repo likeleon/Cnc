@@ -1,7 +1,5 @@
 #pragma once
 
-#include "cnc/stream_ptr.h"
-
 namespace cnc {
 
 class CNC_API File {

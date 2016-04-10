@@ -1,7 +1,5 @@
 #pragma once
 
-#include "cnc/map_ptr.h"
-#include "cnc/actor_ptr.h"
 #include "cnc/trait_dictionary.h"
 
 namespace cnc {

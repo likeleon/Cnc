@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cnc/actor_info_ptr.h"
 #include "cnc/world.h"
 
 namespace cnc {

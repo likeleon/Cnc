@@ -4,7 +4,6 @@
 #include "cnc/error.h"
 #include "cnc/perf_timer.h"
 #include "cnc/file.h"
-#include "cnc/surface_ptr.h"
 #include "cnc/size.h"
 #include "cnc/sheet.h"
 #include "cnc/graphics_util.h"

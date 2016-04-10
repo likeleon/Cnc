@@ -4,7 +4,6 @@
 #include "cnc/vertex.h"
 #include "cnc/ibatch_renderer.h"
 #include "cnc/blend_mode.h"
-#include "cnc/sheet_ptr.h"
 #include "cnc/ishader.h"
 #include "cnc/point.h"
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/cursor_sequence.h"
-#include "cnc/palette_ptr.h"
 
 namespace cnc {
 

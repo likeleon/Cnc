@@ -3,7 +3,6 @@
 #include "cnc/game.h"
 #include "cnc/mod_data.h"
 #include "cnc/field_loader.h"
-#include "cnc/stream_ptr.h"
 #include "cnc/mini_yaml.h"
 #include "cnc/memory_stream.h"
 #include "cnc/sha1.h"

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/mini_yaml.h"
-#include "cnc/widget_ptr.h"
 
 namespace cnc {
 

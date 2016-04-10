@@ -1,8 +1,5 @@
 #pragma once
 
-#include "cnc/surface_ptr.h"
-#include "cnc/stream_ptr.h"
-
 namespace cnc {
 
 struct Size;

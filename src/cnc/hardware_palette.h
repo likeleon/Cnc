@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/itexture.h"
-#include "cnc/palette_ptr.h"
 #include "cnc/ipalette.h"
 
 namespace cnc {

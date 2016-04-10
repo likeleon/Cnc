@@ -1,7 +1,5 @@
 #pragma once
 
-#include "cnc/actor_ptr.h"
-
 namespace cnc {
 
 template <typename T>

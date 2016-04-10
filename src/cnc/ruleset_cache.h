@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cnc/actor_info_ptr.h"
 #include "cnc/action.h"
 #include "cnc/string_utils.h"
 #include "cnc/mini_yaml.h"

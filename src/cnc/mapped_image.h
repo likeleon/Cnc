@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/rectangle.h"
-#include "cnc/sheet_ptr.h"
 
 namespace cnc {
 

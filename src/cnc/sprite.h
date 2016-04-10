@@ -1,9 +1,8 @@
 #pragma once
 
-#include "sheet_ptr.h"
-#include "igraphics_device.h"
-#include "rectangle.h"
-#include "float2.h"
+#include "cnc/igraphics_device.h"
+#include "cnc/rectangle.h"
+#include "cnc/float2.h"
 
 namespace cnc {
 

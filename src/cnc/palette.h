@@ -1,8 +1,6 @@
 #pragma once
 
 #include "cnc/ipalette.h"
-#include "cnc/palette_ptr.h"
-#include "cnc/stream_ptr.h"
 
 namespace cnc {
 

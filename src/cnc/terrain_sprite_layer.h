@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/blend_mode.h"
-#include "cnc/sheet_ptr.h"
 
 namespace cnc {
 

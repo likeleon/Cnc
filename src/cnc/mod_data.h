@@ -3,8 +3,6 @@
 #include "cnc/manifest.h"
 #include "cnc/object_creator.h"
 #include "cnc/file_system.h"
-#include "cnc/sprite_loader_ptr.h"
-#include "cnc/map_ptr.h"
 #include "cnc/lazy.h"
 #include "cnc/action.h"
 

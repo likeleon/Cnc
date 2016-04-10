@@ -1,11 +1,10 @@
 #pragma once
 
 #include "cnc/point.h"
-#include "cnc/Sprite.h"
+#include "cnc/sprite.h"
 #include "cnc/color.h"
 #include "cnc/pair_hash.h"
 #include "cnc/cache.h"
-#include "cnc/stream_ptr.h"
 
 #ifdef DrawText
 #undef DrawText

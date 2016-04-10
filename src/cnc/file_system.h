@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cnc/package_entry.h"
-#include "cnc/stream_ptr.h"
 #include "cnc/ifolder.h"
 
 namespace cnc {

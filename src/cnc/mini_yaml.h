@@ -3,7 +3,6 @@
 #include <functional>
 #include <string>
 #include "cnc/message.h"
-#include "cnc/stream_ptr.h"
 #include "cnc/error.h"
 
 namespace cnc {

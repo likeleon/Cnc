@@ -2,7 +2,6 @@
 
 #include "cnc/sprite.h"
 #include "cnc/point.h"
-#include "cnc/sheet_ptr.h"
 
 namespace cnc {
 
