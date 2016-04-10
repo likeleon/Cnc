@@ -97,9 +97,9 @@ private:
 
   template <typename T>
   static const std::vector<FieldLoadInfo>& RetrieveLoadInfo(const T& obj) {
-    auto it = type_load_info_.find(typeid(T));
+    auto it = type_load_info_.find(typeid(obj));
     if (it == type_load_info_.end()) {
-      it = type_load_info_.emplace(typeid(T), obj.GetLoadInfo()).first;
+      it = type_load_info_.emplace(typeid(obj), obj.GetLoadInfo()).first;
     }
     return it->second;
   }

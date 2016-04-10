@@ -14,7 +14,7 @@ public:
   std::vector<FieldLoadInfo> GetLoadInfo() const override { return{}; }
 };
 
-class AlwaysVisible : public ITypeExposable, public IDefaultVisibility {
+class AlwaysVisible : public IDefaultVisibility {
 public:
   bool IsVisible(Actor& self, Player& by_player) override;
   

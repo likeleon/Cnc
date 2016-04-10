@@ -23,7 +23,7 @@ public:
   bool disposed() const { return disposed_; }
   const ActorInfo& info() const { return *info_; }
 
-  void AddTrait(TypeExposablePtr trait);
+  void AddTrait(ITraitPtr trait);
   
   template <typename T>
   std::shared_ptr<T> Trait();

@@ -1,5 +1,6 @@
 #include "cnc/stdafx.h"
 #include "cnc/trait_dictionary.h"
+#include "cnc/traits_interfaces.h"
 #include "cnc/container_utils.h"
 #include "cnc/actor.h"
 #include "cnc/error.h"
@@ -7,13 +8,13 @@
 namespace cnc {
 
 // TraitDictionary
-void TraitDictionary::AddTrait(ActorPtr actor, TypeExposablePtr val) {
+void TraitDictionary::AddTrait(ActorPtr actor, ITraitPtr val) {
   for (const auto& tt : val->Types()) {
     InnerAdd(actor, tt, val);
   }
 }
 
-void TraitDictionary::InnerAdd(ActorPtr actor, std::type_index t, TypeExposablePtr val) {
+void TraitDictionary::InnerAdd(ActorPtr actor, std::type_index t, ITraitPtr val) {
   InnerGet(t).Add(actor, val);
 }
 
@@ -36,7 +37,7 @@ TraitDictionary::TraitContainer::TraitContainer(std::type_index type_index)
   : type_index_(type_index) {
 }
 
-void TraitDictionary::TraitContainer::Add(ActorPtr actor, TypeExposablePtr trait) {
+void TraitDictionary::TraitContainer::Add(ActorPtr actor, ITraitPtr trait) {
   auto insert_index = ActorsBinarySearchMany(actor->actor_id() + 1);
   actors_.insert(actors_.begin() + insert_index, actor);
   traits_.insert(traits_.begin() + insert_index, trait);

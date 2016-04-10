@@ -10,7 +10,7 @@ class Actor;
 
 class TraitDictionary {
 public:
-  void AddTrait(ActorPtr actor, TypeExposablePtr val);
+  void AddTrait(ActorPtr actor, ITraitPtr val);
 
   template <typename T>
   std::shared_ptr<T> Get(const Actor& actor);
@@ -25,7 +25,7 @@ private:
   class ITraitContainer {
   public:
     virtual ~ITraitContainer() {}
-    virtual void Add(ActorPtr actor, TypeExposablePtr trait) = 0;
+    virtual void Add(ActorPtr actor, ITraitPtr trait) = 0;
     virtual void RemoveActor(uint32_t actor) = 0;
     virtual int32_t queries() const = 0;
     virtual void set_queries(int32_t value) = 0;
@@ -39,7 +39,7 @@ private:
 
     explicit TraitContainer(std::type_index type_index);
 
-    void Add(ActorPtr actor, TypeExposablePtr trait) override;
+    void Add(ActorPtr actor, ITraitPtr trait) override;
     void RemoveActor(uint32_t actor) override;
     int32_t queries() const override { return queries_; }
     void set_queries(int32_t value) { queries_ = value; }
@@ -57,18 +57,18 @@ private:
     size_t ActorsBinarySearchMany(uint32_t search_for) const;
 
     template <typename T>
-    std::shared_ptr<T> CastTrait(TypeExposablePtr trait);
+    std::shared_ptr<T> CastTrait(ITraitPtr trait);
 
     std::type_index type_index_;
     int32_t queries_ = 0;
     std::vector<ActorPtr> actors_;
-    std::vector<TypeExposablePtr> traits_;
+    std::vector<ITraitPtr> traits_;
   };
 
   static void CheckDestroyed(const Actor& actor);
   static ITraitContainerUniquePtr CreateTraitContainer(std::type_index t);
 
-  void InnerAdd(ActorPtr actor, std::type_index t, TypeExposablePtr val);
+  void InnerAdd(ActorPtr actor, std::type_index t, ITraitPtr val);
 
   ITraitContainer& InnerGet(std::type_index t);
 
@@ -126,8 +126,8 @@ std::shared_ptr<T> TraitDictionary::TraitContainer::GetOrDefault(uint32_t actor)
 }
 
 template <typename T>
-std::shared_ptr<T> TraitDictionary::TraitContainer::CastTrait(TypeExposablePtr trait) {
-  return std::static_pointer_cast<T>(std::shared_ptr<void>(trait));
+std::shared_ptr<T> TraitDictionary::TraitContainer::CastTrait(ITraitPtr trait) {
+  return std::dynamic_pointer_cast<T>(trait);
 }
 
 template <typename T>

@@ -20,7 +20,7 @@ public:
   std::deque<std::type_index> Types() const override;
 
   virtual std::vector<FieldLoadInfo> GetLoadInfo() const = 0;
-  virtual TypeExposablePtr Create(const ActorInitializer& init) = 0;
+  virtual ITraitPtr Create(const ActorInitializer& init) = 0;
 
 protected:
   template <typename T>
@@ -38,7 +38,7 @@ public:
     return types;
   }
 
-  TypeExposablePtr Create(const ActorInitializer& /*init*/) override {
+  ITraitPtr Create(const ActorInitializer& /*init*/) override {
     return std::make_shared<T>();
   }
 };
@@ -48,22 +48,27 @@ public:
   virtual std::vector<ITraitInfoPtr> RequiredTypes() const = 0;
 };
 
+class ITrait : public ITypeExposable {
+public:
+  virtual ~ITrait() {}
+};
+
 class AttackInfo {
 };
 
-class INotifyKilled {
+class INotifyKilled : public virtual ITrait {
 public:
   virtual void Killed(Actor& self, const AttackInfo& e) = 0;
 };
 
 class IDefaultVisibilityInfo : public ITraitInfoInterface {};
 
-class IDefaultVisibility {
+class IDefaultVisibility : public virtual ITrait {
 public:
   virtual bool IsVisible(Actor& self, Player& by_player) = 0;
 };
 
-class ILoadsPalettes {
+class ILoadsPalettes : public virtual ITrait {
 public:
   virtual void LoadPalettes(WorldRenderer& wr) = 0;
 };

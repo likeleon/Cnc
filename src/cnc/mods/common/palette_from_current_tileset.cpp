@@ -26,7 +26,7 @@ std::vector<FieldLoadInfo> PaletteFromCurrentTilesetInfo::GetLoadInfo() const {
   };
 }
 
-TypeExposablePtr PaletteFromCurrentTilesetInfo::Create(const ActorInitializer& init) {
+ITraitPtr PaletteFromCurrentTilesetInfo::Create(const ActorInitializer& init) {
   return std::make_shared<PaletteFromCurrentTileset>(init.world(), SharedFromBase<PaletteFromCurrentTilesetInfo>());
 }
 

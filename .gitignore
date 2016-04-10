@@ -206,3 +206,6 @@ FakesAssemblies/
 /mods/cnc/Cnc.Mods.Cnc.lib
 /mods/cnc/Cnc.Mods.Cnc.exp
 /mods/cnc/Cnc.Mods.Cnc.dll
+/mods/cnc
+/Cnc.VC.db
+/Cnc.VC.VC.opendb
